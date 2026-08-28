@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morrow — A small studio for slow practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sand:#EFE9DD;
+  --sand-deep:#E5DDC9;
+  --paper:#F5F0E4;
+  --ink:#1F1B17;
+  --ink-soft:#5C544A;
+  --ink-faint:#8A7F70;
+  --sage:#7A8C72;
+  --sage-deep:#5A6B52;
+  --terracotta:#B5613F;
+  --terracotta-deep:#974F31;
+  --dusk:#D4A89A;
+  --border:#D9D1C2;
+  --border-soft:#E8E0CE;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--sand);
+  color:var(--ink);
+  font-family:'Spectral',Georgia,serif;
+  font-weight:400;
+  line-height:1.75;
+  font-size:17px;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+/* Paper grain overlay */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.3 0 0 0 0 0.22 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.22;
+  pointer-events:none;
+  z-index:100;
+  mix-blend-mode:multiply;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+
+.wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+@media(max-width:700px){.wrap{padding:0 24px}}
+
+/* ── Header ── */
+.site-header{padding:28px 0;position:relative;z-index:10}
+.site-header .wrap{display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.mark{
+  font-family:'Fraunces',serif;
+  font-weight:400;
+  font-size:22px;
+  letter-spacing:-.01em;
+  font-variation-settings:"opsz" 14;
+}
+.mark em{font-style:italic;color:var(--terracotta)}
+.nav{display:flex;gap:28px;align-items:baseline;font-size:14px;color:var(--ink-soft)}
+.nav a{transition:color 200ms ease}
+.nav a:hover{color:var(--terracotta)}
+.sound-toggle{
+  font-size:13px;
+  color:var(--ink-faint);
+  cursor:pointer;
+  background:none;
+  border:none;
+  padding:4px 0;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-style:italic;
+  font-family:'Fraunces',serif;
+}
+.sound-toggle::before{
+  content:'';
+  width:6px;height:6px;
+  border-radius:50%;
+  background:var(--ink-faint);
+  transition:background 200ms ease;
+}
+.sound-toggle.on{color:var(--sage-deep)}
+.sound-toggle.on::before{background:var(--sage)}
+
+/* ── Hero ── */
+.hero{padding:60px 0 120px;position:relative}
+.hero-grid{
+  display:grid;
+  grid-template-columns:7fr 5fr;
+  gap:80px;
+  align-items:end;
+}
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:48px}
+}
+.hero h1{
+  font-family:'Fraunces',serif;
+  font-weight:300;
+  font-variation-settings:"opsz" 144;
+  font-size:clamp(60px,8.5vw,132px);
+  line-height:.94;
+  letter-spacing:-.035em;
+  color:var(--ink);
+}
+.hero h1 em{
+  font-style:italic;
+  font-weight:400;
+  color:var(--terracotta);
+  font-variation-settings:"opsz" 144;
+}
+.hero-meta{
+  margin-top:36px;
+  font-size:13px;
+  color:var(--ink-faint);
+  letter-spacing:.02em;
+  font-feature-settings:"smcp";
+}
+.hero-meta b{color:var(--ink-soft);font-weight:400}
+.hero p.lede{
+  margin-top:36px;
+  max-width:480px;
+  font-size:18px;
+  line-height:1.7;
+  color:var(--ink-soft);
+}
+.hero-cta{
+  margin-top:40px;
+  display:inline-flex;
+  align-items:baseline;
+  gap:10px;
+  font-family:'Fraunces',serif;
+  font-size:19px;
+  font-style:italic;
+  color:var(--ink);
+  border-bottom:1px solid var(--terracotta);
+  padding-bottom:5px;
+  transition:gap 280ms ease,color 200ms ease;
+}
+.hero-cta:hover{gap:16px;color:var(--terracotta)}
+.hero-cta .arrow{font-family:'Spectral',serif;font-style:normal}
+
+/* Breathing image */
+.breath-frame{
+  position:relative;
+  width:100%;
+  aspect-ratio:4/5;
+  overflow:hidden;
+  background:var(--sand-deep);
+}
+.breath-frame img{
+  width:100%;height:100%;
+  object-fit:cover;
+  animation:breathe 8s ease-in-out infinite;
+  filter:saturate(.88) contrast(.96);
+}
+@keyframes breathe{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.045)}
+}
+.breath-caption{
+  margin-top:14px;
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:var(--ink-faint);
+  letter-spacing:.03em;
+  font-feature-settings:"smcp";
+}
+.breath-indicator{display:inline-flex;align-items:center;gap:8px}
+.breath-dot{
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--dusk);
+  animation:breathe-dot 8s ease-in-out infinite;
+}
+@keyframes breathe-dot{
+  0%,100%{transform:scale(.6);opacity:.4}
+  50%{transform:scale(1.3);opacity:1}
+}
+
+/* ── Section markers ── */
+.section-marker{
+  font-family:'Spectral',serif;
+  font-size:13px;
+  color:var(--ink-faint);
+  letter-spacing:.04em;
+  margin-bottom:56px;
+  font-feature-settings:"smcp";
+}
+.section-marker .roman{
+  font-style:italic;
+  color:var(--terracotta);
+  margin-right:14px;
+  font-family:'Fraunces',serif;
+}
+
+/* ── Reveal ── */
+.reveal{
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity 700ms cubic-bezier(.2,.6,.2,1),transform 700ms cubic-bezier(.2,.6,.2,1);
+}
+.reveal.is-in{opacity:1;transform:none}
+
+/* ── Practices ── */
+.practices{padding:100px 0;border-top:1px solid var(--border)}
+.practice-list{display:flex;flex-direction:column}
+.practice-row{
+  display:grid;
+  grid-template-columns:60px 1fr 1.4fr;
+  gap:40px;
+  align-items:baseline;
+  padding:40px 0;
+  border-bottom:1px solid var(--border-soft);
+  transition:padding-left 280ms ease;
+}
+.practice-row:hover{padding-left:12px}
+.practice-row:hover .practice-name{color:var(--terracotta)}
+.practice-num{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:15px;
+  color:var(--ink-faint);
+}
+.practice-name{
+  font-family:'Fraunces',serif;
+  font-size:clamp(34px,4vw,52px);
+  font-weight:300;
+  line-height:1.05;
+  letter-spacing:-.025em;
+  transition:color 280ms ease;
+  font-variation-settings:"opsz" 144;
+}
+.practice-desc{
+  font-size:16px;
+  color:var(--ink-soft);
+  line-height:1.65;
+  max-width:440px;
+}
+.practice-desc .dur{
+  display:block;
+  margin-top:10px;
+  font-size:13px;
+  color:var(--ink-faint);
+  font-style:italic;
+  font-family:'Fraunces',serif;
+}
+@media(max-width:800px){
+  .practice-row{grid-template-columns:36px 1fr;gap:16px;padding:32px 0}
+  .practice-desc{grid-column:2;max-width:none}
+}
+
+/* ── Interlude ── */
+.interlude{padding:140px 0;text-align:left}
+.interlude blockquote{
+  font-family:'Fraunces',serif;
+  font-weight:300;
+  font-style:italic;
+  font-size:clamp(28px,3.4vw,44px);
+  line-height:1.3;
+  letter-spacing:-.015em;
+  max-width:860px;
+  color:var(--ink);
+  font-variation-settings:"opsz" 144;
+}
+.interlude blockquote span{color:var(--terracotta);font-weight:400}
+.interlude cite{
+  display:block;
+  margin-top:36px;
+  font-style:normal;
+  font-size:13px;
+  color:var(--ink-faint);
+  letter-spacing:.03em;
+  font-feature-settings:"smcp";
+}
+
+/* ── Teachers ── */
+.teachers{padding:100px 0;border-top:1px solid var(--border)}
+.teacher{
+  display:grid;
+  grid-template-columns:1fr 1.4fr;
+  gap:80px;
+  padding:80px 0;
+  border-bottom:1px solid var(--border-soft);
+  align-items:center;
+}
+.teacher:last-child{border-bottom:none;padding-bottom:40px}
+.teacher:first-of-type{padding-top:40px}
+@media(max-width:800px){
+  .teacher{grid-template-columns:1fr;gap:32px;padding:60px 0}
+}
+.teacher-photo{
+  position:relative;
+  width:100%;
+  aspect-ratio:4/5;
+  overflow:hidden;
+  background:var(--sand-deep);
+}
+.teacher-photo img{
+  width:100%;height:100%;
+  object-fit:cover;
+  transition:transform 6s cubic-bezier(.2,.6,.2,1);
+  filter:saturate(.85) contrast(.95);
+}
+.teacher-photo:hover img{transform:scale(1.06)}
+.teacher-name{
+  font-family:'Fraunces',serif;
+  font-size:clamp(32px,3.5vw,46px);
+  font-weight:300;
+  line-height:1.05;
+  letter-spacing:-.025em;
+  margin-bottom:8px;
+  font-variation-settings:"opsz" 144;
+}
+.teacher-role{
+  font-size:13px;
+  color:var(--ink-faint);
+  letter-spacing:.03em;
+  margin-bottom:32px;
+  font-feature-settings:"smcp";
+}
+.teacher-quote-label{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:14px;
+  color:var(--terracotta);
+  margin-bottom:14px;
+}
+.teacher-quote{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-weight:300;
+  font-size:clamp(20px,2vw,26px);
+  line-height:1.4;
+  color:var(--ink);
+  min-height:4.5em;
+  letter-spacing:-.01em;
+  font-variation-settings:"opsz" 144;
+}
+.teacher-quote .cursor{
+  display:inline-block;
+  width:2px;
+  height:.95em;
+  background:var(--terracotta);
+  vertical-align:text-bottom;
+  margin-left:2px;
+  animation:blink 800ms steps(2) infinite;
+}
+@keyframes blink{50%{opacity:0}}
+.teacher-meta{
+  margin-top:32px;
+  padding-top:24px;
+  border-top:1px solid var(--border-soft);
+  font-size:14px;
+  color:var(--ink-soft);
+  line-height:1.7;
+  max-width:480px;
+}
+.teacher-meta strong{font-weight:500;color:var(--ink)}
+
+/* ── Schedule ── */
+.schedule{
+  padding:100px 0;
+  border-top:1px solid var(--border);
+  background:var(--paper);
+  position:relative;
+}
+.schedule::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.4 0 0 0 0 0.35 0 0 0 0 0.25 0 0 0 0.2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)'/%3E%3C/svg%3E");
+  opacity:.5;
+  mix-blend-mode:multiply;
+  pointer-events:none;
+}
+.schedule .wrap{position:relative;z-index:2}
+.schedule-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  margin-bottom:40px;
+  flex-wrap:wrap;
+  gap:16px;
+}
+.schedule-week{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:15px;
+  color:var(--ink-soft);
+}
+.schedule-list{border-top:1px solid var(--ink)}
+.schedule-row{border-bottom:1px solid var(--border)}
+.schedule-row-head{
+  display:grid;
+  grid-template-columns:140px 100px 1.2fr 1fr 150px 32px;
+  gap:24px;
+  align-items:center;
+  padding:22px 0;
+  cursor:pointer;
+  background:none;
+  border:none;
+  width:100%;
+  text-align:left;
+  color:inherit;
+  transition:padding-left 220ms ease;
+}
+.schedule-row-head:hover{padding-left:8px}
+.schedule-row-head:hover .class-name{color:var(--terracotta)}
+.schedule-row-head .day{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:17px;
+  color:var(--ink);
+}
+.schedule-row-head .day small{
+  display:block;
+  font-style:normal;
+  font-family:'Spectral',serif;
+  font-size:12px;
+  color:var(--ink-faint);
+  margin-top:2px;
+  font-feature-settings:"smcp";
+}
+.schedule-row-head .time{
+  font-size:15px;
+  color:var(--ink-soft);
+  font-feature-settings:"tnum";
+}
+.schedule-row-head .class-name{
+  font-family:'Fraunces',serif;
+  font-size:22px;
+  font-weight:400;
+  letter-spacing:-.01em;
+  transition:color 220ms ease;
+}
+.schedule-row-head .teacher-name-cell{
+  font-size:14px;
+  color:var(--ink-soft);
+  font-style:italic;
+  font-family:'Fraunces',serif;
+}
+.schedule-row-head .seats{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:13px;
+  color:var(--ink-soft);
+  font-feature-settings:"tnum";
+}
+.seats-dots{display:flex;gap:3px}
+.seats-dots span{
+  width:6px;height:6px;
+  border-radius:50%;
+  background:var(--border);
+}
+.seats-dots span.filled{background:var(--sage)}
+.seats-dots span.full{background:var(--terracotta)}
+.schedule-row-head .expand-icon{
+  font-size:20px;
+  color:var(--ink-faint);
+  transition:transform 280ms ease,color 220ms ease;
+  text-align:right;
+  font-family:'Fraunces',serif;
+  font-weight:300;
+}
+.schedule-row[data-open="true"] .expand-icon{
+  transform:rotate(45deg);
+  color:var(--terracotta);
+}
+.schedule-row-body{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 400ms ease;
+}
+.schedule-row[data-open="true"] .schedule-row-body{
+  max-height:400px;
+}
+.schedule-row-body-inner{
+  padding:8px 0 36px 264px;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:32px;
+}
+.body-label{
+  font-size:11px;
+  color:var(--ink-faint);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+  font-family:'Spectral',serif;
+  font-weight:500;
+}
+.body-value{
+  font-size:15px;
+  color:var(--ink);
+  line-height:1.55;
+}
+.body-value em{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  color:var(--terracotta);
+}
+.reserve-link{
+  display:inline-flex;
+  align-items:baseline;
+  gap:6px;
+  margin-top:20px;
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:15px;
+  color:var(--terracotta);
+  border-bottom:1px solid var(--terracotta);
+  padding-bottom:2px;
+  transition:gap 220ms ease;
+}
+.reserve-link:hover{gap:12px}
+.reserve-link.disabled{
+  color:var(--ink-faint);
+  border-color:var(--ink-faint);
+  pointer-events:none;
+}
+@media(max-width:800px){
+  .schedule-row-head{
+    grid-template-columns:1fr 1fr;
+    gap:6px 16px;
+    padding:18px 0;
+  }
+  .schedule-row-head .day{grid-column:1;grid-row:1}
+  .schedule-row-head .time{grid-column:2;grid-row:1;text-align:right}
+  .schedule-row-head .class-name{grid-column:1/3;grid-row:2;font-size:19px}
+  .schedule-row-head .teacher-name-cell{grid-column:1/3;grid-row:3}
+  .schedule-row-head .seats{grid-column:1/3;grid-row:4}
+  .schedule-row-head .expand-icon{display:none}
+  .schedule-row-body-inner{
+    padding:0 0 28px;
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+}
+
+/* ── Free class form ── */
+.free-class{padding:140px 0 100px;border-top:1px solid var(--border)}
+.free-class-grid{
+  display:grid;
+  grid-template-columns:5fr 6fr;
+  gap:100px;
+  align-items:start;
+}
+@media(max-width:800px){
+  .free-class-grid{grid-template-columns:1fr;gap:48px}
+}
+.free-class h2{
+  font-family:'Fraunces',serif;
+  font-weight:300;
+  font-size:clamp(40px,5vw,68px);
+  line-height:1;
+  letter-spacing:-.03em;
+  font-variation-settings:"opsz" 144;
+  margin-top:8px;
+}
+.free-class h2 em{font-style:italic;color:var(--terracotta)}
+.free-class .intro{
+  margin-top:32px;
+  font-size:17px;
+  color:var(--ink-soft);
+  line-height:1.7;
+  max-width:440px;
+}
+.free-class .note{
+  margin-top:36px;
+  padding-top:24px;
+  border-top:1px solid var(--border);
+  font-size:13px;
+  color:var(--ink-faint);
+  font-style:italic;
+  font-family:'Fraunces',serif;
+  line-height:1.7;
+  max-width:440px;
+}
+.form{display:flex;flex-direction:column;gap:36px}
+.form-field{display:flex;flex-direction:column;gap:8px}
+.form-field label{
+  font-size:11px;
+  color:var(--ink-faint);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  font-family:'Spectral',serif;
+  font-weight:500;
+}
+.form-field label .opt{
+  text-transform:none;
+  font-style:italic;
+  font-family:'Fraunces',serif;
+  color:var(--ink-faint);
+  letter-spacing:0;
+  font-weight:400;
+}
+.form-field input,
+.form-field textarea,
+.form-field select{
+  background:none;
+  border:none;
+  border-bottom:1px solid var(--ink-soft);
+  padding:8px 0 12px;
+  font-family:'Fraunces',serif;
+  font-size:22px;
+  color:var(--ink);
+  outline:none;
+  transition:border-color 220ms ease;
+  font-weight:400;
+  width:100%;
+  border-radius:0;
+}
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus{border-bottom-color:var(--terracotta)}
+.form-field textarea{
+  resize:vertical;
+  min-height:60px;
+  font-size:17px;
+  font-family:'Spectral',serif;
+  line-height:1.6;
+}
+.form-field select{
+  appearance:none;
+  -webkit-appearance:none;
+  cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235C544A' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 8px center;
+}
+.form-field select:invalid{color:var(--ink-faint)}
+.form-submit{
+  margin-top:8px;
+  align-self:flex-start;
+  background:var(--terracotta);
+  color:var(--paper);
+  border:none;
+  padding:16px 32px;
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:17px;
+  cursor:pointer;
+  transition:background 220ms ease,transform 120ms ease;
+  letter-spacing:.01em;
+  border-radius:0;
+}
+.form-submit:hover{background:var(--terracotta-deep)}
+.form-submit:active{transform:translateY(1px)}
+.form-submit.sent{background:var(--sage-deep)}
+
+/* ── Footer ── */
+.site-footer{
+  padding:80px 0 40px;
+  border-top:1px solid var(--border);
+  background:var(--paper);
+  position:relative;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:60px;
+  margin-bottom:60px;
+}
+@media(max-width:700px){
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+}
+.footer-mark{
+  font-family:'Fraunces',serif;
+  font-size:32px;
+  font-weight:300;
+  letter-spacing:-.02em;
+  font-variation-settings:"opsz" 144;
+}
+.footer-mark em{font-style:italic;color:var(--terracotta)}
+.footer-signature{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:15px;
+  color:var(--ink-soft);
+  margin-top:24px;
+  max-width:380px;
+  line-height:1.6;
+}
+.footer-section h4{
+  font-family:'Spectral',serif;
+  font-size:11px;
+  font-weight:500;
+  color:var(--ink-faint);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  margin-bottom:16px;
+}
+.footer-section p,.footer-section a{
+  font-size:14px;
+  color:var(--ink-soft);
+  line-height:1.7;
+  display:block;
+}
+.footer-section a:hover{color:var(--terracotta)}
+.open-status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:14px;
+  font-size:13px;
+  color:var(--ink-soft);
+  font-feature-settings:"smcp";
+}
+.open-dot{
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--ink-faint);
+}
+.open-dot.open{background:var(--sage)}
+.footer-bottom{
+  padding-top:32px;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:var(--ink-faint);
+  flex-wrap:wrap;
+  gap:16px;
+  font-feature-settings:"smcp";
+}
+
+/* ── Accessibility ── */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+  }
+  .reveal{opacity:1;transform:none}
+  .breath-frame img{animation:none}
+  .breath-dot{animation:none}
+}
+@media(hover:none){
+  .practice-row:hover{padding-left:0}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="#" class="mark">Morrow<em>.</em></a>
+    <nav class="nav">
+      <a href="#practices">Practices</a>
+      <a href="#teachers">Teachers</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#visit">Visit</a>
+      <button class="sound-toggle" id="soundToggle" aria-pressed="false">sound off</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ─── Hero ─── -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <h1 class="reveal">A small studio<br>for <em>slow</em><br>practice.</h1>
+        <div class="hero-meta">Morrow · <b>Hudson, New York</b> · est. 2019 · eight mats per room</div>
+        <p class="lede reveal">Morrow is a two-room studio on Warren Street. We teach vinyasa, yin, restorative, and breathwork — eight students to a class, by reservation. Mats are laid out before you arrive. The room is warm. You won't be asked to push past anything.</p>
+        <a href="#free-class" class="hero-cta reveal">Book a first class <span class="arrow">→</span></a>
+      </div>
+      <div class="reveal">
+        <div class="breath-frame">
+          <img src="https://picsum.photos/seed/morrow-window-morning-light/800/1000" alt="Morning light falling across a wood floor in an empty studio">
+        </div>
+        <div class="breath-caption">
+          <span class="breath-indicator"><span class="breath-dot"></span>breathing · 8s cycle</span>
+          <span>studio A · 7:12am</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Practices ─── -->
+<section class="practices" id="practices">
+  <div class="wrap">
+    <div class="section-marker reveal"><span class="roman">i.</span>practices</div>
+    <div class="practice-list">
+      <div class="practice-row reveal">
+        <div class="practice-num">01</div>
+        <div class="practice-name">Vinyasa</div>
+        <div class="practice-desc">Movement linked to breath. We move slowly enough that you can feel what you're doing — six or seven shapes, repeated, held, revisited.<span class="dur">60 minutes · all levels</span></div>
+      </div>
+      <div class="practice-row reveal">
+        <div class="practice-num">02</div>
+        <div class="practice-name">Yin</div>
+        <div class="practice-desc">Long, passive holds. Five minutes per shape. We use bolsters, blocks, and the wall. Mostly floor work, mostly silence.<span class="dur">75 minutes · all levels</span></div>
+      </div>
+      <div class="practice-row reveal">
+        <div class="practice-num">03</div>
+        <div class="practice-name">Restorative</div>
+        <div class="practice-desc">Six or seven shapes, fully supported by props. You'll spend most of class on the floor. The hardest part is staying awake.<span class="dur">75 minutes · all levels</span></div>
+      </div>
+      <div class="practice-row reveal">
+        <div class="practice-num">04</div>
+        <div class="practice-name">Breathwork</div>
+        <div class="practice-desc">Three-part breath, box breathing, and occasional bhramari. Forty-five minutes, seated. No postures. We provide chairs and cushions.<span class="dur">45 minutes · no experience needed</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Interlude ─── -->
+<section class="interlude">
+  <div class="wrap">
+    <blockquote class="reveal">
+      "We keep the room at <span>78 degrees</span>. We start on time. We don't play music with words."
+    </blockquote>
+    <cite class="reveal">— a small sign on the studio door, written by Maren in 2019</cite>
+  </div>
+</section>
+
+<!-- ─── Teachers ─── -->
+<section class="teachers" id="teachers">
+  <div class="wrap">
+    <div class="section-marker reveal"><span class="roman">ii.</span>teachers</div>
+
+    <div class="teacher">
+      <div class="teacher-photo reveal">
+        <img src="https://picsum.photos/seed/maren-cole-portrait-warm/700/900" alt="Portrait of Maren Cole">
+      </div>
+      <div class="teacher-info">
+        <div class="teacher-name reveal">Maren Cole</div>
+        <div class="teacher-role reveal">vinyasa · restorative · co-founder</div>
+        <div class="teacher-quote-label reveal">— why I teach —</div>
+        <div class="teacher-quote" data-quote="I came to yoga from running. I stayed because it's the only hour a week I'm not trying to get somewhere."></div>
+        <div class="teacher-meta reveal">Teaching since <strong>2014</strong>. Trained at YogaWorks, Los Angeles. Maren opens the studio at 6:30am and teaches most morning classes. She will absolutely adjust your alignment.</div>
+      </div>
+    </div>
+
+    <div class="teacher">
+      <div class="teacher-photo reveal">
+        <img src="https://picsum.photos/seed/james-okafor-portrait-quiet/700/900" alt="Portrait of James Okafor">
+      </div>
+      <div class="teacher-info">
+        <div class="teacher-name reveal">James Okafor</div>
+        <div class="teacher-role reveal">yin · restorative · co-founder</div>
+        <div class="teacher-quote-label reveal">— why I teach —</div>
+        <div class="teacher-quote" data-quote="I teach yin the way I'd like to be taught: with permission to do nothing."></div>
+        <div class="teacher-meta reveal">Teaching since <strong>2017</strong>. Trained with Sarah Powers. James came to yoga from chronic back pain. He teaches most evenings and weekends. He will lend you a bolster.</div>
+      </div>
+    </div>
+
+    <div class="teacher">
+      <div class="teacher-photo reveal">
+        <img src="https://picsum.photos/seed/suri-patel-portrait-still/700/900" alt="Portrait of Suri Patel">
+      </div>
+      <div class="teacher-info">
+        <div class="teacher-name reveal">Suri Patel</div>
+        <div class="teacher-role reveal">breathwork · vinyasa</div>
+        <div class="teacher-quote-label reveal">— why I teach —</div>
+        <div class="teacher-quote" data-quote="Breathwork is the only practice I've kept for ten years. It's also the simplest. That's not a coincidence."></div>
+        <div class="teacher-meta reveal">Teaching since <strong>2021</strong>. Trained at The Breathing Project, NYC. Suri teaches midday breathwork and the occasional Sunday vinyasa. She keeps the studio plants alive.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Schedule ─── -->
+<section class="schedule" id="schedule">
+  <div class="wrap">
+    <div class="schedule-header reveal">
+      <div class="section-marker" style="margin-bottom:0"><span class="roman">iii.</span>this week</div>
+      <div class="schedule-week">Nov 18 — Nov 24 · 9 classes · 24 seats open</div>
+    </div>
+    <div class="schedule-list" id="scheduleList"></div>
+  </div>
+</section>
+
+<!-- ─── Free class ─── -->
+<section class="free-class" id="free-class">
+  <div class="wrap">
+    <div class="free-class-grid">
+      <div>
+        <div class="section-marker reveal" style="margin-bottom:32px"><span class="roman">iv.</span>begin</div>
+        <h2 class="reveal">Your first<br>class is <em>on us</em>.</h2>
+        <p class="intro reveal">Leave your name and email — we'll write back within a day with three available times that fit your week, and answer any questions you have. No automated booking flow. Maren or James reads every note.</p>
+        <p class="note reveal">We don't sell class packs. After your first class, drop-in is $22, or $180 for a ten-class pass. We don't do memberships, contracts, or auto-renew. You just come when you want to come.</p>
+      </div>
+      <form class="form" id="freeForm" novalidate>
+        <div class="form-field">
+          <label for="f-name">Your name</label>
+          <input type="text" id="f-name" name="name" required autocomplete="name">
+        </div>
+        <div class="form-field">
+          <label for="f-email">Email</label>
+          <input type="email" id="f-email" name="email" required autocomplete="email">
+        </div>
+        <div class="form-field">
+          <label for="f-interest">What brings you in?</label>
+          <select id="f-interest" name="interest" required>
+            <option value="" disabled selected>Select one —</option>
+            <option>Completely new to yoga</option>
+            <option>I've practiced before, looking for a slower pace</option>
+            <option>Recovering from injury or burnout</option>
+            <option>Curious about breathwork specifically</option>
+            <option>Just moved to Hudson</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="f-notes">Anything we should know? <span class="opt">(optional)</span></label>
+          <textarea id="f-notes" name="notes" rows="2" placeholder="Injuries, preferences, days that work…"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send a note →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ─── Footer ─── -->
+<footer class="site-footer" id="visit">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-mark">Morrow<em>.</em></div>
+        <p class="footer-signature">Run by Maren Cole and James Okafor. We answer the door ourselves. If we're in class, leave a note under the door — we'll write back.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Visit</h4>
+        <p>312 Warren Street<br>Hudson, NY 12534</p>
+        <p style="margin-top:10px">Second floor, walk-up.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Hours</h4>
+        <div class="open-status" id="openStatus"><span class="open-dot"></span><span>checking…</span></div>
+        <p>Mon–Fri · 7a–8p<br>Sat–Sun · 9a–6p</p>
+        <p style="margin-top:10px">Doors open 15 min before class.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Reach us</h4>
+        <a href="mailto:hello@morrow.studio">hello@morrow.studio</a>
+        <a href="tel:+15185550142" style="margin-top:8px">(518) 555-0142</a>
+        <a href="#" style="margin-top:8px">Instagram · @morrow.studio</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 Morrow Studio LLC · Hudson, New York</span>
+      <span>Set in Fraunces &amp; Spectral · breathing at 8 seconds</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ─── Schedule data ─── */
+const scheduleData = [
+  {day:'Mon',date:'Nov 18',time:'7:00a',className:'Vinyasa',teacher:'Maren',room:'Studio A · second floor',seats:6,total:8,prereq:'All levels. <em>Beginner-friendly.</em>',bring:'60 minutes. Mats and props provided. Wear layers.',full:false},
+  {day:'Mon',date:'Nov 18',time:'6:00p',className:'Restorative',teacher:'James',room:'Studio B · second floor',seats:2,total:8,prereq:'All levels. <em>Especially good for insomnia.</em>',bring:'75 minutes. Wear warm layers — the room cools as you slow down. Socks welcome.',full:false},
+  {day:'Tue',date:'Nov 19',time:'12:00p',className:'Breathwork',teacher:'Suri',room:'Studio A · second floor',seats:4,total:8,prereq:'<em>No experience needed.</em> Seated throughout. Chairs available.',bring:'45 minutes. Light snack an hour before is fine. Empty stomach not required.',full:false},
+  {day:'Wed',date:'Nov 20',time:'7:00a',className:'Vinyasa',teacher:'Maren',room:'Studio A · second floor',seats:7,total:8,prereq:'All levels. <em>One seat left.</em>',bring:'60 minutes. Mats and props provided.',full:false},
+  {day:'Wed',date:'Nov 20',time:'6:00p',className:'Yin',teacher:'James',room:'Studio B · second floor',seats:1,total:8,prereq:'All levels. Long holds — bring patience.',bring:'75 minutes. Wear warm layers. We provide bolsters and blankets.',full:false},
+  {day:'Thu',date:'Nov 21',time:'12:00p',className:'Restorative',teacher:'Suri',room:'Studio A · second floor',seats:0,total:8,prereq:'All levels.',bring:'75 minutes. Waitlist usually moves within a day.',full:true},
+  {day:'Fri',date:'Nov 22',time:'7:00a',className:'Vinyasa',teacher:'Maren',room:'Studio A · second floor',seats:5,total:8,prereq:'All levels. <em>Beginner-friendly.</em>',bring:'60 minutes. Mats and props provided.',full:false},
+  {day:'Sat',date:'Nov 23',time:'9:00a',className:'Yin',teacher:'James',room:'Studio B · second floor',seats:3,total:8,prereq:'All levels. Long holds.',bring:'75 minutes. Wear warm layers.',full:false},
+  {day:'Sun',date:'Nov 24',time:'10:00a',className:'Breathwork',teacher:'Suri',room:'Studio A · second floor',seats:6,total:8,prereq:'<em>No experience needed.</em>',bring:'45 minutes. Light snack ok beforehand.',full:false},
+];
+
+/* ─── Render schedule ─── */
+const list = document.getElementById('scheduleList');
+scheduleData.forEach((c,i)=>{
+  const dots = Array.from({length:c.total},(_,j)=>{
+    if(c.full) return '<span class="full"></span>';
+    return j<c.seats ? '<span class="filled"></span>' : '<span></span>';
+  }).join('');
+  const seatsLabel = c.full ? 'full' : `${c.seats} of ${c.total}`;
+  const row = document.createElement('div');
+  row.className = 'schedule-row';
+  row.innerHTML = `
+    <button class="schedule-row-head" aria-expanded="false" aria-controls="row-${i}-body">
+      <div class="day">${c.day}<small>${c.date}</small></div>
+      <div class="time">${c.time}</div>
+      <div class="class-name">${c.className}</div>
+      <div class="teacher-name-cell">with ${c.teacher}</div>
+      <div class="seats"><span class="seats-dots">${dots}</span><span>${seatsLabel}</span></div>
+      <div class="expand-icon">+</div>
+    </button>
+    <div class="schedule-row-body" id="row-${i}-body">
+      <div class="schedule-row-body-inner">
+        <div>
+          <div class="body-label">Room</div>
+          <div class="body-value">${c.room}</div>
+        </div>
+        <div>
+          <div class="body-label">Prerequisites</div>
+          <div class="body-value">${c.prereq}</div>
+        </div>
+        <div>
+          <div class="body-label">Duration &amp; what to bring</div>
+          <div class="body-value">${c.bring}</div>
+          ${c.full
+            ? '<a href="#" class="reserve-link disabled">Full — join the waitlist</a>'
+            : '<a href="#free-class" class="reserve-link">Reserve a seat →</a>'}
+        </div>
+      </div>
+    </div>
+  `;
+  list.appendChild(row);
+});
+
+/* ─── Schedule row toggle ─── */
+document.querySelectorAll('.schedule-row-head').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const row = btn.closest('.schedule-row');
+    const open = row.dataset.open === 'true';
+    row.dataset.open = !open;
+    btn.setAttribute('aria-expanded', String(!open));
+  });
+});
+
+/* ─── Reveal on scroll ─── */
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('is-in');
+      revealObserver.unobserve(e.target);
+    }
+  });
+},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+/* ─── Teacher quote typing ─── */
+const isTouch = matchMedia('(hover: none)').matches || matchMedia('(pointer: coarse)').matches;
+document.querySelectorAll('.teacher-quote').forEach(el=>{
+  const quote = el.dataset.quote;
+  let typed = false;
+  let timer;
+  const typeOut = ()=>{
+    if(typed) return;
+    typed = true;
+    el.innerHTML = '<span class="cursor"></span>';
+    let i = 0;
+    const step = ()=>{
+      if(i < quote.length){
+        el.innerHTML = quote.substring(0,i+1) + '<span class="cursor"></span>';
+        i++;
+        timer = setTimeout(step, 24 + Math.random()*36);
+      } else {
+        setTimeout(()=>{
+          const c = el.querySelector('.cursor');
+          if(c) c.style.transition = 'opacity 600ms ease';
+          if(c) c.style.opacity = '0';
+        }, 2200);
+      }
+    };
+    step();
+  };
+  if(isTouch){
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          setTimeout(typeOut, 500);
+          obs.unobserve(e.target);
+        }
+      });
+    },{threshold:.4});
+    obs.observe(el);
+  } else {
+    const info = el.closest('.teacher');
+    info.addEventListener('mouseenter', ()=>{
+      if(!typed) typeOut();
+    });
+  }
+});
+
+/* ─── Sound toggle + chime ─── */
+let soundOn = false;
+let chimePlayed = false;
+let audioCtx = null;
+const soundToggle = document.getElementById('soundToggle');
+
+soundToggle.addEventListener('click', ()=>{
+  soundOn = !soundOn;
+  soundToggle.classList.toggle('on', soundOn);
+  soundToggle.setAttribute('aria-pressed', String(soundOn));
+  soundToggle.textContent = soundOn ? 'sound on' : 'sound off';
+  if(soundOn && !audioCtx){
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if(audioCtx && audioCtx.state === 'suspended'){
+    audioCtx.resume();
+  }
+});
+
+function playChime(){
+  if(!audioCtx) return;
+  const now = audioCtx.currentTime;
+  // Soft bell — fundamental + harmonics, exponential decay
+  [330, 495, 660, 990].forEach((freq, i)=>{
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    const peak = 0.08 / (i + 1);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(peak, now + 0.015);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 3);
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start(now);
+    osc.stop(now + 3.1);
+  });
+}
+
+let scrollListenerAttached = false;
+soundToggle.addEventListener('click', ()=>{
+  if(soundOn && !scrollListenerAttached){
+    scrollListenerAttached = true;
+    window.addEventListener('scroll', ()=>{
+      if(soundOn && !chimePlayed && audioCtx){
+        chimePlayed = true;
+        playChime();
+      }
+    }, {passive:true, once:true});
+  }
+});
+
+/* ─── Form submit ─── */
+document.getElementById('freeForm').addEventListener('submit',(e)=>{
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const interest = document.getElementById('f-interest').value;
+  if(!name || !email || !interest){
+    btn.textContent = 'Please fill in name, email, and reason';
+    btn.style.background = 'var(--terracotta-deep)';
+    setTimeout(()=>{
+      btn.textContent = 'Send a note →';
+      btn.style.background = '';
+    }, 2400);
+    return;
+  }
+  btn.textContent = 'Note sent — we\'ll write back soon.';
+  btn.classList.add('sent');
+  btn.disabled = true;
+});
+
+/* ─── Open/closed indicator ─── */
+function updateOpenStatus(){
+  const now = new Date();
+  const day = now.getDay();
+  const hour = now.getHours();
+  const min = now.getMinutes();
+  const time = hour + min/60;
+  let open = false;
+  let nextChange = '';
+  if(day >= 1 && day <= 5){
+    if(time >= 7 && time < 20){ open = true; nextChange = 'closes at 8p'; }
+    else if(time < 7){ nextChange = 'opens at 7a'; }
+    else { nextChange = 'opens tomorrow at 7a'; }
+  } else {
+    if(time >= 9 && time < 18){ open = true; nextChange = 'closes at 6p'; }
+    else if(time < 9){ nextChange = 'opens at 9a'; }
+    else { nextChange = day === 6 ? 'opens tomorrow at 9a' : 'opens Monday at 7a'; }
+  }
+  const el = document.getElementById('openStatus');
+  if(el){
+    el.innerHTML = `<span class="open-dot ${open?'open':''}"></span><span>${open ? 'Currently open' : 'Currently closed'} · ${nextChange}</span>`;
+  }
+}
+updateOpenStatus();
+setInterval(updateOpenStatus, 60000);
+</script>
+</body>
+</html>

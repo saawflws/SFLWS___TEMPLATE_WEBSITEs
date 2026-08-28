@@ -1,0 +1,2407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORGE — Iron doesn't lie. Built by the barbell, since 2017.</title>
+<meta name="description" content="A hardcore training studio in Shanghai. No mirrors. No shortcuts. Only reps, programs written by coaches who have competed, and a community that shows up.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;700;800;900&display=swap">
+<style>
+:root {
+  --bg: #000000;
+  --deep-black: #0a0a0a;
+  --card: #141414;
+  --card-elevated: #1a1a1a;
+  --text: #ffffff;
+  --text-soft: rgba(255,255,255,0.6);
+  --text-mute: rgba(255,255,255,0.32);
+  --line: rgba(255,255,255,0.10);
+  --line-bright: rgba(255,255,255,0.22);
+  --highlight: #FF5E1A;
+  --highlight-dim: rgba(255,94,26,0.45);
+  --highlight-soft: rgba(255,94,26,0.12);
+  --silver: #B8B8B8;
+  --ease-quiet: cubic-bezier(.22, 1, .36, 1);
+  --ease-precise: cubic-bezier(.4, 0, .2, 1);
+  --ease-emphasis: cubic-bezier(.16, 1, .3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: auto; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 400;
+  line-height: 1.4;
+  overflow-x: hidden;
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (pointer: coarse) { body { cursor: auto; } }
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    radial-gradient(circle at 18% 30%, rgba(255,94,26,0.045) 0%, transparent 45%),
+    radial-gradient(circle at 82% 70%, rgba(255,255,255,0.025) 0%, transparent 50%);
+  pointer-events: none; z-index: 1;
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.7'/></svg>");
+  opacity: 0.045; pointer-events: none; z-index: 2; mix-blend-mode: overlay;
+}
+
+::selection { background: var(--highlight); color: #000; }
+
+#cursor {
+  position: fixed; top: 0; left: 0;
+  width: 8px; height: 8px;
+  background: #fff;
+  border-radius: 50%;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  z-index: 9999;
+  transition: width 0.32s var(--ease-quiet), height 0.32s var(--ease-quiet), opacity 0.3s var(--ease-quiet), background 0.3s var(--ease-quiet);
+  will-change: transform;
+}
+#cursor.is-hover {
+  width: 52px; height: 52px;
+  background: var(--highlight);
+  mix-blend-mode: normal;
+  opacity: 0.55;
+}
+@media (pointer: coarse) { #cursor { display: none; } }
+
+#particle-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+.container { max-width: 1440px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 10; }
+.container-wide { max-width: 1600px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 10; }
+.container-tight { max-width: 1100px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 10; }
+
+.label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 400;
+  text-transform: uppercase; letter-spacing: 0.20em;
+  color: var(--text-soft);
+}
+.label-h {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.20em;
+  color: var(--highlight);
+}
+.label-silver {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 400;
+  text-transform: uppercase; letter-spacing: 0.22em;
+  color: var(--silver);
+}
+
+.h-display {
+  font-family: 'Inter', sans-serif; font-weight: 900;
+  font-size: clamp(3.5rem, 11vw, 10rem);
+  line-height: 0.86; letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+.h1 {
+  font-family: 'Inter', sans-serif; font-weight: 800;
+  font-size: clamp(2.25rem, 5.5vw, 4.5rem);
+  line-height: 0.92; letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+.h2 {
+  font-family: 'Inter', sans-serif; font-weight: 800;
+  font-size: clamp(1.5rem, 3.2vw, 2.5rem);
+  line-height: 1; letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+.h3 {
+  font-family: 'Inter', sans-serif; font-weight: 700;
+  font-size: 1.25rem; line-height: 1.05;
+  letter-spacing: -0.015em; text-transform: uppercase;
+}
+
+.body-text {
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: 15px; line-height: 1.6;
+  letter-spacing: -0.005em; color: var(--text-soft);
+}
+.body-text-sm {
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: 13px; line-height: 1.55;
+  color: var(--text-soft);
+}
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400; font-size: 12px;
+  letter-spacing: 0.02em;
+}
+.mono-sm {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400; font-size: 10.5px;
+  letter-spacing: 0.06em;
+}
+
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.1rem 2rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border-bottom: 1px solid var(--line);
+}
+.nav-brand {
+  font-family: 'Inter', sans-serif; font-weight: 900;
+  font-size: 17px; letter-spacing: -0.02em;
+  display: flex; align-items: center; gap: 0.7rem;
+  text-decoration: none; color: var(--text);
+}
+.nav-brand::before {
+  content: ''; width: 9px; height: 9px;
+  background: var(--highlight); display: inline-block;
+}
+.nav-links { display: flex; gap: 2.25rem; list-style: none; }
+.nav-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.18em; color: var(--text-soft);
+  text-decoration: none;
+  transition: color 0.3s var(--ease-quiet);
+  position: relative; padding: 4px 0;
+}
+.nav-link::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 0; height: 1px; background: var(--highlight);
+  transition: width 0.4s var(--ease-quiet);
+}
+.nav-link:hover { color: var(--text); }
+.nav-link:hover::after { width: 100%; }
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+.nav-cta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.18em;
+  color: #000; background: var(--highlight);
+  padding: 0.75rem 1.25rem; text-decoration: none;
+  transition: background 0.3s var(--ease-quiet);
+}
+.nav-cta:hover { background: #fff; }
+
+@media (max-width: 900px) { .nav-links { display: none; } }
+
+/* HERO */
+#hero {
+  min-height: 100vh;
+  padding: 8rem 0 2rem;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 4rem;
+  align-items: end;
+}
+@media (max-width: 1024px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+.hero-meta {
+  display: flex; align-items: center; gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+.hero-meta-dot {
+  width: 8px; height: 8px; background: var(--highlight);
+  display: inline-block;
+}
+.hero-meta-divider {
+  flex: 0 0 30px; height: 1px; background: var(--line-bright);
+}
+.hero-title {
+  margin-bottom: 2.25rem;
+}
+.hero-title .line {
+  display: block; overflow: hidden;
+}
+.hero-title .line > span {
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+}
+.hero-title.in .line > span {
+  animation: lineUp 1.1s var(--ease-emphasis) forwards;
+}
+.hero-title.in .line:nth-child(2) > span { animation-delay: 0.12s; }
+.hero-title.in .line:nth-child(3) > span { animation-delay: 0.22s; }
+@keyframes lineUp {
+  to { transform: translateY(0); opacity: 1; }
+}
+.hero-title .accent { color: var(--highlight); }
+.hero-typewriter-wrap {
+  max-width: 540px;
+  margin-bottom: 2.5rem;
+  min-height: 96px;
+}
+.hero-typewriter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; line-height: 1.65;
+  color: var(--text-soft);
+  white-space: pre-wrap;
+}
+.hero-caret {
+  display: inline-block;
+  width: 9px; height: 16px;
+  background: var(--highlight);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  transform: translateY(-1px);
+}
+.hero-caret.is-hidden { opacity: 0; }
+.hero-cta-wrap {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--ease-quiet), transform 0.8s var(--ease-quiet);
+  display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+}
+.hero-cta-wrap.is-shown { opacity: 1; transform: translateY(0); }
+.btn-primary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.18em;
+  color: #000; background: var(--highlight);
+  padding: 1.1rem 1.75rem;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 0.8rem;
+  transition: background 0.3s var(--ease-quiet), gap 0.3s var(--ease-quiet);
+  border: none;
+}
+.btn-primary:hover { background: #fff; gap: 1.1rem; }
+.btn-primary .arrow { font-size: 14px; }
+.btn-secondary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.18em;
+  color: var(--text); background: transparent;
+  padding: 1.1rem 1.75rem;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 0.8rem;
+  border: 1px solid var(--line-bright);
+  transition: border-color 0.3s var(--ease-quiet), color 0.3s var(--ease-quiet);
+}
+.btn-secondary:hover { border-color: var(--highlight); color: var(--highlight); }
+
+/* Hero portraits */
+.hero-portraits {
+  position: relative;
+  height: 580px;
+}
+.hero-portrait {
+  position: absolute;
+  width: 260px; height: 360px;
+  overflow: hidden;
+  background: var(--card);
+}
+.hero-portrait img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(100%) contrast(1.15) brightness(0.85);
+  transition: transform 0.7s var(--ease-quiet), filter 0.7s var(--ease-quiet);
+}
+.hero-portrait:hover img {
+  filter: grayscale(0%) contrast(1.05) brightness(0.95);
+  transform: scale(1.05);
+}
+.hero-portrait::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.85) 100%);
+  pointer-events: none;
+}
+.hero-portrait .portrait-tag {
+  position: absolute; left: 14px; right: 14px; bottom: 14px;
+  z-index: 2;
+}
+.hero-portrait .portrait-tag .label-h { display: block; margin-bottom: 4px; }
+.hero-portrait .portrait-tag .portrait-name {
+  font-family: 'Inter', sans-serif; font-weight: 800;
+  font-size: 15px; letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.hero-portrait-1 { top: 0; right: 0; z-index: 3; }
+.hero-portrait-2 { top: 80px; right: 180px; z-index: 2; }
+.hero-portrait-3 { top: 220px; right: 60px; z-index: 1; }
+@media (max-width: 1024px) {
+  .hero-portraits { height: 480px; }
+  .hero-portrait { width: 220px; height: 300px; }
+  .hero-portrait-2 { right: 140px; }
+}
+@media (max-width: 640px) {
+  .hero-portraits { height: 420px; }
+  .hero-portrait { width: 180px; height: 250px; }
+  .hero-portrait-2 { right: 100px; top: 60px; }
+  .hero-portrait-3 { top: 170px; right: 30px; }
+}
+
+/* Hero stat ticker */
+.hero-ticker {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+@media (max-width: 768px) {
+  .hero-ticker { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+}
+.hero-stat .stat-value {
+  font-family: 'Inter', sans-serif; font-weight: 900;
+  font-size: 2rem; line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+.hero-stat .stat-value .unit {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem; font-weight: 400;
+  color: var(--text-mute); margin-left: 0.25rem;
+}
+.hero-stat .stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; text-transform: uppercase;
+  letter-spacing: 0.18em; color: var(--text-mute);
+}
+
+/* Marquee */
+.marquee {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  padding: 1.25rem 0;
+  background: var(--deep-black);
+  position: relative; z-index: 10;
+}
+.marquee-track {
+  display: flex; gap: 4rem;
+  white-space: nowrap;
+  animation: marquee 38s linear infinite;
+  width: max-content;
+}
+.marquee-item {
+  font-family: 'Inter', sans-serif; font-weight: 900;
+  font-size: 1.5rem; letter-spacing: -0.02em;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 4rem;
+  color: var(--text);
+}
+.marquee-item::after {
+  content: '✕'; color: var(--highlight);
+  font-size: 0.9rem; font-weight: 400;
+}
+.marquee-item.is-mute { color: var(--text-mute); font-weight: 400; }
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* SECTION HEADER */
+.section-header {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 900px) {
+  .section-header { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+.section-header-left {
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.section-index {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--highlight);
+  letter-spacing: 0.18em; text-transform: uppercase;
+}
+.section-title { max-width: 720px; }
+.section-sub {
+  margin-top: 1.25rem;
+  max-width: 620px;
+}
+
+/* MANIFESTO */
+#manifesto {
+  padding: 9rem 0 9rem;
+  position: relative;
+}
+.manifesto-inner {
+  max-width: 980px; margin: 0 auto;
+  padding: 0 2rem;
+}
+.manifesto-eyebrow {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 3rem;
+}
+.manifesto-eyebrow .line { flex: 0 0 32px; height: 1px; background: var(--highlight); }
+.manifesto-text {
+  font-family: 'Inter', sans-serif; font-weight: 500;
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  line-height: 1.32;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.manifesto-text .word {
+  display: inline-block;
+  opacity: 0.18;
+  filter: blur(12px) brightness(30%);
+  will-change: filter, opacity;
+  margin-right: 0.18em;
+}
+.manifesto-text .word.accent { color: var(--highlight); }
+.manifesto-signoff {
+  margin-top: 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 768px) {
+  .manifesto-signoff { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+.signoff-item .label { display: block; margin-bottom: 0.5rem; }
+.signoff-item .value {
+  font-family: 'Inter', sans-serif; font-weight: 700;
+  font-size: 1.1rem; letter-spacing: -0.01em;
+}
+
+/* CURRICULUM / STACKED CARDS */
+#curriculum {
+  position: relative;
+}
+#curriculum-pin {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.curriculum-intro {
+  padding: 7rem 0 5rem;
+}
+.cardstack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.cardstack-card {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(1200px, 90vw);
+  height: min(680px, 78vh);
+  background: var(--card);
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  will-change: transform, opacity;
+}
+@media (max-width: 900px) {
+  .cardstack-card { grid-template-columns: 1fr; height: min(720px, 85vh); }
+}
+.cardstack-card-image {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+.cardstack-card-image img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(100%) contrast(1.2) brightness(0.7);
+}
+.cardstack-card-image::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,94,26,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cardstack-card-image .img-tag {
+  position: absolute; top: 1.5rem; left: 1.5rem;
+  z-index: 2;
+}
+.cardstack-card-image .img-num {
+  position: absolute; bottom: 1.5rem; left: 1.5rem;
+  font-family: 'Inter', sans-serif; font-weight: 900;
+  font-size: 4rem; line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--highlight);
+  z-index: 2;
+}
+.cardstack-card-content {
+  padding: 2.5rem 2.5rem 2rem;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  background: var(--card);
+}
+.cardstack-card-content .card-label {
+  display: flex; justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+.cardstack-card-content .card-title {
+  font-family: 'Inter', sans-serif; font-weight: 900;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.cardstack-card-content .card-title-zh {
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: 1rem; letter-spacing: 0.4em;
+  color: var(--text-mute);
+  margin-bottom: 1.25rem;
+}
+.cardstack-card-content .card-desc {
+  font-size: 14px; line-height: 1.6;
+  color: var(--text-soft);
+  max-width: 420px;
+}
+.cardstack-schedule {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+.schedule-slot {
+  display: flex; flex-direction: column; gap: 0.35rem;
+}
+.schedule-slot .day {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.18em;
+  color: var(--text-mute); text-transform: uppercase;
+}
+.schedule-slot .time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 700;
+  color: var(--text);
+}
+.cardstack-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 640px) {
+  .cardstack-stats { grid-template-columns: repeat(2, 1fr); }
+}
+.cardstack-stat .stat-value {
+  font-family: 'Inter', sans-serif; font-weight: 800;
+  font-size: 1.5rem; letter-spacing: -0.02em;
+  line-height: 1;
+}
+.cardstack-stat .stat-value .unit {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; font-weight: 400;
+  color: var(--text-mute);
+  margin-left: 0.2rem;
+  vertical-align: top;
+}
+.cardstack-stat .stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px; letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  margin-top: 0.4rem;
+}
+.cardstack-progress {
+  position: absolute; bottom: 2rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 0.75rem;
+  z-index: 50;
+}
+.progress-dot {
+  width: 32px; height: 2px;
+  background: rgba(255,255,255,0.15);
+  transition: background 0.4s var(--ease-quiet);
+}
+.progress-dot.is-active { background: var(--highlight); }
+
+/* COACHES */
+#coaches {
+  padding: 8rem 0 8rem;
+  position: relative;
+}
+.coaches-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 900px) {
+  .coaches-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .coaches-grid { grid-template-columns: 1fr; }
+}
+.coach-card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: border-color 0.4s var(--ease-quiet);
+}
+.coach-card:hover { border-color: var(--highlight-dim); }
+.coach-image {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+.coach-image img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(100%) contrast(1.18) brightness(0.82);
+  transition: transform 0.7s var(--ease-quiet), filter 0.7s var(--ease-quiet);
+}
+.coach-card:hover .coach-image img {
+  transform: scale(1.04);
+  filter: grayscale(0%) contrast(1.05) brightness(0.92);
+}
+.coach-image::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.88) 100%);
+  pointer-events: none;
+}
+.coach-image-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,94,26,0.0) 0%, rgba(255,94,26,0.0) 60%, rgba(255,94,26,0.12) 100%);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-quiet);
+  pointer-events: none;
+}
+.coach-card:hover .coach-image-overlay { opacity: 1; }
+.coach-id {
+  position: absolute; top: 1rem; left: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.18em;
+  color: var(--text); text-transform: uppercase;
+  z-index: 2;
+}
+.coach-id::before {
+  content: ''; display: inline-block;
+  width: 6px; height: 6px;
+  background: var(--highlight);
+  margin-right: 0.5rem; vertical-align: middle;
+}
+.coach-quote {
+  position: absolute;
+  bottom: 1.25rem; left: 1.25rem; right: 1.25rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; line-height: 1.5;
+  color: var(--text);
+  opacity: 0; transform: translateY(8px);
+  transition: opacity 0.4s var(--ease-quiet), transform 0.4s var(--ease-quiet);
+  z-index: 2;
+}
+.coach-card:hover .coach-quote {
+  opacity: 1; transform: translateY(0);
+}
+.coach-info {
+  padding: 1.25rem 1.25rem 1.5rem;
+  display: flex; flex-direction: column; gap: 0.75rem;
+}
+.coach-name {
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.coach-name .name-en {
+  font-family: 'Inter', sans-serif; font-weight: 800;
+  font-size: 1.2rem; letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+.coach-name .name-zh {
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: 0.9rem; color: var(--text-mute);
+  letter-spacing: 0.15em;
+}
+.coach-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; letter-spacing: 0.18em;
+  color: var(--highlight); text-transform: uppercase;
+}
+.coach-bio {
+  font-size: 12.5px; line-height: 1.55;
+  color: var(--text-soft);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+}
+.coach-credentials {
+  display: flex; flex-direction: column; gap: 0.4rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+}
+.credential-row {
+  display: flex; justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+}
+.credential-row .cred-label {
+  color: var(--text-mute);
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+.credential-row .cred-value {
+  color: var(--text);
+}
+.coach-pr {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+}
+.pr-item {
+  display: flex; flex-direction: column; gap: 0.2rem;
+}
+.pr-item .pr-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 0.18em;
+  color: var(--text-mute); text-transform: uppercase;
+}
+.pr-item .pr-value {
+  font-family: 'Inter', sans-serif; font-weight: 700;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+}
+
+/* COMMUNITY */
+#community {
+  padding: 7rem 0 7rem;
+  border-top: 1px solid var(--line);
+  background: var(--deep-black);
+}
+.community-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: var(--line);
+  margin-top: 3rem;
+  border: 1px solid var(--line);
+}
+@media (max-width: 900px) {
+  .community-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .community-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.community-cell {
+  background: var(--deep-black);
+  padding: 2rem 1.5rem;
+  display: flex; flex-direction: column;
+  gap: 0.75rem;
+  min-height: 200px;
+  justify-content: space-between;
+  transition: background 0.4s var(--ease-quiet);
+}
+.community-cell:hover {
+  background: var(--card);
+}
+.community-cell .cell-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--highlight);
+  letter-spacing: 0.18em;
+}
+.community-cell .cell-value {
+  font-family: 'Inter', sans-serif; font-weight: 900;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  letter-spacing: -0.03em; line-height: 1;
+}
+.community-cell .cell-value .unit {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem; font-weight: 400;
+  color: var(--text-mute);
+  margin-left: 0.25rem;
+}
+.community-cell .cell-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--text-soft);
+}
+.community-cell.is-accent .cell-value { color: var(--highlight); }
+
+/* MEMBER STORIES */
+#stories {
+  padding: 8rem 0 8rem;
+}
+.stories-list {
+  display: flex; flex-direction: column;
+  gap: 0;
+}
+.story-row {
+  display: grid;
+  grid-template-columns: 80px 1.2fr 1fr 1fr;
+  gap: 2rem;
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--line);
+  position: relative;
+  align-items: center;
+  transition: background 0.4s var(--ease-quiet);
+}
+.story-row:last-child { border-bottom: 1px solid var(--line); }
+.story-row::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 2px; height: 0;
+  background: var(--highlight);
+  transition: height 0.6s var(--ease-quiet);
+}
+.story-row:hover::before { height: 100%; }
+.story-row:hover { background: rgba(255,94,26,0.02); }
+@media (max-width: 900px) {
+  .story-row { grid-template-columns: 60px 1fr; }
+  .story-row > :nth-child(3), .story-row > :nth-child(4) { grid-column: 2; }
+}
+.story-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 700;
+  color: var(--text-mute);
+  transition: color 0.4s var(--ease-quiet);
+}
+.story-row:hover .story-num { color: var(--highlight); }
+.story-id {
+  display: flex; flex-direction: column; gap: 0.4rem;
+}
+.story-name {
+  font-family: 'Inter', sans-serif; font-weight: 800;
+  font-size: 1.5rem; letter-spacing: -0.02em;
+  text-transform: uppercase; line-height: 1;
+  transition: color 0.4s var(--ease-quiet);
+}
+.story-row:hover .story-name { color: var(--highlight); }
+.story-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--text-mute);
+  letter-spacing: 0.08em;
+}
+.story-quote {
+  font-family: 'Inter', sans-serif; font-weight: 500;
+  font-size: 14px; line-height: 1.5;
+  color: var(--text-soft);
+  font-style: italic;
+}
+.story-row:hover .story-quote { color: var(--text); }
+.story-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.story-stat {
+  display: flex; flex-direction: column; gap: 0.25rem;
+}
+.story-stat .stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--text-mute);
+}
+.story-stat .stat-value {
+  font-family: 'Inter', sans-serif; font-weight: 800;
+  font-size: 1.05rem; letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.story-stat .stat-value .delta {
+  color: var(--highlight);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  margin-left: 0.4rem;
+}
+
+/* FACILITY */
+#facility {
+  padding: 7rem 0 8rem;
+  border-top: 1px solid var(--line);
+}
+.facility-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  margin-top: 3rem;
+}
+.facility-tile {
+  position: relative;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--line);
+}
+.facility-tile img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(100%) contrast(1.15) brightness(0.75);
+  transition: transform 0.7s var(--ease-quiet), filter 0.7s var(--ease-quiet);
+}
+.facility-tile:hover img {
+  transform: scale(1.05);
+  filter: grayscale(40%) contrast(1.05) brightness(0.9);
+}
+.facility-tile::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.75) 100%);
+  pointer-events: none;
+}
+.facility-tile .tile-meta {
+  position: absolute;
+  bottom: 1rem; left: 1rem; right: 1rem;
+  display: flex; justify-content: space-between;
+  align-items: flex-end;
+  z-index: 2;
+}
+.facility-tile .tile-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--text);
+}
+.facility-tile .tile-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--highlight);
+  letter-spacing: 0.16em;
+}
+.facility-tile-lg { grid-column: span 6; aspect-ratio: 4/3; }
+.facility-tile-md { grid-column: span 3; aspect-ratio: 1/1; }
+.facility-tile-sm { grid-column: span 4; aspect-ratio: 4/3; }
+.facility-tile-tall { grid-column: span 4; aspect-ratio: 3/4; }
+.facility-tile-wide { grid-column: span 8; aspect-ratio: 16/9; }
+@media (max-width: 900px) {
+  .facility-tile-lg, .facility-tile-md, .facility-tile-sm,
+  .facility-tile-tall, .facility-tile-wide { grid-column: span 6; }
+}
+@media (max-width: 600px) {
+  .facility-tile-lg, .facility-tile-md, .facility-tile-sm,
+  .facility-tile-tall, .facility-tile-wide { grid-column: span 12; aspect-ratio: 4/3; }
+}
+
+/* BOOKING */
+#booking {
+  padding: 9rem 0 9rem;
+  background: var(--deep-black);
+  border-top: 1px solid var(--line);
+  position: relative;
+}
+.booking-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+}
+@media (max-width: 900px) {
+  .booking-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+.booking-left .h1 { margin-bottom: 1.5rem; }
+.booking-left .body-text { max-width: 480px; margin-bottom: 2.5rem; }
+.booking-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 600px) {
+  .booking-info { grid-template-columns: 1fr; }
+}
+.info-block .label { display: block; margin-bottom: 0.75rem; }
+.info-block .info-value {
+  font-family: 'Inter', sans-serif; font-weight: 700;
+  font-size: 14px; line-height: 1.5;
+  letter-spacing: -0.005em;
+}
+.info-block .info-value .row {
+  display: flex; justify-content: space-between;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.info-block .info-value .row:last-child { border-bottom: none; }
+.info-block .info-value .row .day-label { color: var(--text-mute); font-family: 'JetBrains Mono', monospace; font-size: 11.5px; }
+.info-block .info-value .row .day-time { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; }
+
+.booking-form {
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 2.5rem 2rem;
+  display: flex; flex-direction: column;
+  gap: 1.5rem;
+}
+.form-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+.form-header .form-title {
+  font-family: 'Inter', sans-serif; font-weight: 800;
+  font-size: 1.5rem; letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+.form-header .form-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--highlight);
+  letter-spacing: 0.18em;
+}
+.form-row {
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+.form-row label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--text-mute);
+}
+.form-row input, .form-row select {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line-bright);
+  padding: 0.65rem 0;
+  color: var(--text);
+  font-family: 'Inter', sans-serif; font-weight: 500;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s var(--ease-quiet);
+  cursor: none;
+}
+.form-row input:focus, .form-row select:focus {
+  border-color: var(--highlight);
+}
+.form-row select option { background: var(--card); color: var(--text); }
+.form-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+@media (max-width: 500px) { .form-cols { grid-template-columns: 1fr; } }
+.form-submit {
+  margin-top: 0.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+.form-disclaimer {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.1em;
+  color: var(--text-mute);
+  max-width: 200px;
+  line-height: 1.5;
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 4rem 0 2rem;
+  background: #000;
+  position: relative; z-index: 10;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+}
+.footer-brand {
+  font-family: 'Inter', sans-serif; font-weight: 900;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.footer-brand .accent { color: var(--highlight); }
+.footer-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; color: var(--text-soft);
+  letter-spacing: 0.05em;
+  max-width: 360px;
+  line-height: 1.6;
+}
+.footer-col h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--text-mute);
+  margin-bottom: 1.25rem;
+  font-weight: 400;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+.footer-col a, .footer-col li {
+  font-family: 'Inter', sans-serif; font-weight: 500;
+  font-size: 13.5px; color: var(--text-soft);
+  text-decoration: none;
+  transition: color 0.3s var(--ease-quiet);
+}
+.footer-col a:hover { color: var(--highlight); }
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-bottom .copy {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--text-mute);
+  letter-spacing: 0.08em;
+}
+.footer-bottom .copy .accent { color: var(--highlight); }
+
+/* Utility animations */
+.fade-in {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 1s var(--ease-quiet), transform 1s var(--ease-quiet);
+}
+.fade-in.in {
+  opacity: 1; transform: translateY(0);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .manifesto-text .word { opacity: 1 !important; filter: none !important; }
+  .hero-title .line > span { transform: none; opacity: 1; }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .container, .container-wide, .container-tight { padding: 0 1.5rem; }
+  .nav { padding: 1rem 1.5rem; }
+  #hero { padding: 6rem 0 3rem; }
+  #manifesto, #coaches, #stories, #booking { padding: 5rem 0; }
+  .h-display { font-size: clamp(3rem, 14vw, 5rem); }
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<canvas id="particle-canvas"></canvas>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="nav-brand">FORGE</a>
+  <ul class="nav-links">
+    <li><a href="#manifesto" class="nav-link">Manifesto</a></li>
+    <li><a href="#curriculum" class="nav-link">Training</a></li>
+    <li><a href="#coaches" class="nav-link">Coaches</a></li>
+    <li><a href="#stories" class="nav-link">Members</a></li>
+    <li><a href="#facility" class="nav-link">Facility</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#booking" class="nav-cta">Book Trial</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container-wide">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-meta">
+          <span class="hero-meta-dot"></span>
+          <span class="label">FORGE — EST. 2017</span>
+          <span class="hero-meta-divider"></span>
+          <span class="label-silver">SHANGHAI · BEIJING · SHENZHEN</span>
+        </div>
+        <h1 class="h-display hero-title" id="heroTitle">
+          <span class="line"><span>WE</span></span>
+          <span class="line"><span>FORGE</span></span>
+          <span class="line"><span class="accent">HERE.</span></span>
+        </h1>
+        <div class="hero-typewriter-wrap">
+          <div class="hero-typewriter" id="typewriter"></div><span class="hero-caret" id="caret"></span>
+        </div>
+        <div class="hero-cta-wrap" id="ctaWrap">
+          <a href="#booking" class="btn-primary" data-cursor-hover>Book a trial class <span class="arrow">→</span></a>
+          <a href="#curriculum" class="btn-secondary" data-cursor-hover>See the programming</a>
+        </div>
+      </div>
+      <div class="hero-portraits">
+        <div class="hero-portrait hero-portrait-1" data-cursor-hover>
+          <img src="https://picsum.photos/seed/forge-coach-wei-hero/520/720" alt="Coach Wei Teng portrait">
+          <div class="portrait-tag">
+            <span class="label-h">001 — HEAD COACH</span>
+            <div class="portrait-name">WEI TENG</div>
+          </div>
+        </div>
+        <div class="hero-portrait hero-portrait-2" data-cursor-hover>
+          <img src="https://picsum.photos/seed/forge-coach-lin-hero/520/720" alt="Coach Lin Zhao portrait">
+          <div class="portrait-tag">
+            <span class="label-h">002 — HYPERTROPHY</span>
+            <div class="portrait-name">LIN ZHAO</div>
+          </div>
+        </div>
+        <div class="hero-portrait hero-portrait-3" data-cursor-hover>
+          <img src="https://picsum.photos/seed/forge-coach-chen-hero/520/720" alt="Coach Chen Mo portrait">
+          <div class="portrait-tag">
+            <span class="label-h">003 — OLYMPIC LIFTING</span>
+            <div class="portrait-name">CHEN MO</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-ticker">
+      <div class="hero-stat">
+        <div class="stat-value">4,800<span class="unit">SQM</span></div>
+        <div class="stat-label">Training floor · 3 cities</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-value">18<span class="unit">COACHES</span></div>
+        <div class="stat-label">Avg. 9.3 yrs experience</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-value">1,247<span class="unit">MEMBERS</span></div>
+        <div class="stat-label">92% YoY retention</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-value">5:47<span class="unit">AM</span></div>
+        <div class="stat-label">Busiest session · weekdays</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">Built by the barbell</span>
+    <span class="marquee-item is-mute">— No mirrors on the floor —</span>
+    <span class="marquee-item">Iron doesn't lie</span>
+    <span class="marquee-item is-mute">— Est. 2017 —</span>
+    <span class="marquee-item">Shanghai · Beijing · Shenzhen</span>
+    <span class="marquee-item is-mute">— 1,247 members and counting —</span>
+    <span class="marquee-item">No shortcuts. Only reps.</span>
+    <span class="marquee-item is-mute">— Coaches who have competed —</span>
+    <span class="marquee-item">Built by the barbell</span>
+    <span class="marquee-item is-mute">— No mirrors on the floor —</span>
+    <span class="marquee-item">Iron doesn't lie</span>
+    <span class="marquee-item is-mute">— Est. 2017 —</span>
+    <span class="marquee-item">Shanghai · Beijing · Shenzhen</span>
+    <span class="marquee-item is-mute">— 1,247 members and counting —</span>
+    <span class="marquee-item">No shortcuts. Only reps.</span>
+    <span class="marquee-item is-mute">— Coaches who have competed —</span>
+  </div>
+</div>
+
+<!-- MANIFESTO -->
+<section id="manifesto">
+  <div class="manifesto-inner">
+    <div class="manifesto-eyebrow">
+      <span class="line"></span>
+      <span class="label-h">001 — MANIFESTO</span>
+      <span class="label">Why we exist</span>
+    </div>
+    <p class="manifesto-text" id="manifestoText">We do not sell motivation. We do not promise transformation in twenty-eight days. We hand you a barbell, a program written by coaches who have competed, and a room of people who train the same way you do — hard, often, and without applause. The work is the membership. The result is the receipt.</p>
+
+    <div class="manifesto-signoff">
+      <div class="signoff-item">
+        <span class="label">SIGNED</span>
+        <div class="value">The Coaching Staff</div>
+      </div>
+      <div class="signoff-item">
+        <span class="label">REVISION</span>
+        <div class="value">v4.2 — Jan 2024</div>
+      </div>
+      <div class="signoff-item">
+        <span class="label">BINDING ON</span>
+        <div class="value">All members, all coaches</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section id="curriculum">
+  <div class="container-wide curriculum-intro">
+    <div class="section-header">
+      <div class="section-header-left">
+        <div class="section-index">002 — CURRICULUM</div>
+        <div class="label">Three programs. One method.</div>
+      </div>
+      <div>
+        <h2 class="h1 section-title">Pick the work. We bring the protocol, the room, and the people who'll outlast you.</h2>
+        <p class="body-text section-sub">Every program runs in 12-week mesocycles. Volume and intensity are autoregulated weekly against your recovery markers. No two members run identical blocks — even inside the same track.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="curriculum-pin">
+    <div class="cardstack" id="cardstack">
+
+      <article class="cardstack-card" data-card="0">
+        <div class="cardstack-card-image">
+          <img src="https://picsum.photos/seed/forge-hypertrophy-back/900/1100" alt="Hypertrophy training">
+          <div class="img-tag"><span class="label-h">PROGRAM 01</span></div>
+          <div class="img-num">01</div>
+        </div>
+        <div class="cardstack-card-content">
+          <div>
+            <div class="card-label">
+              <span class="label">MUSCLE GAIN TRACK</span>
+              <span class="mono-sm" style="color:var(--highlight)">12 WEEK BLOCK</span>
+            </div>
+            <h3 class="card-title">Hypertrophy</h3>
+            <div class="card-title-zh">增 肌</div>
+            <p class="card-desc">Compound lifts at 72-82% 1RM, paired with targeted accessory volume. Progression is autoregulated against RPE and bar speed — we adjust the load, you adjust the effort.</p>
+          </div>
+          <div class="cardstack-schedule">
+            <div class="schedule-slot"><span class="day">Mon</span><span class="time">06:00 / 19:30</span></div>
+            <div class="schedule-slot"><span class="day">Wed</span><span class="time">06:00 / 19:30</span></div>
+            <div class="schedule-slot"><span class="day">Fri</span><span class="time">06:00 / 19:30</span></div>
+          </div>
+          <div class="cardstack-stats">
+            <div class="cardstack-stat">
+              <div class="stat-value">12<span class="unit">WKS</span></div>
+              <div class="stat-label">Mesocycle</div>
+            </div>
+            <div class="cardstack-stat">
+              <div class="stat-value">4<span class="unit">×</span></div>
+              <div class="stat-label">Sessions/wk</div>
+            </div>
+            <div class="cardstack-stat">
+              <div class="stat-value">1:6</div>
+              <div class="stat-label">Coach ratio</div>
+            </div>
+            <div class="cardstack-stat">
+              <div class="stat-value">+3.8<span class="unit">KG</span></div>
+              <div class="stat-label">Avg lean gain</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="cardstack-card" data-card="1">
+        <div class="cardstack-card-image">
+          <img src="https://picsum.photos/seed/forge-metabolic-sweat/900/1100" alt="Metabolic conditioning">
+          <div class="img-tag"><span class="label-h">PROGRAM 02</span></div>
+          <div class="img-num">02</div>
+        </div>
+        <div class="cardstack-card-content">
+          <div>
+            <div class="card-label">
+              <span class="label">FAT LOSS TRACK</span>
+              <span class="mono-sm" style="color:var(--highlight)">16 WEEK BLOCK</span>
+            </div>
+            <h3 class="card-title">Metabolic</h3>
+            <div class="card-title-zh">减 脂</div>
+            <p class="card-desc">Zone 2 base building paired with circuit-style metabolic conditioning. Body composition is tracked via DEXA every 14 days — nutrition coaching is included, not upsold.</p>
+          </div>
+          <div class="cardstack-schedule">
+            <div class="schedule-slot"><span class="day">Tue</span><span class="time">06:30 / 18:00</span></div>
+            <div class="schedule-slot"><span class="day">Thu</span><span class="time">06:30 / 18:00</span></div>
+            <div class="schedule-slot"><span class="day">Sat</span><span class="time">09:00</span></div>
+          </div>
+          <div class="cardstack-stats">
+            <div class="cardstack-stat">
+              <div class="stat-value">16<span class="unit">WKS</span></div>
+              <div class="stat-label">Mesocycle</div>
+            </div>
+            <div class="cardstack-stat">
+              <div class="stat-value">5<span class="unit">×</span></div>
+              <div class="stat-label">Sessions/wk</div>
+            </div>
+            <div class="cardstack-stat">
+              <div class="stat-value">1:8</div>
+              <div class="stat-label">Coach ratio</div>
+            </div>
+            <div class="cardstack-stat">
+              <div class="stat-value">−7.2<span class="unit">%</span></div>
+              <div class="stat-label">Avg bodyfat</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="cardstack-card" data-card="2">
+        <div class="cardstack-card-image">
+          <img src="https://picsum.photos/seed/forge-performance-barbell/900/1100" alt="Athletic performance">
+          <div class="img-tag"><span class="label-h">PROGRAM 03</span></div>
+          <div class="img-num">03</div>
+        </div>
+        <div class="cardstack-card-content">
+          <div>
+            <div class="card-label">
+              <span class="label">PERFORMANCE TRACK</span>
+              <span class="mono-sm" style="color:var(--highlight)">24 WEEK BLOCK</span>
+            </div>
+            <h3 class="card-title">Performance</h3>
+            <div class="card-title-zh">体 能</div>
+            <p class="card-desc">Olympic lifting progression, energy system development, and mobility protocols. For athletes and ex-athletes who refuse to soften — and who can stomach being coached hard.</p>
+          </div>
+          <div class="cardstack-schedule">
+            <div class="schedule-slot"><span class="day">Mon-Fri</span><span class="time">07:00 / 17:30</span></div>
+            <div class="schedule-slot"><span class="day">Sat</span><span class="time">10:00</span></div>
+            <div class="schedule-slot"><span class="day">Sun</span><span class="time">— Recovery —</span></div>
+          </div>
+          <div class="cardstack-stats">
+            <div class="cardstack-stat">
+              <div class="stat-value">24<span class="unit">WKS</span></div>
+              <div class="stat-label">Mesocycle</div>
+            </div>
+            <div class="cardstack-stat">
+              <div class="stat-value">5<span class="unit">×</span></div>
+              <div class="stat-label">Sessions/wk</div>
+            </div>
+            <div class="cardstack-stat">
+              <div class="stat-value">1:4</div>
+              <div class="stat-label">Coach ratio</div>
+            </div>
+            <div class="cardstack-stat">
+              <div class="stat-value">+18<span class="unit">%</span></div>
+              <div class="stat-label">Avg 1RM gain</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="cardstack-progress" id="cardstackProgress">
+      <div class="progress-dot is-active"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- COACHES -->
+<section id="coaches">
+  <div class="container-wide">
+    <div class="section-header">
+      <div class="section-header-left">
+        <div class="section-index">003 — COACHING STAFF</div>
+        <div class="label">Eighteen coaches. Zero influencers.</div>
+      </div>
+      <div>
+        <h2 class="h1 section-title">Every coach here has competed. Most still do.</h2>
+        <p class="body-text section-sub">No online certifications. No weekend courses. The staff below represent the floor — each carries a national-level competition history and a coaching tenure measured in years, not months.</p>
+      </div>
+    </div>
+
+    <div class="coaches-grid">
+
+      <article class="coach-card" data-cursor-hover>
+        <div class="coach-image">
+          <img src="https://picsum.photos/seed/forge-coach-wei-card/600/800" alt="Wei Teng">
+          <div class="coach-image-overlay"></div>
+          <div class="coach-id">STF / 001</div>
+          <div class="coach-quote">"Your best set is the one you'd rather not do. That's the one that matters."</div>
+        </div>
+        <div class="coach-info">
+          <div class="coach-name">
+            <span class="name-en">WEI TENG</span>
+            <span class="name-zh">滕 伟</span>
+          </div>
+          <div class="coach-role">Head Strength Coach · 12 yrs</div>
+          <p class="coach-bio">Former national powerlifter (—93kg). Built the FORGE strength curriculum from scratch in 2017. Has coached 4 national-level lifters to date.</p>
+          <div class="coach-credentials">
+            <div class="credential-row"><span class="cred-label">Cert</span><span class="cred-value">NSCA-CSCS · SBD L3</span></div>
+            <div class="credential-row"><span class="cred-label">Best SBD</span><span class="cred-value">310 / 200 / 320 KG</span></div>
+            <div class="credential-row"><span class="cred-label">Coached</span><span class="cred-value">412 athletes</span></div>
+          </div>
+          <div class="coach-pr">
+            <div class="pr-item"><span class="pr-label">Squat</span><span class="pr-value">310 KG</span></div>
+            <div class="pr-item"><span class="pr-label">Bench</span><span class="pr-value">200 KG</span></div>
+            <div class="pr-item"><span class="pr-label">Dead</span><span class="pr-value">320 KG</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="coach-card" data-cursor-hover>
+        <div class="coach-image">
+          <img src="https://picsum.photos/seed/forge-coach-lin-card/600/800" alt="Lin Zhao">
+          <div class="coach-image-overlay"></div>
+          <div class="coach-id">STF / 002</div>
+          <div class="coach-quote">"Muscle doesn't care about your opinion. It only responds to load and time under tension."</div>
+        </div>
+        <div class="coach-info">
+          <div class="coach-name">
+            <span class="name-en">LIN ZHAO</span>
+            <span class="name-zh">赵 琳</span>
+          </div>
+          <div class="coach-role">Hypertrophy Specialist · 8 yrs</div>
+          <p class="coach-bio">IFBB Pro Card 2019. Two-time national bodybuilding champion. Built the posing and stage-prep protocol now used across all three FORGE locations.</p>
+          <div class="coach-credentials">
+            <div class="credential-row"><span class="cred-label">Cert</span><span class="cred-value">NSCA-CSCS · PN-1</span></div>
+            <div class="credential-row"><span class="cred-label">Stage</span><span class="cred-value">14 shows · 9 wins</span></div>
+            <div class="credential-row"><span class="cred-label">Coached</span><span class="cred-value">238 competitors</span></div>
+          </div>
+          <div class="coach-pr">
+            <div class="pr-item"><span class="pr-label">Weight</span><span class="pr-value">78 KG</span></div>
+            <div class="pr-item"><span class="pr-label">BF%</span><span class="pr-value">4.2%</span></div>
+            <div class="pr-item"><span class="pr-label">Stage</span><span class="pr-value">9 WINS</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="coach-card" data-cursor-hover>
+        <div class="coach-image">
+          <img src="https://picsum.photos/seed/forge-coach-zhang-card/600/800" alt="Zhang Yi">
+          <div class="coach-image-overlay"></div>
+          <div class="coach-id">STF / 003</div>
+          <div class="coach-quote">"Conditioning is honesty made physical. You can't fake your way through a 5K tempo."</div>
+        </div>
+        <div class="coach-info">
+          <div class="coach-name">
+            <span class="name-en">ZHANG YI</span>
+            <span class="name-zh">易 张</span>
+          </div>
+          <div class="coach-role">Endurance & Conditioning · 10 yrs</div>
+          <p class="coach-bio">Ironman Kona finisher 2021. Sub-3 marathoner (2:54:18 PB). Built the Metabolic track's energy-system protocol around polarized training.</p>
+          <div class="coach-credentials">
+            <div class="credential-row"><span class="cred-label">Cert</span><span class="cred-value">USAT L2 · ACSM-CEP</span></div>
+            <div class="credential-row"><span class="cred-label">Kona</span><span class="cred-value">2021 Finisher</span></div>
+            <div class="credential-row"><span class="cred-label">Marathon</span><span class="cred-value">2:54:18 PB</span></div>
+          </div>
+          <div class="coach-pr">
+            <div class="pr-item"><span class="pr-label">IM Time</span><span class="pr-value">9:42:11</span></div>
+            <div class="pr-item"><span class="pr-label">Run</span><span class="pr-value">2:54:18</span></div>
+            <div class="pr-item"><span class="pr-label">FTP</span><span class="pr-value">312 W</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="coach-card" data-cursor-hover>
+        <div class="coach-image">
+          <img src="https://picsum.photos/seed/forge-coach-chen-card/600/800" alt="Chen Mo">
+          <div class="coach-image-overlay"></div>
+          <div class="coach-id">STF / 004</div>
+          <div class="coach-quote">"The barbell will tell you the truth about yourself before anyone else will. Listen to it."</div>
+        </div>
+        <div class="coach-info">
+          <div class="coach-name">
+            <span class="name-en">CHEN MO</span>
+            <span class="name-zh">默 陈</span>
+          </div>
+          <div class="coach-role">Olympic Lifting · 15 yrs</div>
+          <p class="coach-bio">Former national team (—85kg). Best snatch 145kg, C&J 180kg. Has placed three juniors onto the provincial team in the last four years.</p>
+          <div class="coach-credentials">
+            <div class="credential-row"><span class="cred-label">Cert</span><span class="cred-value">IWF L3 · CWA L3</span></div>
+            <div class="credential-row"><span class="cred-label">Best SN</span><span class="cred-value">145 KG</span></div>
+            <div class="credential-row"><span class="cred-label">Best C&J</span><span class="cred-value">180 KG</span></div>
+          </div>
+          <div class="coach-pr">
+            <div class="pr-item"><span class="pr-label">Snatch</span><span class="pr-value">145 KG</span></div>
+            <div class="pr-item"><span class="pr-label">C&J</span><span class="pr-value">180 KG</span></div>
+            <div class="pr-item"><span class="pr-label">FS</span><span class="pr-value">220 KG</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="coach-card" data-cursor-hover>
+        <div class="coach-image">
+          <img src="https://picsum.photos/seed/forge-coach-wang-card/600/800" alt="Wang Shu">
+          <div class="coach-image-overlay"></div>
+          <div class="coach-id">STF / 005</div>
+          <div class="coach-quote">"Strength without mobility is a lease, not an asset. It expires."</div>
+        </div>
+        <div class="coach-info">
+          <div class="coach-name">
+            <span class="name-en">WANG SHU</span>
+            <span class="name-zh">舒 王</span>
+          </div>
+          <div class="coach-role">Mobility & Recovery · 7 yrs</div>
+          <p class="coach-bio">FRC certified, FMS L2, DNS Exercise. Built the recovery protocol that dropped member injury rate by 64% in 18 months.</p>
+          <div class="coach-credentials">
+            <div class="credential-row"><span class="cred-label">Cert</span><span class="cred-value">FRC · FMS L2 · DNS</span></div>
+            <div class="credential-row"><span class="cred-label">Specialty</span><span class="cred-value">Joint screening</span></div>
+            <div class="credential-row"><span class="cred-label">Injury ↓</span><span class="cred-value">64% in 18 mo</span></div>
+          </div>
+          <div class="coach-pr">
+            <div class="pr-item"><span class="pr-label">FRC</span><span class="pr-value">CERT</span></div>
+            <div class="pr-item"><span class="pr-label">FMS</span><span class="pr-value">L2</span></div>
+            <div class="pr-item"><span class="pr-label">DNS</span><span class="pr-value">EX</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="coach-card" data-cursor-hover>
+        <div class="coach-image">
+          <img src="https://picsum.photos/seed/forge-coach-liu-card/600/800" alt="Liu Yan">
+          <div class="coach-image-overlay"></div>
+          <div class="coach-id">STF / 006</div>
+          <div class="coach-quote">"You can't out-train a diet you're lying about. We look at the data together."</div>
+        </div>
+        <div class="coach-info">
+          <div class="coach-name">
+            <span class="name-en">LIU YAN</span>
+            <span class="name-zh">颜 刘</span>
+          </div>
+          <div class="coach-role">Nutrition & Body Comp · 11 yrs</div>
+          <p class="coach-bio">Registered Dietitian, ISSN diploma. DEXA specialist. Has run body-comp protocols for 1,100+ members across three cities.</p>
+          <div class="coach-credentials">
+            <div class="credential-row"><span class="cred-label">Cert</span><span class="cred-value">RD · ISSN · DEXA</span></div>
+            <div class="credential-row"><span class="cred-label">DEXA</span><span class="cred-value">3,200 scans</span></div>
+            <div class="credential-row"><span class="cred-label">Clients</span><span class="cred-value">1,100+</span></div>
+          </div>
+          <div class="coach-pr">
+            <div class="pr-item"><span class="pr-label">RD</span><span class="pr-value">CERT</span></div>
+            <div class="pr-item"><span class="pr-label">ISSN</span><span class="pr-value">DIP</span></div>
+            <div class="pr-item"><span class="pr-label">DEXA</span><span class="pr-value">SPEC</span></div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section id="community">
+  <div class="container-wide">
+    <div class="section-header">
+      <div class="section-header-left">
+        <div class="section-index">004 — THE ROOM</div>
+        <div class="label">Who trains here.</div>
+      </div>
+      <div>
+        <h2 class="h1 section-title">1,247 members. 47 professions. One room, every morning.</h2>
+        <p class="body-text section-sub">Surgeons, software engineers, chefs, teachers, retired athletes, parents of three. The community is not built on similarity — it's built on showing up at the same hour, doing the same hard thing.</p>
+      </div>
+    </div>
+
+    <div class="community-grid">
+      <div class="community-cell">
+        <div class="cell-num">// 001</div>
+        <div class="cell-value">1,247<span class="unit">MEM</span></div>
+        <div class="cell-label">Active members · 3 cities</div>
+      </div>
+      <div class="community-cell is-accent">
+        <div class="cell-num">// 002</div>
+        <div class="cell-value">92<span class="unit">%</span></div>
+        <div class="cell-label">Year-over-year retention</div>
+      </div>
+      <div class="community-cell">
+        <div class="cell-num">// 003</div>
+        <div class="cell-value">38<span class="unit">%</span></div>
+        <div class="cell-label">Members who are women</div>
+      </div>
+      <div class="community-cell">
+        <div class="cell-num">// 004</div>
+        <div class="cell-value">47</div>
+        <div class="cell-label">Distinct professions</div>
+      </div>
+      <div class="community-cell">
+        <div class="cell-num">// 005</div>
+        <div class="cell-value">2.3<span class="unit">YR</span></div>
+        <div class="cell-label">Average member tenure</div>
+      </div>
+      <div class="community-cell is-accent">
+        <div class="cell-num">// 006</div>
+        <div class="cell-value">5:47<span class="unit">AM</span></div>
+        <div class="cell-label">Busiest session, weekdays</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBER STORIES -->
+<section id="stories">
+  <div class="container-wide">
+    <div class="section-header">
+      <div class="section-header-left">
+        <div class="section-index">005 — MEMBER STORIES</div>
+        <div class="label">Real numbers. Real people. No filters.</div>
+      </div>
+      <div>
+        <h2 class="h1 section-title">Three members. Three years. Three different definitions of "better."</h2>
+        <p class="body-text section-sub">Every transformation below is documented via DEXA, lift logs, and coach records. No before-and-after lighting tricks. No water cuts. The numbers are the numbers.</p>
+      </div>
+    </div>
+
+    <div class="stories-list">
+
+      <article class="story-row" data-cursor-hover>
+        <div class="story-num">001</div>
+        <div class="story-id">
+          <div class="story-name">WANG HUI</div>
+          <div class="story-meta">王辉 · 34 · Software Engineer · Member since Mar 2022</div>
+        </div>
+        <div class="story-quote">"I came in to lose weight. I stayed because I learned what I was made of. The deadlift taught me that."</div>
+        <div class="story-stats">
+          <div class="story-stat">
+            <div class="stat-label">Body fat</div>
+            <div class="stat-value">28% → 14%<span class="delta">−14%</span></div>
+          </div>
+          <div class="story-stat">
+            <div class="stat-label">Deadlift</div>
+            <div class="stat-value">60 → 180 KG<span class="delta">+120</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="story-row" data-cursor-hover>
+        <div class="story-num">002</div>
+        <div class="story-id">
+          <div class="story-name">SARAH CHEN</div>
+          <div class="story-meta">陈思 · 28 · Marketing Director · Member since Aug 2021</div>
+        </div>
+        <div class="story-quote">"No one here comments on my body. They comment on my form. That distinction is the reason I'm still here."</div>
+        <div class="story-stats">
+          <div class="story-stat">
+            <div class="stat-label">Pull-ups</div>
+            <div class="stat-value">0 → 11 strict<span class="delta">+11</span></div>
+          </div>
+          <div class="story-stat">
+            <div class="stat-label">Back squat</div>
+            <div class="stat-value">40 → 110 KG<span class="delta">+70</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="story-row" data-cursor-hover>
+        <div class="story-num">003</div>
+        <div class="story-id">
+          <div class="story-name">MARCUS LIN</div>
+          <div class="story-meta">林晨 · 41 · Surgeon · Member since Jan 2020</div>
+        </div>
+        <div class="story-quote">"Training here is the only hour of my day where nothing is ambiguous. The bar either moves or it doesn't."</div>
+        <div class="story-stats">
+          <div class="story-stat">
+            <div class="stat-label">Blood pressure</div>
+            <div class="stat-value">148/96 → 118/76<span class="delta">−30/−20</span></div>
+          </div>
+          <div class="story-stat">
+            <div class="stat-label">Medication</div>
+            <div class="stat-value">2 → 0<span class="delta">−2</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="story-row" data-cursor-hover>
+        <div class="story-num">004</div>
+        <div class="story-id">
+          <div class="story-name">JESSICA WU</div>
+          <div class="story-meta">吴洁 · 36 · Architect · Member since Nov 2021</div>
+        </div>
+        <div class="story-quote">"I lifted for vanity for ten years. Here I learned to lift for strength. The vanity followed, but it stopped being the point."</div>
+        <div class="story-stats">
+          <div class="story-stat">
+            <div class="stat-label">Bench press</div>
+            <div class="stat-value">35 → 75 KG<span class="delta">+40</span></div>
+          </div>
+          <div class="story-stat">
+            <div class="stat-label">Lean mass</div>
+            <div class="stat-value">42 → 49 KG<span class="delta">+7</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="story-row" data-cursor-hover>
+        <div class="story-num">005</div>
+        <div class="story-id">
+          <div class="story-name">DAVID ZHANG</div>
+          <div class="story-meta">张恒 · 45 · Restaurateur · Member since Feb 2019</div>
+        </div>
+        <div class="story-quote">"At 45 I'm stronger than I was at 25. My knees don't hurt anymore. My back doesn't hurt. The data is boring. The life isn't."</div>
+        <div class="story-stats">
+          <div class="story-stat">
+            <div class="stat-label">Squat</div>
+            <div class="stat-value">80 → 165 KG<span class="delta">+85</span></div>
+          </div>
+          <div class="story-stat">
+            <div class="stat-label">Resting HR</div>
+            <div class="stat-value">78 → 54 bpm<span class="delta">−24</span></div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- FACILITY -->
+<section id="facility">
+  <div class="container-wide">
+    <div class="section-header">
+      <div class="section-header-left">
+        <div class="section-index">006 — FACILITY</div>
+        <div class="label">4,800 sqm. 3 cities. One standard.</div>
+      </div>
+      <div>
+        <h2 class="h1 section-title">Eleven competition platforms. Two DEXA suites. One recovery wing.</h2>
+        <p class="body-text section-sub">Every FORGE location is built to the same spec: Eleiko bars and plates, Sorinex racks, Rogues for accessories. No machines that don't earn their floor space.</p>
+      </div>
+    </div>
+
+    <div class="facility-grid">
+      <div class="facility-tile facility-tile-lg" data-cursor-hover>
+        <img src="https://picsum.photos/seed/forge-facility-platform/1200/900" alt="Competition platforms">
+        <div class="tile-meta">
+          <span class="tile-name">Competition platforms · SHA</span>
+          <span class="tile-num">01 / 09</span>
+        </div>
+      </div>
+      <div class="facility-tile facility-tile-md" data-cursor-hover>
+        <img src="https://picsum.photos/seed/forge-facility-plate/600/600" alt="Eleiko plates">
+        <div class="tile-meta">
+          <span class="tile-name">Eleiko · 25KG</span>
+          <span class="tile-num">02</span>
+        </div>
+      </div>
+      <div class="facility-tile facility-tile-md" data-cursor-hover>
+        <img src="https://picsum.photos/seed/forge-facility-barbell/600/600" alt="Barbell texture">
+        <div class="tile-meta">
+          <span class="tile-name">Bar knurl · macro</span>
+          <span class="tile-num">03</span>
+        </div>
+      </div>
+      <div class="facility-tile facility-tile-tall" data-cursor-hover>
+        <img src="https://picsum.photos/seed/forge-facility-rack/600/800" alt="Sorinex rack">
+        <div class="tile-meta">
+          <span class="tile-name">Sorinex rack · BJI</span>
+          <span class="tile-num">04</span>
+        </div>
+      </div>
+      <div class="facility-tile facility-tile-wide" data-cursor-hover>
+        <img src="https://picsum.photos/seed/forge-facility-floor/1200/675" alt="Training floor wide">
+        <div class="tile-meta">
+          <span class="tile-name">Main floor · 06:00 session · SZX</span>
+          <span class="tile-num">05</span>
+        </div>
+      </div>
+      <div class="facility-tile facility-tile-sm" data-cursor-hover>
+        <img src="https://picsum.photos/seed/forge-facility-chalk/600/450" alt="Chalk bowl">
+        <div class="tile-meta">
+          <span class="tile-name">Chalk station</span>
+          <span class="tile-num">06</span>
+        </div>
+      </div>
+      <div class="facility-tile facility-tile-sm" data-cursor-hover>
+        <img src="https://picsum.photos/seed/forge-facility-dexa/600/450" alt="DEXA suite">
+        <div class="tile-meta">
+          <span class="tile-name">DEXA suite · SHA</span>
+          <span class="tile-num">07</span>
+        </div>
+      </div>
+      <div class="facility-tile facility-tile-sm" data-cursor-hover>
+        <img src="https://picsum.photos/seed/forge-facility-recovery/600/450" alt="Recovery wing">
+        <div class="tile-meta">
+          <span class="tile-name">Recovery wing · BJI</span>
+          <span class="tile-num">08</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="container-wide">
+    <div class="booking-grid">
+      <div class="booking-left">
+        <div class="label-h" style="margin-bottom:1.5rem;">007 — BEGIN</div>
+        <h2 class="h1">Book a trial class.<br><span style="color:var(--highlight)">Ninety minutes.</span> No pressure to join.</h2>
+        <p class="body-text">Your trial session is a full 90-minute assessment: movement screen, baseline lifts, and a sample workout inside the program we'd recommend. You'll leave with a written program — whether you join or not.</p>
+
+        <div class="booking-info">
+          <div class="info-block">
+            <span class="label">Locations · 03</span>
+            <div class="info-value">
+              <div style="padding:0.4rem 0; border-bottom:1px solid var(--line);">
+                <div style="font-weight:800; font-size:15px; margin-bottom:2px;">SHANGHAI · 静安</div>
+                <div class="mono-sm" style="color:var(--text-mute);">Jing'an District · 1,800 sqm</div>
+              </div>
+              <div style="padding:0.4rem 0; border-bottom:1px solid var(--line);">
+                <div style="font-weight:800; font-size:15px; margin-bottom:2px;">BEIJING · 朝阳</div>
+                <div class="mono-sm" style="color:var(--text-mute);">Chaoyang District · 1,600 sqm</div>
+              </div>
+              <div style="padding:0.4rem 0;">
+                <div style="font-weight:800; font-size:15px; margin-bottom:2px;">SHENZHEN · 南山</div>
+                <div class="mono-sm" style="color:var(--text-mute);">Nanshan District · 1,400 sqm</div>
+              </div>
+            </div>
+          </div>
+          <div class="info-block">
+            <span class="label">Hours · Both</span>
+            <div class="info-value">
+              <div class="row"><span class="day-label">Mon — Fri</span><span class="day-time">05:30 — 22:30</span></div>
+              <div class="row"><span class="day-label">Sat</span><span class="day-time">07:00 — 20:00</span></div>
+              <div class="row"><span class="day-label">Sun</span><span class="day-time">08:00 — 14:00</span></div>
+              <div class="row" style="margin-top:0.6rem; padding-top:0.6rem; border-top:1px solid var(--line);">
+                <span class="day-label" style="color:var(--highlight)">Busiest</span><span class="day-time" style="color:var(--highlight)">05:47 — 07:30</span>
+              </div>
+              <div class="row">
+                <span class="day-label" style="color:var(--highlight)">Quietest</span><span class="day-time" style="color:var(--highlight)">14:00 — 16:30</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form class="booking-form" onsubmit="event.preventDefault(); alert('Trial request received. A coach will reach out within 24 hours.');">
+        <div class="form-header">
+          <div class="form-title">Trial Form</div>
+          <div class="form-num">// FRM-001</div>
+        </div>
+        <div class="form-row">
+          <label>Full name</label>
+          <input type="text" placeholder="How you'd like to be addressed" required>
+        </div>
+        <div class="form-cols">
+          <div class="form-row">
+            <label>Phone</label>
+            <input type="tel" placeholder="+86" required>
+          </div>
+          <div class="form-row">
+            <label>Email</label>
+            <input type="email" placeholder="you@domain" required>
+          </div>
+        </div>
+        <div class="form-cols">
+          <div class="form-row">
+            <label>Preferred city</label>
+            <select>
+              <option>Shanghai — Jing'an</option>
+              <option>Beijing — Chaoyang</option>
+              <option>Shenzhen — Nanshan</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Primary goal</label>
+            <select>
+              <option>Muscle gain · Hypertrophy</option>
+              <option>Fat loss · Metabolic</option>
+              <option>Performance · Athletic</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <label>Training history · Briefly</label>
+          <input type="text" placeholder="Years training, current lifts, injuries">
+        </div>
+        <div class="form-submit">
+          <p class="form-disclaimer">A coach will respond within 24 hours. No card required to book the trial.</p>
+          <button type="submit" class="btn-primary" data-cursor-hover>Submit request <span class="arrow">→</span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container-wide">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">FORGE<span class="accent">.</span></div>
+        <p class="footer-tag">A hardcore training studio. Built by the barbell. Shanghai · Beijing · Shenzhen. Est. 2017.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Studios</h4>
+        <ul>
+          <li>Shanghai · 静安</li>
+          <li>Beijing · 朝阳</li>
+          <li>Shenzhen · 南山</li>
+          <li><a href="#booking">Book a tour →</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <ul>
+          <li><a href="#curriculum">Hypertrophy · 增肌</a></li>
+          <li><a href="#curriculum">Metabolic · 减脂</a></li>
+          <li><a href="#curriculum">Performance · 体能</a></li>
+          <li><a href="#booking">Trial class</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:train@forge.studio">train@forge.studio</a></li>
+          <li><a href="#">WeChat · ForgeStudio</a></li>
+          <li><a href="#">Instagram · @forge</a></li>
+          <li>+86 21 5404 2017</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="copy">© 2024 FORGE ATHLETIC CO. <span class="accent">//</span> Built by the barbell. All rights reserved.</div>
+      <div class="copy">v4.2.1 <span class="accent">//</span> SHA · BJI · SZX</div>
+    </div>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.13/dist/lenis.min.js"></script>
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.183/build/three.module.js" } }
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobile = window.matchMedia('(pointer: coarse)').matches;
+
+// ============ PARTICLE FIELD ============
+(function initParticles() {
+  if (reduceMotion) return;
+  const canvas = document.getElementById('particle-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.z = 6;
+
+  const COUNT_PRIMARY = isMobile ? 500 : 1100;
+  const COUNT_SECONDARY = isMobile ? 100 : 220;
+
+  function makeLayer(count, color, sizeMul) {
+    const positions = new Float32Array(count * 3);
+    const sizes = new Float32Array(count);
+    const offsets = new Float32Array(count);
+    for (let i = 0; i < count; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 20;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 14;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 12;
+      sizes[i] = (Math.random() * 1.4 + 0.4) * sizeMul;
+      offsets[i] = Math.random() * Math.PI * 2;
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geo.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1));
+    geo.setAttribute('aOffset', new THREE.BufferAttribute(offsets, 1));
+    const mat = new THREE.ShaderMaterial({
+      uniforms: { uTime: { value: 0 }, uColor: { value: new THREE.Color(color) } },
+      vertexShader: `
+        attribute float aSize; attribute float aOffset;
+        uniform float uTime; varying float vAlpha;
+        void main() {
+          vec3 p = position;
+          p.y += sin(uTime * 0.28 + aOffset) * 0.4;
+          p.x += cos(uTime * 0.22 + aOffset * 0.7) * 0.25;
+          vec4 mv = modelViewMatrix * vec4(p, 1.0);
+          gl_PointSize = aSize * (180.0 / -mv.z);
+          gl_Position = projectionMatrix * mv;
+          vAlpha = 0.45 + 0.55 * sin(uTime * 0.6 + aOffset);
+        }`,
+      fragmentShader: `
+        varying float vAlpha; uniform vec3 uColor;
+        void main() {
+          vec2 uv = gl_PointCoord - vec2(0.5);
+          float d = length(uv);
+          if (d > 0.5) discard;
+          gl_FragColor = vec4(uColor, smoothstep(0.5, 0.0, d) * vAlpha * 0.5);
+        }`,
+      transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    });
+    return new THREE.Points(geo, mat);
+  }
+
+  const primary = makeLayer(COUNT_PRIMARY, 0xffffff, 1.0);
+  const secondary = makeLayer(COUNT_SECONDARY, 0xff5e1a, 1.4);
+  scene.add(primary);
+  scene.add(secondary);
+
+  let mouseX = 0, mouseY = 0;
+  let targetRotX = 0, targetRotY = 0;
+  window.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+    mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+    targetRotY = mouseX * 0.18;
+    targetRotX = mouseY * 0.10;
+  });
+
+  let visible = true;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => visible = e.isIntersecting);
+  });
+  observer.observe(canvas);
+
+  const clock = new THREE.Clock();
+  function tick() {
+    if (visible) {
+      const t = clock.getElapsedTime();
+      primary.material.uniforms.uTime.value = t;
+      secondary.material.uniforms.uTime.value = t;
+      scene.rotation.y += (targetRotY - scene.rotation.y) * 0.04;
+      scene.rotation.x += (targetRotX - scene.rotation.x) * 0.04;
+      renderer.render(scene, camera);
+    }
+    requestAnimationFrame(tick);
+  }
+  tick();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+})();
+</script>
+
+<script>
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobile = window.matchMedia('(pointer: coarse)').matches;
+
+// ============ LENIS SMOOTH SCROLL ============
+let lenis;
+if (!reduceMotion && typeof Lenis !== 'undefined') {
+  lenis = new Lenis({
+    duration: 1.15,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+  });
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+  if (typeof ScrollTrigger !== 'undefined') {
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+}
+
+// ============ CUSTOM CURSOR ============
+(function initCursor() {
+  if (isMobile) return;
+  const cursor = document.getElementById('cursor');
+  let targetX = window.innerWidth / 2, targetY = window.innerHeight / 2;
+  let currentX = targetX, currentY = targetY;
+  window.addEventListener('mousemove', (e) => {
+    targetX = e.clientX; targetY = e.clientY;
+  });
+  document.addEventListener('mouseover', (e) => {
+    const t = e.target;
+    const hover = t.closest('a, button, [data-cursor-hover], input, select');
+    if (hover) cursor.classList.add('is-hover');
+    else cursor.classList.remove('is-hover');
+  });
+  function tick() {
+    currentX += (targetX - currentX) * 0.18;
+    currentY += (targetY - currentY) * 0.18;
+    cursor.style.transform = `translate(${currentX - 4}px, ${currentY - 4}px)`;
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+// ============ HERO TITLE + TYPEWRITER ============
+(function initHero() {
+  const title = document.getElementById('heroTitle');
+  setTimeout(() => title.classList.add('in'), 200);
+
+  const lines = [
+    "No mirrors on the training floor.",
+    "No playlists louder than the plates.",
+    "No 28-day transformations.",
+    "",
+    "We hand you iron, a program written by",
+    "coaches who have competed, and a room",
+    "of people who show up at 5:47 AM",
+    "because they said they would."
+  ];
+  const SRC = lines.join('\n');
+  const host = document.getElementById('typewriter');
+  const caret = document.getElementById('caret');
+  const ctaWrap = document.getElementById('ctaWrap');
+
+  setTimeout(() => {
+    let i = 0;
+    const tick = setInterval(() => {
+      i++;
+      host.textContent = SRC.slice(0, i);
+      if (i >= SRC.length) {
+        clearInterval(tick);
+        let n = 0, on = true;
+        const blink = setInterval(() => {
+          caret.classList.toggle('is-hidden', !(on = !on));
+          if (++n >= 6) {
+            clearInterval(blink);
+            caret.classList.add('is-hidden');
+            ctaWrap.classList.add('is-shown');
+          }
+        }, 400);
+      }
+    }, 38);
+  }, 1500);
+})();
+
+// ============ MANIFESTO SCRUB BLUR ============
+(function initManifesto() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+  const textEl = document.getElementById('manifestoText');
+  const original = textEl.textContent.trim();
+  const words = original.split(/\s+/);
+  textEl.innerHTML = words.map(w => `<span class="word">${w}</span>`).join(' ');
+
+  const accentWords = ['barbell,', 'competed,', 'applause.', 'receipt.'];
+  textEl.querySelectorAll('.word').forEach((el) => {
+    const clean = el.textContent.replace(/[.,]/g, '').toLowerCase();
+    if (accentWords.includes(el.textContent.toLowerCase())) {
+      el.classList.add('accent');
+    }
+  });
+
+  if (reduceMotion) {
+    textEl.querySelectorAll('.word').forEach(w => {
+      w.style.opacity = '1';
+      w.style.filter = 'none';
+    });
+    return;
+  }
+
+  document.fonts.ready.then(() => {
+    gsap.to('.manifesto-text .word', {
+      opacity: 1,
+      filter: 'blur(0px) brightness(100%)',
+      stagger: 0.04,
+      ease: 'sine.out',
+      scrollTrigger: {
+        trigger: '#manifesto',
+        start: 'top 78%',
+        end: 'center 55%',
+        scrub: true,
+      },
+    });
+    ScrollTrigger.refresh();
+  });
+})();
+
+// ============ CURRICULUM STACKED CARDS ============
+(function initCurriculumStack() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+  const cards = document.querySelectorAll('.cardstack-card');
+  const dots = document.querySelectorAll('.progress-dot');
+  if (cards.length === 0) return;
+
+  cards.forEach((card, i) => {
+    gsap.set(card, {
+      y: i === 0 ? 0 : window.innerHeight * 0.55,
+      opacity: i === 0 ? 1 : 0,
+      scale: 1,
+      zIndex: i + 1,
+    });
+  });
+
+  if (reduceMotion) {
+    cards.forEach(c => gsap.set(c, { y: 0, opacity: 1, position: 'relative', transform: 'none' }));
+    return;
+  }
+
+  ScrollTrigger.create({
+    trigger: '#curriculum-pin',
+    start: 'top top',
+    end: '+=' + (cards.length * 90) + '%',
+    pin: '#curriculum-pin',
+    pinSpacing: true,
+    scrub: 1,
+    onUpdate: (self) => {
+      const totalProgress = self.progress;
+      const seg = 1 / cards.length;
+      let activeIdx = 0;
+
+      cards.forEach((card, i) => {
+        if (i === 0) {
+          const cp = gsap.utils.clamp(0, 1, totalProgress / seg);
+          gsap.set(card, {
+            y: 0,
+            opacity: 1 - cp * 0.25,
+            scale: 1 - cp * 0.04,
+            filter: `brightness(${1 - cp * 0.3})`,
+            zIndex: 1,
+          });
+        } else {
+          const pp = gsap.utils.clamp(0, 1, (totalProgress - i * seg + seg) / seg);
+          const nextProgress = gsap.utils.clamp(0, 1, (totalProgress - i * seg) / seg);
+          gsap.set(card, {
+            y: (1 - pp) * window.innerHeight * 0.55,
+            opacity: pp - nextProgress * 0.25,
+            scale: 1 - nextProgress * 0.04,
+            filter: `brightness(${1 - nextProgress * 0.3})`,
+            zIndex: i + 1,
+          });
+        }
+      });
+
+      // active dot
+      activeIdx = Math.min(cards.length - 1, Math.floor(totalProgress * cards.length + 0.001));
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === activeIdx));
+    },
+    onLeaveBack: () => {
+      cards.forEach((card, i) => {
+        gsap.set(card, {
+          y: i === 0 ? 0 : window.innerHeight * 0.55,
+          opacity: i === 0 ? 1 : 0,
+          scale: 1,
+          filter: 'brightness(1)',
+          zIndex: i + 1,
+        });
+      });
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === 0));
+    },
+  });
+})();
+
+// ============ FADE IN OBSERVER ============
+(function initFadeIn() {
+  const fadeEls = document.querySelectorAll('.fade-in');
+  if (!fadeEls.length) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: '-10% 0px' });
+  fadeEls.forEach(el => io.observe(el));
+})();
+
+// ============ SMOOTH ANCHOR LINKS ============
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const href = a.getAttribute('href');
+    if (href === '#' || href.length < 2) return;
+    const target = document.querySelector(href);
+    if (target) {
+      e.preventDefault();
+      if (lenis) {
+        lenis.scrollTo(target, { offset: -60, duration: 1.3 });
+      } else {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  });
+});
+
+// ============ REFRESH SCROLLTRIGGER ON LOAD ============
+window.addEventListener('load', () => {
+  if (typeof ScrollTrigger !== 'undefined') {
+    ScrollTrigger.refresh();
+  }
+});
+
+</script>
+
+</body>
+</html>
