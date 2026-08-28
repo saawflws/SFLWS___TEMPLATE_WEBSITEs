@@ -1,0 +1,1 @@
+Build a programmer blog with typewriter hero greeting, hover-raise article cards, copy-flash code-block buttons, top reading-progress bar, live GitHub star/fork counters, and a 3-state theme toggle with smooth color transitions.
