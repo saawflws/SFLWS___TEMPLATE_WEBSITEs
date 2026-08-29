@@ -38,6 +38,7 @@ External agents consume the shelf through a separate, deliberately minimal entry
 ├── .claude/skills/        ← pointers into skills/ (Claude Code discovery)
 ├── .agents/skills/        ← pointers into skills/ (Codex, OpenCode, Antigravity)
 ├── .gemini/commands/      ← pointers into skills/ (Gemini CLI, TOML)
+├── .commandcode/commands/ ← pointers into skills/ (Commandcode, no frontmatter)
 ├── CNAME                  ← sflwsts.aasimahmed.com
 ├── index.html             ← GitHub Pages showcase. Minimal markup only.
 ├── data.js                ← GENERATED. Never hand-edit. See Rule 3.
@@ -136,16 +137,28 @@ nothing; the rest get a one-line shim that *imports* it rather than copying it.
 | Antigravity | `AGENTS.md` | No — native as of v1.20.5+ |
 | Claude Code | `CLAUDE.md` | Yes — `CLAUDE.md` contains `@AGENTS.md` |
 | Gemini CLI | `GEMINI.md` | Yes — `GEMINI.md` contains `@AGENTS.md` |
-| Commandcode | *unverified* | None written — see note below |
+| Commandcode | `AGENTS.md` | No — native (verified in the shipped bundle) |
 
 `@AGENTS.md` is an import directive, not a link: Claude Code and Gemini CLI inline the
 target at load time, so the shims stay pointers. A symlink would also work on POSIX but not
 on Windows without developer mode, so the import is used instead.
 
-**Commandcode.** Its root-instructions convention could not be verified against official
-docs, so no root shim was invented for it (Rule: don't guess). Its skills discovery is
-confirmed to fall back to `.agents/skills/`, which this repo provides, so skills reach it
-either way. If you confirm what root file it reads, add the shim then — not before.
+**Commandcode**, settled by reading `command-code@0.39.0`'s own bundle rather than its docs:
+`AGENTS.md` appears 22 times, `CLAUDE.md` zero. It resolves project instructions as
+`<cwd>/AGENTS.md` then `<cwd>/.commandcode/AGENTS.md`, **first match wins** — so this repo's
+root `AGENTS.md` is picked up with no shim. It also supports `@path` imports inside memory
+files. (Its help text mentions a `COMMANDCODE.md`; no filesystem code ever opens one. Do not
+create it.)
+
+Its skills scan includes `.agents/skills/`, which this repo already provides, so all four
+skills reach it with no extra file — but note it **rejects a skill whose directory name does
+not equal its frontmatter `name`**. Ours match; keep it that way.
+
+The one thing it does not share is slash commands: `.commandcode/commands/*.md`, resolved
+from the working directory, with no `.agents/` fallback. Those files take **no frontmatter** —
+a `---` block is passed to the model as literal text — and the whole body is the prompt.
+Argument substitution in 0.39.0 is `$ARGUMENTS` and `$1`, `$2`, … only; the `$@` and
+`${1:-default}` forms its docs advertise are not implemented in the shipped code.
 
 Skill discovery is wired separately, in the tool-specific reference layer described in
 [`skills/README.md`](skills/README.md). Those files point into `skills/`; they never copy it.
