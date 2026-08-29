@@ -48,7 +48,7 @@ Then run the matching skill in your agent of choice. It will:
 5. Shoot a thumbnail and inject the source button.
 6. Regenerate `data.js`.
 
-Framework-by-framework guides are in `docs/`.
+Framework-by-framework guides are in [`docs/`](docs/README.md).
 
 ### If you are writing `META.md` by hand
 

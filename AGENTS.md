@@ -57,6 +57,7 @@ External agents consume the shelf through a separate, deliberately minimal entry
 │   ├── import-project/    ← a full React/Next/Astro folder → cataloged template
 │   └── generate-site/     ← a user request → a new website built from a template
 │
+├── docs/                  ← human handoff guides, one per framework
 ├── public-agents/         ← external consumer entry chain (Rule 8)
 │   ├── AGENTS.md
 │   ├── RULES.md
@@ -164,6 +165,13 @@ Skill discovery is wired separately, in the tool-specific reference layer descri
 [`skills/README.md`](skills/README.md). Those files point into `skills/`; they never copy it.
 
 ---
+
+## Handing work over
+
+[`docs/`](docs/README.md) holds the human-facing guides — one per framework — answering
+*"I have a site of this kind, where do I put it and what happens next?"*. They are the
+counterpart to `skills/`: the guides tell a person what to drop where, the skills tell an
+agent what to do with it. Neither restates the other.
 
 ## Common workflows
 

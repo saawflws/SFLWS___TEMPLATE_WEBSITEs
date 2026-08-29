@@ -102,7 +102,7 @@ The skill reads the markup, decides the category **itself** rather than trusting
 one, writes `META.md`, updates the category index, shoots a thumbnail, and regenerates
 `data.js`.
 
-Step-by-step guides per framework live in `docs/`.
+Step-by-step guides per framework live in [`docs/`](docs/README.md).
 
 ## Scripts
 
