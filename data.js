@@ -35,7 +35,8 @@ const TEMPLATES = [
       "custom-cursor"
     ],
     "meta": "/websites/static/gym/forgefitnessstudio/META.md",
-    "fullTitle": "FORGE — Iron doesn't lie. Built by the barbell, since 2017."
+    "fullTitle": "FORGE — Iron doesn't lie. Built by the barbell, since 2017.",
+    "thumb": "/websites/static/gym/forgefitnessstudio/thumb.webp"
   },
   {
     "title": "IRONFORGE",
@@ -55,7 +56,8 @@ const TEMPLATES = [
       "tailwind-utility-css"
     ],
     "meta": "/websites/static/gym/ironforge/META.md",
-    "fullTitle": "IRONFORGE — Elite Strength & Conditioning Studio"
+    "fullTitle": "IRONFORGE — Elite Strength & Conditioning Studio",
+    "thumb": "/websites/static/gym/ironforge/thumb.webp"
   },
   {
     "title": "IRONHOUSE",
@@ -75,7 +77,8 @@ const TEMPLATES = [
       "no-carousel-static-grids"
     ],
     "meta": "/websites/static/gym/ironhouse/META.md",
-    "fullTitle": "IRONHOUSE — Performance Training Collective"
+    "fullTitle": "IRONHOUSE — Performance Training Collective",
+    "thumb": "/websites/static/gym/ironhouse/thumb.webp"
   },
   {
     "title": "MORROW",
@@ -95,7 +98,8 @@ const TEMPLATES = [
       "terracotta-sage"
     ],
     "meta": "/websites/static/boutique_yoga_studio/morrow/META.md",
-    "fullTitle": "Morrow — A small studio for slow practice"
+    "fullTitle": "Morrow — A small studio for slow practice",
+    "thumb": "/websites/static/boutique_yoga_studio/morrow/thumb.webp"
   },
   {
     "title": "STILLWATER",
@@ -115,7 +119,8 @@ const TEMPLATES = [
       "moderate-motion"
     ],
     "meta": "/websites/static/boutique_yoga_studio/stillwater/META.md",
-    "fullTitle": "Stillwater · A Yoga Studio in Cobble Hill"
+    "fullTitle": "Stillwater · A Yoga Studio in Cobble Hill",
+    "thumb": "/websites/static/boutique_yoga_studio/stillwater/thumb.webp"
   },
   {
     "title": "JUNO HARADA",
@@ -136,7 +141,8 @@ const TEMPLATES = [
       "film-strip-palette"
     ],
     "meta": "/websites/static/designers_portfolio/junoharada/META.md",
-    "fullTitle": "Juno Harada — Monograph Vol. 01"
+    "fullTitle": "Juno Harada — Monograph Vol. 01",
+    "thumb": "/websites/static/designers_portfolio/junoharada/thumb.webp"
   },
   {
     "title": "SEVERIN HALBE",
@@ -157,7 +163,8 @@ const TEMPLATES = [
       "risograph-cursor-trail"
     ],
     "meta": "/websites/static/designers_portfolio/severinhalbe/META.md",
-    "fullTitle": "SEVERIN HALBE — A Monograph, Vol. III"
+    "fullTitle": "SEVERIN HALBE — A Monograph, Vol. III",
+    "thumb": "/websites/static/designers_portfolio/severinhalbe/thumb.webp"
   },
   {
     "title": "/dev/log",
@@ -177,7 +184,8 @@ const TEMPLATES = [
       "moderate-motion"
     ],
     "meta": "/websites/static/programmerblog/devlog/META.md",
-    "fullTitle": "/dev/log — Notes from a Programmer's Desk"
+    "fullTitle": "/dev/log — Notes from a Programmer's Desk",
+    "thumb": "/websites/static/programmerblog/devlog/thumb.webp"
   },
   {
     "title": "KILBURN",
@@ -198,7 +206,8 @@ const TEMPLATES = [
       "price-slider-filtering"
     ],
     "meta": "/websites/static/techYouTubers_home/killburn/META.md",
-    "fullTitle": "KILBURN — Tech Reviews Without the Marketing Filter"
+    "fullTitle": "KILBURN — Tech Reviews Without the Marketing Filter",
+    "thumb": "/websites/static/techYouTubers_home/killburn/thumb.webp"
   }
 ];
 

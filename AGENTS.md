@@ -47,7 +47,8 @@ External agents consume the shelf through a separate, deliberately minimal entry
 │   └── scripts/main.js    ← showcase behaviour (reads root data.js)
 │
 ├── scripts/
-│   └── build-data.js      ← plain Node, zero dependencies. Regenerates data.js.
+│   ├── build-data.js      ← plain Node, zero dependencies. Regenerates data.js.
+│   └── shoot-thumbs.js    ← dev-only. Screenshots templates to thumb.webp.
 │
 ├── skills/                ← the ONLY place skill logic lives (Rule 7)
 │   ├── orchestrator/      ← routes an incoming task to one of the three below
@@ -70,6 +71,7 @@ External agents consume the shelf through a separate, deliberately minimal entry
 │   │       └── <template>/
 │   │           ├── index.html   ← the template itself, self-contained
 │   │           ├── p.md         ← the original generation prompt
+│   │           ├── thumb.webp   ← showcase screenshot (generated)
 │   │           └── META.md      ← the catalog entry agents read
 │   ├── astro/             ← empty. Populated via import-project.
 │   ├── react/             ← empty. Populated via import-project.
@@ -188,6 +190,33 @@ Zero npm dependencies — `fs` and `path` only, so it runs in any sandbox with n
 It reads `public-agents/INDEX.md` → each category `INDEX.md` → each `META.md`, and overwrites
 root `data.js` completely.
 
+### Regenerate template thumbnails
+
+```bash
+node scripts/shoot-thumbs.js            # only templates missing a thumb.webp
+node scripts/shoot-thumbs.js --all      # re-shoot everything
+node scripts/shoot-thumbs.js --only=ironforge,devlog
+```
+
+Dev-only, run occasionally — `build-data.js` never calls it and stays zero-dependency.
+It also needs no npm install: it drives a locally installed Chrome or Edge over the
+DevTools Protocol using Node's built-in `WebSocket` (Node 21+), serving the repo over a
+throwaway local server so templates load exactly as GitHub Pages serves them.
+
+Before capturing it sweeps each page to the bottom and back, so sections that only reveal
+on scroll (IntersectionObserver, GSAP ScrollTrigger) are actually visible in the shot
+rather than caught mid-fade. Pages are clipped to the top 4000px and written at 640px wide
+— around 50KB each.
+
+**The showcase renders static screenshots, not live iframes.** Nine embedded iframes meant
+nine complete websites running simultaneously — a WebGL scene, two Lenis `requestAnimationFrame`
+loops and three runtime Tailwind compilations, all in the background of a page nobody was
+looking at, and getting linearly worse with every template added. The hover pan is preserved
+as a CSS transform on a single image layer.
+
+After shooting, each template's `META.md` needs a Thumbnail row pointing at `thumb.webp`;
+then run `build-data.js`. A declared-but-missing thumbnail is a hard error, not a warning.
+
 ### Preview the showcase locally
 
 ```bash
@@ -226,7 +255,8 @@ URL — the card previews are same-origin iframes and will not measure correctly
 
 - Did a skill change the shelf? Then `data.js` must have been regenerated in the same change.
 - Does `public-agents/INDEX.md` list every category folder that actually exists?
-- Does every template folder have a `META.md`?
+- Does every template folder have a `META.md`, and a `thumb.webp` if its `META.md`
+  declares one? (`build-data.js` fails on a declared-but-missing thumbnail.)
 - Is `dum/` untouched in the diff?
 - Is anything flagged `_DELETE_ME_*` still waiting on user confirmation? Say so — do not
   delete it yourself.

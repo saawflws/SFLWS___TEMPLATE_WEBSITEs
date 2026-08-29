@@ -81,16 +81,20 @@ nav a:hover{color:var(--text)}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
 .thumb{position:relative;aspect-ratio:16/10;overflow:hidden;background:#0b0b0c;border-bottom:1px solid var(--border)}
-.thumb>img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb>img.shot{width:100%;height:auto;display:block;transform:translateY(0);
+  transition:transform .7s cubic-bezier(.4,0,.2,1)}
 .go{position:absolute;right:12px;bottom:12px;width:34px;height:34px;border-radius:50%;background:#f2f2f0;color:#111;
   display:grid;place-items:center;opacity:0;transform:translateY(6px);transition:.3s;z-index:2}
 .card:hover .go{opacity:1;transform:none}
 
-/* live iframe preview, panning on hover */
-.frame{position:absolute;top:0;left:0;width:1280px;height:2200px;transform-origin:0 0;
-  transform:scale(var(--s,.3));transition:transform .7s ease}
-.card:hover .frame{transform:scale(var(--s,.3)) translateY(calc(var(--shift,0) * -1px));transition-duration:var(--pan,4s)}
-.frame iframe{width:1280px;height:100%;border:0;display:block;pointer-events:none;background:#fff}
+/* Static full-page screenshot, panning on hover.
+   The image is a tall capture shown top-aligned in a 16/10 window; on hover it
+   translates up by --pan-pct of its OWN height, so the pan always ends exactly
+   flush with the bottom of the shot regardless of card width. --pan-pct and
+   --pan are set once per card in main.js from the image's natural aspect ratio,
+   which needs no layout read. One composited layer per card, no live document. */
+.card:hover .thumb>img.shot{transform:translateY(calc(var(--pan-pct,0) * -1%));
+  transition-duration:var(--pan,5s);will-change:transform}
 
 /* typographic fallback tile (preview:false) */
 .tile{display:flex;align-items:center;justify-content:center;
@@ -134,5 +138,5 @@ footer{margin-top:76px;padding:24px 0 40px;border-top:1px solid var(--border);
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   .card:hover{transform:none}
-  .card:hover .frame{transform:scale(var(--s,.3))}
+  .card:hover .thumb>img.shot{transform:none}
 }

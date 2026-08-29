@@ -115,6 +115,8 @@ templates — read an existing one and match it exactly. Framework-specific diff
   and states that this is a project with a build step, not a single file.
 - Add a **Stack** row to the field table: package manager, styling approach
   (Tailwind / CSS modules / styled-components), and notable dependencies.
+- Add a **Thumbnail** row only if you actually produced a `thumb.webp` (see the showcase
+  note at the end) — a declared-but-missing thumbnail fails the build.
 - **Palette** comes from the real source — a Tailwind theme extension, CSS custom
   properties, or a design-token file. Cite where you found it.
 - Under **Notes for agents**, record: the install and dev commands, the Node version if
@@ -151,8 +153,16 @@ confirmation, and the `build-data.js` result.
 
 ## Note on the showcase
 
-The showcase renders live iframe previews, which work for `static` templates because they
-are servable files. Framework projects need a build first, so their cards will not preview
-until a build output or a thumbnail exists. Add a `Thumbnail` row to the `META.md` field
-table pointing at a screenshot when you have one — `build-data.js` picks it up and the card
-uses it instead of an iframe.
+The showcase renders static screenshots, never live iframes. `scripts/shoot-thumbs.js`
+captures a served URL, so it handles `static` templates directly but **cannot shoot a
+framework project** — that needs a build and a running dev server first.
+
+So for an imported project, either:
+
+- build it, serve it, capture a screenshot into
+  `websites/<framework>/<category>/<project>/thumb.webp`, and add a Thumbnail row
+  pointing at `thumb.webp` to its `META.md` field table; or
+- leave the Thumbnail row off entirely, and the card falls back to a typographic tile.
+
+Do **not** add a Thumbnail row pointing at a file that does not exist — `build-data.js`
+treats that as a hard error and refuses to write.

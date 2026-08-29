@@ -10,6 +10,7 @@
 | **Framework** | static |
 | **Path** | `websites/static/programmerblog/devlog/` |
 | **Entry** | `index.html` — self-contained, inline CSS + JS, Tailwind CDN, Google Fonts + Font Awesome via CDN |
+| **Thumbnail** | `thumb.webp` |
 | **Prompt** | `p.md` — original generation prompt |
 
 ## Style tags

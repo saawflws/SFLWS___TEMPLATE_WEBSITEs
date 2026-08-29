@@ -69,7 +69,7 @@ the same shape). The required sections, in order:
 | Section | What goes in it |
 | --- | --- |
 | H1 + blockquote | Display name, then a one-sentence description under 25 words. The blockquote is what `build-data.js` puts on the showcase card. |
-| Field table | Name, Slug, Category, Framework, Path, Entry, Prompt |
+| Field table | Name, Slug, Category, Framework, Path, Entry, Thumbnail, Prompt |
 | `## Style tags` | 6–10 backticked lowercase-hyphenated tags. Discriminating, not generic. |
 | `## Summary` | 2–4 sentences, including what separates it from its siblings in the same category. |
 | `## Sections` | Table: #, Section, Anchor, Contents — every real section, document order, real `id` anchors. |
@@ -86,7 +86,27 @@ across from a sibling template because they look similar — they are not.
 **The differentiation test:** if your new `META.md` could be swapped with a sibling's
 without anyone noticing, it is wrong. Rewrite it.
 
-### 5. Update the category `INDEX.md`
+### 5. Shoot the thumbnail
+
+```bash
+node scripts/shoot-thumbs.js
+```
+
+With no arguments it shoots only templates that have no `thumb.webp` yet, so this picks up
+the one you just filed and leaves the rest alone. It needs no npm install — it drives a
+local Chrome or Edge over the DevTools Protocol.
+
+Then add the row to the `META.md` field table:
+
+```
+| **Thumbnail** | `thumb.webp` |
+```
+
+The showcase renders these screenshots, not live iframes. Skipping this step is not fatal —
+the card falls back to a typographic tile — but the template will look unfinished next to
+its siblings.
+
+### 6. Update the category `INDEX.md`
 
 Add one row to the table in `websites/static/<category>/INDEX.md`:
 
@@ -98,7 +118,7 @@ Keep rows alphabetical by slug. The tags here are the 3–5 sharpest from `META.
 table is what an agent scans to shortlist, so they must discriminate between the rows
 directly above and below.
 
-### 6. Regenerate `data.js`
+### 7. Regenerate `data.js`
 
 ```bash
 node scripts/build-data.js
@@ -109,7 +129,7 @@ category mismatch, or a template on disk that `INDEX.md` never lists all fail th
 If it exits non-zero, fix the source files and run it again. Never hand-edit `data.js` to
 make the error go away.
 
-### 7. Clean up the drop folder
+### 8. Clean up the drop folder
 
 The source folder in `incoming/` is now empty (you moved the files out). Rename it to
 `_DELETE_ME_<name>/` and ask the user to confirm before deleting (Rule 1). Do not remove it

@@ -10,6 +10,7 @@
 | **Framework** | static |
 | **Path** | `websites/static/gym/ironforge/` |
 | **Entry** | `index.html` — self-contained, inline CSS + JS, Google Fonts via CDN |
+| **Thumbnail** | `thumb.webp` |
 | **Prompt** | `p.md` — original generation prompt |
 
 ## Style tags

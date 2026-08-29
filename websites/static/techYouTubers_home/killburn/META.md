@@ -10,6 +10,7 @@
 | **Framework** | static |
 | **Path** | `websites/static/techYouTubers_home/killburn/` |
 | **Entry** | `index.html` — self-contained, inline CSS + JS, Tailwind CDN runtime, Font Awesome + Google Fonts via CDN |
+| **Thumbnail** | `thumb.webp` |
 | **Prompt** | `p.md` — original generation prompt |
 
 ## Style tags

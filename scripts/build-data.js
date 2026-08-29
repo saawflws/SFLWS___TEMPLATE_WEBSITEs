@@ -259,8 +259,23 @@ function readMeta(cat, entry) {
   }
 
   const sitePath = '/websites/' + cat.framework + '/' + cat.category + '/' + entry.slug;
+
+  // Thumbnail: META.md carries a filename relative to the template folder
+  // (`thumb.webp`), which is resolved to a site-root path here. An absolute
+  // path is passed through untouched. A declared-but-missing file is an error,
+  // not a warning — the card would render a broken image.
+  let thumb = '';
   const thumbField = fields.thumbnail || fields.thumb || '';
-  const thumb = thumbField && thumbField !== '—' && thumbField !== '-' ? thumbField : '';
+  if (thumbField && thumbField !== '—' && thumbField !== '-') {
+    if (thumbField.charAt(0) === '/') {
+      thumb = thumbField;
+    } else if (!exists(path.join(dir, thumbField))) {
+      fail(label + ': META.md declares thumbnail "' + thumbField +
+        '" but no such file in ' + rel(dir) + ' — run: node scripts/shoot-thumbs.js');
+    } else {
+      thumb = sitePath + '/' + thumbField;
+    }
+  }
 
   // INDEX.md tags first (curated for search), then any extra from META.md
   const allTags = [];

@@ -33,6 +33,10 @@
   var ICON_CHECK = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 7"/></svg>';
   var ICON_GO = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>';
 
+  /* .thumb is aspect-ratio 16/10, so its height is 0.625x its width.
+     Keep this in step with the .thumb rule in assets/styles/main.css. */
+  var THUMB_RATIO = 10 / 16;
+
   var state = { q: '', cat: 'All' };
   var cards = [];
 
@@ -109,17 +113,19 @@
     card.className = 'card';
     card.style.setProperty('--d', Math.min(i, 10) * 60 + 'ms');
 
+    /* A static screenshot, not a live iframe. Nine embedded documents meant nine
+       full websites running at once — WebGL, rAF loops and runtime Tailwind
+       compilation in the background of a page nobody was looking at. The pan is
+       preserved, as one composited image layer. Templates with no thumb.webp yet
+       fall back to a typographic tile; run scripts/shoot-thumbs.js to give them one. */
     var thumb;
     if (site.thumb) {
-      thumb = '<div class="thumb"><img src="' + site.thumb + '" alt="" loading="lazy">' +
+      thumb = '<div class="thumb"><img class="shot" src="' + site.thumb +
+              '" alt="' + site.title + ' — full page preview" loading="lazy" decoding="async">' +
               '<span class="go">' + ICON_GO + '</span></div>';
-    } else if (site.preview === false) {
+    } else {
       thumb = '<div class="thumb tile"><span class="t-num">' + num + '</span>' +
               '<span class="t-mono">' + initials(site.title) + '</span></div>';
-    } else {
-      thumb = '<div class="thumb"><div class="frame"><iframe src="' + href +
-              '" loading="lazy" tabindex="-1" title="' + site.title + ' — live preview"></iframe></div>' +
-              '<span class="go">' + ICON_GO + '</span></div>';
     }
 
     card.innerHTML =
@@ -150,21 +156,26 @@
       }, 1200);
     });
 
-    /* measure the real page height once loaded → exact pan distance */
-    var frame = card.querySelector('.frame');
-    if (frame) {
-      var ifr = frame.querySelector('iframe');
-      ifr.addEventListener('load', function () {
-        try {
-          var d = ifr.contentDocument;
-          var h = Math.max(d.documentElement.scrollHeight, d.body.scrollHeight);
-          if (h > 900) {
-            frame.style.height = h + 'px';
-            ifr.style.height = h + 'px';
-            layoutFrames();
-          }
-        } catch (e) {}
-      });
+    /* Pan distance, from the image's natural aspect ratio alone.
+       The window is 16/10, so its height is 0.625x its width. The image is drawn
+       at full card width, so its height is (natH/natW)x that. Travelling the
+       difference, expressed as a share of the image's own height, is:
+           1 - 0.625 * (natW / natH)
+       No getBoundingClientRect, no clientWidth — nothing that forces layout. */
+    var shot = card.querySelector('img.shot');
+    if (shot) {
+      var setPan = function () {
+        var w = shot.naturalWidth;
+        var h = shot.naturalHeight;
+        if (!w || !h) return;
+        var pct = (1 - (THUMB_RATIO * w) / h) * 100;
+        if (pct <= 1) return; // image barely taller than the window: nothing to pan
+        card.style.setProperty('--pan-pct', pct.toFixed(2));
+        // longer pans get proportionally longer, within sane bounds
+        card.style.setProperty('--pan', Math.min(7, Math.max(2.5, pct / 14)).toFixed(2) + 's');
+      };
+      if (shot.complete) setPan();
+      else shot.addEventListener('load', setPan, { once: true });
     }
 
     card.addEventListener('animationend', function () {
@@ -197,27 +208,9 @@
     cards.forEach(function (c) { c.el.classList.add('in'); });
   });
 
-  /* ── scale each iframe to its card, compute pan distance ──── */
-  function layoutFrames() {
-    cards.forEach(function (c) {
-      if (c.el.classList.contains('hidden')) return;
-      var frame = c.el.querySelector('.frame');
-      if (!frame) return;
-      var thumb = c.el.querySelector('.thumb');
-      var s = thumb.clientWidth / 1280;
-      var shift = Math.min(2600, Math.max(0, frame.offsetHeight * s - thumb.clientHeight));
-      frame.style.setProperty('--s', s);
-      frame.style.setProperty('--shift', shift);
-      frame.style.setProperty('--pan', Math.min(6.5, Math.max(2.5, shift / 260)) + 's');
-    });
-  }
-
-  var rAF;
-  window.addEventListener('resize', function () {
-    cancelAnimationFrame(rAF);
-    rAF = requestAnimationFrame(layoutFrames);
-  });
-  window.addEventListener('load', layoutFrames);
+  /* No layout pass here on purpose. The pan is expressed as a percentage of the
+     image's own height, so it stays correct at any card width — nothing to
+     recompute on resize, and no forced synchronous layout on filter or load. */
 
   /* ── search + filter ──────────────────────────────────────── */
   var qInput = $('#q');
@@ -237,7 +230,6 @@
     $('#empty').style.display = vis ? 'none' : 'block';
     $('#emptyQ').textContent = state.q || label(state.cat);
     $('#resetBtn').hidden = !(ql || state.cat !== 'All');
-    requestAnimationFrame(layoutFrames);
   }
 
   function resetAll() {
