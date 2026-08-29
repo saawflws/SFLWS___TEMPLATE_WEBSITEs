@@ -11,7 +11,7 @@
  * GitHub Pages serves them.
  *
  * Writes:  websites/<fw>/<cat>/<slug>/thumb.webp
- * Reads:   data.js  (so it shoots exactly what the showcase lists)
+ * Reads:   the websites/ shelf directly (not data.js — see discover())
  *
  * Usage:
  *   node scripts/shoot-thumbs.js               # only templates missing a thumb
@@ -98,6 +98,15 @@ const MIME = {
   '.jpg': 'image/jpeg',
   '.webp': 'image/webp',
   '.woff2': 'font/woff2',
+  '.woff': 'font/woff',
+  '.ttf': 'font/ttf',
+  '.otf': 'font/otf',
+  '.gif': 'image/gif',
+  '.jpeg': 'image/jpeg',
+  '.avif': 'image/avif',
+  '.ico': 'image/x-icon',
+  '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
   '.md': 'text/markdown; charset=utf-8',
 };
 
@@ -317,6 +326,42 @@ async function shoot(cdp, origin, tpl) {
   }
 }
 
+/* ── discover templates from the filesystem ───────────────────────
+   Deliberately NOT from data.js. A template's META.md declares its thumbnail
+   before the thumbnail exists, which makes data.js unbuildable until the
+   thumbnail is shot — and reading data.js here would deadlock that. Walking
+   the shelf has no such ordering dependency. */
+
+function discover() {
+  const out = [];
+  const shelf = path.join(ROOT, 'websites');
+  if (!fs.existsSync(shelf)) return out;
+
+  const dirs = (p) =>
+    fs.readdirSync(p, { withFileTypes: true })
+      .filter((d) => d.isDirectory() && d.name.indexOf('_DELETE_ME_') !== 0)
+      .map((d) => d.name);
+
+  for (const framework of dirs(shelf)) {
+    const fwDir = path.join(shelf, framework);
+    for (const category of dirs(fwDir)) {
+      const catDir = path.join(fwDir, category);
+      for (const slug of dirs(catDir)) {
+        const dir = path.join(catDir, slug);
+        if (!fs.existsSync(path.join(dir, 'META.md'))) continue;
+        out.push({
+          slug: slug,
+          framework: framework,
+          category: category,
+          path: '/websites/' + framework + '/' + category + '/' + slug,
+          dir: dir,
+        });
+      }
+    }
+  }
+  return out;
+}
+
 /* ── main ─────────────────────────────────────────────────────────── */
 
 async function main() {
@@ -331,14 +376,7 @@ async function main() {
     process.exit(1);
   }
 
-  const dataPath = path.join(ROOT, 'data.js');
-  if (!fs.existsSync(dataPath)) {
-    console.error('✗ data.js not found. Run: node scripts/build-data.js');
-    process.exit(1);
-  }
-  const { TEMPLATES } = require(dataPath);
-
-  let targets = TEMPLATES.slice();
+  let targets = discover();
   if (ONLY.length) targets = targets.filter((t) => ONLY.includes(t.slug));
   if (!FORCE_ALL && !ONLY.length) {
     targets = targets.filter((t) => !fs.existsSync(path.join(ROOT, t.path.replace(/^\//, ''), OUT_NAME)));

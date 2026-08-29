@@ -11,21 +11,30 @@ Read [`RULES.md`](../../RULES.md) first. Rules 1, 3 and 4 all bind here.
 
 ## Input
 
-A folder containing exactly one `p.md` and one `index.html`.
+A folder in `incoming/<name>/` holding a static site. It arrives in one of three shapes:
 
-- **Default location:** `incoming/<name>/`. This is the drop zone for single static
-  templates — full framework projects go to `raw_make_websites/` and belong to
-  `import-project` instead.
-- If the user points at a pair somewhere else, use that path.
+| Shape | Contents | Extra work |
+| --- | --- | --- |
+| **Pair** | `index.html` + `p.md` | none — the common case |
+| **Bare HTML** | `index.html`, no prompt | you write `p.md` yourself (step 3) |
+| **Multi-file** | `index.html` plus `styles/`, `scripts/`, images | keep the structure (step 4) |
+
+Bare and multi-file combine freely — a folder of HTML, CSS and JS with no prompt is both.
+
+- Full framework projects (anything with a `package.json`) go to `raw_make_websites/` and
+  belong to `import-project` instead.
+- If the user points at a folder somewhere else, use that path.
 - If `incoming/` holds several folders and the user did not say which, list them and ask.
 
 ## Flow
 
-### 1. Read both files, in full
+### 1. Read everything, in full
 
-Read `p.md` **and** `index.html` yourself. Not the first 200 lines of the HTML — all of it.
-These files run 40–90KB; the sections, palette and interactions you need are spread through
-the whole thing.
+Read `index.html` yourself — all of it, not the first 200 lines. These files run 40–90KB and
+the sections, palette and interactions you need are spread through the whole thing.
+
+If there is a `p.md`, read that too. If there are separate CSS and JS files, read those as
+well — for a multi-file template the palette and motion live there, not in the HTML.
 
 ### 2. Determine the category yourself
 
@@ -49,18 +58,40 @@ imagery and the calls to action. Then:
 If your reading disagrees with `p.md`, file it where the markup says and record the
 disagreement under "Notes for agents" in `META.md`.
 
-### 3. File the template
+### 3. Write `p.md` if there is none
 
-Move the pair to `websites/static/<category>/<slug>/`.
+Bare HTML arrives with no prompt. Write one by reading the markup, describing the design as
+it actually is: visual strategy, palette, typography, page structure, interaction details,
+overall vibe. Match the shape of an existing `p.md` on the shelf.
+
+**Mark it as reconstructed**, at the top of the file:
+
+```markdown
+> **Reconstructed prompt.** This template arrived as HTML with no prompt. This file was
+> written by reading the markup — it describes what the page *is*, not what anyone asked
+> for. It is not evidence of intent.
+```
+
+That marker matters. An original prompt and a reverse-engineered one are different kinds of
+evidence, and Rule 4 depends on being able to tell them apart. A reconstructed `p.md` can
+**never** be used to confirm a category — you wrote it from the markup, so agreeing with the
+markup proves nothing.
+
+### 4. File the template
+
+Move the whole folder's contents to `websites/static/<category>/<slug>/`.
 
 - `<slug>` is lowercase, no separators, matching existing convention
   (`forgefitnessstudio`, `junoharada`).
-- The prompt file is always named `p.md`. Rename it if it arrived as `prompt.md` or
-  similar.
-- Use `git mv` so history follows the file.
+- The prompt file is always named `p.md`. Rename it if it arrived as `prompt.md` or similar.
+- **Multi-file templates keep their internal structure.** Move `styles/`, `scripts/` and any
+  assets across unchanged, and do not rewrite the relative paths in the HTML — they still
+  resolve, because the folder moves as a unit. Do not flatten a multi-file template into one
+  file, and do not split a single-file one.
+- Use `git mv` so history follows the files.
 - If the destination folder already exists, **stop and ask** — do not overwrite.
 
-### 4. Write `META.md`
+### 5. Write `META.md`
 
 Into `websites/static/<category>/<slug>/META.md`. Match the structure of the existing
 `META.md` files on the shelf exactly — read one before writing (any of them; they are all
@@ -70,6 +101,10 @@ the same shape). The required sections, in order:
 | --- | --- |
 | H1 + blockquote | Display name, then a one-sentence description under 25 words. The blockquote is what `build-data.js` puts on the showcase card. |
 | Field table | Name, Slug, Category, Framework, Path, Entry, Thumbnail, Prompt, Origin |
+
+**Entry** must say which shape the template is: `index.html` — self-contained single file,
+or `index.html` + the folders it depends on, listed. An agent cloning a multi-file template
+needs to know there is more than one file before it starts.
 | `## Style tags` | 6–10 backticked lowercase-hyphenated tags. Discriminating, not generic. |
 | `## Summary` | 2–4 sentences, including what separates it from its siblings in the same category. |
 | `## Sections` | Table: #, Section, Anchor, Contents — every real section, document order, real `id` anchors. |
@@ -81,7 +116,7 @@ the same shape). The required sections, in order:
 | `## Notes for agents` | Structural facts, external dependencies, naming quirks, and the standing note that agents may open `index.html` for finer detail. |
 
 **Origin** records provenance: `AI-generated from `p.md`` when the template came from a
-prompt, or `Derived from <project> (<licence>)` when it was adapted from existing
+prompt (add ` (prompt reconstructed)` if you wrote the `p.md` yourself in step 3), or `Derived from <project> (<licence>)` when it was adapted from existing
 open-source work — in which case that upstream licence keeps applying and must be named.
 If you cannot establish the origin, say so in the row rather than guessing.
 
@@ -91,7 +126,7 @@ across from a sibling template because they look similar — they are not.
 **The differentiation test:** if your new `META.md` could be swapped with a sibling's
 without anyone noticing, it is wrong. Rewrite it.
 
-### 5. Shoot the thumbnail
+### 6. Shoot the thumbnail
 
 ```bash
 node scripts/shoot-thumbs.js
@@ -111,7 +146,7 @@ The showcase renders these screenshots, not live iframes. Skipping this step is 
 the card falls back to a typographic tile — but the template will look unfinished next to
 its siblings.
 
-### 6. Inject the source button
+### 7. Inject the source button
 
 ```bash
 node scripts/add-source-button.js
@@ -121,7 +156,7 @@ Adds the rainbow "view source" pill linking to the template's folder on GitHub. 
 idempotent — the block is delimited, so re-running refreshes rather than duplicates — and it
 self-hides on any host that is not the showcase, so a cloned client site needs no cleanup.
 
-### 7. Update the category `INDEX.md`
+### 8. Update the category `INDEX.md`
 
 Add one row to the table in `websites/static/<category>/INDEX.md`:
 
@@ -133,7 +168,7 @@ Keep rows alphabetical by slug. The tags here are the 3–5 sharpest from `META.
 table is what an agent scans to shortlist, so they must discriminate between the rows
 directly above and below.
 
-### 8. Regenerate `data.js`
+### 9. Regenerate `data.js`
 
 ```bash
 node scripts/build-data.js
@@ -144,7 +179,13 @@ category mismatch, or a template on disk that `INDEX.md` never lists all fail th
 If it exits non-zero, fix the source files and run it again. Never hand-edit `data.js` to
 make the error go away.
 
-### Sync the knowledge base
+### 10. Clean up the drop folder
+
+The source folder in `incoming/` is now empty (you moved its contents out). Rename it to
+`_DELETE_ME_<name>/` and ask the user to confirm before deleting (Rule 1). Do not remove it
+yourself, even though it is empty.
+
+### 11. Sync the knowledge base
 
 If this task changed **structure, a schema, or a workflow** — a new category, a changed
 `META.md` field, a different step order — update the matching entry under `kb/`, bump its
@@ -156,12 +197,6 @@ node scripts/build-kb.js
 
 Cataloging one more template into an existing category is not a structural change and needs
 no KB edit. Adding a category, a field, or a new step is (Rule 9).
-
-### 9. Clean up the drop folder
-
-The source folder in `incoming/` is now empty (you moved the files out). Rename it to
-`_DELETE_ME_<name>/` and ask the user to confirm before deleting (Rule 1). Do not remove it
-yourself, even though it is empty.
 
 ## Output
 

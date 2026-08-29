@@ -14,10 +14,10 @@ What the moving parts are, and the vocabulary the rest of the repo assumes.
 
 | Entry | Summary | Updated |
 | --- | --- | --- |
+| [What counts as a template](concepts/template.md) | A self-contained site plus the metadata that makes it choosable without opening it. | 2026-08-29 |
 | [The two entry chains](concepts/entry-chains.md) | Local-dev docs and external-consumer docs are separate on purpose and must not cross-link. | 2026-08-29 |
 | [Frameworks on the shelf](concepts/frameworks.md) | static, astro, react and nextjs — what each means here, and why detection order matters. | 2026-08-29 |
 | [Provenance and licensing](concepts/provenance.md) | Where templates come from, why origin is recorded per template, and what MIT cannot cover. | 2026-08-29 |
-| [What counts as a template](concepts/template.md) | A self-contained site plus the metadata that makes it choosable without opening it. | 2026-08-29 |
 | [The shelf](concepts/the-shelf.md) | The template library itself — framework, category, template, and why it nests in that order. | 2026-08-29 |
 
 ## architecture
@@ -39,10 +39,10 @@ Field-by-field definitions of the files the tooling reads and writes.
 
 | Entry | Summary | Updated |
 | --- | --- | --- |
+| [META.md schema](schemas/meta-md.md) | Field-by-field definition of a template's catalog entry, the file agents actually read. | 2026-08-29 |
 | [Category INDEX.md schema](schemas/category-index-md.md) | The shortlist table for one category, plus the chooser that tells siblings apart. | 2026-08-29 |
 | [data.js schema](schemas/data-js.md) | The generated template array the showcase reads, and why it is never hand-edited. | 2026-08-29 |
 | [Knowledge-base entry schema](schemas/kb-entry.md) | The frontmatter contract every kb/ entry must satisfy, and what the generator enforces. | 2026-08-29 |
-| [META.md schema](schemas/meta-md.md) | Field-by-field definition of a template's catalog entry, the file agents actually read. | 2026-08-29 |
 | [public-agents/INDEX.md schema](schemas/public-index-md.md) | The tiny root index of frameworks and categories, and why it must never list templates. | 2026-08-29 |
 
 ## workflows

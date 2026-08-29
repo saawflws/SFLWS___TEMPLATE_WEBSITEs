@@ -187,7 +187,8 @@ agent what to do with it. Neither restates the other.
 
 ### Add a new static template
 
-1. Drop the `p.md` + `index.html` pair into `incoming/<name>/`.
+1. Drop the template into `incoming/<name>/` — a `p.md` + `index.html` pair, bare HTML with
+   no prompt, or a multi-file folder. All three are handled.
 2. Run `ingest-template`.
 3. It reads both files, decides the category **itself** (Rule 4 — `p.md` is a claim, not a
    fact), files the template, writes `META.md`, updates the category `INDEX.md`, and
@@ -278,17 +279,22 @@ URL — the card previews are same-origin iframes and will not measure correctly
 
 ## Conventions
 
-- **Static templates are single-file.** One self-contained `index.html`: inline `<style>`,
-  inline `<script>`, and no local asset dependencies. This is what makes the iframe
-  previews and the "copy one folder" workflow work. Keep it. External CDNs are allowed and
-  used — Google Fonts everywhere, and GSAP/Lenis/Three.js in `forgefitnessstudio` and
-  `severinhalbe` — so a template is self-contained on disk, not necessarily offline-capable.
-  Each `META.md` records its own external dependencies.
+- **Static templates are self-contained folders.** Most are a single `index.html` with
+  inline `<style>` and `<script>`, and that stays the preferred shape. Multi-file is also
+  fine — `index.html` plus `styles/`, `scripts/` and assets — as long as every path is
+  relative and internal, so the folder can be copied anywhere and still work. Never flatten
+  a multi-file template into one file, or split a single-file one apart.
+  External CDNs are allowed and used — Google Fonts everywhere, and GSAP/Lenis/Three.js in
+  `forgefitnessstudio` and `severinhalbe` — so a template is self-contained *on disk*, not
+  necessarily offline-capable. Each `META.md` records its own external dependencies and
+  states which shape the template is in its **Entry** row.
 - **Category folder names are `snake_case`** (`boutique_yoga_studio`), template folder names
   are lowercase, no separators (`forgefitnessstudio`).
 - **`p.md` is the original generation prompt**, kept verbatim as provenance. Never rewrite it
   to match what was built — if they disagree, the disagreement is the useful information.
-  The filename is always exactly `p.md`.
+  The filename is always exactly `p.md`. A template that arrives as bare HTML gets a `p.md`
+  written from its markup, marked **reconstructed** at the top — because a reverse-engineered
+  prompt is not evidence of intent and must never be used to confirm a category.
 - **Root `index.html` stays minimal markup.** Styles go in `assets/styles/main.css`,
   behaviour in `assets/scripts/main.js`, data in generated `data.js`.
 - **Paths in `data.js` are root-relative** (`/websites/static/gym/ironforge`) because the

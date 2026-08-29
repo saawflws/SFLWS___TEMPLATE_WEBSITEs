@@ -8,16 +8,24 @@ Not sure it is static? If there is a `package.json`, it is not — see the
 
 ## What to hand over
 
-Drop a folder into `incoming/`, named however you like:
+Drop a folder into `incoming/`, named however you like. Three shapes are accepted:
 
 ```
-incoming/mysite/
-├── index.html      required
-└── p.md            optional — the prompt it was generated from
+incoming/mysite/          incoming/mysite/       incoming/mysite/
+├── index.html            └── index.html         ├── index.html
+└── p.md                                         ├── styles/main.css
+                                                 ├── scripts/app.js
+   a pair                   bare HTML            └── images/hero.jpg
+                                                    multi-file
 ```
 
 `p.md` is the prompt that produced the page, kept verbatim as provenance. If you have it,
-include it: it records intent, which the markup cannot. If you do not have it, that is fine.
+include it — it records intent, which the markup cannot. **If you do not, that is fine:** the
+agent writes one by reading the markup and marks it as reconstructed, so nobody later mistakes
+it for the real brief.
+
+Multi-file is fine too. Keep every path relative and internal, and the folder will be moved as
+a unit with its structure intact — nothing is flattened, nothing is split.
 
 ## Then run
 
@@ -31,7 +39,8 @@ If `incoming/` holds several folders, say which one.
 
 ## What the agent does
 
-1. **Reads both files in full** — all of the HTML, not the first screen of it.
+1. **Reads everything in full** — all of the HTML, not the first screen of it, plus any
+   separate CSS and JS, where a multi-file template keeps its palette and motion.
 2. **Decides the category from the markup.** Your `p.md` is treated as a claim, not a fact.
    The two genuinely drift: a prompt describing a gym has been known to produce a coffee
    roaster. Where they disagree, the markup wins and the disagreement is recorded.

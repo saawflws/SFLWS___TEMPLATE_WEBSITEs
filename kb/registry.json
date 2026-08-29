@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-29T16:56:03.018Z",
+  "generated": "2026-08-29T16:58:13.333Z",
   "count": 29,
   "areas": [
     "concepts",
@@ -50,7 +50,7 @@
       "id": "template",
       "title": "What counts as a template",
       "area": "concepts",
-      "updated": "2026-08-29T15:00:00Z",
+      "updated": "2026-08-29T17:00:00Z",
       "summary": "A self-contained site plus the metadata that makes it choosable without opening it.",
       "related": [
         "the-shelf",
@@ -189,7 +189,7 @@
       "id": "meta-md",
       "title": "META.md schema",
       "area": "schemas",
-      "updated": "2026-08-29T15:00:00Z",
+      "updated": "2026-08-29T17:00:00Z",
       "summary": "Field-by-field definition of a template's catalog entry, the file agents actually read.",
       "related": [
         "template",
@@ -215,7 +215,7 @@
       "id": "add-static-template",
       "title": "Adding a static template",
       "area": "workflows",
-      "updated": "2026-08-29T15:00:00Z",
+      "updated": "2026-08-29T17:00:00Z",
       "summary": "End-to-end path for a static template, and the reasoning behind the order of steps.",
       "related": [
         "meta-md",

@@ -19,7 +19,7 @@
  * template cloned for a real client site shows nothing and needs no cleanup, which is
  * what lets templates stay single-file and copyable.
  *
- * Reads:   data.js  (so it targets exactly what the showcase lists)
+ * Reads:   the websites/ shelf directly (not data.js — see discover())
  * Writes:  each template's entry HTML, in place
  *
  * Usage:
@@ -107,8 +107,7 @@ function githubHref(tpl) {
 /* ── entry file for a template ───────────────────────────────────── */
 
 function entryFile(tpl) {
-  const dir = path.join(ROOT, tpl.path.replace(/^\//, ''));
-  const candidate = path.join(dir, 'index.html');
+  const candidate = path.join(tpl.dir, 'index.html');
   return exists(candidate) ? candidate : null;
 }
 
@@ -131,16 +130,46 @@ function inject(html, wanted) {
   return cleaned.slice(0, m.index) + wanted + '\n' + cleaned.slice(m.index);
 }
 
+/* ── discover templates from the filesystem ───────────────────────
+   Deliberately NOT from data.js. A template's META.md declares its thumbnail
+   before the thumbnail exists, which makes data.js unbuildable until the
+   thumbnail is shot — and reading data.js here would deadlock that. Walking
+   the shelf has no such ordering dependency. */
+
+function discover() {
+  const out = [];
+  const shelf = path.join(ROOT, 'websites');
+  if (!fs.existsSync(shelf)) return out;
+
+  const dirs = (p) =>
+    fs.readdirSync(p, { withFileTypes: true })
+      .filter((d) => d.isDirectory() && d.name.indexOf('_DELETE_ME_') !== 0)
+      .map((d) => d.name);
+
+  for (const framework of dirs(shelf)) {
+    const fwDir = path.join(shelf, framework);
+    for (const category of dirs(fwDir)) {
+      const catDir = path.join(fwDir, category);
+      for (const slug of dirs(catDir)) {
+        const dir = path.join(catDir, slug);
+        if (!fs.existsSync(path.join(dir, 'META.md'))) continue;
+        out.push({
+          slug: slug,
+          framework: framework,
+          category: category,
+          path: '/websites/' + framework + '/' + category + '/' + slug,
+          dir: dir,
+        });
+      }
+    }
+  }
+  return out;
+}
+
 /* ── main ────────────────────────────────────────────────────────── */
 
 function main() {
-  const dataPath = path.join(ROOT, 'data.js');
-  if (!exists(dataPath)) {
-    console.error('✗ data.js not found. Run: node scripts/build-data.js');
-    process.exit(1);
-  }
-
-  let templates = require(dataPath).TEMPLATES;
+  let templates = discover();
   if (ONLY.length) templates = templates.filter((t) => ONLY.indexOf(t.slug) !== -1);
 
   const changed = [];

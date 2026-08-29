@@ -2,7 +2,7 @@
 id: meta-md
 title: META.md schema
 area: schemas
-updated: 2026-08-29T15:00:00Z
+updated: 2026-08-29T17:00:00Z
 summary: Field-by-field definition of a template's catalog entry, the file agents actually read.
 related: [template, data-pipeline, provenance]
 ---
@@ -49,7 +49,7 @@ agents read, and the only one they need in order to choose.
 | **Category** | yes, and validated | Must match the containing folder or the build fails |
 | **Framework** | yes, and validated | Same |
 | **Thumbnail** | yes | Relative filename; a declared-but-missing file is a hard error |
-| **Origin** | yes | See [provenance](../concepts/provenance.md) |
+| **Origin** | yes | See [provenance](../concepts/provenance.md). Note ` (prompt reconstructed)` when the `p.md` was written from the markup |
 | `## Style tags` | yes, for search | 6-10 backticked lowercase-hyphenated tags |
 
 The sections the tooling ignores still matter — they are what an agent reads to decide.
@@ -65,6 +65,10 @@ taken from `p.md`.
 **The differentiation test.** If a `META.md` could be swapped with a sibling's and nobody
 would notice, it is wrong. Categories here hold several builds of near-identical briefs, and
 telling them apart is the entire point of the file.
+
+**Entry states the shape.** A single self-contained file, or `index.html` plus the folders it
+depends on, listed. An agent cloning a multi-file template needs to know there is more than
+one file before it starts copying.
 
 **"Not a good fit for" is not filler.** Eliminating a candidate is faster than confirming one,
 and that section is what does it.
