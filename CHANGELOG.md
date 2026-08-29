@@ -8,18 +8,58 @@ entries are grouped by date instead.
 
 ## [Unreleased]
 
+Open-sourcing the repo and closing the gaps that showed up once it was in use.
+
 ### Added
 
-- `LICENSE` (MIT), `README.md`, `CONTRIBUTING.md`, this changelog, and `.gitignore` — the
-  repo is now genuinely open source rather than merely public.
-- **Origin** row in every `META.md`, recording whether a template is AI-generated or derived
-  from an open-source project, and carried through into `data.js`.
+- **Open-source scaffolding** — `LICENSE` (MIT), `README.md`, `CONTRIBUTING.md`, this
+  changelog, and `.gitignore`. The repo was public but had none of the files an outsider
+  needs to understand, run or contribute to it.
+- **Provenance.** Every `META.md` carries an **Origin** row recording whether a template is
+  AI-generated or derived from an open-source project. MIT covers the tooling and the
+  AI-generated templates; it cannot relicense derived work, so origin travels per template
+  rather than as one sentence in the README.
+- **Handoff guides** — [`docs/`](docs/README.md), one per framework, for the audience the
+  repo was missing: a person who has a site and wants it on the shelf. Skill files are
+  execution flows for agents, not instructions for humans.
+- **Knowledge base** — [`kb/`](kb/INDEX.md), 31 entries across concepts, architecture,
+  schemas, workflows, operations and decisions, with `scripts/build-kb.js` validating
+  frontmatter and generating the index and registry. It records *why* things are shaped as
+  they are, and links to the operational files rather than restating them.
+  New **Rule 9** keeps it current.
+- **Pagination** on the showcase — ten per page, prev/next over the filtered set, resetting
+  to page one whenever the filter changes.
+- **Rainbow "view source" button** on every template, linking to its folder on GitHub. It
+  self-hides on any host that is not the showcase, so a template cloned for a client site
+  shows nothing and needs no cleanup step — a step someone would eventually forget.
+  Injected idempotently by `scripts/add-source-button.js`.
+- **Two more ingest shapes.** Static templates may now arrive as bare HTML with no prompt —
+  the agent writes `p.md` from the markup and marks it reconstructed — or as multi-file
+  folders with separate CSS, JS and assets, moved as a unit.
+- **Framework thumbnails.** `shoot-thumbs.js --url --slug` captures an already-running dev
+  or preview server, which is the only way to screenshot a project that needs a build.
+- **Commandcode support** — `.commandcode/commands/`, frontmatter-free as its loader
+  requires.
 
 ### Changed
 
-- Commit messages no longer carry `Co-Authored-By` or `Claude-Session` trailers. All 11
-  existing commits were rewritten to strip them; the rewrite touched messages only and left
+- **Commit messages carry no generated trailers.** All 11 existing commits were rewritten to
+  strip `Co-Authored-By` and `Claude-Session`; the rewrite touched messages only and left
   every tree byte-identical.
+- **Thumbnails halved**, clipped to 2000px instead of 4000. A card shows a 16:10 window and
+  the hover pan covers the rest, so the extra height was bytes nobody saw. Total weight
+  520KB → 285KB. The pan recalculated itself from 80% to 60% with no code change, because it
+  is derived from the image's own aspect ratio.
+- **`generate-site` settles the framework first**, and says so plainly when the requested
+  framework has nothing suitable rather than quietly substituting a static template.
+
+### Fixed
+
+- **A deadlock in the ingest pipeline.** `shoot-thumbs.js` and `add-source-button.js` read
+  `data.js` to learn what existed, but a `META.md` declares its thumbnail before that file
+  exists — so `data.js` could not build until the thumbnail was shot, and the shooter could
+  not run until `data.js` built. Both now discover templates by walking `websites/`. This
+  would have blocked the first real ingest.
 
 ## 2026-08-29
 
@@ -29,9 +69,9 @@ The initial build, in phases.
 
 - **Structure.** Templates reorganised into `websites/{static,astro,react,nextjs}/`, with
   `incoming/` and `raw_make_websites/` as the two drop zones.
-- **Local-dev docs.** `AGENTS.md` as the single source of truth, `RULES.md` with the eight
-  hard rules, and thin shims for the tools that need them. Codex, OpenCode and Antigravity
-  read `AGENTS.md` natively, so only Claude Code and Gemini CLI got a shim — each a single
+- **Local-dev docs.** `AGENTS.md` as the single source of truth, `RULES.md` with the hard
+  rules, and thin shims for the tools that need them. Codex, OpenCode and Antigravity read
+  `AGENTS.md` natively, so only Claude Code and Gemini CLI got a shim — each a single
   `@AGENTS.md` import rather than a copy.
 - **External entry chain.** `public-agents/` — a deliberately minimal contract for agents
   consuming the shelf, kept strictly separate from the local-dev docs.

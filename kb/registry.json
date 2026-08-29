@@ -1,6 +1,6 @@
 {
-  "generated": "2026-08-29T17:06:07.391Z",
-  "count": 29,
+  "generated": "2026-08-29T17:06:39.558Z",
+  "count": 31,
   "areas": [
     "concepts",
     "architecture",
@@ -374,6 +374,33 @@
         "thumbnails"
       ],
       "path": "kb/decisions/0007-pagination-and-half-height.md"
+    },
+    {
+      "id": "0008-three-ingest-shapes",
+      "title": "0008 — Three ingest shapes, one flow",
+      "area": "decisions",
+      "updated": "2026-08-29T18:30:00Z",
+      "summary": "Accepting pairs, bare HTML and multi-file folders without branching the ingest flow.",
+      "related": [
+        "add-static-template",
+        "template",
+        "meta-md"
+      ],
+      "path": "kb/decisions/0008-three-ingest-shapes.md"
+    },
+    {
+      "id": "0009-filesystem-discovery",
+      "title": "0009 — Tools discover the shelf from disk, not data.js",
+      "area": "decisions",
+      "updated": "2026-08-29T18:30:00Z",
+      "summary": "Reading the generated catalog to decide what to generate is a deadlock; walking websites/ is not.",
+      "related": [
+        "data-pipeline",
+        "thumbnails",
+        "source-button",
+        "running-scripts"
+      ],
+      "path": "kb/decisions/0009-filesystem-discovery.md"
     }
   ]
 }

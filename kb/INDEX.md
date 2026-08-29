@@ -6,7 +6,7 @@ Every entry in `kb/`, grouped by area and newest-updated first within each.
 Regenerate with `node scripts/build-kb.js`. See [`README.md`](README.md) for how the
 KB works and [`schemas/kb-entry.md`](schemas/kb-entry.md) for the entry contract.
 
-`29 entries · 6 areas · index generated 2026-08-29`
+`31 entries · 6 areas · index generated 2026-08-29`
 
 ## concepts
 
@@ -71,6 +71,8 @@ Dated records of choices made, the alternatives, and what would reverse them.
 
 | Entry | Summary | Updated |
 | --- | --- | --- |
+| [0008 — Three ingest shapes, one flow](decisions/0008-three-ingest-shapes.md) | Accepting pairs, bare HTML and multi-file folders without branching the ingest flow. | 2026-08-29 |
+| [0009 — Tools discover the shelf from disk, not data.js](decisions/0009-filesystem-discovery.md) | Reading the generated catalog to decide what to generate is a deadlock; walking websites/ is not. | 2026-08-29 |
 | [0001 — AGENTS.md as the single source of truth](decisions/0001-agents-md-single-source.md) | One instruction file, with every tool-specific path holding a pointer rather than a copy. | 2026-08-29 |
 | [0002 — One generated data.js at the root](decisions/0002-generated-data-js.md) | The showcase reads a single generated file built from the same markdown agents read. | 2026-08-29 |
 | [0003 — Static thumbnails instead of live iframes](decisions/0003-static-thumbnails-over-iframes.md) | Cards render screenshots, because nine live sites in one page was untenable. | 2026-08-29 |
