@@ -12,6 +12,7 @@
 | **Entry** | `index.html` — self-contained, inline CSS + JS, Tailwind CDN, Google Fonts + Font Awesome via CDN |
 | **Thumbnail** | `thumb.webp` |
 | **Prompt** | `p.md` — original generation prompt |
+| **Origin** | AI-generated from `p.md` |
 
 ## Style tags
 

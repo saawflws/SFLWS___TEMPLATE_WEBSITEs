@@ -283,6 +283,10 @@ function readMeta(cat, entry) {
     if (allTags.indexOf(t) === -1) allTags.push(t);
   }
 
+  // Provenance: AI-generated, or derived from an open-source project (which keeps
+  // its own licence). Carried into data.js so the showcase can surface it.
+  const origin = fields.origin || '';
+
   const out = {
     title,
     slug: entry.slug,
@@ -293,6 +297,7 @@ function readMeta(cat, entry) {
     tags: allTags,
     meta: sitePath + '/META.md',
   };
+  if (origin) out.origin = origin;
   if (fullTitle) out.fullTitle = fullTitle;
   if (thumb) out.thumb = thumb;
   return out;

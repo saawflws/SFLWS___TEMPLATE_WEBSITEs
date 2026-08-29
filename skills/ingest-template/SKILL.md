@@ -69,7 +69,7 @@ the same shape). The required sections, in order:
 | Section | What goes in it |
 | --- | --- |
 | H1 + blockquote | Display name, then a one-sentence description under 25 words. The blockquote is what `build-data.js` puts on the showcase card. |
-| Field table | Name, Slug, Category, Framework, Path, Entry, Thumbnail, Prompt |
+| Field table | Name, Slug, Category, Framework, Path, Entry, Thumbnail, Prompt, Origin |
 | `## Style tags` | 6–10 backticked lowercase-hyphenated tags. Discriminating, not generic. |
 | `## Summary` | 2–4 sentences, including what separates it from its siblings in the same category. |
 | `## Sections` | Table: #, Section, Anchor, Contents — every real section, document order, real `id` anchors. |
@@ -79,6 +79,11 @@ the same shape). The required sections, in order:
 | `## Best suited for` | 3–5 concrete client types. |
 | `## Not a good fit for` | 2–3 bullets. This is what stops a wrong pick. |
 | `## Notes for agents` | Structural facts, external dependencies, naming quirks, and the standing note that agents may open `index.html` for finer detail. |
+
+**Origin** records provenance: `AI-generated from `p.md`` when the template came from a
+prompt, or `Derived from <project> (<licence>)` when it was adapted from existing
+open-source work — in which case that upstream licence keeps applying and must be named.
+If you cannot establish the origin, say so in the row rather than guessing.
 
 Every hex, font, section and anchor comes from the file you just read. Never carry a value
 across from a sibling template because they look similar — they are not.

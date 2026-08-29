@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# secrets — never commit these
+.env
+.env.*
+!.env.example
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# editor
+.idea/
+*.swp
+
+# Deliberately NOT ignored:
+#   _DELETE_ME_*  — flagged-for-deletion items must stay visible and tracked
+#                   until a human confirms removal (RULES.md rule 1).
+#   data.js       — generated, but committed so GitHub Pages can serve it.
+#   thumb.webp    — generated, but committed so the showcase has images.

@@ -115,6 +115,10 @@ templates — read an existing one and match it exactly. Framework-specific diff
   and states that this is a project with a build step, not a single file.
 - Add a **Stack** row to the field table: package manager, styling approach
   (Tailwind / CSS modules / styled-components), and notable dependencies.
+- Add an **Origin** row: `AI-generated` or `Derived from <project> (<licence>)`. Imported
+  projects are the likeliest source of open-source-derived work, so check `package.json`,
+  the README and any bundled LICENSE file before writing it — the upstream licence keeps
+  applying regardless of this repo's.
 - Add a **Thumbnail** row only if you actually produced a `thumb.webp` (see the showcase
   note at the end) — a declared-but-missing thumbnail fails the build.
 - **Palette** comes from the real source — a Tailwind theme extension, CSS custom

@@ -12,6 +12,7 @@
 | **Entry** | `index.html` — self-contained, inline CSS + JS, Google Fonts + GSAP/ScrollTrigger/Lenis via CDN |
 | **Thumbnail** | `thumb.webp` |
 | **Prompt** | `p.md` — original generation prompt |
+| **Origin** | AI-generated from `p.md` |
 
 ## Style tags
 
