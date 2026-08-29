@@ -134,6 +134,19 @@ category mismatch, or a template on disk that `INDEX.md` never lists all fail th
 If it exits non-zero, fix the source files and run it again. Never hand-edit `data.js` to
 make the error go away.
 
+### Sync the knowledge base
+
+If this task changed **structure, a schema, or a workflow** — a new category, a changed
+`META.md` field, a different step order — update the matching entry under `kb/`, bump its
+`updated:` timestamp, and run:
+
+```bash
+node scripts/build-kb.js
+```
+
+Cataloging one more template into an existing category is not a structural change and needs
+no KB edit. Adding a category, a field, or a new step is (Rule 9).
+
 ### 8. Clean up the drop folder
 
 The source folder in `incoming/` is now empty (you moved the files out). Rename it to

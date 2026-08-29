@@ -141,6 +141,19 @@ node scripts/build-data.js
 **Non-optional, every time** (Rule 3). Fix source files if it errors; never hand-edit
 `data.js`.
 
+### Sync the knowledge base
+
+If this task changed **structure, a schema, or a workflow** — a new category, a changed
+`META.md` field, a different step order — update the matching entry under `kb/`, bump its
+`updated:` timestamp, and run:
+
+```bash
+node scripts/build-kb.js
+```
+
+Cataloging one more template into an existing category is not a structural change and needs
+no KB edit. Adding a category, a field, or a new step is (Rule 9).
+
 ## Output
 
 Report: detected framework and the signals that decided it, the category and why, the

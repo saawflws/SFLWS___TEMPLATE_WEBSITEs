@@ -1,0 +1,366 @@
+{
+  "generated": "2026-08-29T13:15:28.231Z",
+  "count": 28,
+  "areas": [
+    "concepts",
+    "architecture",
+    "schemas",
+    "workflows",
+    "operations",
+    "decisions"
+  ],
+  "entries": [
+    {
+      "id": "entry-chains",
+      "title": "The two entry chains",
+      "area": "concepts",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "Local-dev docs and external-consumer docs are separate on purpose and must not cross-link.",
+      "related": [
+        "the-shelf",
+        "tool-support"
+      ],
+      "path": "kb/concepts/entry-chains.md"
+    },
+    {
+      "id": "frameworks",
+      "title": "Frameworks on the shelf",
+      "area": "concepts",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "static, astro, react and nextjs — what each means here, and why detection order matters.",
+      "related": [
+        "the-shelf",
+        "template"
+      ],
+      "path": "kb/concepts/frameworks.md"
+    },
+    {
+      "id": "provenance",
+      "title": "Provenance and licensing",
+      "area": "concepts",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "Where templates come from, why origin is recorded per template, and what MIT cannot cover.",
+      "related": [
+        "template",
+        "meta-md"
+      ],
+      "path": "kb/concepts/provenance.md"
+    },
+    {
+      "id": "template",
+      "title": "What counts as a template",
+      "area": "concepts",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "A self-contained site plus the metadata that makes it choosable without opening it.",
+      "related": [
+        "the-shelf",
+        "provenance"
+      ],
+      "path": "kb/concepts/template.md"
+    },
+    {
+      "id": "the-shelf",
+      "title": "The shelf",
+      "area": "concepts",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "The template library itself — framework, category, template, and why it nests in that order.",
+      "related": [
+        "template",
+        "frameworks",
+        "entry-chains"
+      ],
+      "path": "kb/concepts/the-shelf.md"
+    },
+    {
+      "id": "data-pipeline",
+      "title": "The data pipeline",
+      "area": "architecture",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "How INDEX.md and META.md become data.js, and why the script refuses to write on drift.",
+      "related": [
+        "meta-md",
+        "data-js",
+        "showcase",
+        "public-index-md"
+      ],
+      "path": "kb/architecture/data-pipeline.md"
+    },
+    {
+      "id": "showcase",
+      "title": "The showcase site",
+      "area": "architecture",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "The GitHub Pages front end — static thumbnails, a CSS hover pan, and no live iframes.",
+      "related": [
+        "data-pipeline",
+        "data-js",
+        "thumbnails"
+      ],
+      "path": "kb/architecture/showcase.md"
+    },
+    {
+      "id": "skills-layer",
+      "title": "The skills layer",
+      "area": "architecture",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "Why skill logic lives in exactly one place and every tool path holds a pointer.",
+      "related": [
+        "tool-support",
+        "entry-chains"
+      ],
+      "path": "kb/architecture/skills-layer.md"
+    },
+    {
+      "id": "thumbnails",
+      "title": "How thumbnails are made",
+      "area": "architecture",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "Driving Chrome over the DevTools Protocol with zero dependencies, and why the page is swept before capture.",
+      "related": [
+        "showcase",
+        "running-scripts"
+      ],
+      "path": "kb/architecture/thumbnails.md"
+    },
+    {
+      "id": "tool-support",
+      "title": "Tool support and shims",
+      "area": "architecture",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "Which agent tools read AGENTS.md natively, which need a shim, and what each one was verified against.",
+      "related": [
+        "skills-layer",
+        "entry-chains"
+      ],
+      "path": "kb/architecture/tool-support.md"
+    },
+    {
+      "id": "category-index-md",
+      "title": "Category INDEX.md schema",
+      "area": "schemas",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "The shortlist table for one category, plus the chooser that tells siblings apart.",
+      "related": [
+        "meta-md",
+        "public-index-md",
+        "data-pipeline"
+      ],
+      "path": "kb/schemas/category-index-md.md"
+    },
+    {
+      "id": "data-js",
+      "title": "data.js schema",
+      "area": "schemas",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "The generated template array the showcase reads, and why it is never hand-edited.",
+      "related": [
+        "data-pipeline",
+        "showcase",
+        "meta-md"
+      ],
+      "path": "kb/schemas/data-js.md"
+    },
+    {
+      "id": "kb-entry",
+      "title": "Knowledge-base entry schema",
+      "area": "schemas",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "The frontmatter contract every kb/ entry must satisfy, and what the generator enforces.",
+      "related": [
+        "0006-kb-currency",
+        "data-js"
+      ],
+      "path": "kb/schemas/kb-entry.md"
+    },
+    {
+      "id": "meta-md",
+      "title": "META.md schema",
+      "area": "schemas",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "Field-by-field definition of a template's catalog entry, the file agents actually read.",
+      "related": [
+        "template",
+        "data-pipeline",
+        "provenance"
+      ],
+      "path": "kb/schemas/meta-md.md"
+    },
+    {
+      "id": "public-index-md",
+      "title": "public-agents/INDEX.md schema",
+      "area": "schemas",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "The tiny root index of frameworks and categories, and why it must never list templates.",
+      "related": [
+        "category-index-md",
+        "data-pipeline",
+        "entry-chains"
+      ],
+      "path": "kb/schemas/public-index-md.md"
+    },
+    {
+      "id": "add-static-template",
+      "title": "Adding a static template",
+      "area": "workflows",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "End-to-end path for a static template, and the reasoning behind the order of steps.",
+      "related": [
+        "meta-md",
+        "category-index-md",
+        "data-pipeline",
+        "thumbnails"
+      ],
+      "path": "kb/workflows/add-static-template.md"
+    },
+    {
+      "id": "generate-a-site",
+      "title": "Generating a site from the shelf",
+      "area": "workflows",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "How a request becomes a built site, including the strict-clone versus loose-reference call.",
+      "related": [
+        "entry-chains",
+        "meta-md",
+        "category-index-md"
+      ],
+      "path": "kb/workflows/generate-a-site.md"
+    },
+    {
+      "id": "import-framework-project",
+      "title": "Importing a framework project",
+      "area": "workflows",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "End-to-end path for a React, Next.js or Astro project, and why verification precedes flagging.",
+      "related": [
+        "frameworks",
+        "meta-md",
+        "data-pipeline",
+        "thumbnails"
+      ],
+      "path": "kb/workflows/import-framework-project.md"
+    },
+    {
+      "id": "publish-showcase",
+      "title": "Publishing the showcase",
+      "area": "workflows",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "What GitHub Pages serves, what has to be regenerated first, and how to check it locally.",
+      "related": [
+        "showcase",
+        "data-pipeline",
+        "running-scripts"
+      ],
+      "path": "kb/workflows/publish-showcase.md"
+    },
+    {
+      "id": "running-scripts",
+      "title": "Running the scripts",
+      "area": "operations",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "All four scripts, what each needs, and what to expect from them.",
+      "related": [
+        "data-pipeline",
+        "thumbnails",
+        "troubleshooting"
+      ],
+      "path": "kb/operations/running-scripts.md"
+    },
+    {
+      "id": "troubleshooting",
+      "title": "Troubleshooting",
+      "area": "operations",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "The failures that actually happen, what each means, and how to fix it.",
+      "related": [
+        "running-scripts",
+        "data-pipeline",
+        "thumbnails"
+      ],
+      "path": "kb/operations/troubleshooting.md"
+    },
+    {
+      "id": "0001-agents-md-single-source",
+      "title": "0001 — AGENTS.md as the single source of truth",
+      "area": "decisions",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "One instruction file, with every tool-specific path holding a pointer rather than a copy.",
+      "related": [
+        "tool-support",
+        "skills-layer"
+      ],
+      "path": "kb/decisions/0001-agents-md-single-source.md"
+    },
+    {
+      "id": "0002-generated-data-js",
+      "title": "0002 — One generated data.js at the root",
+      "area": "decisions",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "The showcase reads a single generated file built from the same markdown agents read.",
+      "related": [
+        "data-pipeline",
+        "data-js"
+      ],
+      "path": "kb/decisions/0002-generated-data-js.md"
+    },
+    {
+      "id": "0003-static-thumbnails-over-iframes",
+      "title": "0003 — Static thumbnails instead of live iframes",
+      "area": "decisions",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "Cards render screenshots, because nine live sites in one page was untenable.",
+      "related": [
+        "showcase",
+        "thumbnails"
+      ],
+      "path": "kb/decisions/0003-static-thumbnails-over-iframes.md"
+    },
+    {
+      "id": "0004-two-drop-zones",
+      "title": "0004 — Two drop zones, split by shape",
+      "area": "decisions",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "incoming/ for static templates, raw_make_websites/ for framework projects.",
+      "related": [
+        "frameworks",
+        "add-static-template",
+        "import-framework-project"
+      ],
+      "path": "kb/decisions/0004-two-drop-zones.md"
+    },
+    {
+      "id": "0005-verify-tools-not-docs",
+      "title": "0005 — Verify tool conventions against shipped code",
+      "area": "decisions",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "Where a tool's docs and its bundle disagree, the bundle wins.",
+      "related": [
+        "tool-support"
+      ],
+      "path": "kb/decisions/0005-verify-tools-not-docs.md"
+    },
+    {
+      "id": "0006-kb-currency",
+      "title": "0006 — A knowledge base that must stay current",
+      "area": "decisions",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "Why kb/ exists alongside AGENTS.md, and the rule that keeps it from rotting.",
+      "related": [
+        "kb-entry",
+        "running-scripts"
+      ],
+      "path": "kb/decisions/0006-kb-currency.md"
+    },
+    {
+      "id": "0007-pagination-and-half-height",
+      "title": "0007 — Ten per page, half-height captures",
+      "area": "decisions",
+      "updated": "2026-08-29T15:00:00Z",
+      "summary": "Two limits chosen to keep the showcase usable as the shelf grows.",
+      "related": [
+        "showcase",
+        "thumbnails"
+      ],
+      "path": "kb/decisions/0007-pagination-and-half-height.md"
+    }
+  ]
+}

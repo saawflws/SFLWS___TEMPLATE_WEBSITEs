@@ -103,3 +103,20 @@ same instructions in two places, the second place is a bug.
 An external agent should never need to read the root local-dev files. A local dev session
 should never treat `public-agents/` as its own instructions. Do not cross-link the chains,
 and do not let local-dev detail leak into `public-agents/`.
+
+## 9. Keep the knowledge base current
+
+`kb/` records why this repo is shaped the way it is: concepts, schemas, workflow reasoning,
+and dated decisions. It is only worth having if it is true.
+
+So: any change to **structure, a schema, or a workflow** updates the matching `kb/` entry,
+bumps its `updated:` timestamp, and re-runs `node scripts/build-kb.js`. Every skill that
+changes the shelf carries this as an explicit step.
+
+`kb/` never restates `AGENTS.md`, `RULES.md` or the skills — it links to them (Rule 6).
+`kb/INDEX.md` and `kb/registry.json` are generated; never hand-edit them (Rule 3 applies to
+them exactly as it does to `data.js`).
+
+A new decision gets a new dated entry in `kb/decisions/` rather than an edit to an old one.
+Decisions are a record of what was chosen and why, not a description of the current state —
+rewriting them destroys the reasoning someone will need later.

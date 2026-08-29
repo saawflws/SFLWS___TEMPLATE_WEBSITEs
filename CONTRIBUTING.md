@@ -70,6 +70,7 @@ node scripts/build-data.js --check  # report drift, write nothing — good for C
 node scripts/shoot-thumbs.js        # screenshot templates missing a thumb.webp
 node scripts/shoot-thumbs.js --all  # re-shoot everything
 node scripts/build-kb.js            # regenerate the kb/ registry
+node scripts/build-kb.js --check    # validate entries and cross-references
 ```
 
 No `npm install`, ever. Everything is plain Node using `fs` and `path` only, so it runs in
@@ -123,6 +124,15 @@ row and the upstream licence keeps applying.
 Do not submit templates you do not have the right to redistribute.
 
 ---
+
+## The knowledge base
+
+[`kb/`](kb/README.md) explains *why* the repo is shaped as it is — schemas, workflow
+reasoning, and dated decisions. If you change structure, a schema, or a workflow, update the
+matching entry, bump its `updated:` timestamp, and re-run `node scripts/build-kb.js`.
+
+Do not restate `AGENTS.md` or `RULES.md` there. `kb/` links to them; duplicating them is how
+they drift apart.
 
 ## Reporting problems
 

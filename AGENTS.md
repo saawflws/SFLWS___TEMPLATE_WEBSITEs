@@ -49,6 +49,7 @@ External agents consume the shelf through a separate, deliberately minimal entry
 │
 ├── scripts/
 │   ├── build-data.js      ← plain Node, zero dependencies. Regenerates data.js.
+│   ├── build-kb.js        ← regenerates kb/INDEX.md + kb/registry.json.
 │   └── shoot-thumbs.js    ← dev-only. Screenshots templates to thumb.webp.
 │
 ├── skills/                ← the ONLY place skill logic lives (Rule 7)
@@ -58,6 +59,7 @@ External agents consume the shelf through a separate, deliberately minimal entry
 │   └── generate-site/     ← a user request → a new website built from a template
 │
 ├── docs/                  ← human handoff guides, one per framework
+├── kb/                    ← knowledge base: concepts, schemas, decisions (generated index)
 ├── public-agents/         ← external consumer entry chain (Rule 8)
 │   ├── AGENTS.md
 │   ├── RULES.md
@@ -165,6 +167,13 @@ Skill discovery is wired separately, in the tool-specific reference layer descri
 [`skills/README.md`](skills/README.md). Those files point into `skills/`; they never copy it.
 
 ---
+
+## Why things are the way they are
+
+[`kb/`](kb/INDEX.md) is the knowledge base — concepts, field-by-field schemas, workflow
+reasoning, and dated decision records. When you want to know *why* something is shaped as it
+is, or what a `META.md` field actually means, look there. It links back to these operational
+files rather than restating them, and Rule 9 keeps it current.
 
 ## Handing work over
 

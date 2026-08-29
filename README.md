@@ -135,6 +135,15 @@ relicense derived work — check a template's Origin row before shipping it comm
 The templates use third-party fonts and libraries over CDN (Google Fonts, GSAP, Lenis,
 three.js, Tailwind), each under its own licence. Nothing is vendored into this repo.
 
+## Why things are the way they are
+
+[`kb/`](kb/INDEX.md) is the knowledge base: concepts, field-by-field schemas, the reasoning
+behind each workflow, and dated decision records — why cards are screenshots rather than live
+iframes, why there are two drop zones, why a category must appear in two places to exist.
+
+It links back to the operational files rather than restating them, and every entry carries an
+`updated` timestamp so you can judge how much to trust it.
+
 ## Contributing
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md). The short version: never delete anything (flag it
