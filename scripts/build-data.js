@@ -140,6 +140,31 @@ function readPublicIndex() {
     out.push({ framework, category, indexPath, dir: path.dirname(indexPath) });
   }
 
+  // Drift the other way: a category folder that exists on disk with its own INDEX.md
+  // but was never added to public-agents/INDEX.md. Without this check it is silently
+  // skipped and never reaches the shelf or the showcase.
+  const frameworks = [];
+  for (const c of out) {
+    if (frameworks.indexOf(c.framework) === -1) frameworks.push(c.framework);
+  }
+  for (const framework of frameworks) {
+    const fwDir = path.join(ROOT, 'websites', framework);
+    if (!exists(fwDir)) continue;
+    const dirs = fs
+      .readdirSync(fwDir, { withFileTypes: true })
+      .filter((d) => d.isDirectory() && d.name.indexOf('_DELETE_ME_') !== 0)
+      .map((d) => d.name);
+    for (const name of dirs) {
+      if (!exists(path.join(fwDir, name, 'INDEX.md'))) continue;
+      if (!out.some((c) => c.framework === framework && c.category === name)) {
+        fail(
+          'websites/' + framework + '/' + name + '/ has an INDEX.md but is not listed under "## ' +
+            framework + '/" in public-agents/INDEX.md — add it there or the category is invisible'
+        );
+      }
+    }
+  }
+
   return out;
 }
 
