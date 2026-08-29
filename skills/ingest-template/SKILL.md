@@ -111,7 +111,17 @@ The showcase renders these screenshots, not live iframes. Skipping this step is 
 the card falls back to a typographic tile — but the template will look unfinished next to
 its siblings.
 
-### 6. Update the category `INDEX.md`
+### 6. Inject the source button
+
+```bash
+node scripts/add-source-button.js
+```
+
+Adds the rainbow "view source" pill linking to the template's folder on GitHub. It is
+idempotent — the block is delimited, so re-running refreshes rather than duplicates — and it
+self-hides on any host that is not the showcase, so a cloned client site needs no cleanup.
+
+### 7. Update the category `INDEX.md`
 
 Add one row to the table in `websites/static/<category>/INDEX.md`:
 
@@ -123,7 +133,7 @@ Keep rows alphabetical by slug. The tags here are the 3–5 sharpest from `META.
 table is what an agent scans to shortlist, so they must discriminate between the rows
 directly above and below.
 
-### 7. Regenerate `data.js`
+### 8. Regenerate `data.js`
 
 ```bash
 node scripts/build-data.js
@@ -147,7 +157,7 @@ node scripts/build-kb.js
 Cataloging one more template into an existing category is not a structural change and needs
 no KB edit. Adding a category, a field, or a new step is (Rule 9).
 
-### 8. Clean up the drop folder
+### 9. Clean up the drop folder
 
 The source folder in `incoming/` is now empty (you moved the files out). Rename it to
 `_DELETE_ME_<name>/` and ask the user to confirm before deleting (Rule 1). Do not remove it

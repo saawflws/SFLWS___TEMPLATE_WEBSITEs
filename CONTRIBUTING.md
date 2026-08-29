@@ -69,6 +69,7 @@ node scripts/build-data.js          # regenerate data.js  (run after any shelf c
 node scripts/build-data.js --check  # report drift, write nothing — good for CI
 node scripts/shoot-thumbs.js        # screenshot templates missing a thumb.webp
 node scripts/shoot-thumbs.js --all  # re-shoot everything
+node scripts/add-source-button.js   # inject/refresh the "view source" pill
 node scripts/build-kb.js            # regenerate the kb/ registry
 node scripts/build-kb.js --check    # validate entries and cross-references
 ```

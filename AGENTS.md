@@ -50,7 +50,8 @@ External agents consume the shelf through a separate, deliberately minimal entry
 ├── scripts/
 │   ├── build-data.js      ← plain Node, zero dependencies. Regenerates data.js.
 │   ├── build-kb.js        ← regenerates kb/INDEX.md + kb/registry.json.
-│   └── shoot-thumbs.js    ← dev-only. Screenshots templates to thumb.webp.
+│   ├── shoot-thumbs.js    ← dev-only. Screenshots templates to thumb.webp.
+│   └── add-source-button.js ← injects the "view source" pill into each template.
 │
 ├── skills/                ← the ONLY place skill logic lives (Rule 7)
 │   ├── orchestrator/      ← routes an incoming task to one of the three below
@@ -246,6 +247,22 @@ as a CSS transform on a single image layer.
 
 After shooting, each template's `META.md` needs a Thumbnail row pointing at `thumb.webp`;
 then run `build-data.js`. A declared-but-missing thumbnail is a hard error, not a warning.
+
+### Refresh the source button
+
+```bash
+node scripts/add-source-button.js          # add or refresh on every template
+node scripts/add-source-button.js --check  # report missing or stale, exit 1
+node scripts/add-source-button.js --remove # strip it entirely
+```
+
+Injects the rainbow "view source" pill that links a rendered template back to its folder on
+GitHub. The markup sits in a delimited block, so re-running replaces it rather than stacking
+copies — run it as often as you like.
+
+It **self-hides on any host that is not the showcase**, so a template cloned for a client
+site shows nothing and needs no cleanup. That is also why `shoot-thumbs.js` explicitly hides
+it before capturing: the shooter serves from `127.0.0.1`, which counts as localhost.
 
 ### Preview the showcase locally
 

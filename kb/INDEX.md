@@ -6,7 +6,7 @@ Every entry in `kb/`, grouped by area and newest-updated first within each.
 Regenerate with `node scripts/build-kb.js`. See [`README.md`](README.md) for how the
 KB works and [`schemas/kb-entry.md`](schemas/kb-entry.md) for the entry contract.
 
-`28 entries · 6 areas · index generated 2026-08-29`
+`29 entries · 6 areas · index generated 2026-08-29`
 
 ## concepts
 
@@ -26,6 +26,7 @@ How the pieces fit together and why they are shaped that way.
 
 | Entry | Summary | Updated |
 | --- | --- | --- |
+| [The source button](architecture/source-button.md) | The rainbow "view source" pill injected into every template, and why it hides itself off the showcase. | 2026-08-29 |
 | [The data pipeline](architecture/data-pipeline.md) | How INDEX.md and META.md become data.js, and why the script refuses to write on drift. | 2026-08-29 |
 | [The showcase site](architecture/showcase.md) | The GitHub Pages front end — static thumbnails, a CSS hover pan, and no live iframes. | 2026-08-29 |
 | [The skills layer](architecture/skills-layer.md) | Why skill logic lives in exactly one place and every tool path holds a pointer. | 2026-08-29 |

@@ -1,6 +1,6 @@
 {
-  "generated": "2026-08-29T13:15:28.231Z",
-  "count": 28,
+  "generated": "2026-08-29T16:56:03.018Z",
+  "count": 29,
   "areas": [
     "concepts",
     "architecture",
@@ -109,6 +109,19 @@
         "entry-chains"
       ],
       "path": "kb/architecture/skills-layer.md"
+    },
+    {
+      "id": "source-button",
+      "title": "The source button",
+      "area": "architecture",
+      "updated": "2026-08-29T16:30:00Z",
+      "summary": "The rainbow \"view source\" pill injected into every template, and why it hides itself off the showcase.",
+      "related": [
+        "template",
+        "thumbnails",
+        "showcase"
+      ],
+      "path": "kb/architecture/source-button.md"
     },
     {
       "id": "thumbnails",

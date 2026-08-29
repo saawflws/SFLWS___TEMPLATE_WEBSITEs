@@ -235,7 +235,11 @@ const SWEEP = `
   const css = document.createElement('style');
   css.textContent = \`*,*::before,*::after{
     animation-duration:.001s!important;animation-delay:0s!important;
-    transition-duration:.001s!important;transition-delay:0s!important;}\`;
+    transition-duration:.001s!important;transition-delay:0s!important;}
+    /* The source button self-hides off the showcase host, but this shooter serves
+       from 127.0.0.1 — a localhost form — so it would otherwise appear in every
+       thumbnail. A thumbnail is a picture of the template, not of our chrome. */
+    #sflws-source-btn{display:none!important;}\`;
   document.head.appendChild(css);
   window.scrollTo(0, 0);
   return h();
