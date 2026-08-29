@@ -1,0 +1,10 @@
+description = "Import a full React, Next.js or Astro project from raw_make_websites/ into the websites/ shelf, excluding node_modules, with copy verification and a never-auto-delete source flag."
+
+prompt = """
+Read the file `skills/import-project/SKILL.md` in this repository and follow it exactly,
+from step 1. Read `RULES.md` at the repo root first — its hard rules bind.
+
+Do not summarise the skill or substitute your own approach for its flow.
+
+Task context from the user: {{args}}
+"""

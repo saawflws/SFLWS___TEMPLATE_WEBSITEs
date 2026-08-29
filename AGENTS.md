@@ -35,6 +35,9 @@ External agents consume the shelf through a separate, deliberately minimal entry
 ├── RULES.md               ← hard rules. Read first.
 ├── CLAUDE.md              ← shim → AGENTS.md (Claude Code)
 ├── GEMINI.md              ← shim → AGENTS.md (Gemini CLI)
+├── .claude/skills/        ← pointers into skills/ (Claude Code discovery)
+├── .agents/skills/        ← pointers into skills/ (Codex, OpenCode, Antigravity)
+├── .gemini/commands/      ← pointers into skills/ (Gemini CLI, TOML)
 ├── CNAME                  ← sflwsts.aasimahmed.com
 ├── index.html             ← GitHub Pages showcase. Minimal markup only.
 ├── data.js                ← GENERATED. Never hand-edit. See Rule 3.
@@ -57,6 +60,7 @@ External agents consume the shelf through a separate, deliberately minimal entry
 │   ├── RULES.md
 │   └── INDEX.md           ← frameworks → categories. Tiny. Never lists templates.
 │
+├── incoming/              ← drop zone for single static templates (p.md + index.html)
 ├── raw_make_websites/     ← drop zone for full framework project folders
 │
 ├── websites/
@@ -134,7 +138,7 @@ Skill discovery is wired separately, in the tool-specific reference layer descri
 
 ### Add a new static template
 
-1. Put the `p.md` + `index.html` pair where the skill expects it.
+1. Drop the `p.md` + `index.html` pair into `incoming/<name>/`.
 2. Run `ingest-template`.
 3. It reads both files, decides the category **itself** (Rule 4 — `p.md` is a claim, not a
    fact), files the template, writes `META.md`, updates the category `INDEX.md`, and
@@ -144,7 +148,9 @@ Skill discovery is wired separately, in the tool-specific reference layer descri
 
 ### Add a new framework project
 
-1. Drop the whole project folder into `raw_make_websites/`.
+1. Drop the whole project folder into `raw_make_websites/`. (Single static template pairs
+   go to `incoming/` instead — the split is by shape: anything with a `package.json` is a
+   project.)
 2. Run `import-project`. It detects the framework, copies to
    `websites/<framework>/<category>/<project>/` excluding `node_modules`, verifies the copy,
    writes `META.md`, updates `INDEX.md`, regenerates `data.js`.
@@ -181,8 +187,11 @@ URL — the card previews are same-origin iframes and will not measure correctly
 ## Conventions
 
 - **Static templates are single-file.** One self-contained `index.html`: inline `<style>`,
-  inline `<script>`, Google Fonts via CDN, no local asset dependencies. This is what makes
-  the iframe previews and the "copy one folder" workflow work. Keep it.
+  inline `<script>`, and no local asset dependencies. This is what makes the iframe
+  previews and the "copy one folder" workflow work. Keep it. External CDNs are allowed and
+  used — Google Fonts everywhere, and GSAP/Lenis/Three.js in `forgefitnessstudio` and
+  `severinhalbe` — so a template is self-contained on disk, not necessarily offline-capable.
+  Each `META.md` records its own external dependencies.
 - **Category folder names are `snake_case`** (`boutique_yoga_studio`), template folder names
   are lowercase, no separators (`forgefitnessstudio`).
 - **`p.md` is the original generation prompt**, kept verbatim as provenance. Never rewrite it

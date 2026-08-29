@@ -1,0 +1,10 @@
+description = "Build a new website from the SFLWS template shelf via the public-agents entry chain, choosing a template and a strict-clone or loose-reference mode."
+
+prompt = """
+Read the file `skills/generate-site/SKILL.md` in this repository and follow it exactly,
+from step 1. Read `RULES.md` at the repo root first — its hard rules bind.
+
+Do not summarise the skill or substitute your own approach for its flow.
+
+Task context from the user: {{args}}
+"""

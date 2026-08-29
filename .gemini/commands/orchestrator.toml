@@ -1,0 +1,10 @@
+description = "Route an SFLWS task to the right skill: cataloging a static template, importing a framework project, or generating a new site from the shelf. Use when it is not obvious which applies."
+
+prompt = """
+Read the file `skills/orchestrator/SKILL.md` in this repository and follow it exactly,
+from step 1. Read `RULES.md` at the repo root first — its hard rules bind.
+
+Do not summarise the skill or substitute your own approach for its flow.
+
+Task context from the user: {{args}}
+"""

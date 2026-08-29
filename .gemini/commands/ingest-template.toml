@@ -1,0 +1,10 @@
+description = "Catalog a single static website template (a p.md + index.html pair) into websites/static/, verify its category from the markup, write META.md, update INDEX.md, and regenerate data.js."
+
+prompt = """
+Read the file `skills/ingest-template/SKILL.md` in this repository and follow it exactly,
+from step 1. Read `RULES.md` at the repo root first — its hard rules bind.
+
+Do not summarise the skill or substitute your own approach for its flow.
+
+Task context from the user: {{args}}
+"""
