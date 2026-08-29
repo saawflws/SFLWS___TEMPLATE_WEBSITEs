@@ -2,7 +2,7 @@
 id: thumbnails
 title: How thumbnails are made
 area: architecture
-updated: 2026-08-29T15:00:00Z
+updated: 2026-08-29T18:00:00Z
 summary: Driving Chrome over the DevTools Protocol with zero dependencies, and why the page is swept before capture.
 related: [showcase, running-scripts]
 ---
@@ -41,5 +41,20 @@ than hundreds.
 
 ## Framework projects
 
-The script captures a **served URL**. Static templates can be served straight from disk;
-a framework project has to be built and served first, then captured by URL.
+The script captures a **served URL**. Static templates can be served straight from disk; a
+framework project has to be built and served first:
+
+```bash
+node scripts/shoot-thumbs.js --url=http://localhost:4321 --slug=mysite
+```
+
+That path is deliberately manual. Auto-running `npm install` and a build would be slow,
+network-dependent, and a genuinely bad thing for a script to do unprompted inside an agent
+sandbox. The script captures what is already running and nothing more.
+
+## Why it does not read data.js
+
+It discovers templates by walking `websites/` directly. Reading `data.js` would deadlock:
+a template's `META.md` declares its thumbnail before that thumbnail exists, so `data.js`
+cannot build until the thumbnail is shot — and the thumbnail could not be shot until
+`data.js` built. Found the first time a new template was run through the pipeline.

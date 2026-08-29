@@ -53,7 +53,12 @@ Inside a static template folder you will find:
 
 If the user named a specific template, use it. Otherwise:
 
-1. Map the request to a category using `INDEX.md`.
+0. **Settle the framework first.** `static`, `astro`, `react` or `nextjs`. It is the hardest
+   constraint — a template in the wrong one cannot be used at any price — so it prunes the
+   most candidates soonest. If the request names no framework and implies no build step,
+   `static` is the right default. **If the framework you need has no templates in the
+   category you need, say so** rather than substituting one from another framework.
+1. Map the request to a category using `INDEX.md`, within that framework.
 2. Read that category's `INDEX.md`, match against the tags, shortlist two or three.
 3. Read each shortlisted `META.md`. Check style tags and "Best suited for" against the
    brand, then check the section list against what the site actually needs.
@@ -87,5 +92,7 @@ the more predictable result — and state the assumption so they can redirect yo
 
 - Have you read `RULES.md`?
 - Do you know the framework, category, and template you are using, by exact path?
+- If the framework you were asked for has nothing suitable, have you said so rather than
+  silently substituting another?
 - Do you know whether you are doing a strict clone or a loose reference?
 - Is the request specific enough to build confidently? If not, **ask now**, not after.

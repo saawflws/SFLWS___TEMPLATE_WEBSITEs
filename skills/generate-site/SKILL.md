@@ -34,9 +34,20 @@ Actually read them. They are short, and they are the contract this skill impleme
 and palette before you can build, and if the named template turns out to be a poor fit for
 what they described, say so once, then build what they asked for.
 
+**First, establish the framework.** `INDEX.md` lists categories per framework, and a
+template from the wrong one is unusable no matter how well the design fits.
+
+- The user named a framework → use that section of `INDEX.md`.
+- They described a build step, a component model, or a stack → infer it and say so.
+- No signal → `static`, which needs no toolchain and is where the shelf is deepest.
+
+**If the requested framework has nothing in the matching category, say so plainly.** Do not
+quietly hand back a static template when someone asked for Astro. Offer the real options:
+an equivalent static template to adapt, or a different category in the framework they want.
+
 **Otherwise, auto-pick:**
 
-1. Map the request to a category from `INDEX.md`.
+1. Map the request to a category from `INDEX.md`, within that framework.
 2. Read that category's `INDEX.md`. Match the request against the tags and the "choosing
    between them" table. Shortlist two or three.
 3. Read each shortlisted `META.md`. Check **Style tags** and **Best suited for** against the
@@ -114,6 +125,7 @@ The new site, plus that report.
 ## Do not
 
 - Invent a template that is not on the shelf.
+- Substitute a different framework without saying so.
 - Modify anything under `websites/` — this skill is read-only against the shelf.
 - Read the root local-dev files as if they were the consumer contract (Rule 8).
 - Read `dum/` (Rule 2).

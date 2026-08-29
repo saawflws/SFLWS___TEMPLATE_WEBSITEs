@@ -132,7 +132,38 @@ templates — read an existing one and match it exactly. Framework-specific diff
 Add one row to `websites/<framework>/<category>/INDEX.md`, matching the existing table
 shape. Create the file with a header and table if the category is new.
 
-### 8. Regenerate `data.js`
+### 8. Thumbnail and source button
+
+A framework project cannot be served from disk, so neither step is automatic the way it is
+for a static template. Both are worth doing — a card with no thumbnail falls back to a
+typographic tile and looks unfinished next to its siblings.
+
+**Thumbnail.** Build it, serve it, then capture the running server by URL:
+
+```bash
+cd websites/<framework>/<category>/<project>
+npm install
+npm run build
+npm run preview          # next: `npm run start`. Note the URL it prints.
+```
+
+Then, from the repo root, with that server still running:
+
+```bash
+node scripts/shoot-thumbs.js --url=http://localhost:4321 --slug=<project>
+```
+
+Add the `Thumbnail` row to `META.md` only after the file exists — a declared-but-missing
+thumbnail is a hard error in `build-data.js`. If the project will not build, skip both the
+capture and the row, and say so.
+
+**Source button.** `scripts/add-source-button.js` looks for an `index.html` in the template
+folder, which a Vite project has and Next.js and Astro do not. Where it reports a skip, add
+the button by hand to the project's root layout — the block is self-contained markup and
+belongs immediately before `</body>`. Copy it from any static template. It self-hides off the
+showcase host, so it is harmless in a clone.
+
+### 9. Regenerate `data.js`
 
 ```bash
 node scripts/build-data.js
@@ -170,16 +201,9 @@ confirmation, and the `build-data.js` result.
 
 ## Note on the showcase
 
-The showcase renders static screenshots, never live iframes. `scripts/shoot-thumbs.js`
-captures a served URL, so it handles `static` templates directly but **cannot shoot a
-framework project** — that needs a build and a running dev server first.
+The showcase renders static screenshots, never live iframes. Step 8 covers how to produce
+one for a framework project. The short version: it needs a build and a running server, and
+`--url` captures whatever is already serving.
 
-So for an imported project, either:
-
-- build it, serve it, capture a screenshot into
-  `websites/<framework>/<category>/<project>/thumb.webp`, and add a Thumbnail row
-  pointing at `thumb.webp` to its `META.md` field table; or
-- leave the Thumbnail row off entirely, and the card falls back to a typographic tile.
-
-Do **not** add a Thumbnail row pointing at a file that does not exist — `build-data.js`
-treats that as a hard error and refuses to write.
+Never add a `Thumbnail` row pointing at a file that does not exist — `build-data.js` treats
+that as a hard error and refuses to write.

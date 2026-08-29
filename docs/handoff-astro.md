@@ -64,9 +64,16 @@ npm run build
 npm run preview        # note the URL it prints
 ```
 
-Then capture that URL and add the `Thumbnail` row to `META.md`. If you skip this, the
-card falls back to a typographic tile — nothing breaks. **Do not** add a `Thumbnail` row
-pointing at a file that does not exist; `build-data.js` treats that as a hard error.
+Leave that server running, and from the repo root:
+
+```bash
+node scripts/shoot-thumbs.js --url=http://localhost:4321 --slug=<project>
+```
+
+Then add the `Thumbnail` row to `META.md` — **after** the file exists. If you skip all of
+this the card falls back to a typographic tile and nothing breaks, but never add a
+`Thumbnail` row pointing at a file that is not there; `build-data.js` treats that as a hard
+error and refuses to write.
 
 ## Gotchas
 

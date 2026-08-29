@@ -19,6 +19,9 @@
  *   node scripts/shoot-thumbs.js --only=ironforge,devlog
  *   node scripts/shoot-thumbs.js --keep-open   # leave the browser running (debug)
  *
+ *   # framework projects: capture an already-running dev/preview server
+ *   node scripts/shoot-thumbs.js --url=http://localhost:4321 --slug=myastrosite
+ *
  * After running, make sure each template's META.md carries a Thumbnail row:
  *   | **Thumbnail** | `thumb.webp` |
  * then re-run: node scripts/build-data.js
@@ -59,6 +62,12 @@ const ONLY = (args.find((a) => a.startsWith('--only=')) || '')
   .split(',')
   .map((s) => s.trim())
   .filter(Boolean);
+
+/* A framework project cannot be served from disk — it needs a build and a running
+   server. --url captures whatever is already running at that address and writes the
+   result into the template folder named by --slug. */
+const URL_ARG = (args.find((a) => a.startsWith('--url=')) || '').replace('--url=', '').trim();
+const SLUG_ARG = (args.find((a) => a.startsWith('--slug=')) || '').replace('--slug=', '').trim();
 
 /* ── find a browser ───────────────────────────────────────────────── */
 
@@ -257,7 +266,7 @@ const SWEEP = `
 
 /* ── shoot one template ───────────────────────────────────────────── */
 
-async function shoot(cdp, origin, tpl) {
+async function shoot(cdp, origin, tpl, overrideUrl) {
   const { targetId } = await cdp.send('Target.createTarget', { url: 'about:blank' });
   let sessionId;
   try {
@@ -277,7 +286,7 @@ async function shoot(cdp, origin, tpl) {
     }, sessionId);
 
     const loaded = cdp.once('Page.loadEventFired', sessionId);
-    await cdp.send('Page.navigate', { url: origin + tpl.path + '/' }, sessionId);
+    await cdp.send('Page.navigate', { url: overrideUrl || origin + tpl.path + '/' }, sessionId);
     await Promise.race([loaded, sleep(NAV_TIMEOUT_MS)]);
     await sleep(SETTLE_MS);
 
@@ -307,7 +316,7 @@ async function shoot(cdp, origin, tpl) {
     }
 
     const ext = shotParams.format === 'webp' ? '.webp' : '.jpg';
-    const outFile = path.join(ROOT, tpl.path.replace(/^\//, ''), 'thumb' + ext);
+    const outFile = path.join(tpl.dir, 'thumb' + ext);
     fs.writeFileSync(outFile, Buffer.from(data, 'base64'));
 
     return {
@@ -364,10 +373,79 @@ function discover() {
 
 /* ── main ─────────────────────────────────────────────────────────── */
 
+/* ── --url mode: capture an already-running server ────────────────── */
+
+async function shootUrl() {
+  const target = discover().filter((t) => t.slug === SLUG_ARG)[0];
+  if (!target) {
+    console.error('✗ --slug=' + SLUG_ARG + ' matches no template folder under websites/.');
+    console.error('  It must name an existing template directory, e.g. --slug=mysite for');
+    console.error('  websites/astro/<category>/mysite/');
+    process.exit(1);
+  }
+
+  const browser = findBrowser();
+  if (!browser) {
+    console.error('✗ No Chrome or Edge found. Set CHROME_PATH and retry.');
+    process.exit(1);
+  }
+
+  const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sflws-shot-'));
+  const debugPort = 9222 + Math.floor(Math.random() * 400);
+  const proc = spawn(browser, browserArgs(debugPort, userDataDir), { stdio: 'ignore' });
+
+  let cdp;
+  try {
+    const version = await fetchJSON('http://127.0.0.1:' + debugPort + '/json/version');
+    cdp = await CDP.connect(version.webSocketDebuggerUrl);
+    process.stdout.write('  ' + target.slug.padEnd(22));
+    const r = await shoot(cdp, '', Object.assign({}, target, { path: '' }), URL_ARG);
+    console.log(
+      String(Math.round(r.bytes / 1024)).padStart(4) + ' KB   page ' + r.pageHeight + 'px' +
+      (r.clipped ? ' (clipped to ' + r.captured + ')' : '')
+    );
+    console.log('');
+    console.log('✓ wrote ' + r.file);
+    console.log('');
+    console.log('Next: add a Thumbnail row to that template’s META.md, then run:');
+    console.log('  node scripts/build-data.js');
+  } finally {
+    if (cdp) cdp.close();
+    if (!KEEP_OPEN) { try { proc.kill(); } catch (e) { /* ignore */ } }
+  }
+}
+
+function browserArgs(debugPort, userDataDir) {
+  return [
+    '--headless=new',
+    '--remote-debugging-port=' + debugPort,
+    '--user-data-dir=' + userDataDir,
+    '--hide-scrollbars',
+    '--no-first-run',
+    '--no-default-browser-check',
+    '--disable-extensions',
+    '--disable-background-timer-throttling',
+    '--disable-renderer-backgrounding',
+    '--force-color-profile=srgb',
+    '--enable-unsafe-swiftshader',
+    'about:blank',
+  ];
+}
+
 async function main() {
   if (typeof WebSocket === 'undefined') {
     console.error('✗ This script needs Node 21+ for the built-in WebSocket. Node here: ' + process.version);
     process.exit(1);
+  }
+
+  if (URL_ARG || SLUG_ARG) {
+    if (!URL_ARG || !SLUG_ARG) {
+      console.error('✗ --url and --slug must be used together.');
+      console.error('  e.g. node scripts/shoot-thumbs.js --url=http://localhost:4321 --slug=mysite');
+      process.exit(1);
+    }
+    await shootUrl();
+    return;
   }
 
   const browser = findBrowser();
@@ -395,20 +473,7 @@ async function main() {
   const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sflws-shot-'));
   const debugPort = 9222 + Math.floor(Math.random() * 400);
 
-  const proc = spawn(browser, [
-    '--headless=new',
-    '--remote-debugging-port=' + debugPort,
-    '--user-data-dir=' + userDataDir,
-    '--hide-scrollbars',
-    '--no-first-run',
-    '--no-default-browser-check',
-    '--disable-extensions',
-    '--disable-background-timer-throttling',
-    '--disable-renderer-backgrounding',
-    '--force-color-profile=srgb',
-    '--enable-unsafe-swiftshader', // lets the WebGL hero render without a GPU
-    'about:blank',
-  ], { stdio: 'ignore' });
+  const proc = spawn(browser, browserArgs(debugPort, userDataDir), { stdio: 'ignore' });
 
   let cdp;
   const results = [];

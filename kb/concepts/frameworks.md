@@ -2,7 +2,7 @@
 id: frameworks
 title: Frameworks on the shelf
 area: concepts
-updated: 2026-08-29T15:00:00Z
+updated: 2026-08-29T18:00:00Z
 summary: static, astro, react and nextjs — what each means here, and why detection order matters.
 related: [the-shelf, template]
 ---
@@ -35,5 +35,15 @@ Confirm against the config files on disk rather than trusting `package.json` alo
 
 This is not bookkeeping. A `static` template can be served, screenshotted and copied in one
 step. A framework project needs an install, a build, and a running server before anything can
-even look at it. That single difference drives the two drop zones, the two ingest skills, and
-two separate thumbnail paths.
+even look at it. That single difference drives the two drop zones, the two ingest skills, and two separate
+thumbnail paths.
+
+## Framework is the first filter when choosing
+
+A template in the wrong framework is unusable at any price, so it prunes candidates faster
+than anything else — which is why it sits above category in the shelf and why
+`generate-site` settles it before mapping the request to a category.
+
+When the requested framework has nothing in the needed category, the honest answer is to say
+so and offer the alternatives. Quietly substituting a static template for a requested Astro
+one produces work the user cannot use.

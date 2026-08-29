@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-29T16:58:13.333Z",
+  "generated": "2026-08-29T17:06:07.391Z",
   "count": 29,
   "areas": [
     "concepts",
@@ -26,7 +26,7 @@
       "id": "frameworks",
       "title": "Frameworks on the shelf",
       "area": "concepts",
-      "updated": "2026-08-29T15:00:00Z",
+      "updated": "2026-08-29T18:00:00Z",
       "summary": "static, astro, react and nextjs — what each means here, and why detection order matters.",
       "related": [
         "the-shelf",
@@ -127,7 +127,7 @@
       "id": "thumbnails",
       "title": "How thumbnails are made",
       "area": "architecture",
-      "updated": "2026-08-29T15:00:00Z",
+      "updated": "2026-08-29T18:00:00Z",
       "summary": "Driving Chrome over the DevTools Protocol with zero dependencies, and why the page is swept before capture.",
       "related": [
         "showcase",
@@ -242,7 +242,7 @@
       "id": "import-framework-project",
       "title": "Importing a framework project",
       "area": "workflows",
-      "updated": "2026-08-29T15:00:00Z",
+      "updated": "2026-08-29T18:00:00Z",
       "summary": "End-to-end path for a React, Next.js or Astro project, and why verification precedes flagging.",
       "related": [
         "frameworks",
@@ -269,7 +269,7 @@
       "id": "running-scripts",
       "title": "Running the scripts",
       "area": "operations",
-      "updated": "2026-08-29T15:00:00Z",
+      "updated": "2026-08-29T18:00:00Z",
       "summary": "All four scripts, what each needs, and what to expect from them.",
       "related": [
         "data-pipeline",

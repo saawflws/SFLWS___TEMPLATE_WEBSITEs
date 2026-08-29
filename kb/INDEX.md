@@ -14,9 +14,9 @@ What the moving parts are, and the vocabulary the rest of the repo assumes.
 
 | Entry | Summary | Updated |
 | --- | --- | --- |
+| [Frameworks on the shelf](concepts/frameworks.md) | static, astro, react and nextjs — what each means here, and why detection order matters. | 2026-08-29 |
 | [What counts as a template](concepts/template.md) | A self-contained site plus the metadata that makes it choosable without opening it. | 2026-08-29 |
 | [The two entry chains](concepts/entry-chains.md) | Local-dev docs and external-consumer docs are separate on purpose and must not cross-link. | 2026-08-29 |
-| [Frameworks on the shelf](concepts/frameworks.md) | static, astro, react and nextjs — what each means here, and why detection order matters. | 2026-08-29 |
 | [Provenance and licensing](concepts/provenance.md) | Where templates come from, why origin is recorded per template, and what MIT cannot cover. | 2026-08-29 |
 | [The shelf](concepts/the-shelf.md) | The template library itself — framework, category, template, and why it nests in that order. | 2026-08-29 |
 
@@ -26,11 +26,11 @@ How the pieces fit together and why they are shaped that way.
 
 | Entry | Summary | Updated |
 | --- | --- | --- |
+| [How thumbnails are made](architecture/thumbnails.md) | Driving Chrome over the DevTools Protocol with zero dependencies, and why the page is swept before capture. | 2026-08-29 |
 | [The source button](architecture/source-button.md) | The rainbow "view source" pill injected into every template, and why it hides itself off the showcase. | 2026-08-29 |
 | [The data pipeline](architecture/data-pipeline.md) | How INDEX.md and META.md become data.js, and why the script refuses to write on drift. | 2026-08-29 |
 | [The showcase site](architecture/showcase.md) | The GitHub Pages front end — static thumbnails, a CSS hover pan, and no live iframes. | 2026-08-29 |
 | [The skills layer](architecture/skills-layer.md) | Why skill logic lives in exactly one place and every tool path holds a pointer. | 2026-08-29 |
-| [How thumbnails are made](architecture/thumbnails.md) | Driving Chrome over the DevTools Protocol with zero dependencies, and why the page is swept before capture. | 2026-08-29 |
 | [Tool support and shims](architecture/tool-support.md) | Which agent tools read AGENTS.md natively, which need a shim, and what each one was verified against. | 2026-08-29 |
 
 ## schemas
@@ -51,9 +51,9 @@ End-to-end paths through the system, with the reasoning behind each step.
 
 | Entry | Summary | Updated |
 | --- | --- | --- |
+| [Importing a framework project](workflows/import-framework-project.md) | End-to-end path for a React, Next.js or Astro project, and why verification precedes flagging. | 2026-08-29 |
 | [Adding a static template](workflows/add-static-template.md) | End-to-end path for a static template, and the reasoning behind the order of steps. | 2026-08-29 |
 | [Generating a site from the shelf](workflows/generate-a-site.md) | How a request becomes a built site, including the strict-clone versus loose-reference call. | 2026-08-29 |
-| [Importing a framework project](workflows/import-framework-project.md) | End-to-end path for a React, Next.js or Astro project, and why verification precedes flagging. | 2026-08-29 |
 | [Publishing the showcase](workflows/publish-showcase.md) | What GitHub Pages serves, what has to be regenerated first, and how to check it locally. | 2026-08-29 |
 
 ## operations

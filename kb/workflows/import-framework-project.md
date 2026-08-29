@@ -2,7 +2,7 @@
 id: import-framework-project
 title: Importing a framework project
 area: workflows
-updated: 2026-08-29T15:00:00Z
+updated: 2026-08-29T18:00:00Z
 summary: End-to-end path for a React, Next.js or Astro project, and why verification precedes flagging.
 related: [frameworks, meta-md, data-pipeline, thumbnails]
 ---
@@ -45,5 +45,17 @@ the shelf clonable at a sane size. `.env*` is excluded because this repo is publ
 ## The thumbnail gap
 
 A static template can be served straight from disk. A framework project needs an install, a
-build and a running server first, so its thumbnail is a separate manual step rather than part
-of the import.
+build and a running server first, so its thumbnail is a separate manual step:
+
+```bash
+npm install && npm run build && npm run preview
+node scripts/shoot-thumbs.js --url=<the URL it printed> --slug=<project>
+```
+
+Deliberately manual. A script that silently ran `npm install` and a build would be slow,
+network-dependent, and a bad citizen inside an agent sandbox.
+
+The source button has the same shape of gap: `add-source-button.js` looks for an
+`index.html`, which Vite projects have and Next.js and Astro do not. For those, the block is
+added by hand to the root layout. It is self-contained markup and self-hides off the showcase
+host, so it behaves identically once placed.
