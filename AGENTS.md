@@ -251,6 +251,17 @@ URL — the card previews are same-origin iframes and will not measure correctly
 
 ---
 
+## Commits
+
+One commit per logical change, with a real message: what changed and **why**, not a
+restatement of the diff. Phase work in a planned build uses `PHASE <n>: <summary>`.
+
+**No trailers.** Do not append `Co-Authored-By:`, `Claude-Session:`, session URLs, or any
+other generated attribution line. The commit message ends with the last line of prose.
+
+Do not commit anything under `dum/` as part of an unrelated change — keep those diffs
+scoped (Rule 2 governs reading it; this is about keeping history legible).
+
 ## Before you commit
 
 - Did a skill change the shelf? Then `data.js` must have been regenerated in the same change.
