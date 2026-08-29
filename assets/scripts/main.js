@@ -37,7 +37,11 @@
      Keep this in step with the .thumb rule in assets/styles/main.css. */
   var THUMB_RATIO = 10 / 16;
 
-  var state = { q: '', cat: 'All' };
+  /* Ten per page keeps the first paint to ten images and fills a couple of rows
+     at common widths. Pagination runs over the FILTERED set, not the whole shelf. */
+  var PAGE_SIZE = 10;
+
+  var state = { q: '', cat: 'All', page: 1 };
   var cards = [];
 
   /* Turn a category folder name into something readable:
@@ -84,7 +88,7 @@
         box.querySelectorAll('.chip').forEach(function (c) {
           c.classList.toggle('active', c === b);
         });
-        apply();
+        refilter();
       });
       box.appendChild(b);
     }
@@ -217,24 +221,65 @@
 
   function apply() {
     var ql = state.q.trim().toLowerCase();
-    var vis = 0;
 
+    /* 1. filter */
+    var matched = [];
     cards.forEach(function (c) {
       var ok = (state.cat === 'All' || catOf(c.site) === state.cat) &&
                (!ql || c.hay.indexOf(ql) !== -1);
-      c.el.classList.toggle('hidden', !ok);
-      if (ok) vis++;
+      if (ok) matched.push(c);
     });
 
-    $('#count').textContent = 'INDEX — ' + pad(vis) + '/' + pad(cards.length);
-    $('#empty').style.display = vis ? 'none' : 'block';
+    /* 2. paginate the matches */
+    var total = matched.length;
+    var pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+    if (state.page > pages) state.page = pages;
+    if (state.page < 1) state.page = 1;
+
+    var first = (state.page - 1) * PAGE_SIZE;
+    var shown = matched.slice(first, first + PAGE_SIZE);
+
+    /* Toggle a class rather than re-rendering, so each card keeps the --pan-pct
+       already computed from its image. */
+    cards.forEach(function (c) { c.el.classList.add('hidden'); });
+    shown.forEach(function (c) { c.el.classList.remove('hidden'); });
+
+    /* 3. chrome */
+    var range = total
+      ? pad(first + 1) + '–' + pad(first + shown.length) + ' / ' + pad(total)
+      : pad(0) + ' / ' + pad(0);
+    $('#count').textContent = 'INDEX — ' + range;
+
+    $('#pager').hidden = pages < 2;
+    $('#pageInfo').textContent = 'PAGE ' + pad(state.page) + ' / ' + pad(pages);
+    $('#prevBtn').disabled = state.page <= 1;
+    $('#nextBtn').disabled = state.page >= pages;
+
+    $('#empty').style.display = total ? 'none' : 'block';
     $('#emptyQ').textContent = state.q || label(state.cat);
     $('#resetBtn').hidden = !(ql || state.cat !== 'All');
+  }
+
+  /* Any change to what is being filtered puts you back on page one — staying on
+     page 3 of a result set that now has one page is disorienting. */
+  function refilter() {
+    state.page = 1;
+    apply();
+  }
+
+  function goToPage(n) {
+    state.page = n;
+    apply();
+    var grid = $('#grid');
+    if (grid.getBoundingClientRect().top < 0) {
+      grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   function resetAll() {
     state.q = '';
     state.cat = 'All';
+    state.page = 1;
     qInput.value = '';
     document.querySelectorAll('.chip').forEach(function (c) {
       c.classList.toggle('active', c.dataset.cat === 'All');
@@ -244,8 +289,11 @@
 
   qInput.addEventListener('input', function () {
     state.q = qInput.value;
-    apply();
+    refilter();
   });
+
+  $('#prevBtn').addEventListener('click', function () { goToPage(state.page - 1); });
+  $('#nextBtn').addEventListener('click', function () { goToPage(state.page + 1); });
   $('#resetBtn').addEventListener('click', resetAll);
   $('#emptyReset').addEventListener('click', resetAll);
 
@@ -261,7 +309,7 @@
       if (qInput.value) {
         qInput.value = '';
         state.q = '';
-        apply();
+        refilter();
       } else {
         qInput.blur();
       }

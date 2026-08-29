@@ -38,7 +38,9 @@ const ROOT = path.resolve(__dirname, '..');
 
 const VIEWPORT_WIDTH = 1280;   // desktop render width
 const VIEWPORT_HEIGHT = 900;   // viewport before the full-page capture
-const MAX_CAPTURE_HEIGHT = 4000; // clip tall pages; a thumbnail only needs the top
+const MAX_CAPTURE_HEIGHT = 2000; // clip tall pages; a card shows a 16:10 window and the
+                                 // hover pan covers the rest, so height beyond this is
+                                 // bytes nobody sees
 const CAPTURE_SCALE = 0.5;     // 1280 -> 640px wide output
 const WEBP_QUALITY = 78;
 const SETTLE_MS = 1400;        // after load, before the scroll sweep
