@@ -78,6 +78,22 @@ External agents consume the shelf through a separate, deliberately minimal entry
 └── dum/                   ← DO NOT READ. See Rule 2.
 ```
 
+### Why there is only one data.js
+
+The build prompt left open whether the generated data should live at the repo root or under
+`assets/scripts/`. It lives at the **root**, as a single file, loaded directly by
+`index.html` before `main.js`:
+
+```html
+<script src="/data.js"></script>
+<script src="/assets/scripts/main.js"></script>
+```
+
+There is no second copy under `assets/` and no loader indirection. One generated file, one
+writer (`scripts/build-data.js`), one reader. Adding an `assets/scripts/data.js` that
+re-exports the root file would give the shelf two sources of truth to drift apart, which is
+exactly what Rule 3 exists to prevent.
+
 ### Why the metadata is layered
 
 An agent picking a template walks: `public-agents/INDEX.md` (which categories exist) →
