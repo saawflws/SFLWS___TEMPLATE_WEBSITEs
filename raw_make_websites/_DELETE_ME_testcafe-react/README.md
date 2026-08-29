@@ -1,3 +1,0 @@
-# Test Cafe
-
-A fixture.
