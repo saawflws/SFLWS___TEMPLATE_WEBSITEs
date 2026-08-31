@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0c0c0c" />
+<meta name="description" content="Personal training designed around you — your goals, your pace, your results. Book a free session with Marcus Reid." />
+<meta property="og:title" content="Marcus Reid — Certified Personal Trainer" />
+<meta property="og:description" content="Forge your best self. 1-on-1 coaching, online programs, nutrition planning." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://images.unsplash.com/photo-1567013127542-38183e63b4d1?q=80&w=1200&auto=format&fit=crop" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23E8432C'/><text x='32' y='44' font-size='34' font-family='Arial Black' font-weight='900' fill='white' text-anchor='middle'>MR</text></svg>" />
+
+<!-- FONTS CDN -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --bg:#0c0c0c; --bg2:#101010; --card:#161616;
+  --line:rgba(255,255,255,.08);
+  --red:#E8432C; --red-deep:#C22C17; --red-hot:#FF5A3C;
+  --ink:#ffffff; --muted:#a3a3a3;
+  --head:'Archivo',sans-serif; --body:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6;overflow-x:hidden}
+body.no-scroll{overflow:hidden}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+.container{width:min(1200px,92%);margin-inline:auto}
+::selection{background:var(--red);color:#fff}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red-hot);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* ============ TYPE / SHARED ============ */
+.eyebrow{display:flex;align-items:center;gap:9px;color:var(--red);font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--red);flex:none}
+.eyebrow--light{color:#ffd9d1}.eyebrow--light::before{background:#fff}
+.h2{font-family:var(--head);font-weight:800;text-transform:uppercase;line-height:1.02;letter-spacing:-.01em;font-size:clamp(2.3rem,4.6vw,3.5rem);margin-top:16px}
+.section{padding:110px 0}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:44px;margin-bottom:58px;flex-wrap:wrap}
+.section-desc{color:var(--muted);font-size:13.5px;max-width:380px;margin-bottom:22px}
+
+/* ============ BUTTONS ============ */
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff;border:none;cursor:pointer;
+  font-family:var(--body);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  padding:16px 26px;transition:.3s}
+.btn:hover{background:var(--red-deep);transform:translateY(-2px)}
+.btn--sm{padding:11px 20px;font-size:10px}
+.btn--outline{background:transparent;border:1px solid rgba(255,255,255,.25);color:#fff}
+.btn--outline:hover{border-color:var(--red);color:var(--red);background:transparent}
+.hero .btn--outline:hover{color:#fff;border-color:#fff;background:rgba(255,255,255,.08)}
+.btn--light{background:#fff;color:var(--red-deep)}
+.btn--light:hover{background:#ffe4de}
+.btn--full{width:100%;justify-content:center}
+.btn .arr{transition:transform .3s}.btn:hover .arr{transform:translateX(4px)}
+.card-link{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--red);display:inline-flex;gap:8px;align-items:center}
+.card-link .arr{transition:transform .3s}.card-link:hover .arr{transform:translateX(4px)}
+
+/* ============ HEADER ============ */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 0;transition:.35s}
+.site-header.scrolled{background:rgba(10,10,10,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:12px 0}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:30px;position:relative;z-index:2}
+.brand{font-family:var(--head);font-weight:900;font-size:17px;letter-spacing:.08em}
+.brand em{font-style:normal;color:var(--red)}
+.brand--lg{font-size:22px}
+.site-nav ul{display:flex;gap:36px}
+.site-nav a{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#e6e6e6;transition:.25s}
+.site-nav a:hover,.site-nav a.active{color:var(--red)}
+.header-actions{display:flex;align-items:center;gap:16px}
+.menu-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
+.menu-toggle span{width:24px;height:2px;background:#fff;transition:.3s}
+
+/* ============ HERO ============ */
+.hero{position:relative;padding:180px 0 100px;overflow:hidden;
+  background:
+    radial-gradient(1100px 620px at 66% 36%, rgba(255,90,60,.5), transparent 62%),
+    radial-gradient(800px 480px at 22% 12%, rgba(198,44,23,.35), transparent 60%),
+    linear-gradient(118deg,#180504 0%,#5a130a 42%,#8c1d10 68%,#2a0805 100%);}
+.hero-watermark span{position:absolute;font-family:var(--head);font-weight:900;text-transform:uppercase;
+  font-size:clamp(90px,17vw,270px);line-height:.82;letter-spacing:.01em;color:rgba(90,14,6,.42);user-select:none;pointer-events:none}
+.hero-watermark span:nth-child(1){top:6%;left:3%}
+.hero-watermark span:nth-child(2){top:30%;right:-3%}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:44px;align-items:center;position:relative;z-index:2}
+.hero-copy h1{font-family:var(--head);font-weight:900;text-transform:uppercase;line-height:.95;letter-spacing:-.015em;
+  font-size:clamp(2.6rem,7vw,5.7rem);margin:22px 0 24px}
+.hero-sub{color:rgba(255,231,226,.72);font-size:14px;max-width:400px;margin-bottom:34px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.hero-media{position:relative;min-height:600px}
+.hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;
+  filter:contrast(1.08) saturate(1.05);
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 26%);
+          mask-image:linear-gradient(to right,transparent 0,#000 26%);}
+.hero-media::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to top,rgba(24,5,3,.9) 0%,transparent 42%),
+             radial-gradient(75% 60% at 60% 35%,rgba(232,67,44,.22),transparent 72%);}
+.hero-stats{position:absolute;right:0;bottom:36px;display:flex;gap:14px;z-index:3}
+.stat-card{width:205px;padding:24px 22px}
+.stat-card--red{background:linear-gradient(160deg,#f0503a,#c22c17);box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.stat-card--glass{background:rgba(255,255,255,.16);backdrop-filter:blur(12px)}
+.stat-value{font-family:var(--head);font-weight:800;font-size:42px;line-height:1}
+.stat-label{font-size:12px;font-weight:600;margin-top:8px}
+.stat-text{font-size:11px;line-height:1.55;color:rgba(255,255,255,.82);margin-top:6px}
+
+/* ============ PROGRAMS ============ */
+.program-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.program-card{background:var(--card);border:1px solid var(--line);padding:28px 26px;display:flex;flex-direction:column;gap:14px;transition:.35s}
+.program-card:hover{transform:translateY(-7px);border-color:rgba(232,67,44,.55)}
+.program-num{color:var(--red);font-size:12px;font-weight:700;letter-spacing:.12em;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.program-card h3{font-family:var(--head);font-weight:800;text-transform:uppercase;font-size:17px;line-height:1.2;padding-top:16px}
+.program-card p{color:var(--muted);font-size:12.5px;line-height:1.65;flex:1}
+.program-card.is-accent{background:linear-gradient(160deg,#ef4b34,#c92f1a);border-color:transparent}
+.program-card.is-accent .program-num{color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.28)}
+.program-card.is-accent p{color:rgba(255,255,255,.88)}
+.program-card.is-accent .card-link{color:#fff}
+
+/* ============ BLOG ============ */
+.section--blog{background:var(--bg2);border-block:1px solid var(--line)}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.post-card{background:var(--card);border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column;transition:.35s}
+.post-card:hover{transform:translateY(-7px);border-color:rgba(232,67,44,.55)}
+.post-media{height:230px;overflow:hidden}
+.post-media img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+.post-card:hover .post-media img{transform:scale(1.07)}
+.post-body{padding:26px;display:flex;flex-direction:column;gap:13px;flex:1}
+.post-tag{align-self:flex-start;background:var(--red);color:#fff;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:6px 11px}
+.post-body h3{font-family:var(--head);font-weight:700;font-size:16.5px;line-height:1.35}
+.post-body p{color:var(--muted);font-size:12.5px;line-height:1.65;flex:1}
+.post-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:15px;font-size:11px;color:var(--muted)}
+.post-card.is-accent .post-body{background:linear-gradient(160deg,#ef4b34,#c92f1a)}
+.post-card.is-accent .post-tag{background:rgba(0,0,0,.28)}
+.post-card.is-accent h3{color:#fff}
+.post-card.is-accent p{color:rgba(255,255,255,.85)}
+.post-card.is-accent .post-foot{border-color:rgba(255,255,255,.28);color:rgba(255,255,255,.75)}
+.post-card.is-accent .card-link{color:#fff}
+
+/* ============ ABOUT ============ */
+.about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+.about-media{position:relative}
+.about-media img{width:100%;height:540px;object-fit:cover;filter:contrast(1.06)}
+.about-media::after{content:"";position:absolute;inset:0;background:linear-gradient(200deg,rgba(232,67,44,.32),rgba(10,4,3,.55));mix-blend-mode:multiply;pointer-events:none}
+.about-badge{position:absolute;left:-18px;bottom:36px;background:var(--red);padding:20px 26px;z-index:2;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.about-badge strong{display:block;font-family:var(--head);font-weight:800;font-size:30px;line-height:1}
+.about-badge span{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.about-paras p{color:var(--muted);font-size:14px;margin:22px 0;max-width:520px}
+.about-list{display:grid;grid-template-columns:1fr 1fr;gap:12px 26px;margin-bottom:28px}
+.about-list li{display:flex;gap:11px;font-size:13px;color:#d4d4d4}
+.about-list li::before{content:"";flex:none;width:8px;height:8px;background:var(--red);margin-top:6px}
+.cert-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.cert-row span{border:1px solid var(--line);padding:9px 15px;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#bdbdbd}
+
+/* ============ RESULTS ============ */
+.section--results{background:var(--bg2);border-block:1px solid var(--line)}
+.stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:56px}
+.strip-item{background:#141414;border:1px solid var(--line);padding:30px 28px}
+.strip-item .stat-value{font-size:44px}
+.strip-item .stat-value em{font-style:normal;color:var(--red)}
+.strip-item .stat-label{color:var(--muted);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-top:10px}
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.t-card{background:var(--card);border:1px solid var(--line);padding:30px;display:flex;flex-direction:column;gap:18px;transition:.35s}
+.t-card:hover{transform:translateY(-7px);border-color:rgba(232,67,44,.55)}
+.t-stars{color:var(--red);letter-spacing:3px;font-size:13px}
+.t-card blockquote{color:#d6d6d6;font-size:13.5px;line-height:1.7;flex:1}
+.t-card figcaption{display:flex;align-items:center;gap:13px;border-top:1px solid var(--line);padding-top:18px}
+.t-card figcaption img{width:46px;height:46px;border-radius:50%;object-fit:cover;filter:grayscale(30%)}
+.t-card figcaption strong{display:block;font-size:13.5px}
+.t-result{color:var(--red);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+
+/* ============ CONTACT ============ */
+.contact-panel{position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:64px;padding:clamp(40px,6vw,76px);
+  background:linear-gradient(140deg,#7a150b 0%,#c22c17 55%,#e8432c 100%)}
+.contact-panel::before{content:"FORGE";position:absolute;right:-40px;bottom:-70px;font-family:var(--head);font-weight:900;
+  font-size:clamp(120px,18vw,260px);line-height:1;color:rgba(0,0,0,.14);pointer-events:none}
+.contact-info{position:relative;z-index:2}
+.contact-text{color:rgba(255,255,255,.85);font-size:14px;max-width:440px;margin:22px 0 34px}
+.info-list{display:grid;gap:20px}
+.info-list li{display:flex;gap:15px;align-items:flex-start}
+.info-list svg{width:19px;height:19px;stroke:#ffd9d1;fill:none;stroke-width:1.8;flex:none;margin-top:2px}
+.info-list .lbl{display:block;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65)}
+.info-list .val{font-size:14px;font-weight:600}
+.contact-form{background:rgba(14,6,4,.55);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.16);padding:34px;display:flex;flex-direction:column;gap:18px;position:relative;z-index:2}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.form-field label{display:block;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:8px}
+.form-field input,.form-field select,.form-field textarea{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
+  color:#fff;font-family:var(--body);font-size:13px;padding:13px 14px;outline:none;transition:.25s;resize:vertical}
+.form-field :is(input,select,textarea):focus{border-color:var(--red-hot);background:rgba(255,255,255,.1)}
+.form-field select option{background:#1a0a07}
+.form-note{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:13px 16px;font-size:12.5px;font-weight:600}
+
+/* ============ FOOTER ============ */
+.site-footer{background:#0a0a0a;border-top:1px solid var(--line);padding-top:70px}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap;padding-bottom:52px;border-bottom:1px solid var(--line)}
+.foot-tag{color:var(--muted);font-size:13px;max-width:300px;margin-top:14px}
+.foot-nav{display:flex;gap:28px;flex-wrap:wrap}
+.foot-nav a{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#cfcfcf;transition:.25s}
+.foot-nav a:hover{color:var(--red)}
+.socials{display:flex;gap:10px}
+.socials a{width:40px;height:40px;border:1px solid var(--line);display:grid;place-items:center;font-size:11px;font-weight:700;letter-spacing:.05em;color:#cfcfcf;transition:.25s}
+.socials a:hover{background:var(--red);border-color:var(--red);color:#fff}
+.foot-bottom{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:24px 0;font-size:11px;letter-spacing:.08em;color:#8a8a8a}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1024px){
+  .program-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-strip{grid-template-columns:repeat(2,1fr)}
+  .blog-grid,.t-grid{grid-template-columns:repeat(2,1fr)}
+  .blog-grid .post-card:nth-child(3),.t-grid .t-card:nth-child(3){grid-column:1/-1}
+  .about-grid,.contact-panel{grid-template-columns:1fr;gap:48px}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-media{min-height:520px}
+  .hero-media img{mask-image:none;-webkit-mask-image:none}
+}
+@media (max-width:960px){
+  .menu-toggle{display:flex}
+  .site-nav{position:fixed;inset:0;background:rgba(10,10,10,.97);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;
+    transform:translateY(-100%);transition:.45s ease;z-index:-1}
+  .site-nav.open{transform:none}
+  .site-nav ul{flex-direction:column;text-align:center;gap:30px}
+  .site-nav a{font-size:15px}
+  .menu-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .menu-toggle.open span:nth-child(2){opacity:0}
+  .menu-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+}
+@media (max-width:680px){
+  .program-grid,.blog-grid,.t-grid,.stats-strip,.form-row,.about-list{grid-template-columns:1fr}
+  .blog-grid .post-card:nth-child(3),.t-grid .t-card:nth-child(3){grid-column:auto}
+  .hero{padding-top:150px}
+  .hero-media{min-height:0}
+  .hero-media img{position:relative;inset:auto;height:420px}
+  .hero-stats{position:relative;bottom:auto;margin-top:16px;flex-direction:column}
+  .stat-card{width:100%}
+  .section{padding:80px 0}
+  .about-media img{height:400px}
+  .about-badge{left:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="top">
+  <div class="container header-inner">
+    <a href="#top" class="brand" id="brand"></a>
+    <nav class="site-nav" id="siteNav"><ul id="navLinks"></ul></nav>
+    <div class="header-actions">
+      <a href="#contact" class="btn btn--sm" id="bookNow"></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="hero-watermark" id="watermark" aria-hidden="true"></div>
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow" id="heroBadge"></p>
+      <h1 id="heroTitle"></h1>
+      <p class="hero-sub" id="heroSub"></p>
+      <div class="hero-actions" id="heroCtas"></div>
+    </div>
+    <div class="hero-media">
+      <img id="heroImg" alt="Marcus Reid — certified personal trainer" decoding="async" />
+      <div class="hero-stats" id="heroStats"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRAMS ============ -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-head">
+      <div><p class="eyebrow" id="progEyebrow"></p><h2 class="h2" id="progTitle"></h2></div>
+      <div><p class="section-desc" id="progDesc"></p><a href="#contact" class="btn" id="progCta"></a></div>
+    </div>
+    <div class="program-grid" id="programGrid"></div>
+  </div>
+</section>
+
+<!-- ============ BLOG ============ -->
+<section class="section section--blog" id="blog">
+  <div class="container">
+    <div class="section-head">
+      <div><p class="eyebrow" id="blogEyebrow"></p><h2 class="h2" id="blogTitle"></h2></div>
+      <a href="#blog" class="btn btn--outline" id="blogCta"></a>
+    </div>
+    <div class="blog-grid" id="blogGrid"></div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section" id="about">
+  <div class="container about-grid">
+    <div class="about-media" data-reveal>
+      <img id="aboutImg" alt="Marcus Reid coaching in the gym" decoding="async" />
+      <div class="about-badge"><strong id="aboutBadgeValue"></strong><span id="aboutBadgeLabel"></span></div>
+    </div>
+    <div class="about-copy">
+      <p class="eyebrow" id="aboutEyebrow"></p>
+      <h2 class="h2" id="aboutTitle"></h2>
+      <div class="about-paras" id="aboutParas"></div>
+      <ul class="about-list" id="aboutList"></ul>
+      <div class="cert-row" id="aboutCerts"></div>
+      <a href="#contact" class="btn" id="aboutCta"></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESULTS ============ -->
+<section class="section section--results" id="results">
+  <div class="container">
+    <div class="section-head">
+      <div><p class="eyebrow" id="resEyebrow"></p><h2 class="h2" id="resTitle"></h2></div>
+    </div>
+    <div class="stats-strip" id="statsStrip"></div>
+    <div class="t-grid" id="tGrid"></div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="contact-panel">
+      <div class="contact-info">
+        <p class="eyebrow eyebrow--light" id="contactEyebrow"></p>
+        <h2 class="h2" id="contactTitle"></h2>
+        <p class="contact-text" id="contactText"></p>
+        <ul class="info-list" id="contactInfo"></ul>
+      </div>
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="form-field"><label for="fName">Full Name</label><input id="fName" type="text" placeholder="John Carter" required /></div>
+          <div class="form-field"><label for="fEmail">Email</label><input id="fEmail" type="email" placeholder="you@email.com" required /></div>
+        </div>
+        <div class="form-field"><label for="fGoal">Primary Goal</label><select id="fGoal"></select></div>
+        <div class="form-field"><label for="fMsg">Message</label><textarea id="fMsg" rows="4" placeholder="Tell me about your goals..."></textarea></div>
+        <button type="submit" class="btn btn--light btn--full">Book My Free Session →</button>
+        <p class="form-note" id="formNote" hidden>✓ Request received. I'll reply within 24 hours — check your inbox.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-top">
+      <div><a href="#top" class="brand brand--lg" id="footBrand"></a><p class="foot-tag" id="footTag"></p></div>
+      <nav class="foot-nav" id="footNav"></nav>
+      <div class="socials" id="footSocials"></div>
+    </div>
+    <div class="foot-bottom"><span id="copyLine"></span><span id="footMotto"></span></div>
+  </div>
+</footer>
+
+<!-- GSAP CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+/* =========================================================
+   DATA — edit ANY content here, site updates everywhere
+========================================================= */
+const SITE = {
+  brand: { first: "MARCUS", last: "REID" },
+  navCta: "Book Now",
+  nav: [
+    { label: "Services", href: "#services" },
+    { label: "About",    href: "#about" },
+    { label: "Results",  href: "#results" },
+    { label: "Contact",  href: "#contact" }
+  ],
+  hero: {
+    badge: "Certified Personal Trainer",
+    title: ["Forge Your", "Best Self"],
+    sub: "Personal training designed around you — your goals, your pace, your results.",
+    ctaPrimary: { label: "Book a Free Session", href: "#contact" },
+    ctaSecondary: { label: "View Programs", href: "#services" },
+    watermark: ["MARCUS", "REID"],
+    image: {
+      label: "MR",
+      src: "https://images.unsplash.com/photo-1567013127542-38183e63b4d1?q=80&w=1000&auto=format&fit=crop",
+      fallbacks: [
+        "https://image.qwenlm.ai/public_source/912b3684-300a-45ea-b752-272d753370b8/629b4d48f-5782-4c09-9b85-0cfa39ff79b93268.png",
+        "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1000&auto=format&fit=crop"
+      ]
+    },
+    stats: [
+      { value: 100, suffix: "%", label: "Client Satisfaction", text: "Guaranteed — every program is built around your goals.", style: "red" },
+      { value: 500, suffix: "+", label: "Clients Trained", text: "Real people, real results — from beginners to athletes.", style: "glass" }
+    ]
+  },
+  programs: {
+    eyebrow: "What I Offer",
+    title: ["Programs", "Built to Win"],
+    desc: "Every program is designed with one goal in mind — getting you the results you came here for. No fluff, no filler.",
+    cta: "View All Programs",
+    items: [
+      { num: "01", title: "One-on-One Coaching", desc: "Fully personalized training sessions built around your schedule, body, and goals. No templates — just results.", accent: false },
+      { num: "02", title: "Online Programs", desc: "Train anywhere, anytime. Custom workout plans and video guidance delivered directly to your device.", accent: false },
+      { num: "03", title: "Nutrition Planning", desc: "Fuel your transformation with a personalized nutrition strategy tailored to your goals and lifestyle.", accent: true },
+      { num: "04", title: "Group Training", desc: "High-energy small group sessions combining community motivation with expert coaching for maximum output.", accent: false }
+    ]
+  },
+  blog: {
+    eyebrow: "Knowledge & Tips",
+    title: ["Forge Your", "Mindset"],
+    cta: "All Articles",
+    posts: [
+      { tag: "Training", accent: false, date: "Apr 8, 2026", label: "TRAIN",
+        title: "5 Principles Every Beginner Must Know Before Starting",
+        excerpt: "Breaking into fitness is hard. These five fundamentals will set you up for long-term success from day one.",
+        image: { src: "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=900&auto=format&fit=crop",
+          fallbacks: ["https://image.qwenlm.ai/public_source/912b3684-300a-45ea-b752-272d753370b8/829b4d48f-5782-4c09-9b85-0cfa39ff79b91071.png",
+                      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=900&auto=format&fit=crop"] } },
+      { tag: "Nutrition", accent: false, date: "Mar 15, 2026", label: "FUEL",
+        title: "What to Eat Before and After Training for Maximum Gains",
+        excerpt: "Nutrition timing is everything. Learn exactly what to eat and when to maximize your training output.",
+        image: { src: "https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=900&auto=format&fit=crop",
+          fallbacks: ["https://image.qwenlm.ai/public_source/912b3684-300a-45ea-b752-272d753370b8/429b4d48f-5782-4c09-9b85-0cfa39ff79b98837.png",
+                      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=900&auto=format&fit=crop"] } },
+      { tag: "Mindset", accent: true, date: "Mar 10, 2026", label: "MIND",
+        title: "How to Stay Consistent When Motivation Runs Out",
+        excerpt: "Motivation fades. Discipline wins. Here's how to build the mental systems that keep you showing up every day.",
+        image: { src: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=900&auto=format&fit=crop",
+          fallbacks: ["https://image.qwenlm.ai/public_source/912b3684-300a-45ea-b752-272d753370b8/629b4d48f-5782-4c09-9b85-0cfa39ff79b98428.png",
+                      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=900&auto=format&fit=crop"] } }
+    ]
+  },
+  about: {
+    eyebrow: "The Coach",
+    title: ["Built From", "Discipline"],
+    paras: [
+      "I'm Marcus Reid — NASM-certified trainer and strength coach with 12+ years on the gym floor. I've trained everyone from first-time beginners to competitive athletes, and my philosophy never changes: meet you where you are, then build you into where you want to be.",
+      "No cookie-cutter plans. No guesswork. Just structured training, honest nutrition, and accountability that shows up every single week."
+    ],
+    list: ["Programs built around your schedule", "Monthly testing & measurements", "Direct messaging support, 7 days a week", "Injury-aware, sustainable programming"],
+    certs: ["NASM-CPT", "Precision Nutrition L1", "FRC Mobility Specialist", "USAW Level 2"],
+    badge: { value: "12+", label: "Years Experience" },
+    cta: "Train With Me",
+    image: { label: "COACH",
+      src: "https://images.unsplash.com/photo-1574680096145-d05b474e215f?q=80&w=900&auto=format&fit=crop",
+      fallbacks: ["https://image.qwenlm.ai/public_source/912b3684-300a-45ea-b752-272d753370b8/029b4d48f-5782-4c09-9b85-0cfa39ff79b97798.png",
+                  "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=900&auto=format&fit=crop"] }
+  },
+  results: {
+    eyebrow: "Proof Over Promises",
+    title: ["Real People.", "Real Results."],
+    stats: [
+      { value: 500, suffix: "+", decimals: 0, label: "Clients Trained" },
+      { value: 12,  suffix: "+", decimals: 0, label: "Years Coaching" },
+      { value: 92,  suffix: "%", decimals: 0, label: "Client Retention" },
+      { value: 4.9, suffix: "",  decimals: 1, label: "Average Rating / 5" }
+    ],
+    testimonials: [
+      { name: "Daniel Kovac", result: "−18 kg · 6 months", stars: 5,
+        quote: "Marcus rebuilt my training from zero. First time in my life I actually understand what I'm doing in the gym — and the scale finally moves.",
+        avatar: "https://randomuser.me/api/portraits/men/32.jpg" },
+      { name: "Priya Sharma", result: "0 → 10 strict pull-ups", stars: 5,
+        quote: "The online program fits around my shifts perfectly. Weekly check-ins kept me honest, and the nutrition plan removed all the guesswork.",
+        avatar: "https://randomuser.me/api/portraits/women/44.jpg" },
+      { name: "Tom Weaver", result: "Waist 42″ → 34″ · 8 months", stars: 5,
+        quote: "I've hired three trainers before Marcus. He's the first one who programmed around my old shoulder injury instead of ignoring it.",
+        avatar: "https://randomuser.me/api/portraits/men/76.jpg" }
+    ]
+  },
+  contact: {
+    eyebrow: "Start Today",
+    title: ["Ready To Forge", "Your Best Self?"],
+    text: "Book a free 30-minute session. We'll talk goals, run a quick movement screen, and map your first 90 days. No pressure, no contracts.",
+    goals: ["Fat Loss", "Muscle Gain", "Strength & Performance", "General Fitness", "Nutrition Coaching"],
+    info: [
+      { icon: "mail",  lbl: "Email",    val: "coach@marcusreid.fit" },
+      { icon: "phone", lbl: "Phone",    val: "+1 (555) 014-7788" },
+      { icon: "pin",   lbl: "Location", val: "Ironworks Strength Club, 450 Foundry St, Austin, TX" },
+      { icon: "clock", lbl: "Hours",    val: "Mon – Sat · 6:00 – 20:00" }
+    ]
+  },
+  footer: {
+    tag: "Certified personal training in Austin, TX — and online worldwide. Forge your best self.",
+    socials: [ { label: "IG", href: "#" }, { label: "YT", href: "#" }, { label: "X", href: "#" }, { label: "TT", href: "#" } ],
+    motto: "Discipline > Motivation."
+  }
+};
+
+/* =========================================================
+   RENDERER + LOGIC
+========================================================= */
+(function () {
+  "use strict";
+  const $ = (s) => document.querySelector(s);
+  const arr = (a) => a.join("<br>");
+  const arrow = '<span class="arr">→</span>';
+  const fb = (list) => ' data-fallbacks="' + list.join("|") + '"';
+
+  /* Last-resort on-brand SVG placeholder (works offline) */
+  const finalSVG = (label) => "data:image/svg+xml," + encodeURIComponent(
+    "<svg xmlns='http://www.w3.org/2000/svg' width='900' height='1000'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>" +
+    "<stop offset='0' stop-color='#7a150b'/><stop offset='1' stop-color='#141414'/></linearGradient></defs>" +
+    "<rect width='900' height='1000' fill='url(#g)'/><text x='450' y='530' fill='#E8432C' font-family='Arial,sans-serif' " +
+    "font-size='110' font-weight='900' text-anchor='middle'>" + label + "</text></svg>");
+  const initials = (name) => name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
+
+  /* ---------- Header ---------- */
+  $("#brand").innerHTML = SITE.brand.first + " <em>" + SITE.brand.last + "</em>";
+  $("#bookNow").textContent = SITE.navCta;
+  $("#navLinks").innerHTML = SITE.nav.map(n => '<li><a href="' + n.href + '">' + n.label + "</a></li>").join("");
+
+  /* ---------- Hero ---------- */
+  $("#watermark").innerHTML = SITE.hero.watermark.map(w => "<span>" + w + "</span>").join("");
+  $("#heroBadge").textContent = SITE.hero.badge;
+  $("#heroTitle").innerHTML = arr(SITE.hero.title);
+  $("#heroSub").textContent = SITE.hero.sub;
+  $("#heroCtas").innerHTML =
+    '<a href="' + SITE.hero.ctaPrimary.href + '" class="btn">' + SITE.hero.ctaPrimary.label + " " + arrow + "</a>" +
+    '<a href="' + SITE.hero.ctaSecondary.href + '" class="btn btn--outline">' + SITE.hero.ctaSecondary.label + "</a>";
+  const heroImg = $("#heroImg");
+  heroImg.src = SITE.hero.image.src;
+  heroImg.dataset.fallbacks = SITE.hero.image.fallbacks.join("|");
+  heroImg.dataset.label = SITE.hero.image.label;
+  $("#heroStats").innerHTML = SITE.hero.stats.map(s =>
+    '<div class="stat-card stat-card--' + s.style + '"><div class="stat-value"><span data-count="' + s.value + '">0</span>' + s.suffix + "</div>" +
+    '<div class="stat-label">' + s.label + '</div><p class="stat-text">' + s.text + "</p></div>").join("");
+
+  /* ---------- Programs ---------- */
+  $("#progEyebrow").textContent = SITE.programs.eyebrow;
+  $("#progTitle").innerHTML = arr(SITE.programs.title);
+  $("#progDesc").textContent = SITE.programs.desc;
+  $("#progCta").innerHTML = SITE.programs.cta + " " + arrow;
+  $("#programGrid").innerHTML = SITE.programs.items.map(p =>
+    '<article class="program-card ' + (p.accent ? "is-accent" : "") + '" data-reveal><span class="program-num">' + p.num +
+    "</span><h3>" + p.title + "</h3><p>" + p.desc + '</p><a class="card-link" href="#contact">Learn More ' + arrow + "</a></article>").join("");
+
+  /* ---------- Blog ---------- */
+  $("#blogEyebrow").textContent = SITE.blog.eyebrow;
+  $("#blogTitle").innerHTML = arr(SITE.blog.title);
+  $("#blogCta").innerHTML = SITE.blog.cta + " " + arrow;
+  $("#blogGrid").innerHTML = SITE.blog.posts.map(p =>
+    '<article class="post-card ' + (p.accent ? "is-accent" : "") + '" data-reveal><div class="post-media"><img src="' + p.image.src + '"' +
+    fb(p.image.fallbacks) + ' data-label="' + p.label + '" alt="' + p.title + '" loading="lazy" decoding="async"></div>' +
+    '<div class="post-body"><span class="post-tag">' + p.tag + "</span><h3>" + p.title + "</h3><p>" + p.excerpt + "</p>" +
+    '<div class="post-foot"><span>' + p.date + '</span><a class="card-link" href="#blog">Read More ' + arrow + "</a></div></div></article>").join("");
+
+  /* ---------- About ---------- */
+  $("#aboutEyebrow").textContent = SITE.about.eyebrow;
+  $("#aboutTitle").innerHTML = arr(SITE.about.title);
+  $("#aboutParas").innerHTML = SITE.about.paras.map(p => "<p>" + p + "</p>").join("");
+  $("#aboutList").innerHTML = SITE.about.list.map(l => "<li>" + l + "</li>").join("");
+  $("#aboutCerts").innerHTML = SITE.about.certs.map(c => "<span>" + c + "</span>").join("");
+  $("#aboutBadgeValue").textContent = SITE.about.badge.value;
+  $("#aboutBadgeLabel").textContent = SITE.about.badge.label;
+  $("#aboutCta").innerHTML = SITE.about.cta + " " + arrow;
+  const aboutImg = $("#aboutImg");
+  aboutImg.src = SITE.about.image.src;
+  aboutImg.dataset.fallbacks = SITE.about.image.fallbacks.join("|");
+  aboutImg.dataset.label = SITE.about.image.label;
+
+  /* ---------- Results ---------- */
+  $("#resEyebrow").textContent = SITE.results.eyebrow;
+  $("#resTitle").innerHTML = arr(SITE.results.title);
+  $("#statsStrip").innerHTML = SITE.results.stats.map(s =>
+    '<div class="strip-item" data-reveal><div class="stat-value"><span data-count="' + s.value + '" data-decimals="' + s.decimals + '">0</span><em>' +
+    s.suffix + '</em></div><div class="stat-label">' + s.label + "</div></div>").join("");
+  $("#tGrid").innerHTML = SITE.results.testimonials.map(t =>
+    '<figure class="t-card" data-reveal><div class="t-stars">' + "★".repeat(t.stars) + '</div><blockquote>“' + t.quote + '”</blockquote>' +
+    '<figcaption><img src="' + t.avatar + '" data-fallbacks="" data-label="' + initials(t.name) + '" alt="' + t.name + '" loading="lazy" decoding="async">' +
+    '<div><strong>' + t.name + '</strong><span class="t-result">' + t.result + "</span></div></figcaption></figure>").join("");
+
+  /* ---------- Contact ---------- */
+  const ICONS = {
+    mail:  '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>',
+    phone: '<svg viewBox="0 0 24 24"><path d="M6 3h4l1 5-3 2a13 13 0 0 0 6 6l2-3 5 1v4a2 2 0 0 1-2 2A18 18 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg>',
+    pin:   '<svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+    clock: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>'
+  };
+  $("#contactEyebrow").textContent = SITE.contact.eyebrow;
+  $("#contactTitle").innerHTML = arr(SITE.contact.title);
+  $("#contactText").textContent = SITE.contact.text;
+  $("#contactInfo").innerHTML = SITE.contact.info.map(i =>
+    "<li>" + ICONS[i.icon] + '<div><span class="lbl">' + i.lbl + '</span><span class="val">' + i.val + "</span></div></li>").join("");
+  $("#fGoal").innerHTML = SITE.contact.goals.map(g => "<option>" + g + "</option>").join("");
+
+  /* ---------- Footer ---------- */
+  $("#footBrand").innerHTML = SITE.brand.first + " <em>" + SITE.brand.last + "</em>";
+  $("#footTag").textContent = SITE.footer.tag;
+  $("#footNav").innerHTML = SITE.nav.map(n => '<a href="' + n.href + '">' + n.label + "</a>").join("");
+  $("#footSocials").innerHTML = SITE.footer.socials.map(s => '<a href="' + s.href + '" aria-label="' + s.label + '">' + s.label + "</a>").join("");
+  $("#copyLine").textContent = "© " + new Date().getFullYear() + " " + SITE.brand.first + " " + SITE.brand.last + " Performance. All rights reserved.";
+  $("#footMotto").textContent = SITE.footer.motto;
+
+  /* ---------- Image fallback chain (primary → list → SVG) ---------- */
+  document.querySelectorAll("img[data-fallbacks]").forEach(img => {
+    img.addEventListener("error", function h() {
+      const list = (img.dataset.fallbacks || "").split("|").filter(Boolean);
+      if (list.length) { img.src = list.shift(); img.dataset.fallbacks = list.join("|"); }
+      else { img.removeEventListener("error", h); img.src = finalSVG(img.dataset.label || "MR"); }
+    });
+  });
+
+  /* ---------- Nav: scroll state, mobile menu + scroll-lock ---------- */
+  const header = document.querySelector(".site-header"), nav = $("#siteNav"), toggle = $("#menuToggle");
+  const setMenu = (open) => {
+    nav.classList.toggle("open", open); toggle.classList.toggle("open", open);
+    document.body.classList.toggle("no-scroll", open);
+    toggle.setAttribute("aria-expanded", open);
+  };
+  addEventListener("scroll", () => header.classList.toggle("scrolled", scrollY > 40), { passive: true });
+  toggle.addEventListener("click", () => setMenu(!nav.classList.contains("open")));
+  nav.addEventListener("click", e => { if (e.target.tagName === "A") setMenu(false); });
+
+  /* ---------- Scrollspy (active nav link) ---------- */
+  const spy = new IntersectionObserver(es => es.forEach(en => {
+    if (en.isIntersecting) document.querySelectorAll(".site-nav a").forEach(a =>
+      a.classList.toggle("active", a.getAttribute("href") === "#" + en.target.id));
+  }), { rootMargin: "-45% 0px -50% 0px" });
+  ["home", "services", "blog", "about", "results", "contact"].forEach(id => {
+    const el = document.getElementById(id); if (el) spy.observe(el);
+  });
+
+  /* ---------- Animated counters ---------- */
+  const runCounter = el => {
+    const target = parseFloat(el.dataset.count), dec = +(el.dataset.decimals || 0);
+    const t0 = performance.now(), dur = 1400;
+    const tick = t => {
+      const p = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = (target * e).toFixed(dec);
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const io = new IntersectionObserver(es => es.forEach(en => {
+    if (en.isIntersecting) { runCounter(en.target); io.unobserve(en.target); }
+  }), { threshold: .5 });
+  document.querySelectorAll("[data-count]").forEach(el => io.observe(el));
+
+  /* ---------- Form: validate + demo submit ---------- */
+  $("#contactForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const form = e.target;
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    $("#formNote").hidden = false;
+    form.reset();
+    setTimeout(() => ($("#formNote").hidden = true), 6000);
+  });
+
+  /* ---------- GSAP animations (graceful if CDN missing) ---------- */
+  if (window.gsap && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+    gsap.timeline()
+      .from(".hero-copy > *", { y: 38, opacity: 0, stagger: .12, duration: .9, ease: "power3.out" })
+      .from(".hero-media img", { opacity: 0, scale: 1.06, duration: 1.2, ease: "power2.out" }, "-=.6")
+      .from(".stat-card", { y: 44, opacity: 0, stagger: .15, duration: .8, ease: "power3.out" }, "-=.7");
+    if (window.ScrollTrigger) {
+      gsap.to(".hero-watermark", { yPercent: 22, ease: "none", scrollTrigger: { trigger: ".hero", scrub: true } });
+      document.querySelectorAll("[data-reveal]").forEach(el => {
+        const idx = Array.prototype.indexOf.call(el.parentElement.children, el);
+        gsap.from(el, { y: 46, opacity: 0, duration: .85, delay: (idx % 4) * .08, ease: "power3.out",
+          scrollTrigger: { trigger: el, start: "top 90%" } });
+      });
+    }
+  }
+})();
+</script>
+<!-- sflws:source-button:start -->
+<style>
+#sflws-source-btn{position:fixed;right:18px;bottom:18px;z-index:2147483000;display:none;
+padding:2px;border-radius:999px;text-decoration:none;line-height:0;
+background:linear-gradient(90deg,#ff4d4d,#ffb347,#ffe66d,#7bed9f,#48dbfb,#a29bfe,#ff4d4d);
+background-size:300% 100%;animation:sflws-rainbow 6s linear infinite;
+box-shadow:0 4px 20px rgba(0,0,0,.32);transition:transform .2s ease}
+#sflws-source-btn:hover{transform:translateY(-2px)}
+#sflws-source-btn>span{display:flex;align-items:center;gap:7px;padding:9px 15px;
+border-radius:999px;background:#0d0d0f;color:#f4f4f5;
+font:600 12px/1 ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+letter-spacing:.02em;white-space:nowrap}
+#sflws-source-btn>span>b{font:inherit;color:#9aa0a6;letter-spacing:0}
+@keyframes sflws-rainbow{to{background-position:300% 0}}
+@media(prefers-reduced-motion:reduce){#sflws-source-btn{animation:none}
+#sflws-source-btn:hover{transform:none}}
+@media(max-width:600px){#sflws-source-btn{right:12px;bottom:12px}
+#sflws-source-btn>span{padding:8px 13px;font-size:11px}}
+</style>
+<a id="sflws-source-btn" href="https://github.com/saawflws/SFLWS___TEMPLATE_WEBSITEs/tree/main/websites/static/gym/marcusreid" target="_blank" rel="noopener noreferrer"
+ aria-label="View this template&#39;s source code on GitHub">
+<span><b aria-hidden="true">&lt;/&gt;</b>view source</span></a>
+<script>
+(function(){
+var h=location.hostname;
+var ok=h==='sflwsts.aasimahmed.com'||h==='localhost'||h==='127.0.0.1'||h==='[::1]'
+||/\.github\.io$/.test(h);
+var b=document.getElementById('sflws-source-btn');
+if(b&&ok)b.style.display='block';
+})();
+</script>
+<!-- sflws:source-button:end -->
+</body>
+</html>

@@ -10,8 +10,8 @@
  * what the showcase shows, edit the source INDEX.md / META.md files
  * and run:  node scripts/build-data.js
  *
- * Generated: 2026-08-29
- * Templates: 9 across 5 categories
+ * Generated: 2026-08-31
+ * Templates: 10 across 5 categories
  * ============================================================ */
 
 const FRAMEWORKS = ["static"];
@@ -82,6 +82,27 @@ const TEMPLATES = [
     "origin": "AI-generated from p.md",
     "fullTitle": "IRONHOUSE — Performance Training Collective",
     "thumb": "/websites/static/gym/ironhouse/thumb.webp"
+  },
+  {
+    "title": "Marcus Reid",
+    "slug": "marcusreid",
+    "path": "/websites/static/gym/marcusreid",
+    "framework": "static",
+    "category": "gym",
+    "desc": "A dark red personal-trainer landing page pairing individual coaching offers, credentials, proof, articles, and a free-session enquiry funnel.",
+    "tags": [
+      "personal-trainer-brand",
+      "coach-led-conversion",
+      "fitness-editorial",
+      "testimonial-proof",
+      "black-red-palette",
+      "archivo-display-type",
+      "program-card-grid",
+      "gsap-scroll-reveals"
+    ],
+    "meta": "/websites/static/gym/marcusreid/META.md",
+    "origin": "Origin could not be established (prompt reconstructed)",
+    "fullTitle": "Marcus Reid — Certified Personal Trainer"
   },
   {
     "title": "MORROW",
