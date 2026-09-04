@@ -10,7 +10,7 @@
 | **Framework** | static |
 | **Path** | `websites/static/gym/marcusreid/` |
 | **Entry** | `index.html` — self-contained single file, inline CSS + JS, Google Fonts and GSAP via CDN |
-| **Thumbnail** | — |
+| **Thumbnail** | `thumb.webp` |
 | **Prompt** | `p.md` — reconstructed from markup |
 | **Origin** | Origin could not be established (prompt reconstructed) |
 

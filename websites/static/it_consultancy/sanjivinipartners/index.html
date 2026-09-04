@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanjivini Digital Solutions — Business-first technology partners</title>
+<meta name="description" content="We start with your process, not a product demo. Business systems consulting, Zoho implementation, automation, and custom web & mobile applications for growing Indian businesses.">
+<meta name="theme-color" content="#0A1119">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230A1119'/%3E%3Cpath d='M16 6v20M6 16h20M9 9l14 14M23 9L9 23' stroke='%2334D399' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..650;1,9..144,300..650&family=JetBrains+Mono:wght@300..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      ink:  '#0A1119',
+      deep: '#060B10',
+      paper:'#E9F1EC',
+      mist: '#8CA39B',
+      line: 'rgba(233,241,236,.12)',
+      acid: 'var(--acid)',
+      warn: 'var(--warn)',
+    },
+    fontFamily: {
+      display: ['Fraunces','serif'],
+      sans: ['"Space Grotesk"','sans-serif'],
+      mono: ['"JetBrains Mono"','monospace'],
+    },
+  }}
+}
+</script>
+
+<style>
+  :root { --acid:#41B9D3; --warn:#E0876A; }
+  html { background:#0A1119; }
+  html.lenis, html.lenis body { height:auto; }
+  .lenis.lenis-smooth { scroll-behavior:auto !important; }
+  .lenis.lenis-stopped { overflow:hidden; }
+  body { background:#0A1119; color:#E9F1EC; font-family:'Space Grotesk',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:clip; }
+  ::selection { background:var(--acid); color:#06110C; }
+  ::-webkit-scrollbar { width:10px; }
+  ::-webkit-scrollbar-track { background:#070D13; }
+  ::-webkit-scrollbar-thumb { background:#1C2A33; border-radius:99px; }
+  ::-webkit-scrollbar-thumb:hover { background:var(--acid); }
+  :focus-visible { outline:2px solid var(--acid); outline-offset:3px; border-radius:2px; }
+
+  .wrap { max-width:1400px; margin-inline:auto; padding-inline:1.5rem; }
+  @media (min-width:768px){ .wrap { padding-inline:2.5rem; } }
+
+  .mono-label { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#8CA39B; }
+  .accent-word { font-style:italic; color:var(--acid); }
+  .blueprint {
+    background-image:linear-gradient(rgba(233,241,236,.038) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(233,241,236,.038) 1px,transparent 1px);
+    background-size:72px 72px;
+  }
+
+  /* masked word reveal */
+  .mask { display:inline-block; overflow:hidden; padding:0 .08em .16em; margin:0 -.08em -.16em; }
+  .mask > span { display:inline-block; will-change:transform; }
+
+  /* buttons & chips */
+  .btn { display:inline-flex; align-items:center; gap:.65rem; border-radius:999px; font-family:'JetBrains Mono',monospace;
+         font-size:12px; letter-spacing:.14em; text-transform:uppercase; padding:1.05rem 1.9rem; transition:all .35s cubic-bezier(.4,0,.2,1); white-space:nowrap; }
+  .btn-solid { background:var(--acid); color:#07130E; }
+  .btn-solid:hover { background:#E9F1EC; }
+  .btn-ghost { border:1px solid rgba(233,241,236,.18); color:#E9F1EC; }
+  .btn-ghost:hover { border-color:var(--acid); color:var(--acid); }
+  .btn-sm { padding:.7rem 1.25rem; font-size:10px; }
+  .chip { font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+          border:1px solid rgba(233,241,236,.14); border-radius:999px; padding:.55rem 1.05rem; color:#8CA39B; }
+
+  /* accordion */
+  .acc-panel { height:0; overflow:hidden; }
+  .acc-icon { transition:all .4s cubic-bezier(.4,0,.2,1); }
+  .acc-item.open .acc-icon { transform:rotate(45deg); border-color:var(--acid); color:var(--acid); }
+  .acc-head:hover .acc-num { color:var(--acid); }
+
+  /* stats */
+  .stat-num { font-family:'Fraunces',serif; font-weight:340; font-size:clamp(4.2rem,8.5vw,7.6rem); line-height:.95; letter-spacing:-.02em; }
+  .stat-unit { font-family:'Space Grotesk',sans-serif; font-size:clamp(.95rem,1.5vw,1.35rem); color:#8CA39B; margin-left:.9rem; letter-spacing:.04em; }
+  .outline-num { font-family:'Fraunces',serif; color:transparent; -webkit-text-stroke:1px rgba(233,241,236,.16); }
+
+  /* hero flowchart */
+  #flow text { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.2em; fill:#7E948E; }
+  #flow .acid-t { fill:var(--acid); }
+  .flow-node { fill:rgba(233,241,236,.02); stroke:rgba(233,241,236,.22); stroke-width:1; transform-box:fill-box; transform-origin:center; }
+  .flow-node.acid-node { stroke:var(--acid); }
+  .fc { stroke:rgba(233,241,236,.3); stroke-width:1.2; fill:none; }
+  .fc.dash { stroke:var(--acid); opacity:0; stroke-dasharray:3 7; }
+  .fmark { stroke:rgba(233,241,236,.28); stroke-width:1; fill:none; }
+  .jdot { fill:rgba(233,241,236,.35); }
+
+  /* ticker */
+  .t-item { font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.32em; text-transform:uppercase; color:rgba(233,241,236,.75); white-space:nowrap; }
+  .t-sep { flex-shrink:0; opacity:.9; }
+
+  /* ways of working rows */
+  .wow-row { transition:background .4s; }
+  .wow-row .wow-num { transition:color .3s; }
+  .wow-row:hover .wow-num { color:var(--acid); }
+
+  /* nav */
+  #nav { transition:transform .5s cubic-bezier(.4,0,.2,1), background .35s, border-color .35s; border-bottom:1px solid transparent; }
+  #nav.nav-solid { background:rgba(10,17,25,.82); backdrop-filter:blur(14px); border-bottom-color:rgba(233,241,236,.1); }
+  #nav.nav-hidden { transform:translateY(-110%); }
+  #menuBtn span { position:absolute; left:50%; width:22px; height:1.5px; background:#E9F1EC; transition:all .35s cubic-bezier(.4,0,.2,1); }
+  #menuBtn span:nth-child(1){ transform:translate(-50%,-4px); }
+  #menuBtn span:nth-child(2){ transform:translate(-50%,4px); }
+  #menuBtn.open span:nth-child(1){ transform:translate(-50%,0) rotate(45deg); }
+  #menuBtn.open span:nth-child(2){ transform:translate(-50%,0) rotate(-45deg); }
+  #menu { transform:translateY(-102%); }
+
+  /* horizontal showcase */
+  #track { will-change:transform; }
+  @media (min-width:1024px){
+    #track.is-h { flex-direction:row; width:max-content; }
+    .panel { width:min(86vw,1060px); flex-shrink:0; }
+  }
+  @media (min-width:1024px) and (max-height:840px){
+    .panel-mock-inner { transform:scale(.86); }
+  }
+
+  /* form */
+  .field input, .field select, .field textarea {
+    width:100%; background:transparent; border:0; border-bottom:1px solid rgba(233,241,236,.15);
+    padding:.8rem 0; color:#E9F1EC; font-size:15px; transition:border-color .3s; border-radius:0;
+  }
+  .field textarea { resize:vertical; min-height:110px; }
+  .field input::placeholder, .field textarea::placeholder { color:rgba(140,163,155,.45); }
+  .field input:focus, .field select:focus, .field textarea:focus { outline:none; border-bottom-color:var(--acid); }
+  .field select option { background:#0A1119; color:#E9F1EC; }
+  .field .err { opacity:0; transition:opacity .3s; }
+  .field.bad input, .field.bad textarea { border-bottom-color:var(--warn); }
+  .field.bad .err { opacity:1; }
+
+  /* toast */
+  #toast { transform:translateY(90px); opacity:0; }
+
+  .reg-m { position:absolute; font-family:'JetBrains Mono',monospace; font-size:14px; color:rgba(233,241,236,.3); line-height:1; user-select:none; pointer-events:none; }
+  .bg-acid-soft { background:color-mix(in srgb, var(--acid) 14%, transparent); }
+</style>
+<noscript><style>#loader,#menu{display:none!important}</style></noscript>
+</head>
+
+<body>
+
+<!-- ══════════ LOADER ══════════ -->
+<div id="loader" class="fixed inset-0 z-[200] bg-deep flex flex-col items-center justify-center gap-7">
+  <div class="overflow-hidden">
+    <p id="loaderWord" class="font-display font-light text-3xl md:text-4xl tracking-tight">Sanjivini<span class="accent-word">.</span></p>
+  </div>
+  <div class="w-44 h-px bg-white/10 overflow-hidden">
+    <span id="loaderBar" class="block h-full w-full bg-acid scale-x-0 origin-left"></span>
+  </div>
+  <p id="loaderSub" class="mono-label !tracking-[0.42em]">Business first · Technology next</p>
+</div>
+
+<!-- ══════════ NAV ══════════ -->
+<header id="nav" class="fixed top-0 inset-x-0 z-[100]">
+  <div class="wrap flex items-center justify-between h-[72px]">
+    <a href="#top" class="flex items-center gap-3" aria-label="Sanjivini Digital Solutions — home">
+      <svg width="18" height="18" viewBox="0 0 12 12" fill="none" stroke="var(--acid)" stroke-width="1.2" aria-hidden="true"><path d="M6 1v10M1 6h10M2.5 2.5l7 7M9.5 2.5l-7 7"/></svg>
+      <span class="font-display text-xl font-light tracking-tight">Sanjivini</span>
+      <span class="hidden sm:inline mono-label !text-[9.5px] !tracking-[0.34em] ml-1">Digital Solutions</span>
+    </a>
+    <nav class="hidden lg:flex items-center gap-9">
+      <a href="#services" class="mono-label !tracking-[0.2em] hover:text-paper transition-colors">Services</a>
+      <a href="#approach" class="mono-label !tracking-[0.2em] hover:text-paper transition-colors">Approach</a>
+      <a href="#work" class="mono-label !tracking-[0.2em] hover:text-paper transition-colors">Work</a>
+      <a href="#about" class="mono-label !tracking-[0.2em] hover:text-paper transition-colors">About</a>
+    </nav>
+    <div class="flex items-center gap-4">
+      <a href="#contact" class="btn btn-solid btn-sm hidden md:inline-flex">Start a project</a>
+      <button id="menuBtn" class="lg:hidden relative w-10 h-10 grid place-items-center" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <span id="progress" class="absolute bottom-[-1px] left-0 h-px w-full bg-acid origin-left scale-x-0"></span>
+</header>
+
+<!-- ══════════ MOBILE MENU ══════════ -->
+<div id="menu" class="fixed inset-0 z-[95] bg-deep flex flex-col justify-center px-8">
+  <nav class="flex flex-col gap-2">
+    <a href="#services" class="m-link font-display font-light text-[2.6rem] leading-tight flex items-baseline gap-4"><span class="mono-label !text-[10px]">01</span>Services</a>
+    <a href="#approach" class="m-link font-display font-light text-[2.6rem] leading-tight flex items-baseline gap-4"><span class="mono-label !text-[10px]">02</span>Approach</a>
+    <a href="#work" class="m-link font-display font-light text-[2.6rem] leading-tight flex items-baseline gap-4"><span class="mono-label !text-[10px]">03</span>Work</a>
+    <a href="#about" class="m-link font-display font-light text-[2.6rem] leading-tight flex items-baseline gap-4"><span class="mono-label !text-[10px]">04</span>About</a>
+    <a href="#contact" class="m-link font-display font-light text-[2.6rem] leading-tight flex items-baseline gap-4"><span class="mono-label !text-[10px] text-acid">05</span><span class="accent-word">Contact</span></a>
+  </nav>
+  <div class="m-foot mt-14 pt-8 border-t border-line flex flex-col gap-3">
+    <a href="mailto:support@sanjivini-it.com" class="text-sm text-mist hover:text-acid transition-colors">support@sanjivini-it.com</a>
+    <a href="tel:+919008242363" class="text-sm text-mist hover:text-acid transition-colors">+91 90082 42363</a>
+    <p class="mono-label !text-[9.5px] mt-2">Mon–Fri · 10am–7pm IST · Dakshina Kannada &amp; Bengaluru</p>
+  </div>
+</div>
+
+<main id="top">
+
+<!-- ══════════ HERO ══════════ -->
+<section class="relative blueprint min-h-[100svh] flex flex-col justify-center pt-28 pb-8 overflow-hidden">
+  <div class="wrap">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+
+      <div class="lg:col-span-7">
+        <p id="kicker" class="mono-label flex items-center gap-3">
+          <span class="w-8 h-px bg-acid inline-block"></span>
+          Business-first technology partners — Bantwala · Bengaluru
+        </p>
+        <h1 id="heroH1" class="font-display font-light text-[clamp(3rem,7.4vw,6.6rem)] leading-[1.04] tracking-[-0.01em] mt-7">
+          Your business already <span class="accent-word">works.</span><br>
+          The software <span class="accent-word">should</span> too.
+        </h1>
+        <p id="heroSub" class="text-mist text-lg md:text-xl leading-relaxed max-w-xl mt-8">
+          We map how your team actually operates, then build the system around it — Zoho where it fits,
+          custom software where it doesn't, automation everywhere in between.
+        </p>
+        <div id="heroCtas" class="flex flex-wrap items-center gap-4 mt-10">
+          <a href="#contact" class="btn btn-solid magnetic">Book a free consultation
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+          </a>
+          <a href="#work" class="btn btn-ghost">See what we've built</a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 flex justify-center lg:justify-end">
+        <!-- Process blueprint — draws itself on load -->
+        <svg id="flow" viewBox="0 0 460 540" fill="none" class="w-full max-w-[300px] sm:max-w-[380px] lg:max-w-[460px]" aria-hidden="true">
+          <path class="fmark" d="M12 20h12M18 14v12"/>
+          <path class="fmark" d="M436 20h12M442 14v12"/>
+          <path class="fmark" d="M12 520h12M18 514v12"/>
+          <path class="fmark" d="M436 520h12M442 514v12"/>
+          <path class="fc" d="M105 68 V170 H120"/>
+          <path class="fc" d="M300 170 H316"/>
+          <path class="fc" d="M379 192 V260"/>
+          <path class="fc" d="M379 304 V332 H160 V360"/>
+          <path class="fc" d="M210 212 V252"/>
+          <path class="fc" d="M210 296 V328 H160 V360"/>
+          <path class="fc dash" d="M90 382 H16 V46 H30"/>
+          <rect class="flow-node" x="30" y="24" width="150" height="44" rx="10"/>
+          <polygon class="flow-node" points="210,128 300,170 210,212 120,170"/>
+          <rect class="flow-node" x="316" y="148" width="126" height="44" rx="10"/>
+          <rect class="flow-node acid-node" x="134" y="252" width="152" height="44" rx="10"/>
+          <rect class="flow-node" x="308" y="260" width="142" height="44" rx="10"/>
+          <rect class="flow-node" x="90" y="360" width="140" height="44" rx="10"/>
+          <text x="105" y="50" text-anchor="middle">ORDER DESK</text>
+          <text x="210" y="174" text-anchor="middle">APPROVAL?</text>
+          <text x="379" y="174" text-anchor="middle">INVENTORY</text>
+          <text x="210" y="278" text-anchor="middle" class="acid-t">AUTOMATED</text>
+          <text x="379" y="286" text-anchor="middle">MONTH-END</text>
+          <text x="160" y="386" text-anchor="middle">HANDOFF</text>
+          <text x="6" y="230" transform="rotate(-90 6 230)">MANUAL LOOP</text>
+          <circle class="jdot" cx="160" cy="332" r="2.5"/>
+          <circle class="jdot" cx="210" cy="328" r="2.5"/>
+          <circle class="jdot" cx="379" cy="332" r="2.5"/>
+          <circle id="flowDot" r="3.5" fill="var(--acid)" opacity="0"/>
+          <path id="dotPath" d="M105 68 L105 170 L210 170 L210 340 L160 340 L160 360" opacity="0"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="mt-14 lg:mt-20 border-t border-line pt-6 flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
+      <div id="heroChips" class="flex flex-wrap gap-2.5">
+        <span class="chip">Zoho One &amp; CRM</span>
+        <span class="chip">Process automation</span>
+        <span class="chip">Web &amp; mobile apps</span>
+        <span class="chip">Marketplace platforms</span>
+      </div>
+      <div id="scrollHint" class="flex items-center gap-4 mono-label !text-[9.5px]">
+        Scroll
+        <span class="relative w-px h-9 bg-white/15 overflow-hidden">
+          <span id="scrollDot" class="absolute top-0 left-0 w-full h-3.5 bg-acid"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ TICKER ══════════ -->
+<div class="overflow-hidden border-b border-line py-5 select-none" aria-hidden="true">
+  <div id="tickerTrack" class="flex items-center gap-10 w-max">
+    <span class="t-item">Zoho One &amp; CRM</span>
+    <svg class="t-sep" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="var(--acid)" stroke-width="1.2"><path d="M6 1v10M1 6h10M2.5 2.5l7 7M9.5 2.5l-7 7"/></svg>
+    <span class="t-item">Process automation</span>
+    <svg class="t-sep" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="var(--acid)" stroke-width="1.2"><path d="M6 1v10M1 6h10M2.5 2.5l7 7M9.5 2.5l-7 7"/></svg>
+    <span class="t-item">Web &amp; mobile apps</span>
+    <svg class="t-sep" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="var(--acid)" stroke-width="1.2"><path d="M6 1v10M1 6h10M2.5 2.5l7 7M9.5 2.5l-7 7"/></svg>
+    <span class="t-item">Marketplace platforms</span>
+    <svg class="t-sep" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="var(--acid)" stroke-width="1.2"><path d="M6 1v10M1 6h10M2.5 2.5l7 7M9.5 2.5l-7 7"/></svg>
+    <span class="t-item">Business systems consulting</span>
+    <svg class="t-sep" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="var(--acid)" stroke-width="1.2"><path d="M6 1v10M1 6h10M2.5 2.5l7 7M9.5 2.5l-7 7"/></svg>
+    <span class="t-item">Zoho Creator &amp; Deluge</span>
+    <svg class="t-sep" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="var(--acid)" stroke-width="1.2"><path d="M6 1v10M1 6h10M2.5 2.5l7 7M9.5 2.5l-7 7"/></svg>
+    <span class="t-item">AppSheet &amp; Apps Script</span>
+    <svg class="t-sep" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="var(--acid)" stroke-width="1.2"><path d="M6 1v10M1 6h10M2.5 2.5l7 7M9.5 2.5l-7 7"/></svg>
+  </div>
+</div>
+
+<!-- ══════════ 01 · SERVICES ══════════ -->
+<section id="services" class="py-24 md:py-36">
+  <div class="wrap">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 border-b border-line pb-8 mb-4">
+      <div>
+        <p class="mono-label" data-reveal><span class="text-acid">01</span> — Services</p>
+        <h2 class="font-display font-light text-[clamp(2.2rem,4.6vw,3.9rem)] leading-[1.06] mt-5" data-reveal>Five ways we get involved.</h2>
+      </div>
+      <p class="text-mist text-sm leading-relaxed max-w-xs md:text-right" data-reveal>
+        Most engagements start with one and grow into two or three. You don't have to know which you need — that's the first conversation.
+      </p>
+    </div>
+
+    <div class="border-t border-line">
+      <!-- 01 Zoho -->
+      <div class="acc-item border-b border-line">
+        <button class="acc-head w-full flex items-center gap-6 md:gap-10 py-7 md:py-8 text-left" aria-expanded="false">
+          <span class="acc-num mono-label md:w-14 shrink-0 transition-colors">01</span>
+          <span class="flex-1 min-w-0">
+            <span class="font-display font-light text-2xl md:text-[2.1rem] leading-tight block">Zoho Implementation &amp; Customization</span>
+            <span class="text-mist text-sm mt-1.5 block md:hidden">Configured to your pipeline — not a demo template.</span>
+          </span>
+          <span class="hidden md:block text-mist text-sm max-w-[230px] shrink-0">Configured to your pipeline — not a demo template.</span>
+          <span class="acc-icon w-10 h-10 rounded-full border border-white/15 grid place-items-center shrink-0">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M7 1v12M1 7h12"/></svg>
+          </span>
+        </button>
+        <div class="acc-panel">
+          <div class="pb-10 md:pl-24 grid md:grid-cols-2 gap-8 md:gap-14">
+            <div>
+              <p class="text-mist leading-relaxed">Out of the box, Zoho is powerful and generic. We configure CRM, Books, Inventory, People and Creator around how your pipeline actually runs, connect the apps to each other, and take you live in phases with training that sticks.</p>
+              <a href="#contact" class="inline-flex items-center gap-2 mt-7 mono-label !text-[10px] !tracking-[0.22em] text-acid">Discuss this service
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+              </a>
+            </div>
+            <ul class="flex flex-col gap-3.5 text-[15px] text-paper/80">
+              <li class="flex gap-3.5"><svg class="mt-2 shrink-0" width="16" height="2" aria-hidden="true"><path d="M0 1h16" stroke="var(--acid)" stroke-width="1.5"/></svg>Zoho One rollout with governance &amp; cross-app workflows</li>
+              <li class="flex gap-3.5"><svg class="mt-2 shrink-0" width="16" height="2" aria-hidden="true"><path d="M0 1h16" stroke="var(--acid)" stroke-width="1.5"/></svg>Custom functions &amp; integrations — Tally, gateways, logistics</li>
+              <li class="flex gap-3.5"><svg class="mt-2 shrink-0" width="16" height="2" aria-hidden="true"><path d="M0 1h16" stroke="var(--acid)" stroke-width="1.5"/></svg>Phased go-live with role-based training</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 Consulting -->
+      <div class="acc-item border-b border-line">
+        <button class="acc-head w-full flex items-center gap-6 md:gap-10 py-7 md:py-8 text-left" aria-expanded="false">
+          <span class="acc-num mono-label md:w-14 shrink-0 transition-colors">02</span>
+          <span class="flex-1 min-w-0">
+            <span class="font-display font-light text-2xl md:text-[2.1rem] leading-tight block">Business Systems Consulting</span>
+            <span class="text-mist text-sm mt-1.5 block md:hidden">Find the bottleneck before you buy software.</span>
+          </span>
+          <span class="hidden md:block text-mist text-sm max-w-[230px] shrink-0">Find the bottleneck before you buy software.</span>
+          <span class="acc-icon w-10 h-10 rounded-full border border-white/15 grid place-items-center shrink-0">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M7 1v12M1 7h12"/></svg>
+          </span>
+        </button>
+        <div class="acc-panel">
+          <div class="pb-10 md:pl-24 grid md:grid-cols-2 gap-8 md:gap-14">
+            <div>
+              <p class="text-mist leading-relaxed">Most operational pain isn't a missing tool — it's a handoff nobody owns. We map the work with the people doing it, find the real bottleneck, and give you a roadmap sequenced by impact, not by vendor.</p>
+              <a href="#contact" class="inline-flex items-center gap-2 mt-7 mono-label !text-[10px] !tracking-[0.22em] text-acid">Discuss this service
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+              </a>
+            </div>
+            <ul class="flex flex-col gap-3.5 text-[15px] text-paper/80">
+              <li class="flex gap-3.5"><svg class="mt-2 shrink-0" width="16" height="2" aria-hidden="true"><path d="M0 1h16" stroke="var(--acid)" stroke-width="1.5"/></svg>Process discovery &amp; mapping, on site</li>
+              <li class="flex gap-3.5"><svg class="mt-2 shrink-0" width="16" height="2" aria-hidden="true"><path d="M0 1h16" stroke="var(--acid)" stroke-width="1.5"/></svg>Bottleneck &amp; cost analysis</li>
+              <li class="flex gap-3.5"><svg class="mt-2 shrink-0" width="16" height="2" aria-hidden="true"><path d="M0 1h16" stroke="var(--acid)" stroke-width="1.5"/></svg>Build-vs-configure recommendation &amp; roadmap</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 Web & mobile -->
+      <div class="acc-item border-b border-line">
+        <button class="acc-head w-full flex items-center gap-6 md:gap-10 py-7 md:py-8 text-left" aria-expanded="false">
+          <span class="acc-num mono-label md:w-14 shrink-0 transition-colors">03</span>
+          <span class="flex-1 min-w-0">
+            <span class="font-display font-light text-2xl md:text-[2.1rem] leading-tight block">Custom Web &amp; Mobile Applications</span>
+            <span class="text-mist text-sm mt-1.5 block md:hidden">For the part no product understands.</span>
+          </span>
+          <span class="hidden md:block text-mist text-sm max-w-[230px] shrink-0">For the part no product understands.</span>
+          <span class="acc-icon w-10 h-10 rounded-full border border-white/15 grid place-items-center shrink-0">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M7 1v12M1 7h12"/></svg>
+          </span>
+        </button>
+        <div class="acc-panel">
+          <div class="pb-10 md:pl-24 grid md:grid-cols-2 gap-8 md:gap-14">
+            <div>
+              <p class="text-mist leading-relaxed">When configuration runs out, we build software: customer and vendor portals, internal operations tools, and native Android apps — designed to behave on patchy connectivity and integrated with the systems you already run.</p>
+              <a href="#contact" class="inline-flex items-center gap-2 mt-7 mono-label !text-[10px] !tracking-[0.22em] text-acid">Discuss this service
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+              </a>
+            </div>
+            <ul class="flex flex-col gap-3.5 text-[15px] text-paper/80">
+              <li class="flex gap-3.5"><svg class="mt-2 shrink-0" width="16" height="2" aria-hidden="true"><path d="M0 1h16" stroke="var(--acid)" stroke-width="1.5"/></svg>Customer &amp; vendor portals with real access control</li>
+              <li class="flex gap-3.5"><svg class="mt-2 shrink-0" width="16" height="2" aria-hidden="true"><path d="M0 1h16" stroke="var(--acid)" stroke-width="1.5"/></svg>Native Android applications</li>
+              <li class="flex gap-3.5"><svg class="mt-2 shrink-0" width="16" height="2" aria-hidden="true"><path d="M0 1h16" stroke="var(--acid)" stroke-width="1.5"/></svg>API design &amp; integration into existing systems</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 Marketplace -->
+      <div class="acc-item border-b border-line">
+        <button class="acc-head w-full flex items-center gap-6 md:gap-10 py-7 md:py-8 text-left" aria-expanded="false">
+          <span class="acc-num mono-label md:w-14 shrink-0 transition-colors">04</span>
+          <span class="flex-1 min-w-0">
+            <span class="font-display font-light text-2xl md:text-[2.1rem] leading-tight block">Marketplace &amp; Platform Development</span>
+            <span class="text-mist text-sm mt-1.5 block md:hidden">Shipped end to end. Operated daily.</span>
+          </span>
+          <span class="hidden md:block text-mist text-sm max-w-[230px] shrink-0">Shipped end to end. Operated daily.</span>
+          <span class="acc-icon w-10 h-10 rounded-full border border-white/15 grid place-items-center shrink-0">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M7 1v12M1 7h12"/></svg>
+          </span>
+        </button>
+        <div class="acc-panel">
+          <div class="pb-10 md:pl-24 grid md:grid-cols-2 gap-8 md:gap-14">
+            <div>
+              <p class="text-mist leading-relaxed">Multi-vendor platforms fail in unglamorous places — seller onboarding, catalogue, delivery slots, settlement. We've shipped one end to end and operate it every day, so we know exactly where they break.</p>
+              <a href="#contact" class="inline-flex items-center gap-2 mt-7 mono-label !text-[10px] !tracking-[0.22em] text-acid">Discuss this service
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+              </a>
+            </div>
+            <ul class="flex flex-col gap-3.5 text-[15px] text-paper/80">
+              <li class="flex gap-3.5"><svg class="mt-2 shrink-0" width="16" height="2" aria-hidden="true"><path d="M0 1h16" stroke="var(--acid)" stroke-width="1.5"/></svg>Seller onboarding &amp; verification</li>
+              <li class="flex gap-3.5"><svg class="mt-2 shrink-0" width="16" height="2" aria-hidden="true"><path d="M0 1h16" stroke="var(--acid)" stroke-width="1.5"/></svg>Catalogue, pricing &amp; availability operations</li>
+              <li class="flex gap-3.5"><svg class="mt-2 shrink-0" width="16" height="2" aria-hidden="true"><path d="M0 1h16" stroke="var(--acid)" stroke-width="1.5"/></svg>Delivery zones, slots &amp; settlement logic</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 Automation -->
+      <div class="acc-item border-b border-line">
+        <button class="acc-head w-full flex items-center gap-6 md:gap-10 py-7 md:py-8 text-left" aria-expanded="false">
+          <span class="acc-num mono-label md:w-14 shrink-0 transition-colors">05</span>
+          <span class="flex-1 min-w-0">
+            <span class="font-display font-light text-2xl md:text-[2.1rem] leading-tight block">Business Process Automation</span>
+            <span class="text-mist text-sm mt-1.5 block md:hidden">Stop paying people to forward things.</span>
+          </span>
+          <span class="hidden md:block text-mist text-sm max-w-[230px] shrink-0">Stop paying people to forward things.</span>
+          <span class="acc-icon w-10 h-10 rounded-full border border-white/15 grid place-items-center shrink-0">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M7 1v12M1 7h12"/></svg>
+          </span>
+        </button>
+        <div class="acc-panel">
+          <div class="pb-10 md:pl-24 grid md:grid-cols-2 gap-8 md:gap-14">
+            <div>
+              <p class="text-mist leading-relaxed">The cheapest wins are usually the processes people do by habit — follow-ups, sheets, approvals. We automate them with workflow tools and low-code, in days rather than quarters.</p>
+              <a href="#contact" class="inline-flex items-center gap-2 mt-7 mono-label !text-[10px] !tracking-[0.22em] text-acid">Discuss this service
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+              </a>
+            </div>
+            <ul class="flex flex-col gap-3.5 text-[15px] text-paper/80">
+              <li class="flex gap-3.5"><svg class="mt-2 shrink-0" width="16" height="2" aria-hidden="true"><path d="M0 1h16" stroke="var(--acid)" stroke-width="1.5"/></svg>Approvals &amp; escalations that route themselves</li>
+              <li class="flex gap-3.5"><svg class="mt-2 shrink-0" width="16" height="2" aria-hidden="true"><path d="M0 1h16" stroke="var(--acid)" stroke-width="1.5"/></svg>Zoho Flow, Deluge, AppSheet &amp; Apps Script</li>
+              <li class="flex gap-3.5"><svg class="mt-2 shrink-0" width="16" height="2" aria-hidden="true"><path d="M0 1h16" stroke="var(--acid)" stroke-width="1.5"/></svg>Reporting that assembles itself overnight</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="flex items-start gap-4 text-mist text-sm leading-relaxed max-w-xl mt-10" data-reveal>
+      <svg class="mt-0.5 shrink-0" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--acid)" stroke-width="1.3" aria-hidden="true"><circle cx="3.5" cy="14.5" r="2.2"/><circle cx="14.5" cy="3.5" r="2.2"/><path d="M5.2 12.8L12.8 5.2"/></svg>
+      Consulting usually comes first — it decides which of the other four follow. You don't have to know which you need; that's the first conversation.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 02 · APPROACH ══════════ -->
+<section id="approach" class="py-24 md:py-36 border-t border-line">
+  <div class="wrap">
+    <p class="mono-label" data-reveal><span class="text-acid">02</span> — Approach</p>
+    <h2 class="font-display font-light text-[clamp(2.2rem,4.6vw,3.9rem)] leading-[1.06] mt-5" data-reveal>Business first. Technology next.</h2>
+
+    <p class="font-display font-light text-[clamp(1.45rem,3vw,2.4rem)] leading-[1.35] max-w-4xl mt-14" data-reveal>
+      We don't open with a product demo. We open with <span class="accent-word">your order desk</span>, your approvals, your month-end — the places where work waits on a person.
+    </p>
+    <p class="text-mist text-lg leading-relaxed max-w-2xl mt-8" data-reveal>
+      Only then do we recommend a mix of configured platforms, automation and custom code. Sometimes the answer is a Zoho workflow. Sometimes it's an app. Often the honest answer is a smaller change than you were expecting.
+    </p>
+
+    <p id="pullQuote" class="font-display font-light text-center text-[clamp(1.8rem,4.2vw,3.4rem)] leading-[1.25] max-w-4xl mx-auto my-24 md:my-32">
+      Think <span class="accent-word">business</span> first. Build <span class="accent-word">technology</span> that lasts.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-10 md:gap-8">
+      <div class="border-t border-line pt-7" data-reveal>
+        <p class="mono-label !text-acid">01</p>
+        <h3 class="font-display font-light text-2xl mt-4">Discovery before code</h3>
+        <p class="text-mist text-[15px] leading-relaxed mt-3">Process mapping before recommendations. We sit with the people doing the work, because the bottleneck never shows up in a demo.</p>
+      </div>
+      <div class="border-t border-line pt-7 md:mt-14" data-reveal>
+        <p class="mono-label !text-acid">02</p>
+        <h3 class="font-display font-light text-2xl mt-4">Milestones you can see</h3>
+        <p class="text-mist text-[15px] leading-relaxed mt-3">Phased go-lives with training at each step, so progress is visible and adoption actually sticks.</p>
+      </div>
+      <div class="border-t border-line pt-7 md:mt-28" data-reveal>
+        <p class="mono-label !text-acid">03</p>
+        <h3 class="font-display font-light text-2xl mt-4">We're there after launch</h3>
+        <p class="text-mist text-[15px] leading-relaxed mt-3">Launch is the midpoint, not the finish. The team that builds your system keeps it running.</p>
+      </div>
+    </div>
+
+    <p class="mono-label mt-28 mb-7" data-reveal>By the numbers</p>
+    <div class="grid md:grid-cols-3 border-y border-line md:divide-x md:divide-line" data-reveal>
+      <div class="py-10 md:py-14 md:pr-10">
+        <p class="stat-num"><span class="count" data-to="1">1</span><span class="stat-unit">day</span></p>
+        <p class="mono-label mt-5">Typical first reply to a brief</p>
+      </div>
+      <div class="py-10 md:py-14 md:px-10 border-t md:border-t-0 border-line">
+        <p class="stat-num"><span class="count" data-to="2">2</span><span class="text-mist">–</span><span class="count" data-to="4">4</span><span class="stat-unit">weeks</span></p>
+        <p class="mono-label mt-5">Consulting &amp; process-mapping engagement</p>
+      </div>
+      <div class="py-10 md:py-14 md:pl-10 border-t md:border-t-0 border-line">
+        <p class="stat-num"><span class="count" data-to="3">3</span><span class="stat-unit">surfaces</span></p>
+        <p class="mono-label mt-5">LocalFarmers app · storefront · console — in production</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 03 · WORK / LOCALFARMERS ══════════ -->
+<section id="work" class="border-t border-line blueprint">
+  <div class="wrap pt-24 md:pt-32">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div>
+        <p class="mono-label" data-reveal><span class="text-acid">03</span> — Proof of work</p>
+        <h2 class="font-display font-light text-[clamp(2.2rem,4.6vw,3.9rem)] leading-[1.06] mt-5 max-w-2xl" data-reveal>One product, three surfaces, running in production.</h2>
+      </div>
+      <p class="text-mist text-sm leading-relaxed max-w-xs md:text-right" data-reveal>
+        LocalFarmers — a farm-to-consumer marketplace we designed, built, launched and operate. Rather than list logos we can't show you, here is one system explained properly.
+      </p>
+    </div>
+    <div class="hidden lg:flex items-center justify-between mt-12" data-reveal>
+      <div class="flex items-center gap-5 mono-label !text-[10px]">
+        <span id="panelIdx" class="text-acid">01</span>
+        <span class="relative w-28 h-px bg-white/10 overflow-hidden"><span id="panelBar" class="absolute inset-0 bg-acid origin-left" style="transform:scaleX(.3334)"></span></span>
+        <span>03</span>
+      </div>
+      <span class="mono-label !text-[10px]">Keep scrolling — it moves sideways</span>
+    </div>
+  </div>
+
+  <div id="workPin" class="py-12 lg:py-14">
+    <div id="track" class="flex flex-col gap-24 lg:gap-[7vw] px-6 md:px-10 xl:pl-[max(2.5rem,calc((100vw-1400px)/2+2.5rem))]">
+
+      <!-- Panel 1 · Android app -->
+      <article class="panel relative">
+        <span class="outline-num absolute -top-8 lg:-top-12 right-0 text-[5.5rem] lg:text-[8.5rem] leading-none pointer-events-none select-none" aria-hidden="true">01</span>
+        <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-12 lg:gap-16 items-center">
+          <div class="panel-mock relative flex items-center justify-center lg:h-[600px]">
+            <span class="reg-m left-0 top-2">+</span><span class="reg-m right-0 top-2">+</span>
+            <span class="reg-m left-0 bottom-2">+</span><span class="reg-m right-0 bottom-2">+</span>
+            <div class="absolute w-[380px] h-[380px] rounded-full border border-white/[.05] hidden md:block" aria-hidden="true"></div>
+            <div class="panel-mock-inner relative w-[268px]">
+              <div class="rounded-[44px] border border-white/10 bg-[#0C141D] p-[9px] shadow-[0_50px_100px_-30px_rgba(0,0,0,.8)]">
+                <div class="relative h-[560px] rounded-[36px] overflow-hidden bg-[#070D13]">
+                  <img src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=640&q=70" alt="Fresh produce at a local market" class="absolute top-0 inset-x-0 h-[44%] w-full object-cover" data-fallback="lf-app-hero">
+                  <div class="absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-[18px] bg-black/85 rounded-full z-10"></div>
+                  <div class="absolute top-3 inset-x-0 flex justify-between items-center px-5 z-10 text-[10px] font-mono text-white/90">
+                    <span>9:41</span>
+                    <span class="flex items-center gap-1.5">
+                      <svg width="14" height="10" viewBox="0 0 14 10" fill="currentColor" aria-hidden="true"><rect y="6" width="2.5" height="4" rx=".5"/><rect x="3.8" y="4" width="2.5" height="6" rx=".5"/><rect x="7.6" y="2" width="2.5" height="8" rx=".5"/><rect x="11.4" width="2.5" height="10" rx=".5" opacity=".35"/></svg>
+                      <svg width="18" height="10" viewBox="0 0 18 10" fill="none" stroke="currentColor" aria-hidden="true"><rect x=".5" y=".5" width="14" height="9" rx="2.5"/><rect x="2.5" y="2.5" width="8" height="5" rx="1" fill="currentColor" stroke="none"/><path d="M16.5 3.5v3" stroke-linecap="round"/></svg>
+                    </span>
+                  </div>
+                  <div class="absolute top-[44%] inset-x-0 bottom-0 bg-[#0B1219] rounded-t-[24px] px-4 pt-4 pb-2 flex flex-col gap-3">
+                    <div class="flex items-end justify-between">
+                      <div>
+                        <p class="text-[13px] font-medium">Good morning, Meera</p>
+                        <p class="text-[10px] text-mist mt-0.5">e-Bazar · Sun 7–9 AM · BC Road centre</p>
+                      </div>
+                      <span class="w-7 h-7 rounded-full border border-white/15 grid place-items-center text-[9px] font-mono text-acid">M</span>
+                    </div>
+                    <div class="flex items-center gap-2 rounded-full border border-white/10 px-3.5 py-2 text-[10px] text-mist">
+                      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="5" cy="5" r="3.5"/><path d="M8 8l3 3"/></svg>
+                      Search farm essentials
+                    </div>
+                    <div class="flex gap-2">
+                      <span class="px-3 py-1.5 rounded-full bg-acid text-[#07130E] text-[10px] font-mono">e-Bazar</span>
+                      <span class="px-3 py-1.5 rounded-full border border-white/15 text-[10px] font-mono text-mist">eStore</span>
+                      <span class="px-3 py-1.5 rounded-full border border-white/15 text-[10px] font-mono text-mist ml-auto">Wallet ₹340</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2.5">
+                      <div class="rounded-xl overflow-hidden border border-white/[.07]">
+                        <img src="https://images.unsplash.com/photo-1523741543316-be34bfd5504c?auto=format&fit=crop&w=360&q=70" alt="Country tomatoes" class="h-14 w-full object-cover" data-fallback="lf-t1">
+                        <div class="p-2 flex items-center justify-between">
+                          <div><p class="text-[10px] leading-tight">Country tomatoes</p><p class="text-[9.5px] text-mist mt-0.5">₹42 / kg</p></div>
+                          <span class="w-5 h-5 rounded-full bg-acid text-[#07130E] grid place-items-center text-[11px] leading-none shrink-0">+</span>
+                        </div>
+                      </div>
+                      <div class="rounded-xl overflow-hidden border border-white/[.07]">
+                        <img src="https://images.unsplash.com/photo-1518843875459-f738682238a6?auto=format&fit=crop&w=360&q=70" alt="Malabar spinach" class="h-14 w-full object-cover" data-fallback="lf-t2">
+                        <div class="p-2 flex items-center justify-between">
+                          <div><p class="text-[10px] leading-tight">Malabar spinach</p><p class="text-[9.5px] text-mist mt-0.5">₹28 / bunch</p></div>
+                          <span class="w-5 h-5 rounded-full bg-acid text-[#07130E] grid place-items-center text-[11px] leading-none shrink-0">+</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mt-auto flex justify-around border-t border-white/[.08] pt-2.5">
+                      <span class="flex flex-col items-center gap-1 text-acid">
+                        <svg width="15" height="15" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M2.5 8L9 2.5 15.5 8v7h-4.5v-4h-4v4H2.5V8z"/></svg>
+                        <span class="text-[8px] font-mono">Home</span>
+                      </span>
+                      <span class="flex flex-col items-center gap-1 text-mist">
+                        <svg width="15" height="15" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="2" y="3.5" width="14" height="12" rx="2"/><path d="M2 7.5h14M6 1.5V5M12 1.5V5"/></svg>
+                        <span class="text-[8px] font-mono">Bazars</span>
+                      </span>
+                      <span class="flex flex-col items-center gap-1 text-mist">
+                        <svg width="15" height="15" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="1.5" y="4" width="15" height="11" rx="2"/><path d="M12.5 9.5h4"/></svg>
+                        <span class="text-[8px] font-mono">Wallet</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-copy">
+            <p class="mono-label mb-4"><span class="text-acid">A</span> — Android application</p>
+            <h3 class="font-display font-light text-3xl lg:text-4xl leading-tight">LocalFarmers app</h3>
+            <p class="text-mist leading-relaxed mt-5">Farm produce moves to a harvest rhythm, not infinite stock — so most commerce apps don't fit. Two shopping modes share one cart, wallet and order history: <span class="text-paper">e-Bazar</span> for scheduled locality bazars, <span class="text-paper">eStore</span> for everyday in-stock essentials. Built to behave on patchy connectivity and modest devices.</p>
+            <dl class="mt-8 mb-9">
+              <div class="flex justify-between gap-6 border-t border-line py-3"><dt class="mono-label !text-[9.5px] pt-0.5">Client</dt><dd class="text-sm text-right">Sanjivini Eco Solutions</dd></div>
+              <div class="flex justify-between gap-6 border-t border-line py-3"><dt class="mono-label !text-[9.5px] pt-0.5">Category</dt><dd class="text-sm text-right">Android application</dd></div>
+              <div class="flex justify-between gap-6 border-t border-line py-3"><dt class="mono-label !text-[9.5px] pt-0.5">Platforms</dt><dd class="text-sm text-right text-mist">Android · Marketplace · Scheduled delivery · Wallet</dd></div>
+            </dl>
+            <a href="https://play.google.com/store/apps/details?id=com.localfarmer" target="_blank" rel="noopener" class="inline-flex items-center gap-2 mono-label !text-[10px] !tracking-[0.22em] text-acid border-b border-acid pb-1.5 hover:gap-3.5 transition-all">
+              Get it on Google Play
+              <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11L11 3M4.5 3H11v6.5"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Panel 2 · Storefront -->
+      <article class="panel relative">
+        <span class="outline-num absolute -top-8 lg:-top-12 right-0 text-[5.5rem] lg:text-[8.5rem] leading-none pointer-events-none select-none" aria-hidden="true">02</span>
+        <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-12 lg:gap-16 items-center">
+          <div class="panel-mock relative flex items-center justify-center lg:h-[600px]">
+            <span class="reg-m left-0 top-2">+</span><span class="reg-m right-0 top-2">+</span>
+            <span class="reg-m left-0 bottom-2">+</span><span class="reg-m right-0 bottom-2">+</span>
+            <div class="absolute w-[420px] h-[420px] rounded-full border border-white/[.05] hidden md:block" aria-hidden="true"></div>
+            <div class="panel-mock-inner w-full max-w-[540px]">
+              <div class="rounded-2xl border border-white/10 bg-[#0C141D] overflow-hidden shadow-[0_50px_100px_-30px_rgba(0,0,0,.8)]">
+                <div class="flex items-center gap-2 px-4 py-3 border-b border-white/[.07]">
+                  <span class="w-2.5 h-2.5 rounded-full bg-white/15"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-white/15"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-white/15"></span>
+                  <span class="ml-4 flex-1 rounded-full bg-white/5 px-3.5 py-1.5 text-[10px] font-mono text-mist flex items-center gap-2">
+                    <svg width="9" height="10" viewBox="0 0 10 12" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><rect x="1" y="5" width="8" height="6" rx="1.2"/><path d="M3 5V3.5a2 2 0 0 1 4 0V5"/></svg>
+                    localfarmers.in/e-bazar
+                  </span>
+                  <span class="w-10"></span>
+                </div>
+                <div class="relative h-44">
+                  <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=70" alt="Shopping for fresh produce" class="h-full w-full object-cover" data-fallback="lf-web-hero">
+                  <div class="absolute bottom-3 left-3 flex gap-2">
+                    <span class="px-2.5 py-1 rounded-full bg-black/70 text-[10px] font-mono text-paper">Sunday Bazar · BC Road</span>
+                    <span class="px-2.5 py-1 rounded-full bg-acid text-[#07130E] text-[10px] font-mono">Slots open</span>
+                  </div>
+                </div>
+                <div class="grid grid-cols-3 gap-3 p-4">
+                  <div class="rounded-xl border border-white/[.07] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=360&q=70" alt="Raw rice" class="h-20 w-full object-cover" data-fallback="lf-w1">
+                    <div class="p-2.5"><p class="text-[10px] leading-tight">Raw rice</p><p class="text-[10px] text-mist mt-0.5">₹64 / kg</p></div>
+                  </div>
+                  <div class="rounded-xl border border-white/[.07] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=360&q=70" alt="Homemade ghee" class="h-20 w-full object-cover" data-fallback="lf-w2">
+                    <div class="p-2.5"><p class="text-[10px] leading-tight">Homemade ghee</p><p class="text-[10px] text-mist mt-0.5">₹449 / 500ml</p></div>
+                  </div>
+                  <div class="rounded-xl border border-white/[.07] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1506368249639-73a05d6f6488?auto=format&fit=crop&w=360&q=70" alt="Spices" class="h-20 w-full object-cover" data-fallback="lf-w3">
+                    <div class="p-2.5"><p class="text-[10px] leading-tight">Turmeric</p><p class="text-[10px] text-mist mt-0.5">₹36 / 100g</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-copy">
+            <p class="mono-label mb-4"><span class="text-acid">B</span> — Consumer web application</p>
+            <h3 class="font-display font-light text-3xl lg:text-4xl leading-tight">LocalFarmers storefront</h3>
+            <p class="text-mist leading-relaxed mt-5">An install shouldn't be the price of a first order. The web storefront removes it: your pincode is resolved before the catalogue renders, so nothing shown is ever unserviceable. Same e-Bazar and eStore models, same cart and wallet as the app.</p>
+            <dl class="mt-8 mb-9">
+              <div class="flex justify-between gap-6 border-t border-line py-3"><dt class="mono-label !text-[9.5px] pt-0.5">Client</dt><dd class="text-sm text-right">Sanjivini Eco Solutions</dd></div>
+              <div class="flex justify-between gap-6 border-t border-line py-3"><dt class="mono-label !text-[9.5px] pt-0.5">Category</dt><dd class="text-sm text-right">Consumer web application</dd></div>
+              <div class="flex justify-between gap-6 border-t border-line py-3"><dt class="mono-label !text-[9.5px] pt-0.5">Platforms</dt><dd class="text-sm text-right text-mist">Web app · Commerce · Pincode delivery · Cart</dd></div>
+            </dl>
+            <a href="https://localfarmers.in" target="_blank" rel="noopener" class="inline-flex items-center gap-2 mono-label !text-[10px] !tracking-[0.22em] text-acid border-b border-acid pb-1.5 hover:gap-3.5 transition-all">
+              Visit localfarmers.in
+              <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11L11 3M4.5 3H11v6.5"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Panel 3 · Operations console -->
+      <article class="panel relative">
+        <span class="outline-num absolute -top-8 lg:-top-12 right-0 text-[5.5rem] lg:text-[8.5rem] leading-none pointer-events-none select-none" aria-hidden="true">03</span>
+        <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-12 lg:gap-16 items-center">
+          <div class="panel-mock relative flex items-center justify-center lg:h-[600px]">
+            <span class="reg-m left-0 top-2">+</span><span class="reg-m right-0 top-2">+</span>
+            <span class="reg-m left-0 bottom-2">+</span><span class="reg-m right-0 bottom-2">+</span>
+            <div class="absolute w-[440px] h-[440px] rounded-full border border-white/[.05] hidden md:block" aria-hidden="true"></div>
+            <div class="panel-mock-inner w-full max-w-[580px]">
+              <div class="rounded-2xl border border-white/10 bg-[#0C141D] overflow-hidden shadow-[0_50px_100px_-30px_rgba(0,0,0,.8)]">
+                <div class="flex items-center gap-2 px-4 py-3 border-b border-white/[.07]">
+                  <span class="w-2.5 h-2.5 rounded-full bg-white/15"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-white/15"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-white/15"></span>
+                  <span class="ml-4 text-[10px] font-mono text-mist">LocalFarmers · Operations Console</span>
+                  <span class="ml-auto w-6 h-6 rounded-full bg-acid-soft text-acid grid place-items-center text-[9px] font-mono">SK</span>
+                </div>
+                <div class="flex h-[340px]">
+                  <aside class="w-36 shrink-0 border-r border-white/[.07] p-3 hidden sm:flex flex-col gap-1">
+                    <p class="text-[9px] font-mono tracking-[.25em] text-mist/60 px-2 py-2">CONSOLE</p>
+                    <span class="px-2.5 py-1.5 rounded-md text-[10px] font-mono text-mist flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-current opacity-50"></span>Dashboard</span>
+                    <span class="px-2.5 py-1.5 rounded-md text-[10px] font-mono bg-white/5 text-acid flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-current"></span>Catalogue</span>
+                    <span class="px-2.5 py-1.5 rounded-md text-[10px] font-mono text-mist flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-current opacity-50"></span>Bazars</span>
+                    <span class="px-2.5 py-1.5 rounded-md text-[10px] font-mono text-mist flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-current opacity-50"></span>Farmers</span>
+                    <span class="px-2.5 py-1.5 rounded-md text-[10px] font-mono text-mist flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-current opacity-50"></span>Onboarding</span>
+                    <span class="px-2.5 py-1.5 rounded-md text-[10px] font-mono text-mist flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-current opacity-50"></span>Centres</span>
+                    <span class="px-2.5 py-1.5 rounded-md text-[10px] font-mono text-mist flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-current opacity-50"></span>Access</span>
+                  </aside>
+                  <div class="flex-1 p-4 flex flex-col gap-3 min-w-0">
+                    <div class="flex items-center justify-between gap-3">
+                      <div>
+                        <p class="text-[12px] font-medium">Catalogue</p>
+                        <p class="text-[9px] font-mono text-mist mt-0.5">248 listings · 12 pending review</p>
+                      </div>
+                      <span class="px-3 py-1.5 rounded-full bg-acid text-[#07130E] text-[9px] font-mono shrink-0">+ Add product</span>
+                    </div>
+                    <div class="rounded-xl border border-white/[.07] overflow-hidden flex-1 flex flex-col min-h-0">
+                      <div class="grid grid-cols-[1.4fr_.9fr_.6fr_.7fr] gap-2 px-3 py-2 border-b border-white/[.07] text-[8px] font-mono tracking-[.18em] text-mist/60 uppercase">
+                        <span>Product</span><span>Category</span><span>Price</span><span>Status</span>
+                      </div>
+                      <div class="grid grid-cols-[1.4fr_.9fr_.6fr_.7fr] gap-2 items-center px-3 py-2.5 border-b border-white/5 text-[10px]">
+                        <span class="truncate">Country tomato</span><span class="text-mist truncate">Vegetables</span><span class="text-mist">₹42</span>
+                        <span class="bg-acid-soft text-acid rounded-full px-2 py-0.5 text-[8.5px] font-mono w-fit">Live</span>
+                      </div>
+                      <div class="grid grid-cols-[1.4fr_.9fr_.6fr_.7fr] gap-2 items-center px-3 py-2.5 border-b border-white/5 text-[10px]">
+                        <span class="truncate">A2 ghee 500 ml</span><span class="text-mist truncate">Homemade</span><span class="text-mist">₹449</span>
+                        <span class="bg-white/[.08] text-mist rounded-full px-2 py-0.5 text-[8.5px] font-mono w-fit">Review</span>
+                      </div>
+                      <div class="grid grid-cols-[1.4fr_.9fr_.6fr_.7fr] gap-2 items-center px-3 py-2.5 border-b border-white/5 text-[10px]">
+                        <span class="truncate">Basmati rice 5 kg</span><span class="text-mist truncate">Groceries</span><span class="text-mist">₹520</span>
+                        <span class="bg-acid-soft text-acid rounded-full px-2 py-0.5 text-[8.5px] font-mono w-fit">Live</span>
+                      </div>
+                      <div class="grid grid-cols-[1.4fr_.9fr_.6fr_.7fr] gap-2 items-center px-3 py-2.5 text-[10px]">
+                        <span class="truncate">Coconut oil 1 L</span><span class="text-mist truncate">Essentials</span><span class="text-mist">₹210</span>
+                        <span class="bg-acid-soft text-acid rounded-full px-2 py-0.5 text-[8.5px] font-mono w-fit">Live</span>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="flex items-end gap-1.5 h-12">
+                        <span class="flex-1 bg-acid-soft rounded-sm" style="height:40%"></span>
+                        <span class="flex-1 bg-acid-soft rounded-sm" style="height:65%"></span>
+                        <span class="flex-1 bg-acid-soft rounded-sm" style="height:30%"></span>
+                        <span class="flex-1 bg-acid-soft rounded-sm" style="height:80%"></span>
+                        <span class="flex-1 bg-acid-soft rounded-sm" style="height:55%"></span>
+                        <span class="flex-1 bg-acid rounded-sm" style="height:95%"></span>
+                        <span class="flex-1 bg-acid-soft rounded-sm" style="height:45%"></span>
+                        <span class="flex-1 bg-acid-soft rounded-sm" style="height:70%"></span>
+                        <span class="flex-1 bg-acid rounded-sm" style="height:85%"></span>
+                        <span class="flex-1 bg-acid-soft rounded-sm" style="height:60%"></span>
+                        <span class="flex-1 bg-acid-soft rounded-sm" style="height:38%"></span>
+                        <span class="flex-1 bg-acid-soft rounded-sm" style="height:72%"></span>
+                      </div>
+                      <p class="text-[8px] font-mono tracking-[.2em] text-mist/60 uppercase mt-2">Listings added · last 12 weeks</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-copy">
+            <p class="mono-label mb-4"><span class="text-acid">C</span> — Internal admin application</p>
+            <h3 class="font-display font-light text-3xl lg:text-4xl leading-tight">LocalFarmers operations console</h3>
+            <p class="text-mist leading-relaxed mt-5">A marketplace without an ops console can be demoed, but not run. We built this first — catalogue and category management with bulk operations, bazar scheduling, delivery-centre configuration and farmer onboarding — and it's operated daily by non-technical staff.</p>
+            <dl class="mt-8 mb-9">
+              <div class="flex justify-between gap-6 border-t border-line py-3"><dt class="mono-label !text-[9.5px] pt-0.5">Client</dt><dd class="text-sm text-right">Sanjivini Eco Solutions</dd></div>
+              <div class="flex justify-between gap-6 border-t border-line py-3"><dt class="mono-label !text-[9.5px] pt-0.5">Category</dt><dd class="text-sm text-right">Internal admin application</dd></div>
+              <div class="flex justify-between gap-6 border-t border-line py-3"><dt class="mono-label !text-[9.5px] pt-0.5">Platforms</dt><dd class="text-sm text-right text-mist">Admin console · Catalogue ops · Scheduling</dd></div>
+            </dl>
+            <a href="https://localfarmers.in" target="_blank" rel="noopener" class="inline-flex items-center gap-2 mono-label !text-[10px] !tracking-[0.22em] text-acid border-b border-acid pb-1.5 hover:gap-3.5 transition-all">
+              Explore the live product
+              <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11L11 3M4.5 3H11v6.5"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <div class="wrap pb-24 md:pb-32">
+    <div class="border-t border-line pt-12 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+      <p class="font-display font-light text-2xl md:text-[2rem] leading-snug max-w-lg" data-reveal>Want to be the next one on this page?</p>
+      <a href="#contact" class="btn btn-ghost shrink-0" data-reveal>Start a conversation
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 04 · WAYS OF WORKING ══════════ -->
+<section id="working" class="py-24 md:py-36">
+  <div class="wrap">
+    <p class="mono-label" data-reveal><span class="text-acid">04</span> — Ways of working</p>
+    <h2 class="font-display font-light text-[clamp(2.2rem,4.6vw,3.9rem)] leading-[1.06] mt-5 mb-14" data-reveal>What working with us is actually like.</h2>
+
+    <div class="border-b border-line">
+      <div class="wow-row grid md:grid-cols-12 gap-3 md:gap-8 items-baseline border-t border-line py-10 md:py-12" data-reveal>
+        <span class="wow-num mono-label md:col-span-2">01</span>
+        <h3 class="md:col-span-5 font-display font-light text-2xl md:text-[1.9rem] leading-tight">One accountable team, end to end</h3>
+        <p class="md:col-span-5 text-mist leading-relaxed">Design, build, launch and operations sit with the same people. No agency handoffs — nowhere for accountability to die.</p>
+      </div>
+      <div class="wow-row grid md:grid-cols-12 gap-3 md:gap-8 items-baseline border-t border-line py-10 md:py-12" data-reveal>
+        <span class="wow-num mono-label md:col-span-2">02</span>
+        <h3 class="md:col-span-5 font-display font-light text-2xl md:text-[1.9rem] leading-tight">Platform and custom, honestly chosen</h3>
+        <p class="md:col-span-5 text-mist leading-relaxed">If a Zoho workflow solves it, we'll say so. If it needs code, we build it. We're not selling licenses, so we don't push them.</p>
+      </div>
+      <div class="wow-row grid md:grid-cols-12 gap-3 md:gap-8 items-baseline border-t border-line py-10 md:py-12" data-reveal>
+        <span class="wow-num mono-label md:col-span-2">03</span>
+        <h3 class="md:col-span-5 font-display font-light text-2xl md:text-[1.9rem] leading-tight">We run what we build</h3>
+        <p class="md:col-span-5 text-mist leading-relaxed">LocalFarmers is operated by our own team every day. Our estimates account for the parts of a build nobody demos.</p>
+      </div>
+      <div class="wow-row grid md:grid-cols-12 gap-3 md:gap-8 items-baseline border-t border-line py-10 md:py-12" data-reveal>
+        <span class="wow-num mono-label md:col-span-2">04</span>
+        <h3 class="md:col-span-5 font-display font-light text-2xl md:text-[1.9rem] leading-tight">Local team, reachable people</h3>
+        <p class="md:col-span-5 text-mist leading-relaxed">Based in Dakshina Kannada &amp; Bengaluru, Mon–Fri 10am–7pm IST. You talk to the people actually doing the work.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 05 · ABOUT ══════════ -->
+<section id="about" class="py-24 md:py-36 border-t border-line">
+  <div class="wrap">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 border-b border-line pb-8">
+      <div>
+        <p class="mono-label" data-reveal><span class="text-acid">05</span> — About</p>
+        <h2 class="font-display font-light text-[clamp(2.2rem,4.6vw,3.9rem)] leading-[1.06] mt-5" data-reveal>We start with your business, not our software.</h2>
+      </div>
+      <p class="text-mist text-sm leading-relaxed max-w-xs md:text-right" data-reveal>Practical transformation, built close to the people who use it.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-14 mt-14">
+      <div class="lg:col-span-7">
+        <p class="font-display font-light text-[clamp(1.4rem,2.6vw,2.1rem)] leading-[1.4] max-w-2xl" data-reveal>
+          We help growing businesses replace disconnected spreadsheets and manual approvals with <span class="accent-word">systems their teams actually use</span>.
+        </p>
+        <p class="text-mist leading-relaxed mt-8 max-w-2xl" data-reveal>
+          That's the whole job, really. We work across Dakshina Kannada and Bengaluru, in manufacturing, retail, construction, agriculture, professional services and e-commerce. And we build for ourselves too: LocalFarmers is our own product, run in production every day — the reason our estimates account for the parts of a build nobody demos.
+        </p>
+        <a href="#work" class="inline-flex items-center gap-2 mt-8 mono-label !text-[10px] !tracking-[0.22em] text-acid border-b border-acid pb-1.5 hover:gap-3.5 transition-all" data-reveal>
+          See how it's built
+          <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11L11 3M4.5 3H11v6.5"/></svg>
+        </a>
+
+        <div class="mt-14" data-reveal>
+          <p class="mono-label mb-5">Sectors we've worked in</p>
+          <div class="flex flex-wrap gap-2.5">
+            <span class="chip">Manufacturing</span>
+            <span class="chip">Retail</span>
+            <span class="chip">Construction</span>
+            <span class="chip">Agriculture</span>
+            <span class="chip">Professional services</span>
+            <span class="chip">E-commerce</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5">
+        <div id="aboutImgWrap" class="relative overflow-hidden rounded-2xl border border-line" data-reveal>
+          <img id="aboutImg" src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1000&q=70" alt="Process mapping session with a client team" class="w-full h-[340px] md:h-[420px] object-cover scale-[1.18]" data-fallback="sds-team">
+        </div>
+        <p class="mono-label !text-[9.5px] mt-4" data-reveal>Process mapping, on site — with the people doing the work.</p>
+        <div class="mt-9">
+          <div class="flex justify-between gap-6 border-t border-line py-4" data-reveal>
+            <span class="mono-label !text-[9.5px] pt-0.5">Based in</span>
+            <span class="text-sm text-right">Bantwala, Dakshina Kannada · Bengaluru</span>
+          </div>
+          <div class="flex justify-between gap-6 border-t border-line py-4" data-reveal>
+            <span class="mono-label !text-[9.5px] pt-0.5">Hours</span>
+            <span class="text-sm text-right">Mon–Fri, 10am–7pm IST</span>
+          </div>
+          <div class="flex justify-between gap-6 border-t border-line py-4" data-reveal>
+            <span class="mono-label !text-[9.5px] pt-0.5">Email</span>
+            <a href="mailto:support@sanjivini-it.com" class="text-sm text-right hover:text-acid transition-colors">support@sanjivini-it.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 06 · CONTACT ══════════ -->
+<section id="contact" class="border-t border-line">
+  <div class="wrap py-24 md:py-36">
+    <p class="mono-label" data-reveal><span class="text-acid">06</span> — Contact</p>
+    <h2 class="font-display font-light text-[clamp(2.6rem,6.4vw,5.4rem)] leading-[1.02] mt-6" data-reveal>
+      Tell us what isn't <span class="accent-word">working</span>.
+    </h2>
+    <p class="text-mist text-lg leading-relaxed max-w-xl mt-7" data-reveal>
+      No spec or budget needed to start. Describe the process costing you time — we'll tell you whether it's configuration, automation, or a build.
+    </p>
+
+    <div class="grid lg:grid-cols-12 gap-16 mt-16">
+      <form id="briefForm" class="lg:col-span-7" novalidate data-reveal>
+        <div class="grid sm:grid-cols-2 gap-x-10 gap-y-10">
+          <div class="field">
+            <label for="f-name" class="mono-label block mb-1">Full name <span class="text-acid">*</span></label>
+            <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Your name">
+            <p class="err text-[11px] font-mono mt-1.5" style="color:var(--warn)">Required</p>
+          </div>
+          <div class="field">
+            <label for="f-email" class="mono-label block mb-1">Work email <span class="text-acid">*</span></label>
+            <input id="f-email" name="email" type="email" autocomplete="email" placeholder="you@company.com">
+            <p class="err text-[11px] font-mono mt-1.5" style="color:var(--warn)">A valid email, please</p>
+          </div>
+          <div class="field sm:col-span-2">
+            <label for="f-topic" class="mono-label block mb-1">What do you need help with?</label>
+            <div class="relative">
+              <select id="f-topic" name="topic" class="appearance-none pr-8">
+                <option value="" selected>Choose a focus — or not sure yet</option>
+                <option>Business systems consulting</option>
+                <option>Zoho implementation</option>
+                <option>Web or mobile application</option>
+                <option>Marketplace or platform</option>
+                <option>Process automation</option>
+                <option>Not sure yet</option>
+              </select>
+              <svg class="absolute right-1 top-1/2 -translate-y-1/2 pointer-events-none" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="var(--acid)" stroke-width="1.5" aria-hidden="true"><path d="M2 4.5l5 5 5-5"/></svg>
+            </div>
+          </div>
+          <div class="field sm:col-span-2">
+            <label for="f-msg" class="mono-label block mb-1">What's happening today? <span class="text-acid">*</span></label>
+            <textarea id="f-msg" name="message" rows="4" placeholder="e.g. Every purchase order needs three people to approve it, and month-end still lives in a spreadsheet."></textarea>
+            <p class="err text-[11px] font-mono mt-1.5" style="color:var(--warn)">Tell us a little — even one line helps</p>
+          </div>
+        </div>
+        <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="flex flex-wrap items-center gap-7 mt-12">
+          <button id="sendBtn" type="submit" class="btn btn-solid magnetic">
+            <span>Send project brief</span>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+          </button>
+          <p class="text-xs text-mist leading-relaxed max-w-[240px]">We reply within one business day. We never share your details.</p>
+        </div>
+        <p class="text-xs text-mist mt-7">Prefer to think it through? Email us a detailed brief instead — <a href="mailto:support@sanjivini-it.com" class="text-acid hover:underline">support@sanjivini-it.com</a></p>
+      </form>
+
+      <aside class="lg:col-span-5 flex flex-col gap-14">
+        <div data-reveal>
+          <p class="mono-label mb-2">What happens next</p>
+          <div class="flex gap-6 py-6 border-b border-line">
+            <span class="mono-label !text-acid shrink-0">01</span>
+            <div><p class="font-medium text-[15px]">We read it properly.</p><p class="text-mist text-sm leading-relaxed mt-1.5">Your brief goes to the people who'd do the work — not a sales inbox.</p></div>
+          </div>
+          <div class="flex gap-6 py-6 border-b border-line">
+            <span class="mono-label !text-acid shrink-0">02</span>
+            <div><p class="font-medium text-[15px]">We reply within one business day.</p><p class="text-mist text-sm leading-relaxed mt-1.5">With questions, not a proposal.</p></div>
+          </div>
+          <div class="flex gap-6 py-6 border-b border-line">
+            <span class="mono-label !text-acid shrink-0">03</span>
+            <div><p class="font-medium text-[15px]">A 30-minute call.</p><p class="text-mist text-sm leading-relaxed mt-1.5">To see if there's something worth building together.</p></div>
+          </div>
+        </div>
+
+        <div data-reveal>
+          <p class="mono-label mb-2">Or reach us directly</p>
+          <a href="mailto:support@sanjivini-it.com" class="flex items-center gap-4 py-4 border-b border-line text-[15px] hover:text-acid transition-colors">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--acid)" stroke-width="1.5" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7L22 7"/></svg>
+            support@sanjivini-it.com
+          </a>
+          <a href="tel:+919008242363" class="flex items-center gap-4 py-4 border-b border-line text-[15px] hover:text-acid transition-colors">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--acid)" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            +91 90082 42363
+          </a>
+          <div class="flex items-start gap-4 py-4 border-b border-line text-[15px]">
+            <svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--acid)" stroke-width="1.5" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <a href="https://maps.google.com/?q=Sanjivini+Eco+Solutions,+BC+Road,+Bantwala,+Dakshina+Kannada+574219" target="_blank" rel="noopener" class="leading-relaxed hover:text-acid transition-colors">Sanjivini Eco Solutions, Ground Floor, 12-57/D, Brahmin Parishat Building, Near Somayaji Hospital, BC Road, Bantwala, Dakshina Kannada — 574219</a>
+          </div>
+          <div class="flex items-center gap-4 py-4 text-[15px] text-mist">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--acid)" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Mon–Fri, 10am–7pm IST
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="border-t border-line pt-20 pb-10">
+  <div class="wrap">
+    <div class="grid md:grid-cols-12 gap-12 mb-16">
+      <div class="md:col-span-5">
+        <div class="flex items-center gap-3 mb-6">
+          <svg width="18" height="18" viewBox="0 0 12 12" fill="none" stroke="var(--acid)" stroke-width="1.2" aria-hidden="true"><path d="M6 1v10M1 6h10M2.5 2.5l7 7M9.5 2.5l-7 7"/></svg>
+          <span class="font-display text-xl font-light">Sanjivini</span>
+        </div>
+        <p class="font-display font-light text-2xl md:text-[1.7rem] leading-snug max-w-xs">Business first. Technology that <span class="accent-word">lasts</span>.</p>
+        <p class="text-mist text-sm mt-5 max-w-xs leading-relaxed">Sanjivini Digital Solutions — a Sanjivini Eco Solutions company.</p>
+        <div class="flex gap-3 mt-8">
+          <a href="https://www.linkedin.com/company/sanjiviniitsolutions" target="_blank" rel="noopener" aria-label="LinkedIn" class="w-10 h-10 rounded-full border border-white/15 grid place-items-center hover:border-acid hover:text-acid transition-colors">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+          </a>
+          <a href="https://instagram.com/sanjiviniitsolutions" target="_blank" rel="noopener" aria-label="Instagram" class="w-10 h-10 rounded-full border border-white/15 grid place-items-center hover:border-acid hover:text-acid transition-colors">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="md:col-span-2">
+        <p class="mono-label mb-5">Explore</p>
+        <ul class="flex flex-col gap-3 text-sm text-mist">
+          <li><a href="#services" class="hover:text-acid transition-colors">Services</a></li>
+          <li><a href="#approach" class="hover:text-acid transition-colors">Approach</a></li>
+          <li><a href="#work" class="hover:text-acid transition-colors">Work</a></li>
+          <li><a href="#about" class="hover:text-acid transition-colors">About</a></li>
+          <li><a href="#contact" class="hover:text-acid transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <p class="mono-label mb-5">Services</p>
+        <ul class="flex flex-col gap-3 text-sm text-mist">
+          <li><a href="#services" class="hover:text-acid transition-colors">Zoho implementation</a></li>
+          <li><a href="#services" class="hover:text-acid transition-colors">Systems consulting</a></li>
+          <li><a href="#services" class="hover:text-acid transition-colors">Web &amp; mobile apps</a></li>
+          <li><a href="#services" class="hover:text-acid transition-colors">Marketplace platforms</a></li>
+          <li><a href="#services" class="hover:text-acid transition-colors">Process automation</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-3">
+        <p class="mono-label mb-5">Contact</p>
+        <ul class="flex flex-col gap-3 text-sm text-mist">
+          <li><a href="mailto:support@sanjivini-it.com" class="hover:text-acid transition-colors">support@sanjivini-it.com</a></li>
+          <li><a href="tel:+919008242363" class="hover:text-acid transition-colors">+91 90082 42363</a></li>
+          <li class="leading-relaxed">Bantwala, Dakshina Kannada — 574219</li>
+          <li>Mon–Fri, 10am–7pm IST</li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-line pt-7 flex flex-wrap items-center justify-between gap-5">
+      <p class="mono-label !text-[9.5px] !tracking-[0.2em]">© 2026 Sanjivini Digital Solutions. All rights reserved.</p>
+      <p class="mono-label !text-[9.5px] !tracking-[0.2em]">Made in Dakshina Kannada</p>
+      <button id="toTop" class="mono-label !text-[9.5px] !tracking-[0.2em] flex items-center gap-2.5 hover:text-acid transition-colors" aria-label="Back to top">
+        Back to top
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 14V2M3 7l5-5 5 5"/></svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ TOAST ══════════ -->
+<div id="toast" class="fixed bottom-6 right-6 z-[120] pointer-events-none">
+  <div class="flex items-center gap-4 bg-[#0E1A22] border border-white/10 rounded-2xl px-5 py-4 shadow-2xl">
+    <span id="toastIcon" class="w-9 h-9 rounded-full bg-acid text-[#07130E] grid place-items-center shrink-0">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>
+    </span>
+    <div>
+      <p id="toastTitle" class="text-sm font-medium">Brief received.</p>
+      <p id="toastMsg" class="text-mist text-xs mt-0.5">We'll reply within one business day.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function(){
+  'use strict';
+  const $  = (s, c=document) => c.querySelector(s);
+  const $$ = (s, c=document) => [...c.querySelectorAll(s)];
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Graceful bail-out if CDNs failed — content stays visible, loader goes away.
+  if (!window.gsap || !window.ScrollTrigger) {
+    const l = $('#loader'); if (l) l.style.display = 'none';
+    return;
+  }
+  gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+
+  /* ── Lenis smooth scroll ─────────────────────────────── */
+  let lenis = null;
+  if (!reduced && window.Lenis) {
+    lenis = new Lenis({ duration: 1.15 });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(t => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
+  const lockScroll = on => { lenis && (on ? lenis.stop() : lenis.start()); document.documentElement.style.overflow = on ? 'hidden' : ''; };
+
+  /* ── Signature: accent drifts blue-teal → emerald with scroll ── */
+  if (!reduced) {
+    const c1 = [65, 185, 211], c2 = [52, 211, 153], mix = { t: 0 };
+    gsap.to(mix, { t: 1, ease: 'none',
+      scrollTrigger: { start: 0, end: 'max', scrub: 0.4,
+        onUpdate() {
+          const m = c1.map((v, i) => Math.round(v + (c2[i] - v) * mix.t));
+          document.documentElement.style.setProperty('--acid', `rgb(${m.join(',')})`);
+        }
+      }
+    });
+  }
+
+  /* ── Word splitter (keeps inner markup like accent spans) ── */
+  function maskWords(el) {
+    const nodes = [...el.childNodes];
+    el.innerHTML = '';
+    nodes.forEach(n => {
+      if (n.nodeName === 'BR') { el.appendChild(n); return; }
+      if (n.nodeType === 3) {
+        n.textContent.split(/(\s+)/).forEach(part => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { el.appendChild(document.createTextNode(' ')); return; }
+          const m = document.createElement('span'); m.className = 'mask';
+          const i = document.createElement('span'); i.textContent = part;
+          m.appendChild(i); el.appendChild(m);
+        });
+      } else {
+        const m = document.createElement('span'); m.className = 'mask';
+        const i = document.createElement('span'); i.appendChild(n);
+        m.appendChild(i); el.appendChild(m);
+      }
+    });
+    return $$('.mask > span', el);
+  }
+
+  /* ── Hero intro timeline ─────────────────────────────── */
+  let heroTl = null;
+  if (!reduced) {
+    const words = maskWords($('#heroH1'));
+    heroTl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } })
+      .from('#kicker', { y: 20, opacity: 0, duration: .7 }, 0)
+      .from(words,     { yPercent: 120, duration: 1, stagger: .05 }, .05)
+      .from('#heroSub',{ y: 30, opacity: 0, duration: .9 }, .55)
+      .from('#heroCtas > *', { y: 24, opacity: 0, duration: .8, stagger: .09 }, .7)
+      .from('#heroChips span', { y: 16, opacity: 0, duration: .6, stagger: .06 }, .85)
+      .from('#scrollHint', { opacity: 0, duration: .8 }, 1.1);
+  }
+
+  /* ── Hero flowchart: draw → nodes pop → dot travels forever ── */
+  function flowIntro() {
+    if (reduced) return;
+    const paths = $$('#flow .fc:not(.dash)');
+    paths.forEach(p => { const L = p.getTotalLength(); gsap.set(p, { strokeDasharray: L, strokeDashoffset: L }); });
+    gsap.timeline({ defaults: { ease: 'power2.inOut' } })
+      .to(paths, { strokeDashoffset: 0, duration: 1.1, stagger: .16 })
+      .from('#flow .flow-node', { scale: 0, opacity: 0, duration: .7, ease: 'back.out(1.6)', stagger: .08 }, '-=1.2')
+      .from('#flow text, #flow .jdot, #flow .fmark', { opacity: 0, duration: .8, stagger: .03 }, '-=.6')
+      .to('#flow .fc.dash', { opacity: .55, duration: .9 }, '-=.4')
+      .add(() => {
+        gsap.set('#flowDot', { opacity: .9 });
+        gsap.to('#flowDot', { motionPath: { path: '#dotPath', align: '#dotPath', alignOrigin: [.5, .5] }, duration: 8, repeat: -1, ease: 'none', repeatDelay: 1.4 });
+        gsap.to('#flow', { y: 12, duration: 5.5, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+        gsap.to('#flow .acid-node', { attr: { 'stroke-opacity': .35 }, duration: 1.8, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+        gsap.fromTo('#scrollDot', { y: -14 }, { y: 38, duration: 1.6, repeat: -1, ease: 'power1.inOut' });
+      });
+  }
+
+  /* ── Loader ──────────────────────────────────────────── */
+  const firstAcc = $('.acc-item');
+  function openFirstAcc() {
+    gsap.set(firstAcc.querySelector('.acc-panel'), { height: 'auto' });
+    firstAcc.classList.add('open');
+    firstAcc.querySelector('.acc-head').setAttribute('aria-expanded', 'true');
+  }
+  if (reduced) {
+    $('#loader').style.display = 'none';
+    $$('.count').forEach(el => el.textContent = el.dataset.to);
+    openFirstAcc();
+  } else {
+    lockScroll(true);
+    const tl = gsap.timeline();
+    tl.from('#loaderWord', { yPercent: 120, duration: .8, ease: 'power3.out' }, .1)
+      .to('#loaderBar', { scaleX: 1, duration: 1, ease: 'power2.inOut' }, .2)
+      .from('#loaderSub', { opacity: 0, duration: .6 }, .4)
+      .add(() => { lockScroll(false); }, 1.35)
+      .to('#loader', { yPercent: -100, duration: .9, ease: 'expo.inOut' }, 1.35)
+      .add(() => { $('#loader').style.display = 'none'; }, 2.3)
+      .add(() => heroTl && heroTl.play(), 1.45)
+      .add(flowIntro, 1.9);
+    openFirstAcc();
+  }
+
+  /* ── Scroll progress ─────────────────────────────────── */
+  if (!reduced) gsap.to('#progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: .3 } });
+
+  /* ── Nav: solid state + hide on scroll down ──────────── */
+  const nav = $('#nav'); let menuOpen = false;
+  ScrollTrigger.create({
+    start: 0, end: 'max',
+    onUpdate(self) {
+      const y = self.scroll();
+      nav.classList.toggle('nav-solid', y > 40 && !menuOpen);
+      if (!menuOpen) nav.classList.toggle('nav-hidden', self.direction === 1 && y > 200);
+    }
+  });
+
+  /* ── Mobile menu ─────────────────────────────────────── */
+  const menuTl = gsap.timeline({ paused: true, defaults: { ease: 'expo.inOut' } })
+    .fromTo('#menu', { yPercent: -102 }, { yPercent: 0, duration: .75 })
+    .fromTo('#menu .m-link', { y: 44, opacity: 0 }, { y: 0, opacity: 1, duration: .6, ease: 'power3.out', stagger: .07 }, '-=.25')
+    .fromTo('#menu .m-foot', { opacity: 0 }, { opacity: 1, duration: .5 }, '-=.4');
+  const menuBtn = $('#menuBtn');
+  function openMenu() {
+    menuOpen = true; menuBtn.classList.add('open'); menuBtn.setAttribute('aria-expanded', 'true');
+    nav.classList.remove('nav-hidden', 'nav-solid'); lockScroll(true); menuTl.timeScale(1).play();
+  }
+  function closeMenu() {
+    menuOpen = false; menuBtn.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false');
+    lockScroll(false); menuTl.timeScale(1.4).reverse();
+  }
+  menuBtn.addEventListener('click', () => menuOpen ? closeMenu() : openMenu());
+
+  /* ── Anchor navigation ───────────────────────────────── */
+  $$('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href'); if (id.length < 2) return;
+      const t = $(id); if (!t) return;
+      e.preventDefault(); if (menuOpen) closeMenu();
+      if (lenis) lenis.scrollTo(t, { offset: -70, duration: 1.5 });
+      else t.scrollIntoView();
+    });
+  });
+  $('#toTop').addEventListener('click', () => lenis ? lenis.scrollTo(0, { duration: 1.6 }) : scrollTo({ top: 0 }));
+
+  /* ── Ticker ──────────────────────────────────────────── */
+  const tTrack = $('#tickerTrack'); const tBase = tTrack.innerHTML; let copies = 1;
+  while (tTrack.scrollWidth < innerWidth * 2.2 || copies % 2 !== 0) { tTrack.innerHTML += tBase; copies++; }
+  if (!reduced) gsap.to(tTrack, { xPercent: -50, duration: 26, ease: 'none', repeat: -1 });
+
+  /* ── Services accordion ──────────────────────────────── */
+  const accItems = $$('.acc-item');
+  function setAcc(item, open) {
+    item.classList.toggle('open', open);
+    item.querySelector('.acc-head').setAttribute('aria-expanded', open);
+    gsap.to(item.querySelector('.acc-panel'), { height: open ? 'auto' : 0, duration: .55, ease: 'power3.inOut', onComplete: () => ScrollTrigger.refresh() });
+  }
+  accItems.forEach(item => {
+    item.querySelector('.acc-head').addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      accItems.forEach(i => { if (i !== item && i.classList.contains('open')) setAcc(i, false); });
+      setAcc(item, !isOpen);
+    });
+  });
+
+  /* ── Generic reveals, quote scrub, counters, parallax ── */
+  if (!reduced) {
+    $$('[data-reveal]').forEach(el => gsap.from(el, { y: 44, opacity: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } }));
+    const pq = maskWords($('#pullQuote'));
+    gsap.fromTo(pq, { opacity: .13 }, { opacity: 1, stagger: .06, ease: 'none', scrollTrigger: { trigger: '#pullQuote', start: 'top 80%', end: 'top 35%', scrub: .6 } });
+    $$('.count').forEach(el => {
+      const to = +el.dataset.to, o = { v: 0 }; el.textContent = '0';
+      gsap.to(o, { v: to, duration: 1.8, ease: 'power3.out', onUpdate: () => el.textContent = Math.round(o.v), scrollTrigger: { trigger: el, start: 'top 85%' } });
+    });
+    gsap.fromTo('#aboutImg', { yPercent: -8 }, { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '#aboutImgWrap', start: 'top bottom', end: 'bottom top', scrub: .5 } });
+  }
+
+  /* ── LocalFarmers showcase: pinned horizontal on desktop ── */
+  const track = $('#track');
+  const mm = gsap.matchMedia();
+  mm.add('(min-width:1024px)', () => {
+    if (reduced) return;
+    track.classList.add('is-h');
+    const dist = () => track.scrollWidth - innerWidth;
+    const tween = gsap.to(track, {
+      x: () => -dist(), ease: 'none',
+      scrollTrigger: {
+        trigger: '#workPin', start: 'top top', end: () => '+=' + dist(),
+        pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1,
+        onUpdate(self) {
+          const i = Math.min(3, Math.round(self.progress * 2) + 1);
+          $('#panelIdx').textContent = '0' + i;
+          $('#panelBar').style.transform = `scaleX(${i / 3})`;
+        }
+      }
+    });
+    $$('.panel').forEach(p => {
+      gsap.from(p.querySelector('.panel-mock'), { y: 60, opacity: 0, duration: 1, ease: 'power3.out', scrollTrigger: { containerAnimation: tween, trigger: p, start: 'left 85%' } });
+      gsap.from(p.querySelector('.panel-copy'),  { y: 60, opacity: 0, duration: 1, ease: 'power3.out', scrollTrigger: { containerAnimation: tween, trigger: p, start: 'left 70%' } });
+    });
+    return () => track.classList.remove('is-h');
+  });
+  mm.add('(max-width:1023px)', () => {
+    if (reduced) return;
+    $$('.panel').forEach(p => gsap.from(p, { y: 60, opacity: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: p, start: 'top 88%' } }));
+  });
+
+  /* ── Magnetic buttons (desktop pointers only) ────────── */
+  if (matchMedia('(pointer:fine)').matches && !reduced) {
+    $$('.magnetic').forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        gsap.to(el, { x: (e.clientX - r.left - r.width / 2) * .25, y: (e.clientY - r.top - r.height / 2) * .35, duration: .4 });
+      });
+      el.addEventListener('mouseleave', () => gsap.to(el, { x: 0, y: 0, duration: .6, ease: 'elastic.out(1,.5)' }));
+    });
+  }
+
+  /* ── Toast ───────────────────────────────────────────── */
+  let toastTimer;
+  function toast(title, msg, warn) {
+    $('#toastTitle').textContent = title; $('#toastMsg').textContent = msg;
+    $('#toastIcon').style.background = warn ? 'var(--warn)' : 'var(--acid)';
+    gsap.to('#toast', { y: 0, opacity: 1, duration: .5, ease: 'power3.out' });
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => gsap.to('#toast', { y: 90, opacity: 0, duration: .5, ease: 'power3.in' }), 4600);
+  }
+  gsap.set('#toast', { y: 90, opacity: 0 });
+
+  /* ── Contact form ────────────────────────────────────── */
+  const form = $('#briefForm');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (form.website.value) return; // honeypot — silently ignore bots
+    let ok = true;
+    const mark = (input, bad) => { input.closest('.field').classList.toggle('bad', bad); if (bad) ok = false; };
+    mark(form.name,   !form.name.value.trim());
+    mark(form.email,  !/^\S+@\S+\.\S+$/.test(form.email.value));
+    mark(form.message, !form.message.value.trim());
+    if (!ok) { toast('Almost there', 'Please fill the highlighted fields.', true); return; }
+    const btn = $('#sendBtn'), label = btn.querySelector('span'), orig = label.textContent;
+    btn.disabled = true; label.textContent = 'Sending…';
+    setTimeout(() => {
+      btn.disabled = false; label.textContent = orig; form.reset();
+      toast('Brief received.', 'We read every one — reply within one business day.');
+    }, 900);
+  });
+  $$('.field input, .field textarea').forEach(i => i.addEventListener('input', () => i.closest('.field').classList.remove('bad')));
+
+  /* ── Image fallbacks (Unsplash → Picsum, never broken) ── */
+  $$('img[data-fallback]').forEach(img => {
+    const swap = () => { if (img.dataset.done) return; img.dataset.done = 1; img.src = `https://picsum.photos/seed/${img.dataset.fallback}/800/900`; };
+    img.addEventListener('error', swap);
+    if (img.complete && img.naturalWidth === 0) swap();
+  });
+
+  window.addEventListener('load', () => ScrollTrigger.refresh());
+})();
+</script>
+<!-- sflws:source-button:start -->
+<style>
+#sflws-source-btn{position:fixed;right:18px;bottom:18px;z-index:2147483000;display:none;
+padding:2px;border-radius:999px;text-decoration:none;line-height:0;
+background:linear-gradient(90deg,#ff4d4d,#ffb347,#ffe66d,#7bed9f,#48dbfb,#a29bfe,#ff4d4d);
+background-size:300% 100%;animation:sflws-rainbow 6s linear infinite;
+box-shadow:0 4px 20px rgba(0,0,0,.32);transition:transform .2s ease}
+#sflws-source-btn:hover{transform:translateY(-2px)}
+#sflws-source-btn>span{display:flex;align-items:center;gap:7px;padding:9px 15px;
+border-radius:999px;background:#0d0d0f;color:#f4f4f5;
+font:600 12px/1 ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+letter-spacing:.02em;white-space:nowrap}
+#sflws-source-btn>span>b{font:inherit;color:#9aa0a6;letter-spacing:0}
+@keyframes sflws-rainbow{to{background-position:300% 0}}
+@media(prefers-reduced-motion:reduce){#sflws-source-btn{animation:none}
+#sflws-source-btn:hover{transform:none}}
+@media(max-width:600px){#sflws-source-btn{right:12px;bottom:12px}
+#sflws-source-btn>span{padding:8px 13px;font-size:11px}}
+</style>
+<a id="sflws-source-btn" href="https://github.com/saawflws/SFLWS___TEMPLATE_WEBSITEs/tree/main/websites/static/it_consultancy/sanjivinipartners" target="_blank" rel="noopener noreferrer"
+ aria-label="View this template&#39;s source code on GitHub">
+<span><b aria-hidden="true">&lt;/&gt;</b>view source</span></a>
+<script>
+(function(){
+var h=location.hostname;
+var ok=h==='sflwsts.aasimahmed.com'||h==='localhost'||h==='127.0.0.1'||h==='[::1]'
+||/\.github\.io$/.test(h);
+var b=document.getElementById('sflws-source-btn');
+if(b&&ok)b.style.display='block';
+})();
+</script>
+<!-- sflws:source-button:end -->
+</body>
+</html>

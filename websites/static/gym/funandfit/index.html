@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FUN&amp;FIT — Train Hard. Laugh Louder.</title>
+<meta name="description" content="FUN&FIT is a group fitness studio — strength, dance, yoga and HIIT under one roof. 40+ classes a week. Your first class is free.">
+<meta name="theme-color" content="#F4F0E4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23D6F640'/%3E%3Ctext x='32' y='46' font-family='Arial' font-size='40' font-weight='900' text-anchor='middle' fill='%23161511'%3E%26%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============ tokens & base ============ */
+:root{
+  --paper:#F4F0E4; --paper2:#E9E3D1; --ink:#161511; --ink2:#2B2921;
+  --volt:#D6F640; --muted:#6E6A59; --line:rgba(22,21,17,.16); --error:#C03A1E;
+  --mono:'Space Mono',monospace; --disp:'Archivo',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:92px}
+body{background:var(--paper);color:var(--ink);font-family:var(--disp);font-weight:400;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased;scrollbar-width:thin;scrollbar-color:var(--ink) var(--paper2)}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+ul{list-style:none}
+::selection{background:var(--ink);color:var(--volt)}
+:focus-visible{outline:2px dashed var(--ink);outline-offset:3px}
+.ink-section :focus-visible{outline-color:var(--paper)}
+
+/* ============ utilities ============ */
+.mono{font-family:var(--mono)}
+.container{width:min(1280px,92vw);margin-inline:auto}
+.sec{padding:7.5rem 0}
+.kicker{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.6rem;margin-bottom:1.1rem}
+.kicker::before{content:"";width:9px;height:9px;background:var(--ink);flex:none}
+.ink-section .kicker{color:rgba(244,240,228,.55)}
+.ink-section .kicker::before{background:var(--volt)}
+.trial .kicker{color:rgba(22,21,17,.75)}
+.sec-title{font-weight:900;font-variation-settings:'wdth' 62;font-size:clamp(2.5rem,5.4vw,4.5rem);line-height:.92;text-transform:uppercase}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2.5rem;margin-bottom:3.2rem}
+.sec-note{max-width:26ch;font-size:.92rem;color:var(--muted);text-align:right;line-height:1.5}
+.ink-section .sec-note{color:rgba(244,240,228,.6)}
+
+/* ============ buttons ============ */
+.btn{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--disp);font-weight:800;font-variation-settings:'wdth' 80;text-transform:uppercase;letter-spacing:.02em;font-size:.92rem;padding:.95rem 1.5rem;border:2px solid var(--ink);line-height:1;transition:transform .22s,box-shadow .22s,background .22s,color .22s}
+.btn svg{width:16px;height:16px}
+.btn:hover{transform:translate(-3px,-3px)}
+.btn:active{transform:none;box-shadow:none!important}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-ink:hover{box-shadow:5px 5px 0 var(--volt)}
+.trial .btn-ink:hover{box-shadow:5px 5px 0 var(--paper)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper);box-shadow:5px 5px 0 var(--volt)}
+.btn-sm{font-size:.74rem;padding:.68rem 1.05rem}
+.btn.done{background:var(--ink);color:var(--volt);pointer-events:none}
+
+/* ============ grain / cursor / toasts ============ */
+.grain{position:fixed;inset:0;z-index:990;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")}
+#cursor{display:none;position:fixed;top:0;left:0;width:12px;height:12px;border-radius:50%;background:var(--ink);border:2px solid var(--paper);z-index:999;pointer-events:none;opacity:0;transition:opacity .3s}
+body.has-cursor #cursor{display:block}
+body.has-cursor a,body.has-cursor button,body.has-cursor label,body.has-cursor select{cursor:none}
+body.has-cursor input{cursor:text}
+#toasts{position:fixed;left:1.2rem;bottom:1.2rem;z-index:995;display:flex;flex-direction:column;gap:.7rem;max-width:min(380px,92vw)}
+.toast{display:flex;gap:.9rem;align-items:flex-start;background:var(--ink);color:var(--paper);border-left:4px solid var(--volt);border-radius:10px;padding:.95rem 1.1rem;transform:translateX(-130%);transition:transform .45s cubic-bezier(.2,.9,.3,1.1),opacity .3s;cursor:pointer}
+.toast.in{transform:none}
+.toast.out{opacity:0;transform:translateX(-40%)}
+.toast.warn{border-left-color:var(--error)}
+.t-ic{width:30px;height:30px;border-radius:8px;background:var(--volt);color:var(--ink);display:grid;place-items:center;flex:none}
+.toast.warn .t-ic{background:var(--error);color:var(--paper)}
+.t-ic svg{width:15px;height:15px}
+.t-body b{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;color:var(--volt);margin-bottom:.3rem}
+.toast.warn .t-body b{color:#E8A08F}
+.t-body{font-size:.85rem;line-height:1.45;font-weight:500}
+
+/* ============ nav & mobile menu ============ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.15rem 4vw;transition:background .3s,border-color .3s,padding .3s;border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(244,240,228,.9);backdrop-filter:blur(12px);border-bottom-color:var(--line);padding-block:.8rem}
+.brand{font-weight:900;font-variation-settings:'wdth' 110;font-size:1.3rem;white-space:nowrap}
+.amp{display:inline-block;background:var(--volt);color:var(--ink);padding:0 .2em;margin:0 .05em;transform:rotate(-4deg);border-radius:3px}
+.nav-links{display:flex;gap:2.1rem}
+.nav-links a{position:relative;font-weight:700;font-variation-settings:'wdth' 96;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;padding:.3rem 0}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;background:var(--volt);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.burger{display:none;flex-direction:column;gap:6px;padding:8px}
+.burger span{display:block;width:26px;height:2.5px;background:var(--ink);transition:.3s}
+body.menu-open{overflow:hidden}
+body.menu-open .burger span{background:var(--paper)}
+body.menu-open .burger span:first-child{transform:translateY(4.25px) rotate(45deg)}
+body.menu-open .burger span:last-child{transform:translateY(-4.25px) rotate(-45deg)}
+body.menu-open .nav{background:transparent;border-bottom-color:transparent;backdrop-filter:none}
+body.menu-open .brand{color:var(--paper)}
+body.menu-open #nav-cta{display:none}
+.menu{position:fixed;inset:0;z-index:400;background:var(--ink);display:flex;flex-direction:column;justify-content:center;padding:6rem 9vw 3rem;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+.menu.on{opacity:1;visibility:visible}
+.menu a{display:flex;align-items:baseline;gap:1rem;color:var(--paper);font-weight:900;font-variation-settings:'wdth' 62;font-size:clamp(2.4rem,10vw,4.2rem);line-height:1.1;text-transform:uppercase;margin:.35rem 0;transform:translateY(26px);opacity:0;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .5s,color .2s}
+.menu a i{font-family:var(--mono);font-style:normal;font-size:.8rem;color:var(--volt)}
+.menu.on a{transform:none;opacity:1}
+.menu.on a:hover{color:var(--volt);transform:translateX(10px)}
+.menu.on a:nth-child(1){transition-delay:.06s}.menu.on a:nth-child(2){transition-delay:.12s}.menu.on a:nth-child(3){transition-delay:.18s}.menu.on a:nth-child(4){transition-delay:.24s}.menu.on a:nth-child(5){transition-delay:.3s}
+.menu-foot{margin-top:2.8rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;color:rgba(244,240,228,.55)}
+
+/* ============ hero ============ */
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;padding-top:6.2rem}
+.hero-grid{flex:1;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3rem;align-items:center}
+.hero-top{display:flex;flex-wrap:wrap;gap:.9rem 1.4rem;align-items:center;margin-bottom:1.4rem}
+.hero-kicker{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;color:var(--muted)}
+.live-chip{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;border:1.5px solid var(--ink);border-radius:999px;padding:.45rem .85rem}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--error);position:relative;flex:none}
+.pulse::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--error);animation:pulse 1.6s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.4);opacity:1}100%{transform:scale(1.4);opacity:0}}
+.hero-title{font-weight:900;font-size:clamp(3rem,11.5vw,11.5rem);line-height:.88;letter-spacing:-.01em;text-transform:uppercase}
+.hero-title .line{display:block}
+.hero-title .w{display:inline-block;white-space:nowrap;margin-right:.28em}
+.hero-title .line .w:last-child{margin-right:0}
+.hero-title .cond{font-variation-settings:'wdth' 62}
+.hero-title .exp{font-variation-settings:'wdth' 125}
+.hero-title .outline{color:transparent;-webkit-text-stroke:2.5px var(--ink)}
+.hero-title .ch{display:inline-block}
+.ch.pd{position:relative;color:transparent;width:.16em}
+.ch.pd::after{content:"";position:absolute;left:50%;bottom:.14em;transform:translateX(-50%);width:.17em;height:.17em;border-radius:50%;background:var(--volt)}
+.hero-sub{display:flex;flex-wrap:wrap;align-items:flex-end;gap:1.6rem 3rem;margin-top:2.4rem}
+.hero-sub p{max-width:42ch;font-size:1.02rem;color:var(--ink2);font-weight:500}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:.9rem}
+.hero-side{display:flex;flex-direction:column;align-items:flex-end;gap:2.2rem;padding-right:.4rem}
+.badge-spin{position:relative;width:148px;height:148px;display:block;transition:transform .35s}
+.badge-spin:hover{transform:scale(1.06) rotate(6deg)}
+.badge-spin svg.ring{width:100%;height:100%;animation:spin 16s linear infinite}
+.badge-spin svg.ring text{font-family:var(--mono);font-size:10.5px;letter-spacing:2.5px;fill:var(--ink)}
+.b-arrow{position:absolute;inset:0;display:grid;place-items:center}
+.b-arrow svg{width:24px;height:24px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-facts{display:flex;flex-direction:column;gap:.55rem}
+.hero-facts li{display:flex;align-items:baseline;gap:.7rem;justify-content:flex-end}
+.hero-facts b{font-weight:900;font-variation-settings:'wdth' 62;font-size:1.45rem;line-height:1}
+.hero-facts span{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;color:var(--muted)}
+
+/* ============ marquee ============ */
+.marquee{overflow:hidden;background:var(--volt);border-block:2px solid var(--ink)}
+.marquee-track{display:flex;width:max-content;animation:mq 22s linear infinite}
+.marquee-track>span{display:flex;align-items:center;gap:1.7rem;margin-right:1.7rem;padding:.85rem 0;font-weight:900;font-variation-settings:'wdth' 62;font-size:1.28rem;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.spark{width:.8em;height:.8em;fill:var(--ink);flex:none}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ============ manifesto ============ */
+.manifesto{min-height:100vh;display:flex;align-items:center;padding:5rem 0}
+.manifesto-inner{max-width:1020px}
+.manifesto-text{font-weight:800;font-variation-settings:'wdth' 82;font-size:clamp(1.7rem,4.3vw,3.6rem);line-height:1.18;letter-spacing:-.005em}
+.manifesto-facts{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2.8rem}
+.manifesto-facts span{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;border:1.5px solid var(--ink);padding:.5rem .8rem;border-radius:999px}
+
+/* ============ programs ============ */
+.programs{border-top:1px solid var(--line)}
+.prog-list{border-top:1.5px solid var(--ink)}
+.prog-row{border-bottom:1.5px solid var(--ink)}
+.prog-head{display:grid;grid-template-columns:3.4rem minmax(0,1fr) auto auto 2.6rem;grid-template-areas:'idx name meta heat tog';align-items:center;gap:.4rem 1.3rem;width:100%;padding:1.35rem .2rem;text-align:left}
+.prog-index{grid-area:idx;font-family:var(--mono);font-size:.68rem;color:var(--muted);transition:.25s}
+.prog-name{grid-area:name;font-weight:900;font-variation-settings:'wdth' 62;font-size:clamp(1.45rem,3.4vw,2.7rem);line-height:1;text-transform:uppercase;transition:transform .3s}
+.prog-sub{display:contents}
+.prog-meta{grid-area:meta;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--muted);white-space:nowrap}
+.prog-heat{grid-area:heat;display:flex;gap:3px}
+.prog-heat i{width:7px;height:16px;background:rgba(22,21,17,.14);transform:skewX(-12deg)}
+.prog-heat i.on{background:var(--ink)}
+.prog-toggle{grid-area:tog;width:2.5rem;height:2.5rem;border:2px solid var(--ink);border-radius:50%;display:grid;place-items:center;transition:background .25s,transform .3s}
+.prog-toggle svg{width:15px;height:15px}
+.prog-head:hover .prog-toggle{background:var(--volt)}
+.prog-head:hover .prog-index{color:var(--ink)}
+.prog-head:hover .prog-name{transform:translateX(10px)}
+.prog-row.open .prog-toggle{background:var(--volt);transform:rotate(45deg)}
+.prog-body{height:0;overflow:hidden}
+.prog-body-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.5rem 3rem;background:var(--paper2);border-left:5px solid var(--volt);padding:1.7rem 1.6rem 1.9rem;margin:0 .2rem 1.6rem 4.7rem}
+.prog-desc{max-width:56ch;font-size:1.02rem;font-weight:500;color:var(--ink2)}
+.prog-side{display:flex;flex-direction:column;align-items:flex-start;gap:1.05rem}
+.prog-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.prog-tags span{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;border:1.5px solid var(--ink);padding:.4rem .65rem;border-radius:999px}
+.prog-times{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;color:var(--muted)}
+#hover-preview{position:fixed;top:0;left:0;width:290px;height:212px;z-index:300;pointer-events:none;opacity:0;visibility:hidden;border:2px solid var(--ink);background:var(--paper2);overflow:hidden}
+#hover-preview img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.12)}
+#hover-preview::after{content:"";position:absolute;inset:0;background:var(--volt);mix-blend-mode:multiply;opacity:.85}
+
+/* ============ schedule ============ */
+.schedule{background:var(--ink);color:var(--paper)}
+.day-tabs{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2.2rem}
+.day-tab{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;border:1.5px solid rgba(244,240,228,.35);color:rgba(244,240,228,.75);padding:.6rem 1rem;border-radius:999px;transition:.25s}
+.day-tab:hover{border-color:var(--paper);color:var(--paper)}
+.day-tab.sel{background:var(--volt);border-color:var(--volt);color:var(--ink);font-weight:700}
+.day-tab .tdy{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--volt);margin-left:.5rem;vertical-align:middle}
+.day-tab.sel .tdy{background:var(--ink)}
+.sched-list{border-top:1.5px solid rgba(244,240,228,.5)}
+.sched-row{display:grid;grid-template-columns:4.6rem minmax(0,1fr) 7.8rem auto auto;grid-template-areas:'time name coach heat book';align-items:center;gap:.4rem 1.3rem;padding:1.1rem .2rem;border-bottom:1px solid rgba(244,240,228,.16)}
+.s-sub{display:contents}
+.s-time{grid-area:time;font-family:var(--mono);font-size:.78rem;color:var(--volt);font-weight:700}
+.s-name{grid-area:name;font-weight:900;font-variation-settings:'wdth' 62;font-size:clamp(1.15rem,2.4vw,1.8rem);line-height:1.05;text-transform:uppercase}
+.s-coach{grid-area:coach;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:rgba(244,240,228,.6)}
+.s-heat{grid-area:heat;display:flex;gap:3px}
+.s-heat i{width:7px;height:15px;background:rgba(244,240,228,.16);transform:skewX(-12deg)}
+.s-heat i.on{background:var(--volt)}
+.s-book{grid-area:book;display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.1em;background:var(--volt);color:var(--ink);padding:.55rem .9rem;border-radius:999px;transition:transform .2s,box-shadow .2s}
+.s-book svg{width:13px;height:13px}
+.s-book:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--paper)}
+.live-tag{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--mono);font-size:.52rem;letter-spacing:.12em;border:1px solid rgba(244,240,228,.4);border-radius:999px;padding:.22rem .55rem;margin-left:.9rem;vertical-align:middle}
+.live-tag .pulse{width:6px;height:6px;background:var(--volt)}
+.live-tag .pulse::after{border-color:var(--volt)}
+.sched-foot{margin-top:2.4rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;color:rgba(244,240,228,.5)}
+
+/* ============ coaches ============ */
+.coach-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.5rem}
+.coach:nth-child(1){margin-top:1.4rem}.coach:nth-child(2){margin-top:3rem}.coach:nth-child(3){margin-top:.7rem}.coach:nth-child(4){margin-top:3.6rem}.coach:nth-child(5){margin-top:1.8rem}
+.coach-img{position:relative;aspect-ratio:3/4;overflow:hidden;border:2px solid var(--ink);background:var(--paper2)}
+.coach-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1);transition:filter .45s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.coach:hover .coach-img img{filter:none;transform:scale(1.05)}
+.coach-tag{position:absolute;left:.6rem;bottom:.6rem;background:var(--volt);color:var(--ink);font-size:.55rem;letter-spacing:.12em;padding:.32rem .55rem;border-radius:4px}
+.coach-name{font-weight:900;font-variation-settings:'wdth' 62;font-size:1.15rem;margin-top:.9rem;text-transform:uppercase;line-height:1.1}
+.coach-role{font-size:.58rem;letter-spacing:.1em;color:var(--muted);margin-top:.45rem}
+.coach-cls{font-size:.58rem;letter-spacing:.1em;color:var(--muted);margin-top:.3rem}
+
+/* ============ membership ============ */
+.membership{background:var(--paper2);border-block:1px solid var(--line)}
+.member-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:4rem;align-items:center}
+.member-note{max-width:38ch;color:var(--ink2);font-weight:500;margin-top:1.4rem}
+.plan-list{margin-top:2.2rem}
+.plan{display:grid;grid-template-columns:1fr auto 2rem;align-items:center;gap:.2rem 1.1rem;width:100%;text-align:left;border:2px solid var(--ink);background:var(--paper);padding:1.05rem 1.2rem;margin-bottom:.8rem;transition:background .25s,color .25s,transform .25s}
+.plan:hover{transform:translateX(6px)}
+.plan-main{display:flex;flex-direction:column;gap:.2rem}
+.plan-name{font-weight:900;font-variation-settings:'wdth' 62;font-size:1.15rem;text-transform:uppercase;display:flex;align-items:center;gap:.6rem}
+.save{font-family:var(--mono);font-style:normal;font-size:.5rem;letter-spacing:.1em;background:var(--volt);padding:.28rem .5rem;border-radius:999px}
+.plan-sub{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;color:var(--muted)}
+.plan-price{font-weight:800;font-variation-settings:'wdth' 80;font-size:1.05rem}
+.plan-check{opacity:0;transition:opacity .25s;display:grid;place-items:center}
+.plan-check svg{width:18px;height:18px}
+.plan.sel{background:var(--ink);color:var(--paper)}
+.plan.sel .plan-sub{color:rgba(244,240,228,.6)}
+.plan.sel .plan-price{color:var(--volt)}
+.plan.sel .plan-check{opacity:1;color:var(--volt)}
+.member-fine{display:flex;flex-wrap:wrap;gap:.6rem 1.8rem;margin-top:2rem}
+.member-fine li{display:flex;align-items:center;gap:.55rem;font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;color:var(--ink2)}
+.member-fine svg{width:14px;height:14px;flex:none}
+.card-scene{perspective:1100px;width:100%;max-width:430px;margin-inline:auto}
+.card-tilt,.card-flip{transform-style:preserve-3d;width:100%}
+.member-card{position:relative;background:var(--volt);color:var(--ink);border:2px solid var(--ink);border-radius:18px;box-shadow:12px 12px 0 var(--ink);padding:1.9rem 1.8rem 1.6rem;display:flex;flex-direction:column;transform-style:preserve-3d}
+.mc-top{display:flex;justify-content:space-between;align-items:center}
+.mc-brand{font-weight:900;font-variation-settings:'wdth' 110;font-size:1.05rem}
+.mc-chip{font-family:var(--mono);font-size:.52rem;letter-spacing:.16em;border:1.5px solid var(--ink);padding:.3rem .55rem;border-radius:999px}
+.mc-plan{font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;margin-top:1.5rem}
+.mc-price{font-weight:900;font-variation-settings:'wdth' 62;font-size:clamp(2.4rem,5vw,3.1rem);line-height:1;margin-top:.3rem}
+.mc-equiv{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;margin-top:.4rem}
+.mc-perks{display:grid;grid-template-columns:1fr 1fr;gap:.45rem .9rem;margin-top:1.3rem}
+.mc-perks li{display:flex;align-items:flex-start;gap:.5rem;font-weight:600;font-size:.74rem;line-height:1.35}
+.mc-perks li::before{content:"";width:7px;height:7px;background:var(--ink);flex:none;margin-top:.32em}
+.mc-bottom{display:flex;justify-content:space-between;align-items:flex-end;margin-top:1.7rem}
+.mc-name{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em}
+.mc-barcode{width:120px;height:32px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 7px,transparent 7px 8px,var(--ink) 8px 9px,transparent 9px 13px)}
+.card-sticker{position:absolute;top:-15px;right:-11px;background:var(--ink);color:var(--volt);font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;padding:.5rem .7rem;border-radius:7px;transform:rotate(7deg);display:none}
+.card-sticker.show{display:block}
+
+/* ============ proof / quotes ============ */
+.proof{padding-bottom:5.8rem}
+.belt{overflow:hidden;padding:.65rem 0}
+.belt-track{display:flex;width:max-content;animation:mq 46s linear infinite}
+.belt.rev .belt-track{animation-duration:58s;animation-direction:reverse}
+.belt:hover .belt-track{animation-play-state:paused}
+.q-card{width:400px;flex:none;margin-right:1.5rem;background:var(--paper2);border:2px solid var(--ink);border-radius:14px;padding:1.5rem 1.6rem}
+.q-card p{font-weight:600;font-variation-settings:'wdth' 92;font-size:1.06rem;line-height:1.45}
+.q-card .who{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;color:var(--muted);margin-top:1.1rem}
+.q-card:nth-child(4n+3){background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.q-card:nth-child(4n+3) .who{color:rgba(244,240,228,.6)}
+
+/* ============ trial ============ */
+.trial{position:relative;overflow:hidden;background:var(--volt);padding:7.5rem 0}
+.trial-amp{position:absolute;right:-5%;bottom:-24%;font-weight:900;font-variation-settings:'wdth' 62;font-size:34vw;line-height:.72;color:transparent;-webkit-text-stroke:2px rgba(22,21,17,.22);pointer-events:none;user-select:none}
+.trial-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:4rem;position:relative}
+.trial-title{font-weight:900;font-variation-settings:'wdth' 62;font-size:clamp(2.9rem,7vw,6rem);line-height:.9;text-transform:uppercase}
+.trial-copy{max-width:40ch;font-weight:500;font-size:1.05rem;margin-top:1.6rem}
+.trial-info{margin-top:2.4rem}
+.trial-info li{display:flex;align-items:center;gap:.85rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;margin-bottom:.95rem}
+.trial-info svg{width:16px;height:16px;flex:none}
+.trial-form{display:flex;flex-direction:column;gap:1.35rem}
+.f-lab{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;margin-bottom:.5rem;opacity:.85}
+.trial-form input,.trial-form select{width:100%;background:transparent;border:0;border-bottom:2px solid var(--ink);font-family:var(--disp);font-size:1.02rem;font-weight:600;padding:.65rem .1rem;border-radius:0;color:var(--ink);transition:background .25s}
+.trial-form input::placeholder{color:rgba(22,21,17,.4);font-weight:400}
+.trial-form input:focus,.trial-form select:focus{outline:none;background:rgba(22,21,17,.07)}
+.trial-form select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23161511' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .2rem center;background-size:15px;padding-right:2rem;cursor:pointer}
+label.bad input,label.bad select{border-bottom-color:var(--error)}
+.err{display:block;font-family:var(--mono);font-style:normal;font-size:.58rem;letter-spacing:.06em;color:var(--error);min-height:1.1em;margin-top:.4rem}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.35rem 1.5rem}
+.form-fine{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;opacity:.7}
+
+/* ============ footer ============ */
+.footer{background:var(--ink);color:var(--paper);padding:5.5rem 0 2rem}
+.footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:3rem}
+.footer-logo{font-weight:900;font-variation-settings:'wdth' 62;font-size:2.7rem;line-height:1;text-transform:uppercase}
+.footer-tag{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;color:rgba(244,240,228,.55);margin-top:.9rem}
+.footer-soc{display:flex;gap:.7rem;margin-top:1.8rem;flex-wrap:wrap}
+.soc{display:inline-flex;align-items:center;gap:.5rem;border:1.5px solid rgba(244,240,228,.35);padding:.55rem .95rem;border-radius:999px;font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;transition:.25s}
+.soc svg{width:14px;height:14px}
+.soc:hover{border-color:var(--volt);color:var(--volt);transform:translateY(-2px)}
+.footer h4{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;color:var(--volt);margin-bottom:1.2rem;font-weight:700}
+.footer-links a{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:rgba(244,240,228,.7);margin:.55rem 0;transition:color .2s,transform .2s}
+.footer-links a:hover{color:var(--volt);transform:translateX(5px)}
+.footer-info p{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;line-height:2;color:rgba(244,240,228,.7)}
+.footer-info a:hover{color:var(--volt)}
+.footer-bottom{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;align-items:center;border-top:1px solid rgba(244,240,228,.15);margin-top:3.4rem;padding-top:1.6rem}
+.footer-bottom span{font-family:var(--mono);font-size:.56rem;letter-spacing:.12em;color:rgba(244,240,228,.5)}
+.totop{font-family:var(--mono);font-size:.56rem;letter-spacing:.12em;border:1.5px solid rgba(244,240,228,.3);color:var(--paper);padding:.6rem 1.05rem;border-radius:999px;transition:.25s}
+.totop:hover{border-color:var(--volt);color:var(--volt)}
+
+/* ============ modal ============ */
+.modal-backdrop{position:fixed;inset:0;z-index:900;background:rgba(22,21,17,.62);display:flex;align-items:center;justify-content:center;padding:1.4rem;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.modal-backdrop.on{opacity:1;visibility:visible}
+.modal{position:relative;background:var(--paper);border:2px solid var(--ink);box-shadow:12px 12px 0 var(--volt);border-radius:18px;width:min(470px,100%);padding:2.1rem 2rem 1.8rem;transform:translateY(28px) scale(.96);transition:transform .38s cubic-bezier(.2,.9,.25,1.08)}
+.modal-backdrop.on .modal{transform:none}
+.modal-x{position:absolute;top:1rem;right:1rem;width:2.3rem;height:2.3rem;border:2px solid var(--ink);border-radius:50%;display:grid;place-items:center;transition:.25s}
+.modal-x svg{width:15px;height:15px}
+.modal-x:hover{background:var(--ink);color:var(--paper)}
+#modal-kicker{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;color:var(--muted)}
+#modal-title{font-weight:900;font-variation-settings:'wdth' 62;font-size:1.7rem;line-height:1;text-transform:uppercase;margin-top:.6rem;padding-right:2.5rem}
+#modal-sub{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;color:var(--muted);margin-top:.7rem}
+#modal-form{display:flex;flex-direction:column;gap:1.15rem;margin-top:1.6rem}
+#modal-form input{width:100%;background:transparent;border:0;border-bottom:2px solid var(--ink);font-family:var(--disp);font-size:1rem;font-weight:600;padding:.6rem .1rem;border-radius:0;color:var(--ink)}
+#modal-form input::placeholder{color:rgba(22,21,17,.4);font-weight:400}
+#modal-form input:focus{outline:none;background:rgba(22,21,17,.06)}
+.modal-fine{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;color:var(--muted);margin-top:1.1rem}
+
+/* ============ responsive ============ */
+@media (max-width:1000px){
+  .sec{padding:5.2rem 0}
+  .hero-grid{grid-template-columns:1fr;gap:0}
+  .hero-side{flex-direction:row;align-items:center;justify-content:flex-start;gap:2rem;margin-top:2.6rem;padding:0}
+  .badge-spin{width:110px;height:110px}
+  .hero-facts{flex-direction:row;flex-wrap:wrap;gap:.6rem 1.6rem}
+  .hero-facts li{gap:.45rem;align-items:center}
+  .hero-facts b{font-size:1.15rem}
+  .section-head{flex-direction:column;align-items:flex-start;gap:1rem}
+  .sec-note{text-align:left;max-width:44ch}
+  .member-grid{grid-template-columns:1fr;gap:3.2rem}
+  .coach-grid{display:flex;overflow-x:auto;gap:1.2rem;padding-bottom:1rem;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .coach-grid::-webkit-scrollbar{display:none}
+  .coach-grid .coach:nth-child(n){margin-top:0}
+  .coach{flex:0 0 232px}
+  .trial-grid{grid-template-columns:1fr;gap:3.4rem}
+  .trial{padding:5.2rem 0}
+  .footer-grid{grid-template-columns:1fr;gap:2.6rem}
+}
+@media (max-width:720px){
+  .nav-links{display:none}
+  .burger{display:flex}
+  .prog-head{grid-template-columns:2.1rem minmax(0,1fr) 2.5rem;grid-template-areas:'idx name tog' 'idx sub tog'}
+  .prog-sub{display:flex;grid-area:sub;align-items:center;gap:1.2rem;margin-top:.5rem;flex-wrap:wrap}
+  .prog-body-in{grid-template-columns:1fr;margin-left:0}
+  .sched-row{grid-template-columns:4.1rem minmax(0,1fr) auto;grid-template-areas:'time name book' 'time sub book'}
+  .s-sub{display:flex;grid-area:sub;align-items:center;gap:1.2rem;margin-top:.5rem;flex-wrap:wrap}
+  .q-card{width:305px}
+  .two-col{grid-template-columns:1fr}
+  .btn{padding:.85rem 1.2rem;font-size:.85rem}
+  .mc-perks{grid-template-columns:1fr}
+  .manifesto{padding:3.6rem 0}
+  .hero-title .outline{-webkit-text-stroke:1.5px var(--ink)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .marquee-track,.belt-track,.badge-spin svg.ring,.pulse::after{animation:none}
+  *{transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <a class="brand" href="#hero" aria-label="Fun and Fit — home">FUN<span class="amp">&amp;</span>FIT</a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#programs">Programs</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#coaches">Coaches</a>
+    <a href="#membership">Membership</a>
+  </nav>
+  <div class="nav-right">
+    <a class="btn btn-ink btn-sm" id="nav-cta" href="#trial">Free trial</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- mobile menu -->
+<nav class="menu" id="menu" aria-label="Mobile menu">
+  <a href="#programs"><i>01</i>Programs</a>
+  <a href="#schedule"><i>02</i>Schedule</a>
+  <a href="#coaches"><i>03</i>Coaches</a>
+  <a href="#membership"><i>04</i>Membership</a>
+  <a href="#trial"><i>05</i>Free trial</a>
+  <p class="menu-foot">+91 98765 43210 · MG ROAD · OPEN 05:30–22:30</p>
+</nav>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <div class="hero-top">
+        <p class="hero-kicker">GROUP FITNESS STUDIO · EST. 2016 · 40+ CLASSES / WEEK</p>
+        <p class="live-chip"><span class="pulse"></span>NEXT UP&nbsp;·&nbsp;<b id="next-class-text">SCANNING THE TIMETABLE…</b></p>
+      </div>
+      <h1 class="hero-title" id="hero-title" aria-label="Train hard. Laugh louder.">
+        <span class="line" aria-hidden="true"><span class="w cond" data-a="62" data-b="114">TRAIN</span><span class="w exp outline" data-a="125" data-b="80">HARD,</span></span>
+        <span class="line" aria-hidden="true"><span class="w exp" data-a="125" data-b="80">LAUGH</span></span>
+        <span class="line" aria-hidden="true"><span class="w cond" data-a="62" data-b="114">LOUDER.</span></span>
+      </h1>
+      <div class="hero-sub">
+        <p>Strength, dance, yoga and HIIT under one roof — 40+ classes a week, coaches who learn your name, and zero boring reps. First class is free. The addiction is not.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-ink" href="#trial">Book a free class <i data-lucide="arrow-up-right"></i></a>
+          <a class="btn btn-ghost" href="#schedule">See the schedule</a>
+        </div>
+      </div>
+    </div>
+    <aside class="hero-side">
+      <a class="badge-spin" href="#trial" aria-label="First class is free — book now">
+        <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+          <defs><path id="tcirc" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
+          <text><textPath href="#tcirc">FIRST CLASS FREE • NO EXCUSES •</textPath></text>
+        </svg>
+        <span class="b-arrow"><i data-lucide="arrow-down"></i></span>
+      </a>
+      <ul class="hero-facts">
+        <li><b>2,100+</b><span>MEMBERS</span></li>
+        <li><b>14</b><span>COACHES</span></li>
+        <li><b>4.9</b><span>AVG RATING</span></li>
+      </ul>
+    </aside>
+  </div>
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track"><span>SWEAT<svg class="spark" viewBox="0 0 24 24"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg>SMILE<svg class="spark" viewBox="0 0 24 24"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg>REPEAT<svg class="spark" viewBox="0 0 24 24"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg>FUN&amp;FIT<svg class="spark" viewBox="0 0 24 24"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg></span></div>
+  </div>
+</section>
+
+<!-- ============ MANIFESTO ============ -->
+<section class="manifesto" id="manifesto">
+  <div class="container manifesto-inner">
+    <p class="kicker">01 — THE FUN&amp;FIT WAY</p>
+    <p class="manifesto-text" id="manifesto-text">Most gyms pick a lane: brutal iron clubs that smell of chalk and judgement, or treadmill farms playing sad pop at 6 AM. We built the third thing — a studio where the programming is dead serious and the atmosphere is not. You will lift. You will dance. You will come back tomorrow. That last part is our entire business model.</p>
+    <div class="manifesto-facts">
+      <span>3 FLOORS · 9,000 SQ FT</span><span>14 CERTIFIED COACHES</span><span>OPEN 05:30 – 22:30</span><span>NO JOINING FEE, EVER</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRAMS ============ -->
+<section class="programs sec" id="programs">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">02 — PROGRAMS</p>
+        <h2 class="sec-title">PICK YOUR POISON</h2>
+      </div>
+      <p class="sec-note">Hover a row for a preview, open it for the good news. First class is free, by the way.</p>
+    </div>
+    <ul class="prog-list" id="prog-list"></ul>
+  </div>
+</section>
+
+<!-- ============ SCHEDULE ============ -->
+<section class="schedule sec ink-section" id="schedule">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">03 — TIMETABLE</p>
+        <h2 class="sec-title">THE WEEK, PLANNED FOR YOU</h2>
+      </div>
+      <p class="sec-note">Live from our actual timetable. Defaults to today — because you're already late.</p>
+    </div>
+    <div class="day-tabs" id="day-tabs" role="group" aria-label="Days of the week"></div>
+    <div class="sched-list" id="sched-list"></div>
+    <p class="sched-foot">FREEZE / RESCHEDULE ANYTIME · REPEATED NO-SHOWS GET A GENTLE PHONE CALL FROM ARJUN</p>
+  </div>
+</section>
+
+<!-- ============ COACHES ============ -->
+<section class="coaches sec" id="coaches">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">04 — COACHES</p>
+        <h2 class="sec-title">THE PEOPLE WHO COUNT YOUR REPS</h2>
+      </div>
+      <p class="sec-note">Certified, obsessed, and weirdly good at remembering birthdays.</p>
+    </div>
+    <div class="coach-grid" id="coach-grid"></div>
+  </div>
+</section>
+
+<!-- ============ MEMBERSHIP ============ -->
+<section class="membership sec" id="membership">
+  <div class="container member-grid">
+    <div class="member-left" data-reveal>
+      <p class="kicker">05 — MEMBERSHIP</p>
+      <h2 class="sec-title">ONE PASS. EVERYTHING.</h2>
+      <p class="member-note">No joining fee, no lock-in. Freeze it when Diwali happens, cancel it with a text message. Your membership works for you, not the other way around.</p>
+      <div class="plan-list" id="plan-list">
+        <button class="plan" data-plan="monthly" aria-pressed="false">
+          <span class="plan-main"><span class="plan-name">Monthly</span><span class="plan-sub">FLEXIBLE · ROLLING</span></span>
+          <span class="plan-price">₹2,499/MO</span>
+          <span class="plan-check"><i data-lucide="check"></i></span>
+        </button>
+        <button class="plan" data-plan="quarterly" aria-pressed="false">
+          <span class="plan-main"><span class="plan-name">Quarterly</span><span class="plan-sub">₹1,999 / MO · SAVE 20%</span></span>
+          <span class="plan-price">₹5,999</span>
+          <span class="plan-check"><i data-lucide="check"></i></span>
+        </button>
+        <button class="plan" data-plan="annual" aria-pressed="false">
+          <span class="plan-main"><span class="plan-name">Annual <em class="save">BEST VALUE</em></span><span class="plan-sub">₹1,499 / MO · SAVE 40%</span></span>
+          <span class="plan-price">₹17,999</span>
+          <span class="plan-check"><i data-lucide="check"></i></span>
+        </button>
+        <button class="plan" data-plan="student" aria-pressed="false">
+          <span class="plan-main"><span class="plan-name">Student</span><span class="plan-sub">VALID COLLEGE ID REQUIRED</span></span>
+          <span class="plan-price">₹1,499/MO</span>
+          <span class="plan-check"><i data-lucide="check"></i></span>
+        </button>
+      </div>
+      <ul class="member-fine">
+        <li><i data-lucide="check"></i><span>NO JOINING FEE, EVER</span></li>
+        <li><i data-lucide="check"></i><span>PAUSE / FREEZE ANYTIME</span></li>
+        <li><i data-lucide="check"></i><span>7-DAY MONEY-BACK</span></li>
+      </ul>
+    </div>
+    <div class="member-right" data-reveal>
+      <div class="card-scene">
+        <div class="card-tilt" id="card-tilt">
+          <div class="card-flip" id="card-flip">
+            <div class="member-card" id="member-card">
+              <span class="card-sticker" id="card-sticker">SAVE 40% · BEST VALUE</span>
+              <div class="mc-top"><span class="mc-brand">FUN<span class="amp">&amp;</span>FIT</span><span class="mc-chip">MEMBERSHIP</span></div>
+              <p class="mc-plan" id="mc-plan">ANNUAL PASS</p>
+              <p class="mc-price" id="mc-price">₹17,999</p>
+              <p class="mc-equiv" id="mc-equiv">= ₹1,499 / MONTH · SAVE 40%</p>
+              <ul class="mc-perks" id="mc-perks"></ul>
+              <div class="mc-bottom"><span class="mc-name">THIS COULD BE YOU</span><span class="mc-barcode" aria-hidden="true"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROOF ============ -->
+<section class="proof sec" id="proof">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">06 — RECEIPTS</p>
+        <h2 class="sec-title">PROOF &gt; PROMISES</h2>
+      </div>
+      <p class="sec-note">Real members, real numbers, shared with permission and mild bribery.</p>
+    </div>
+  </div>
+  <div class="belt" data-reveal><div class="belt-track" id="belt-a"></div></div>
+  <div class="belt rev" data-reveal><div class="belt-track" id="belt-b"></div></div>
+</section>
+
+<!-- ============ TRIAL ============ -->
+<section class="trial" id="trial">
+  <span class="trial-amp" aria-hidden="true">&amp;</span>
+  <div class="container trial-grid">
+    <div class="trial-left" data-reveal>
+      <p class="kicker">07 — YOUR MOVE</p>
+      <h2 class="trial-title">FIRST CLASS<br>IS FREE.</h2>
+      <p class="trial-copy">No card. No contract. No sales guy circling your treadmill. Pick a slot, show up, sweat — decide later. Worst case, you burn 400 calories for free.</p>
+      <ul class="trial-info">
+        <li><i data-lucide="map-pin"></i><span>3RD FLOOR, GRAND CENTRAL PLAZA — MG ROAD</span></li>
+        <li><i data-lucide="clock"></i><span>MON–SAT 05:30–22:30 · SUN 07:00–13:00</span></li>
+        <li><i data-lucide="phone"></i><a href="tel:+919876543210">+91 98765 43210</a></li>
+      </ul>
+    </div>
+    <form class="trial-form" id="trial-form" novalidate data-reveal>
+      <label>
+        <span class="f-lab">YOUR NAME</span>
+        <input type="text" name="name" placeholder="Priya Sharma" autocomplete="name">
+        <em class="err" data-err></em>
+      </label>
+      <label>
+        <span class="f-lab">MOBILE NUMBER</span>
+        <input type="tel" name="phone" placeholder="98765 43210" autocomplete="tel" inputmode="tel">
+        <em class="err" data-err></em>
+      </label>
+      <div class="two-col">
+        <label>
+          <span class="f-lab">YOUR GOAL</span>
+          <select name="goal">
+            <option value="" selected disabled>Choose one…</option>
+            <option>Lose fat</option>
+            <option>Build strength</option>
+            <option>Dance cardio (Zumba)</option>
+            <option>Flexibility &amp; yoga</option>
+            <option>Just vibe — surprise me</option>
+          </select>
+          <em class="err" data-err></em>
+        </label>
+        <label>
+          <span class="f-lab">PREFERRED TIME</span>
+          <select name="slot">
+            <option value="" selected disabled>Choose one…</option>
+            <option>Morning (05:30–11:00)</option>
+            <option>Evening (17:00–21:30)</option>
+          </select>
+          <em class="err" data-err></em>
+        </label>
+      </div>
+      <button class="btn btn-ink" type="submit" id="trial-btn">Claim my free class <i data-lucide="arrow-up-right"></i></button>
+      <p class="form-fine">WE REPLY ON WHATSAPP WITHIN A FEW HOURS. ZERO SPAM — WE'RE TOO BUSY COUNTING REPS.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <p class="footer-logo">FUN<span class="amp">&amp;</span>FIT</p>
+      <p class="footer-tag">TRAIN HARD. LAUGH LOUDER.</p>
+      <!-- replace with the real handles -->
+      <div class="footer-soc">
+        <a class="soc" href="https://instagram.com" target="_blank" rel="noopener"><i data-lucide="instagram"></i>INSTAGRAM</a>
+        <a class="soc" href="https://youtube.com" target="_blank" rel="noopener"><i data-lucide="youtube"></i>YOUTUBE</a>
+      </div>
+    </div>
+    <nav class="footer-links" aria-label="Footer">
+      <h4>SITEMAP</h4>
+      <a href="#programs">PROGRAMS</a><a href="#schedule">SCHEDULE</a><a href="#coaches">COACHES</a><a href="#membership">MEMBERSHIP</a><a href="#trial">FREE TRIAL</a>
+    </nav>
+    <div class="footer-info">
+      <h4>VISIT</h4>
+      <p>3RD FLOOR, GRAND CENTRAL PLAZA<br>MG ROAD</p>
+      <p>MON–SAT 05:30–22:30 · SUN 07:00–13:00</p>
+      <p><a href="mailto:hello@funandfit.in">HELLO@FUNANDFIT.IN</a></p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2025 FUN&amp;FIT FITNESS · ALL RIGHTS RESERVED</span>
+    <span>MADE WITH SWEAT &amp; CHALK</span>
+    <button class="totop" id="to-top">BACK TO TOP</button>
+  </div>
+</footer>
+
+<!-- ============ MODAL / OVERLAYS ============ -->
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-x" id="modal-x" aria-label="Close"><i data-lucide="x"></i></button>
+    <p id="modal-kicker">BOOK A CLASS</p>
+    <h3 id="modal-title">Class</h3>
+    <p id="modal-sub">ANY SESSION</p>
+    <form id="modal-form" novalidate>
+      <label><span class="f-lab">YOUR NAME</span><input type="text" id="m-name" placeholder="Priya Sharma" autocomplete="name"><em class="err" data-err></em></label>
+      <label><span class="f-lab">MOBILE NUMBER</span><input type="tel" id="m-phone" placeholder="98765 43210" autocomplete="tel" inputmode="tel"><em class="err" data-err></em></label>
+      <button class="btn btn-ink" type="submit">Hold my spot <i data-lucide="arrow-up-right"></i></button>
+    </form>
+    <p class="modal-fine">FREE TRIAL APPLIES TO YOUR FIRST BOOKING. WE CONFIRM ON WHATSAPP.</p>
+  </div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+<div id="toasts" aria-live="polite"></div>
+<div id="hover-preview" aria-hidden="true"><img alt=""></div>
+<div id="cursor" aria-hidden="true"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+/* ================= setup ================= */
+const $  = (s, c=document) => c.querySelector(s);
+const $$ = (s, c=document) => [...c.querySelectorAll(s)];
+const RM   = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FINE = matchMedia('(pointer: fine)').matches;
+const HAS_GSAP = !!(window.gsap && window.ScrollTrigger);
+if (HAS_GSAP) gsap.registerPlugin(ScrollTrigger);
+const icons = () => { try { window.lucide && lucide.createIcons(); } catch(e){} };
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+const heat = n => Array.from({length:5}, (_,i)=>`<i${i<n?' class="on"':''}></i>`).join('');
+
+/* ================= data (edit everything here — it drives the whole page) ================= */
+const PROGRAMS = [
+ {name:'STRENGTH & CONDITIONING', coach:'ARJUN', mins:60, heat:4, img:'https://picsum.photos/seed/ff-strength/720/520.jpg',
+  desc:'Progressive barbell and dumbbell programming — squat, hinge, press, pull — tracked week to week, so your numbers go up and the guesswork goes out. Beginner-safe, ego-proof.',
+  tags:['ALL LEVELS','MAX 16 PER CLASS','PROGRESS TRACKED'], times:'MON · WED · FRI — 06:30 & 18:00'},
+ {name:'ZUMBA DANCE FITNESS', coach:'MEERA', mins:45, heat:3, img:'https://picsum.photos/seed/ff-zumba/720/520.jpg',
+  desc:'Latin cardio that burns like a workout and feels like a Saturday night. You will forget this counts as exercise somewhere around minute four.',
+  tags:['ALL LEVELS','ZERO EXPERIENCE NEEDED','BRING A TOWEL'], times:'TUE · THU — 19:00 · SAT — 09:00'},
+ {name:'POWER YOGA', coach:'KAVITA', mins:50, heat:2, img:'https://picsum.photos/seed/ff-yoga/720/520.jpg',
+  desc:'Strong, breath-led flows for mobility, core and headspace. All the flexibility you keep promising to work on — in a class you will actually look forward to.',
+  tags:['ALL LEVELS','MOBILITY + CORE','MATS PROVIDED'], times:'DAILY — 06:30 · SUN — 08:00'},
+ {name:'HIIT CIRCUITS', coach:'ROHAN', mins:40, heat:5, img:'https://picsum.photos/seed/ff-hiit/720/520.jpg',
+  desc:'Forty minutes. Nine stations. Zero standing around. The most efficient sweat of your week, scaled to whatever shape you are in today.',
+  tags:['INTERMEDIATE','HEART-RATE ZONES','SCALED OPTIONS'], times:'MON · TUE · THU — 07:30 · WED · FRI — 20:00'},
+ {name:'FUNCTIONAL CROSS-TRAIN', coach:'ROHAN', mins:55, heat:4, img:'https://picsum.photos/seed/ff-func/720/520.jpg',
+  desc:'Kettlebells, sleds, ropes, carries and boxes — training for how bodies actually move, not for the mirror. Team circuits, loud encouragement.',
+  tags:['ALL LEVELS','TEAM CIRCUITS','CHALK ON THE HOUSE'], times:'TUE · THU — 18:00 · SAT — 10:30'},
+ {name:'BOXING CONDITIONING', coach:'DINESH', mins:45, heat:4, img:'https://picsum.photos/seed/ff-boxing/720/520.jpg',
+  desc:'Footwork, pads, heavy bag and core work. Learn to hit properly, leave the day\u2019s stress at the door, walk out two inches taller.',
+  tags:['ALL LEVELS','PADS + HEAVY BAG','GLOVES PROVIDED'], times:'MON · WED — 19:00 · FRI — 19:30 · SAT — 17:00'},
+ {name:'PERSONAL TRAINING 1:1', coach:'ALL COACHES', mins:60, heat:5, img:'https://picsum.photos/seed/ff-pt/720/520.jpg',
+  desc:'One coach, one plan, nowhere to hide. Custom programming, nutrition guidance and weekly check-ins for people with a deadline.',
+  tags:['BY APPOINTMENT','GOAL-SPECIFIC','NUTRITION INCLUDED'], times:'SLOTS FROM 06:00 TO 21:00 — BOOK BELOW'}
+];
+
+const DAYS = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+const _A = [
+ {t:'06:30',n:'Power Yoga',c:'KAVITA',h:2},{t:'07:30',n:'HIIT Circuits',c:'ROHAN',h:5},{t:'08:30',n:'Zumba',c:'MEERA',h:3},
+ {t:'18:00',n:'Strength & Conditioning',c:'ARJUN',h:4},{t:'19:00',n:'Boxing Conditioning',c:'DINESH',h:4},{t:'20:00',n:'Zumba',c:'MEERA',h:3}];
+const _B = [
+ {t:'06:30',n:'Strength & Conditioning',c:'ARJUN',h:4},{t:'07:30',n:'Power Yoga',c:'KAVITA',h:2},
+ {t:'18:00',n:'Functional Cross-Train',c:'ROHAN',h:4},{t:'19:00',n:'Zumba',c:'MEERA',h:3},{t:'20:00',n:'HIIT Circuits',c:'ROHAN',h:5}];
+const SCHED = {
+ 1:_A, 2:_B, 3:_A, 4:_B,
+ 5:[{t:'06:30',n:'Power Yoga',c:'KAVITA',h:2},{t:'07:30',n:'HIIT Circuits',c:'ROHAN',h:5},{t:'08:30',n:'Zumba',c:'MEERA',h:3},
+    {t:'18:00',n:'Strength & Conditioning',c:'ARJUN',h:4},{t:'19:30',n:'Boxing Conditioning',c:'DINESH',h:4},{t:'20:15',n:'Zumba',c:'MEERA',h:3}],
+ 6:[{t:'08:00',n:'Power Yoga',c:'KAVITA',h:2},{t:'09:00',n:'Zumba',c:'MEERA',h:3},{t:'10:30',n:'Functional Cross-Train',c:'ROHAN',h:4},{t:'17:00',n:'Boxing Conditioning',c:'DINESH',h:4}],
+ 0:[{t:'08:00',n:'Power Yoga',c:'KAVITA',h:2},{t:'09:30',n:'Zumba',c:'MEERA',h:3},{t:'10:30',n:'HIIT Circuits',c:'ROHAN',h:5},{t:'12:00',n:'Open Floor + PT',c:'ALL COACHES',h:1}]
+};
+
+const COACHES = [
+ {n:'ARJUN MEHTA', r:'HEAD COACH — STRENGTH', cert:'NSCA-CPT · 9 YRS', cls:'S&C · FUNCTIONAL · PT', img:'coach-arjun', tag:'HEAD COACH'},
+ {n:'MEERA IYER', r:'DANCE FITNESS LEAD', cert:'ZUMBA LICENSED · 6 YRS', cls:'ZUMBA · DANCE FIT', img:'coach-meera', tag:'DANCE'},
+ {n:'KAVITA RAO', r:'YOGA & MOBILITY', cert:'RYT-500 · 11 YRS', cls:'POWER YOGA · MOBILITY', img:'coach-kavita', tag:'YOGA'},
+ {n:'ROHAN SINGH', r:'CONDITIONING COACH', cert:'ACSM-CPT · 5 YRS', cls:'HIIT · FUNCTIONAL', img:'coach-rohan', tag:'HIIT'},
+ {n:'DINESH KUMAR', r:'BOXING COACH', cert:'EX-AMATEUR BOXER · 7 YRS', cls:'BOXING · PADWORK', img:'coach-dinesh', tag:'BOXING'}
+];
+
+const PLANS = {
+ monthly:  {plan:'MONTHLY PASS',  price:2499,  equiv:'ROLLING MONTHLY · PAUSE ANYTIME', perks:['ALL 40+ CLASSES','OPEN GYM FLOOR','LOCKER + TOWEL SERVICE']},
+ quarterly:{plan:'QUARTERLY PASS',price:5999,  equiv:'= ₹1,999 / MONTH · SAVE 20%', perks:['ALL 40+ CLASSES','OPEN GYM FLOOR','1 PT SESSION / MONTH','BODY-COMP SCAN']},
+ annual:   {plan:'ANNUAL PASS',   price:17999, equiv:'= ₹1,499 / MONTH · SAVE 40%', perks:['ALL 40+ CLASSES','2 PT SESSIONS / MONTH','CUSTOM NUTRITION PLAN','30-DAY FREEZE RIGHTS'], sticker:true},
+ student:  {plan:'STUDENT PASS',  price:1499,  equiv:'VALID COLLEGE ID REQUIRED', perks:['ALL 40+ CLASSES','OPEN GYM FLOOR','EXAM-WEEK FREEZE INCLUDED']}
+};
+
+const QUOTES_A = [
+ {q:'I have joined and quit four gyms in five years. This is the first one where I know the names of everyone sweating next to me. \u221211 kg in 5 months.', a:'PRIYA S · MEMBER SINCE 2023'},
+ {q:'Went for the Zumba, stayed for the deadlifts. I can now carry all the grocery bags in one trip. Priorities.', a:'RAHUL M · 2024'},
+ {q:'The 6:30 AM HIIT crowd is my entire personality now. Send help. Don\u2019t.', a:'ANANYA T · 2025'},
+ {q:'Two kids, one business, zero excuses left — the 7 PM strength class is 55 minutes that are completely mine.', a:'DEEPIKA N · 2024'}
+];
+const QUOTES_B = [
+ {q:'First full pull-up of my life at 41. The coaches celebrated like it was an Olympic medal. Honestly? It felt like one.', a:'SUNIL K · 2022'},
+ {q:'My doctor asked what changed. I said I started having fun at the gym. He did not believe fun burns this many calories.', a:'FATHIMA R · 2024'},
+ {q:'Arjun has counted more of my squats than my horoscope ever did.', a:'VIKRAM J · 2023'},
+ {q:'Every gym has the same racks. This one has people who noticed I was gone two weeks and called me.', a:'SNEHA P · 2025'}
+];
+
+/* ================= render: programs ================= */
+ $('#prog-list').innerHTML = PROGRAMS.map((p,i)=>`
+ <li class="prog-row" data-img="${p.img}">
+  <button class="prog-head" aria-expanded="false">
+   <span class="prog-index">${String(i+1).padStart(2,'0')}</span>
+   <span class="prog-name">${esc(p.name)}</span>
+   <span class="prog-sub"><span class="prog-meta">${p.mins} MIN · ${esc(p.coach)}</span><span class="prog-heat">${heat(p.heat)}</span></span>
+   <span class="prog-toggle"><i data-lucide="plus"></i></span>
+  </button>
+  <div class="prog-body">
+   <div class="prog-body-in">
+    <p class="prog-desc">${esc(p.desc)}</p>
+    <div class="prog-side">
+     <div class="prog-tags">${p.tags.map(t=>`<span>${esc(t)}</span>`).join('')}</div>
+     <p class="prog-times">${esc(p.times)}</p>
+     <button class="btn btn-ink btn-sm book-btn" data-class="${esc(p.name)}" data-when="ANY SESSION · FREE TRIAL">Book this class <i data-lucide="arrow-up-right"></i></button>
+    </div>
+   </div>
+  </div>
+ </li>`).join('');
+
+/* ================= render: coaches ================= */
+ $('#coach-grid').innerHTML = COACHES.map(c=>`
+ <article class="coach">
+  <div class="coach-img">
+   <img src="https://picsum.photos/seed/${c.img}/600/800.jpg" alt="${esc(c.n)} — coach" loading="lazy">
+   <span class="coach-tag mono">${esc(c.tag)}</span>
+  </div>
+  <h3 class="coach-name">${esc(c.n)}</h3>
+  <p class="coach-role mono">${esc(c.r)} · ${esc(c.cert)}</p>
+  <p class="coach-cls mono">TEACHES: ${esc(c.cls)}</p>
+ </article>`).join('');
+
+/* ================= render: quote belts ================= */
+const beltHTML = arr => arr.map(q=>`<div class="q-card"><p>\u201C${esc(q.q)}\u201D</p><span class="who">${esc(q.a)}</span></div>`).join('');
+ $('#belt-a').innerHTML = beltHTML(QUOTES_A).repeat(6);
+ $('#belt-b').innerHTML = beltHTML(QUOTES_B).repeat(6);
+
+/* ================= marquee: duplicate for seamless loop ================= */
+ $$('.marquee-track').forEach(track=>{
+  const span = track.children[0];
+  if (!span) return;
+  span.innerHTML = span.innerHTML.repeat(4);
+  track.appendChild(span.cloneNode(true));
+});
+
+/* ================= schedule engine ================= */
+const todayD = new Date().getDay();
+const tabWrap = $('#day-tabs');
+[1,2,3,4,5,6,0].forEach(d=>{
+  const b = document.createElement('button');
+  b.className = 'day-tab mono';
+  b.dataset.d = d;
+  b.innerHTML = DAYS[d] + (d === todayD ? '<span class="tdy" aria-label="today"></span>' : '');
+  b.addEventListener('click', ()=> selectDay(d));
+  tabWrap.appendChild(b);
+});
+function selectDay(d){
+  $$('.day-tab', tabWrap).forEach(b=>{
+    const on = +b.dataset.d === d;
+    b.classList.toggle('sel', on);
+    b.setAttribute('aria-pressed', on);
+  });
+  renderDay(d);
+}
+function renderDay(d){
+  const list = SCHED[d] || [];
+  const now = new Date();
+  const isToday = d === now.getDay();
+  const nm = now.getHours()*60 + now.getMinutes();
+  $('#sched-list').innerHTML = list.map(c=>{
+    const [h,m] = c.t.split(':').map(Number);
+    const live = isToday && nm >= h*60+m && nm < h*60+m+45;
+    return `<div class="sched-row${live ? ' live' : ''}">
+      <span class="s-time">${c.t}</span>
+      <span class="s-name">${esc(c.n)}${live ? '<span class="live-tag"><span class="pulse"></span>NOW</span>' : ''}</span>
+      <span class="s-sub"><span class="s-coach">${esc(c.c)}</span><span class="s-heat">${heat(c.h)}</span></span>
+      <button class="s-book" data-class="${esc(c.n)}" data-when="${DAYS[d]} · ${c.t}">BOOK<i data-lucide="arrow-up-right"></i></button>
+    </div>`;
+  }).join('');
+  icons();
+  if (HAS_GSAP && !RM) gsap.fromTo('#sched-list .sched-row', {autoAlpha:0, y:16}, {autoAlpha:1, y:0, stagger:.05, duration:.4, ease:'power3.out', overwrite:true});
+}
+selectDay(todayD);
+
+/* ================= live "next class" chip ================= */
+function updateNext(){
+  const el = $('#next-class-text');
+  const now = new Date();
+  for (let add=0; add<8; add++){
+    const di = (now.getDay()+add) % 7;
+    for (const c of (SCHED[di] || [])){
+      const [h,m] = c.t.split(':').map(Number);
+      const dt = new Date(now.getFullYear(), now.getMonth(), now.getDate()+add, h, m);
+      if (dt > now){
+        const mins = Math.round((dt-now)/60000);
+        const when = mins <= 90 ? `IN ${mins} MIN` : (add === 0 ? 'TODAY' : add === 1 ? 'TOMORROW' : DAYS[di]);
+        el.textContent = `${c.n.toUpperCase()} — ${c.t} · ${when}`;
+        return;
+      }
+    }
+  }
+}
+updateNext();
+setInterval(updateNext, 60000);
+
+/* ================= membership card ================= */
+let curPlan = '';
+function selectPlan(key, instant){
+  if (key === curPlan) return;
+  curPlan = key;
+  $$('.plan').forEach(p=>{
+    const on = p.dataset.plan === key;
+    p.classList.toggle('sel', on);
+    p.setAttribute('aria-pressed', on);
+  });
+  const d = PLANS[key];
+  const fill = ()=>{
+    $('#mc-plan').textContent  = d.plan;
+    $('#mc-price').textContent = '\u20B9' + d.price.toLocaleString('en-IN');
+    $('#mc-equiv').textContent = d.equiv;
+    $('#mc-perks').innerHTML   = d.perks.map(x=>`<li>${esc(x)}</li>`).join('');
+    $('#card-sticker').classList.toggle('show', !!d.sticker);
+    if (HAS_GSAP && !instant && !RM) gsap.fromTo('#mc-price', {scale:.7}, {scale:1, duration:.45, ease:'back.out(2.2)'});
+  };
+  if (instant || !HAS_GSAP || RM){ fill(); return; }
+  gsap.timeline()
+    .to('#card-flip', {rotationY:88, duration:.28, ease:'power2.in', onComplete:fill})
+    .set('#card-flip', {rotationY:-88})
+    .to('#card-flip', {rotationY:0, duration:.45, ease:'power3.out'});
+}
+ $$('.plan').forEach(p=> p.addEventListener('click', ()=> selectPlan(p.dataset.plan)));
+selectPlan('annual', true);
+
+/* card tilt */
+if (FINE && HAS_GSAP && !RM){
+  const scene = $('.card-scene');
+  const rx = gsap.quickTo('#card-tilt','rotationX',{duration:.55, ease:'power3'});
+  const ry = gsap.quickTo('#card-tilt','rotationY',{duration:.55, ease:'power3'});
+  scene.addEventListener('mousemove', e=>{
+    const r = scene.getBoundingClientRect();
+    ry(((e.clientX - r.left)/r.width - .5) * 14);
+    rx(-((e.clientY - r.top)/r.height - .5) * 12);
+  });
+  scene.addEventListener('mouseleave', ()=>{ rx(0); ry(0); });
+}
+
+/* ================= program accordion ================= */
+ $('#prog-list').addEventListener('click', e=>{
+  const head = e.target.closest('.prog-head');
+  if (!head) return;
+  const row = head.closest('.prog-row');
+  const open = row.classList.toggle('open');
+  head.setAttribute('aria-expanded', open);
+  const body = row.querySelector('.prog-body');
+  if (HAS_GSAP && !RM){
+    gsap.to(body, {height: open ? 'auto' : 0, duration:.45, ease:'power3.inOut'});
+  } else {
+    body.style.height = open ? 'auto' : '0px';
+  }
+});
+
+/* ================= floating preview image (desktop) ================= */
+if (FINE && HAS_GSAP && !RM){
+  const pv = $('#hover-preview'), pvImg = pv.querySelector('img');
+  PROGRAMS.forEach(p=>{ const im = new Image(); im.src = p.img; }); // preload
+  gsap.set(pv, {x:-999, y:-999, scale:.85, rotation:-3});
+  const qx = gsap.quickTo(pv, 'x', {duration:.45, ease:'power3'});
+  const qy = gsap.quickTo(pv, 'y', {duration:.45, ease:'power3'});
+  addEventListener('mousemove', e=>{
+    qx(Math.min(e.clientX + 28, innerWidth - 320));
+    qy(Math.max(16, e.clientY - 200));
+  });
+  const list = $('#prog-list');
+  list.addEventListener('mouseover', e=>{
+    const row = e.target.closest('.prog-row');
+    if (!row) return;
+    if (pvImg.getAttribute('src') !== row.dataset.img) pvImg.src = row.dataset.img;
+    gsap.to(pv, {autoAlpha:1, scale:1, duration:.35, ease:'power3.out'});
+  });
+  list.addEventListener('mouseleave', ()=> gsap.to(pv, {autoAlpha:0, scale:.85, duration:.28}));
+}
+
+/* ================= custom cursor ================= */
+if (FINE && !RM){
+  document.body.classList.add('has-cursor');
+  const cur = $('#cursor');
+  let x = innerWidth/2, y = innerHeight/2, tx = x, ty = y, s = 1, ts = 1, seen = false;
+  addEventListener('mousemove', e=>{
+    tx = e.clientX; ty = e.clientY;
+    if (!seen){ seen = true; x = tx; y = ty; cur.style.opacity = 1; }
+  });
+  document.addEventListener('mouseover', e=>{
+    ts = e.target.closest('a,button,[data-hover],label,select') ? 3.2 : 1;
+  });
+  if (HAS_GSAP){
+    gsap.ticker.add(()=>{
+      x += (tx - x) * .22; y += (ty - y) * .22; s += (ts - s) * .16;
+      cur.style.transform = `translate(${x-6}px,${y-6}px) scale(${s})`;
+    });
+  } else {
+    addEventListener('mousemove', ()=>{ cur.style.transform = `translate(${tx-6}px,${ty-6}px)`; });
+  }
+}
+
+/* ================= toasts ================= */
+function toast(msg, kicker='DONE', warn=false){
+  const t = document.createElement('div');
+  t.className = 'toast' + (warn ? ' warn' : '');
+  const ic = warn
+    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 7v6"/><path d="M12 16.5v.01"/></svg>'
+    : CHECK_SVG;
+  t.innerHTML = `<span class="t-ic">${ic}</span><span class="t-body"><b>${kicker}</b>${esc(msg)}</span>`;
+  $('#toasts').appendChild(t);
+  requestAnimationFrame(()=> t.classList.add('in'));
+  let dead = false;
+  const kill = ()=>{
+    if (dead) return; dead = true;
+    t.classList.remove('in'); t.classList.add('out');
+    setTimeout(()=> t.remove(), 380);
+  };
+  t.addEventListener('click', kill);
+  setTimeout(kill, 5200);
+}
+
+/* ================= modal ================= */
+const backdrop = $('#modal-backdrop');
+function openModal(cls, when){
+  $('#modal-title').textContent = cls;
+  $('#modal-sub').textContent = when;
+  backdrop.classList.add('on');
+  document.body.style.overflow = 'hidden';
+  setTimeout(()=> $('#m-name').focus(), 120);
+}
+function closeModal(){
+  backdrop.classList.remove('on');
+  document.body.style.overflow = '';
+  const f = $('#modal-form');
+  f.reset();
+  $$('.bad', f).forEach(l=> l.classList.remove('bad'));
+  $$('[data-err]', f).forEach(e=> e.textContent = '');
+}
+ $('#modal-x').addEventListener('click', closeModal);
+backdrop.addEventListener('click', e=>{ if (e.target === backdrop) closeModal(); });
+document.addEventListener('click', e=>{
+  const b = e.target.closest('.book-btn, .s-book');
+  if (b) openModal(b.dataset.class, b.dataset.when);
+});
+
+/* ================= form validation ================= */
+function fieldOK(input, test, msg){
+  const label = input.closest('label');
+  const err = label.querySelector('[data-err]');
+  const ok = test(input.value.trim());
+  label.classList.toggle('bad', !ok);
+  err.textContent = ok ? '' : msg;
+  return ok;
+}
+const validPhone = v => v.replace(/\D/g,'').length === 10;
+
+ $('#trial-form').addEventListener('submit', e=>{
+  e.preventDefault();
+  const f = e.target;
+  const ok = [
+    fieldOK(f.elements.namedItem('name'),  v => v.length >= 2, 'WE NEED A NAME TO SHOUT ACROSS THE FLOOR.'),
+    fieldOK(f.elements.namedItem('phone'), validPhone, 'ENTER A 10-DIGIT MOBILE NUMBER.'),
+    fieldOK(f.elements.namedItem('goal'),  v => v !== '', 'PICK A GOAL — ANY GOAL.'),
+    fieldOK(f.elements.namedItem('slot'),  v => v !== '', 'MORNING OR EVENING? CHOOSE ONE.')
+  ].every(Boolean);
+  if (!ok){ toast('Fix the highlighted fields and try again.', 'HOLD UP', true); return; }
+  const first = f.elements.namedItem('name').value.trim().split(/\s+/)[0];
+  const btn = $('#trial-btn');
+  btn.disabled = true;
+  btn.classList.add('done');
+  btn.innerHTML = `You\u2019re in, ${esc(first)} — check WhatsApp ${CHECK_SVG}`;
+  toast(`Thanks ${first}! We\u2019ll WhatsApp your free-class confirmation within a few hours.`, 'BOOKED');
+});
+ $$('#trial-form input, #trial-form select').forEach(el=>{
+  el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', ()=>{
+    const l = el.closest('label');
+    l.classList.remove('bad');
+    const err = l.querySelector('[data-err]');
+    if (err) err.textContent = '';
+  });
+});
+
+ $('#modal-form').addEventListener('submit', e=>{
+  e.preventDefault();
+  const ok = [
+    fieldOK($('#m-name'),  v => v.length >= 2, 'WE NEED A NAME.'),
+    fieldOK($('#m-phone'), validPhone, 'ENTER A 10-DIGIT MOBILE NUMBER.')
+  ].every(Boolean);
+  if (!ok) return;
+  const cls = $('#modal-title').textContent;
+  toast(`Spot held for ${cls} — we\u2019ll confirm on WhatsApp shortly.`, 'BOOKED');
+  closeModal();
+});
+ $$('#modal-form input').forEach(el=> el.addEventListener('input', ()=>{
+  const l = el.closest('label');
+  l.classList.remove('bad');
+  const err = l.querySelector('[data-err]');
+  if (err) err.textContent = '';
+}));
+
+/* ================= nav / menu / misc ================= */
+const burger = $('#burger'), menu = $('#menu');
+function setMenu(open){
+  document.body.classList.toggle('menu-open', open);
+  menu.classList.toggle('on', open);
+  burger.setAttribute('aria-expanded', open);
+}
+burger.addEventListener('click', ()=> setMenu(!document.body.classList.contains('menu-open')));
+ $$('.menu a').forEach(a=> a.addEventListener('click', e=>{
+  e.preventDefault();
+  const target = $(a.getAttribute('href'));
+  setMenu(false);
+  setTimeout(()=> target && target.scrollIntoView({behavior: RM ? 'auto' : 'smooth'}), 380);
+}));
+addEventListener('scroll', ()=> $('#nav').classList.toggle('scrolled', scrollY > 40), {passive:true});
+ $('#to-top').addEventListener('click', ()=> scrollTo({top:0, behavior: RM ? 'auto' : 'smooth'}));
+addEventListener('keydown', e=>{
+  if (e.key === 'Escape'){ closeModal(); setMenu(false); }
+});
+
+/* ================= hero kinetic type (variable width axis) ================= */
+const words = $$('#hero-title .w');
+words.forEach(w=>{
+  const a = parseFloat(w.dataset.a), b = parseFloat(w.dataset.b);
+  const text = w.textContent;
+  w.textContent = '';
+  [...text].forEach(chr=>{
+    const s = document.createElement('span');
+    s.className = 'ch' + (chr === '.' ? ' pd' : '');
+    s.textContent = chr;
+    s._a = a; s._b = b; s._cur = a;
+    w.appendChild(s);
+  });
+});
+const chars = $$('#hero-title .ch');
+let mx = -9999, my = -9999;
+if (FINE){
+  $('#hero').addEventListener('mousemove', e=>{ mx = e.clientX; my = e.clientY; });
+  $('#hero').addEventListener('mouseleave', ()=>{ mx = -9999; my = -9999; });
+}
+function tickLetters(t){
+  for (let i=0; i<chars.length; i++){
+    const c = chars[i];
+    let inf = 0;
+    if (FINE && mx > -9999){
+      const r = c.getBoundingClientRect();
+      const d = Math.hypot(mx - (r.left + r.width/2), my - (r.top + r.height/2));
+      inf = Math.max(0, 1 - d/280);
+    } else {
+      inf = (Math.sin(t/1300 + i*0.42) + 1) / 2 * .2; // idle breathing on touch devices
+    }
+    const target = c._a + (c._b - c._a) * inf;
+    c._cur += (target - c._cur) * .16;
+    c.style.fontVariationSettings = `'wdth' ${c._cur.toFixed(1)}`;
+  }
+  requestAnimationFrame(tickLetters);
+}
+if (!RM) requestAnimationFrame(tickLetters);
+
+/* ================= manifesto word split ================= */
+const mText = $('#manifesto-text');
+mText.innerHTML = mText.textContent.trim().split(/\s+/).map(w=>`<span class="mw">${w}</span>`).join(' ');
+
+/* ================= animation ================= */
+icons();
+if (HAS_GSAP && !RM){
+  /* entrance (pre-set to avoid any flash) */
+  gsap.set('#nav', {y:-24, autoAlpha:0});
+  gsap.set('#hero-title .ch', {yPercent:115, autoAlpha:0});
+  gsap.set('.hero-top > *, .hero-sub > *, .hero-side > *', {y:18, autoAlpha:0});
+  gsap.timeline({defaults:{ease:'power4.out'}})
+    .to('#nav', {y:0, autoAlpha:1, duration:.6}, 0)
+    .to('#hero-title .ch', {yPercent:0, autoAlpha:1, duration:.85, stagger:.026}, .15)
+    .to('.hero-top > *', {y:0, autoAlpha:1, duration:.5, stagger:.09}, .55)
+    .to('.hero-sub > *', {y:0, autoAlpha:1, duration:.6, stagger:.1}, .75)
+    .to('.hero-side > *', {y:0, autoAlpha:1, duration:.6, stagger:.12}, .85)
+    .fromTo('.marquee', {yPercent:100}, {yPercent:0, duration:.6, ease:'power3.out'}, .95);
+
+  /* manifesto: pinned, words fill with ink as you scroll */
+  gsap.set('#manifesto-text .mw', {color:'rgba(22,21,17,.16)'});
+  gsap.timeline({scrollTrigger:{trigger:'#manifesto', start:'top top', end:'+=130%', pin:true, scrub:.5, anticipatePin:1}})
+    .to('#manifesto-text .mw', {color:'#161511', stagger:.1, ease:'none'})
+    .from('.manifesto-facts span', {y:16, autoAlpha:0, stagger:.08, duration:.4}, '>-.3');
+
+  /* scroll reveals */
+  gsap.utils.toArray('[data-reveal]').forEach(el=>{
+    gsap.from(el, {y:28, autoAlpha:0, duration:.85, ease:'power3.out',
+      scrollTrigger:{trigger:el, start:'top 90%', once:true}});
+  });
+  gsap.from('.prog-row', {y:26, autoAlpha:0, stagger:.06, duration:.65, ease:'power3.out',
+    scrollTrigger:{trigger:'#prog-list', start:'top 85%', once:true}});
+  gsap.from('.coach', {y:34, autoAlpha:0, stagger:.07, duration:.75, ease:'power3.out',
+    scrollTrigger:{trigger:'#coach-grid', start:'top 85%', once:true}});
+}
+</script>
+<!-- sflws:source-button:start -->
+<style>
+#sflws-source-btn{position:fixed;right:18px;bottom:18px;z-index:2147483000;display:none;
+padding:2px;border-radius:999px;text-decoration:none;line-height:0;
+background:linear-gradient(90deg,#ff4d4d,#ffb347,#ffe66d,#7bed9f,#48dbfb,#a29bfe,#ff4d4d);
+background-size:300% 100%;animation:sflws-rainbow 6s linear infinite;
+box-shadow:0 4px 20px rgba(0,0,0,.32);transition:transform .2s ease}
+#sflws-source-btn:hover{transform:translateY(-2px)}
+#sflws-source-btn>span{display:flex;align-items:center;gap:7px;padding:9px 15px;
+border-radius:999px;background:#0d0d0f;color:#f4f4f5;
+font:600 12px/1 ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+letter-spacing:.02em;white-space:nowrap}
+#sflws-source-btn>span>b{font:inherit;color:#9aa0a6;letter-spacing:0}
+@keyframes sflws-rainbow{to{background-position:300% 0}}
+@media(prefers-reduced-motion:reduce){#sflws-source-btn{animation:none}
+#sflws-source-btn:hover{transform:none}}
+@media(max-width:600px){#sflws-source-btn{right:12px;bottom:12px}
+#sflws-source-btn>span{padding:8px 13px;font-size:11px}}
+</style>
+<a id="sflws-source-btn" href="https://github.com/saawflws/SFLWS___TEMPLATE_WEBSITEs/tree/main/websites/static/gym/funandfit" target="_blank" rel="noopener noreferrer"
+ aria-label="View this template&#39;s source code on GitHub">
+<span><b aria-hidden="true">&lt;/&gt;</b>view source</span></a>
+<script>
+(function(){
+var h=location.hostname;
+var ok=h==='sflwsts.aasimahmed.com'||h==='localhost'||h==='127.0.0.1'||h==='[::1]'
+||/\.github\.io$/.test(h);
+var b=document.getElementById('sflws-source-btn');
+if(b&&ok)b.style.display='block';
+})();
+</script>
+<!-- sflws:source-button:end -->
+</body>
+</html>

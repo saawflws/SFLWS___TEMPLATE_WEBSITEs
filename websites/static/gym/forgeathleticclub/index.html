@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORGE — Athletic Club, Brooklyn</title>
+<meta name="description" content="A 24/7 iron house in East Williamsburg. Strength, conditioning, mobility, combat, recovery. First week free.">
+<meta name="theme-color" content="#0C0C0B">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230C0C0B'/%3E%3Ctext x='32' y='46' font-family='Arial Black' font-size='42' fill='%23D0F224' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS & BASE ============ */
+:root{
+  --bg:#0C0C0B; --bg2:#121311; --bone:#E9E6DD; --muted:#8F8B80; --dim:#5E5B53;
+  --line:rgba(233,230,221,.14); --line2:rgba(233,230,221,.22);
+  --acc:#D0F224; --red:#E5484D;
+  --gut:clamp(18px,4vw,64px);
+  --anton:'Anton','Arial Narrow',sans-serif;
+  --grot:'Space Grotesk',Helvetica,Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scrollbar-width:thin;scrollbar-color:#2E2D29 var(--bg)}
+html.modal-open{overflow:hidden}
+body{background:var(--bg);color:var(--bone);font-family:var(--grot);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+::selection{background:var(--acc);color:#0C0C0B}
+::-webkit-scrollbar{width:9px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#2E2D29;border:2px solid var(--bg)}
+img{display:block;max-width:100%;user-select:none}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+:focus-visible{outline:1px solid var(--acc);outline-offset:3px}
+::placeholder{color:var(--dim)}
+html.has-cursor, html.has-cursor *{cursor:none!important}
+
+.label{font:500 11px/1.4 var(--grot);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.label em{font-style:normal;color:var(--acc)}
+.sec{padding:clamp(90px,9vw,150px) var(--gut)}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding-top:14px;border-top:1px solid var(--line);margin-bottom:clamp(40px,5vw,84px)}
+.mask{display:inline-block;overflow:hidden;vertical-align:bottom}
+.mask .char{display:inline-block;will-change:transform}
+
+/* generic media block: b/w until you touch it */
+.media{position:relative;overflow:hidden;background:#161614}
+.media img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06);transition:filter .55s ease}
+.media:hover img{filter:grayscale(0) contrast(1)}
+.media-cap{position:absolute;bottom:12px;left:12px;z-index:2;padding:7px 11px;font:600 10px/1 var(--grot);letter-spacing:.14em;text-transform:uppercase;color:var(--bone);background:rgba(12,12,11,.78);border-left:2px solid var(--acc);pointer-events:none}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:14px;background:var(--acc);color:#0C0C0B;font:700 12px/1 var(--grot);letter-spacing:.14em;text-transform:uppercase;padding:18px 26px;white-space:nowrap;transition:background .3s,color .3s}
+.btn:hover{background:var(--bone)}
+.btn svg{width:13px;height:13px;flex:none;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.btn:hover svg{transform:translate(3px,-3px)}
+.btn-ghost{background:transparent;color:var(--bone);border:1px solid var(--line2)}
+.btn-ghost:hover{background:var(--acc);color:#0C0C0B;border-color:var(--acc)}
+.btn-wide{width:100%;justify-content:center}
+[data-magnet]{transition:transform .45s cubic-bezier(.2,.8,.2,1),background-color .3s,color .3s,border-color .3s}
+
+/* ============ GRAIN / CURSOR / TOASTS ============ */
+.grain{position:fixed;inset:0;z-index:2000;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
+.cursor{position:fixed;top:0;left:0;z-index:4000;pointer-events:none;opacity:0;transition:opacity .3s}
+.cursor.on{opacity:1}
+.cursor-dot{position:absolute;top:-5px;left:-5px;width:10px;height:10px;border-radius:50%;background:#E9E6DD;mix-blend-mode:difference;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.cursor.is-link .cursor-dot{transform:scale(3.4)}
+.cursor.pressed .cursor-dot{transform:scale(2)}
+.cursor-label{position:absolute;top:-40px;left:-40px;width:80px;height:80px;border-radius:50%;background:var(--acc);color:#0C0C0B;display:grid;place-items:center;font:700 10px/1 var(--grot);letter-spacing:.14em;transform:scale(0);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.cursor.is-label .cursor-label{transform:scale(1)}
+.cursor.is-label .cursor-dot{transform:scale(0)}
+@media (hover:none){.cursor,.coach-peek{display:none}}
+.toasts{position:fixed;left:18px;bottom:18px;z-index:2600;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{display:flex;align-items:center;gap:10px;background:var(--acc);color:#0C0C0B;font:700 11px/1.4 var(--grot);letter-spacing:.08em;padding:13px 16px;max-width:340px;animation:toastIn .45s cubic-bezier(.2,.8,.2,1) both}
+.toast.out{animation:toastOut .45s ease-in both}
+.t-dot{width:7px;height:7px;background:#0C0C0B;flex:none}
+@keyframes toastIn{from{opacity:0;transform:translateX(-24px)}}
+@keyframes toastOut{to{opacity:0;transform:translateX(-16px)}}
+
+/* ============ PRELOADER ============ */
+.preloader{position:fixed;inset:0;z-index:1000;background:var(--bg);transition:transform .9s cubic-bezier(.65,0,.35,1)}
+.preloader.done{transform:translateY(-100%)}
+.preloader.force-hide{display:none!important}
+.pre-inner{position:relative;display:flex;flex-direction:column;justify-content:space-between;height:100%;padding:var(--gut);transition:transform .4s ease-in,opacity .4s ease-in}
+.preloader.done .pre-inner{opacity:0;transform:translateY(-36px)}
+.pre-top{display:flex;justify-content:space-between}
+.pre-bottom{display:flex;justify-content:space-between;align-items:flex-end}
+.pre-count{font-family:var(--anton);font-size:clamp(80px,15vw,240px);line-height:.8;color:var(--bone)}
+.pre-bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--acc);transform:scaleX(0);transform-origin:left}
+
+/* ============ NAV ============ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;gap:24px;height:76px;padding:0 var(--gut);transition:transform .5s cubic-bezier(.65,0,.35,1),background .4s,border-color .4s;border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(12,12,11,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+.nav.hide{transform:translateY(-100%)}
+html.menu-open .nav{z-index:960;background:transparent;border-bottom-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
+.nav-logo{font-family:var(--anton);font-size:21px;letter-spacing:.04em;display:inline-flex;align-items:baseline;gap:7px}
+.logo-d{width:7px;height:7px;background:var(--acc);transform:rotate(45deg)}
+.nav-links{display:flex;gap:2.6vw}
+.nav-links a{font:600 11px/1 var(--grot);letter-spacing:.16em;color:var(--bone);position:relative;padding:6px 0}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--acc);transform:scaleX(0);transform-origin:right;transition:transform .35s cubic-bezier(.65,0,.35,1)}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-right{display:flex;align-items:center;gap:22px}
+.btn-nav{padding:13px 20px;font-size:11px}
+.burger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:7px;width:44px;height:44px}
+.burger span{width:24px;height:2px;background:var(--bone);transition:transform .4s cubic-bezier(.65,0,.35,1)}
+.burger.active span:first-child{transform:translateY(4.5px) rotate(45deg)}
+.burger.active span:last-child{transform:translateY(-4.5px) rotate(-45deg)}
+
+/* ============ MOBILE MENU (pure CSS animation) ============ */
+.menu{position:fixed;inset:0;z-index:940;background:var(--bg);display:flex;flex-direction:column;justify-content:space-between;padding:calc(76px + 4vh) var(--gut) 4vh;clip-path:inset(0 0 100% 0);visibility:hidden;pointer-events:none;transition:clip-path .65s cubic-bezier(.65,0,.35,1),visibility 0s .65s}
+.menu.open{clip-path:inset(0 0 0% 0);visibility:visible;pointer-events:auto;transition:clip-path .65s cubic-bezier(.65,0,.35,1),visibility 0s 0s}
+.menu-links{display:flex;flex-direction:column}
+.menu-link{display:flex;justify-content:space-between;align-items:center;width:100%;padding:2.6vh 0;border-top:1px solid var(--line);font-family:var(--anton);font-size:clamp(42px,10.5vw,96px);line-height:1;color:var(--bone);opacity:0;transform:translateY(56px);transition:opacity .5s cubic-bezier(.2,.8,.2,1),transform .5s cubic-bezier(.2,.8,.2,1),color .3s,padding-left .3s}
+.menu-link .label{color:var(--dim)}
+.menu-link:hover{color:var(--acc);padding-left:1.4vw}
+.menu.open .menu-link{opacity:1;transform:none}
+.menu.open .menu-link:nth-child(1){transition-delay:.16s}
+.menu.open .menu-link:nth-child(2){transition-delay:.22s}
+.menu.open .menu-link:nth-child(3){transition-delay:.28s}
+.menu.open .menu-link:nth-child(4){transition-delay:.34s}
+.menu.open .menu-link:nth-child(5){transition-delay:.4s}
+.menu-foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;opacity:0;transition:opacity .5s}
+.menu.open .menu-foot{opacity:1;transition-delay:.5s}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;padding:100px var(--gut) 16px}
+.hero-meta{display:flex;justify-content:space-between;gap:20px;margin-bottom:14px}
+.hero-media{position:absolute;top:140px;right:var(--gut);width:min(46vw,780px);height:54vh}
+.media-frame{position:absolute;inset:0;overflow:hidden;background:#161614}
+.media-frame img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.08)}
+.hero-blurb{position:absolute;left:var(--gut);top:40vh;max-width:34ch;color:var(--muted);font-size:15px;z-index:3}
+.hero-side{position:absolute;left:calc(var(--gut)/2 - 10px);top:50%;transform:translateY(-50%);writing-mode:vertical-rl;text-orientation:mixed;color:var(--dim);letter-spacing:.3em}
+.hero-title{margin-top:auto;font-family:var(--anton);font-weight:400;font-size:clamp(96px,25.5vw,460px);line-height:.84;letter-spacing:.012em;color:var(--bone);position:relative;z-index:2;will-change:transform}
+.hero-title .mask{line-height:.84}
+.hero-title .mask-b{overflow:visible;margin-inline:.02em}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;border-top:1px solid var(--line);padding-top:14px;margin-top:10px}
+.scroll-hint{display:inline-flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted)}
+.sh-line{width:1px;height:34px;background:var(--acc);animation:shdip 2.2s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes shdip{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* rotating badge used as the "O" */
+.badge-o{position:relative;display:inline-block;width:.74em;height:.74em}
+.badge-spin{position:absolute;inset:0;width:100%;height:100%;animation:spin 16s linear infinite}
+.badge-spin text{font-family:var(--grot);font-weight:600;font-size:9px;letter-spacing:.5px;fill:var(--bone)}
+.badge-core{position:absolute;left:50%;top:50%;width:32%;height:32%;transform:translate(-50%,-50%);background:var(--acc);border-radius:50%;display:grid;place-items:center}
+.badge-core svg{width:54%;height:54%}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ============ MARQUEE (pure CSS, JS reacts to velocity) ============ */
+.marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(16px,1.8vw,34px) 0}
+.mq-track{display:flex;width:max-content;animation:mq 26s linear infinite;will-change:transform}
+@keyframes mq{to{transform:translateX(-50%)}}
+.mq-chunk{display:flex;align-items:center;flex:none}
+.mq-w{font-family:var(--anton);font-size:clamp(44px,6.5vw,116px);line-height:1;white-space:nowrap;margin-right:2.6vw}
+.mq-w.o{color:transparent;-webkit-text-stroke:1.5px rgba(233,230,221,.55)}
+.mq-sep{width:.16em;height:.16em;background:var(--acc);transform:rotate(45deg);flex:none;margin-right:2.6vw}
+
+/* ============ MANIFESTO ============ */
+.manifesto-text{font-size:clamp(26px,3.6vw,58px);line-height:1.2;font-weight:500;letter-spacing:-.01em;max-width:94%}
+.mw{opacity:1}
+html.fx .mw{opacity:.13}
+.mw.hl{color:var(--acc)}
+.mw.aw{font-family:var(--anton);font-weight:400;letter-spacing:.02em;font-size:.95em}
+.manifesto-media{display:flex;justify-content:space-between;align-items:flex-start;gap:6vw;margin-top:9vw}
+.mm-a{width:min(520px,40vw)}
+.mm-a .media{aspect-ratio:4/5}
+.mm-b{width:min(320px,25vw);margin-top:14vh}
+.mm-b .media{aspect-ratio:3/4}
+.manifesto-media figcaption{margin-top:12px}
+
+/* ============ PROGRAMS (pinned horizontal when enhanced) ============ */
+.programs{overflow:hidden}
+.programs-vp{height:100vh;height:100svh;display:flex;flex-direction:column;padding-top:88px;overflow:hidden}
+.prog-head{margin:0 var(--gut) 2vw}
+.programs-track{flex:1;display:flex;align-items:center;gap:5vw;padding:0 var(--gut);will-change:transform}
+.panel{position:relative;flex:none;width:54vw;display:grid;grid-template-columns:22vw 1fr;gap:2.6vw;align-items:end}
+.panel.up{transform:translateY(-2vw)}
+.panel.down{transform:translateY(2vw);grid-template-columns:1fr 22vw}
+.panel.down .panel-media{grid-column:2;grid-row:1}
+.panel.down .panel-body{grid-column:1;grid-row:1}
+.panel-intro{width:38vw;display:flex;flex-direction:column;gap:1.6vw;align-self:center;transform:none}
+.panel-index{position:absolute;top:-7vw;left:-1.5vw;font-family:var(--anton);font-size:11vw;line-height:.8;color:transparent;-webkit-text-stroke:1px rgba(233,230,221,.22);z-index:0;pointer-events:none}
+.panel-media{position:relative;width:22vw;aspect-ratio:3/4;overflow:hidden;background:#161614}
+.panel-media img{width:116%;height:100%;margin-left:-8%;object-fit:cover;filter:grayscale(1) contrast(1.06);transition:filter .55s}
+.panel-media:hover img{filter:grayscale(0)}
+.panel-media .media-cap{z-index:2}
+.panel-body{position:relative;z-index:1;padding-bottom:.6vw}
+.panel-title{font-family:var(--anton);font-weight:400;font-size:clamp(38px,4.7vw,96px);line-height:.9;letter-spacing:.01em}
+.panel-desc{color:var(--muted);font-size:15px;max-width:38ch;margin:1.2vw 0 1.5vw}
+.panel-meter{display:flex;align-items:center;gap:16px;margin-bottom:1.3vw}
+.segs{display:flex;gap:6px}
+.segs i{width:30px;height:5px;background:var(--line2)}
+.segs i.on{background:var(--acc)}
+.panel-meta{display:flex;border-top:1px solid var(--line);padding-top:14px}
+.panel-meta span{padding-right:2vw}
+.panel-meta span + span{border-left:1px solid var(--line);padding-left:2vw}
+.pi-title{font-family:var(--anton);font-weight:400;font-size:clamp(56px,6.8vw,140px);line-height:.88}
+.pi-copy{color:var(--muted);font-size:16px;max-width:40ch}
+.pi-arrow{width:clamp(48px,4.5vw,76px);height:clamp(48px,4.5vw,76px);stroke:var(--acc);fill:none;stroke-width:1.5;margin-top:1vw}
+.prog-progress{display:flex;align-items:center;gap:2.5vw;padding:22px var(--gut)}
+.prog-line{flex:1;height:1px;background:var(--line);position:relative}
+.prog-bar{position:absolute;left:0;top:0;width:100%;height:100%;background:var(--acc);transform:scaleX(0);transform-origin:left}
+
+/* fallback: stacked vertical programs when scroll engine unavailable */
+html.no-st .programs{padding:clamp(90px,12vw,150px) 0 40px}
+html.no-st .programs-vp{height:auto;padding-top:0;overflow:visible}
+html.no-st .prog-head{margin:0 var(--gut) 40px}
+html.no-st .programs-track{flex-direction:column;align-items:stretch;gap:76px}
+html.no-st .panel{width:100%;transform:none;grid-template-columns:1fr;gap:20px}
+html.no-st .panel.down .panel-media,html.no-st .panel.down .panel-body{grid-column:auto;grid-row:auto}
+html.no-st .panel-media{width:100%;aspect-ratio:4/3}
+html.no-st .panel-media img{width:100%;margin-left:0}
+html.no-st .panel-index{top:-.5em;left:0;font-size:clamp(64px,10vw,150px)}
+html.no-st .panel-intro{width:100%;align-self:auto}
+html.no-st .pi-title{font-size:clamp(48px,12vw,96px)}
+html.no-st .prog-progress{display:none}
+
+/* ============ NUMBERS ============ */
+.stat-row{display:grid;grid-template-columns:minmax(150px,24vw) 1fr auto;gap:4vw;align-items:baseline;padding:clamp(24px,3vw,48px) 0;border-top:1px solid var(--line)}
+.stats{border-bottom:1px solid var(--line)}
+.stat-num{font-family:var(--anton);font-weight:400;font-size:clamp(52px,8vw,132px);line-height:.85;display:flex;align-items:center;gap:.14em}
+.stat-label{font-size:clamp(15px,1.5vw,24px);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.stat-note{max-width:34ch;text-align:right}
+.stat-row.live .stat-num{color:var(--acc)}
+.live-dot{width:.12em;height:.12em;background:var(--acc);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* ============ COACHES ============ */
+.coach-list{position:relative}
+.coach-row{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:3vw;width:100%;padding:2.6vw 1.2vw;border-top:1px solid var(--line);color:var(--bone);transition:background .35s,color .35s,padding .35s}
+.coach-list .coach-row:last-child{border-bottom:1px solid var(--line)}
+.coach-row .label{color:inherit;opacity:.6}
+.coach-row:hover,.coach-row:focus-visible{background:var(--acc);color:#0C0C0B;padding-left:2vw;padding-right:2vw}
+.coach-name{font-family:var(--anton);font-weight:400;font-size:clamp(30px,4.8vw,78px);line-height:.9;letter-spacing:.01em}
+.coach-rolebox{display:flex;flex-direction:column;gap:8px;text-align:right}
+.coach-arrow{width:clamp(20px,1.8vw,30px);height:clamp(20px,1.8vw,30px)}
+.coach-arrow svg{width:100%;height:100%;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.coach-row:hover .coach-arrow svg{transform:translate(5px,-5px)}
+.coach-peek{position:fixed;top:0;left:0;z-index:850;pointer-events:none}
+.coach-peek-in{width:min(300px,24vw);aspect-ratio:3/4;overflow:hidden;background:#161614;opacity:0;transform:scale(.75);transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .45s cubic-bezier(.2,.8,.2,1)}
+.coach-peek.peek-on .coach-peek-in{opacity:1;transform:scale(1)}
+.coach-peek img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.08)}
+
+/* ============ MEMBERSHIP (accordion = pure CSS) ============ */
+.plan-row{border-top:1px solid var(--line)}
+.plans .plan-row:last-child{border-bottom:1px solid var(--line)}
+.plan-head{display:grid;grid-template-columns:48px 1.05fr 1fr auto 52px;gap:3vw;align-items:center;width:100%;padding:2.8vw 0;transition:padding .35s}
+.plan-head:hover{padding-left:1vw}
+.plan-name-w{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.plan-name{font-family:var(--anton);font-weight:400;font-size:clamp(30px,4.4vw,70px);line-height:.9;transition:color .3s}
+.plan-head:hover .plan-name{color:var(--acc)}
+.chip{background:var(--acc);color:#0C0C0B;font:700 10px/1 var(--grot);letter-spacing:.12em;padding:7px 10px;white-space:nowrap}
+.plan-desc{color:var(--muted);font-size:15px;max-width:34ch}
+.plan-price-w{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.plan-price{font-family:var(--anton);font-weight:400;font-size:clamp(34px,4.6vw,68px);line-height:.9}
+.plan-row.featured .plan-price{color:var(--acc)}
+.plan-plus{position:relative;width:48px;height:48px;border:1px solid var(--line2);border-radius:50%;flex:none;transition:transform .45s cubic-bezier(.65,0,.35,1),background .3s}
+.plan-plus::before,.plan-plus::after{content:"";position:absolute;left:50%;top:50%;width:16px;height:2px;background:var(--bone);transform:translate(-50%,-50%);transition:background .3s}
+.plan-plus::after{transform:translate(-50%,-50%) rotate(90deg)}
+.plan-row.open .plan-plus{transform:rotate(135deg);background:var(--acc)}
+.plan-row.open .plan-plus::before,.plan-row.open .plan-plus::after{background:#0C0C0B}
+.plan-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s cubic-bezier(.65,0,.35,1)}
+.plan-row.open .plan-body{grid-template-rows:1fr}
+.plan-body-in{overflow:hidden;min-height:0}
+.plan-pad{display:flex;align-items:center;gap:4vw;flex-wrap:wrap;padding:0 6vw 3.2vw}
+.plan-includes{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,auto));gap:12px 3vw;flex:1}
+.plan-includes span{font-size:14px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+.plan-includes span::before{content:"—";color:var(--acc);margin-right:10px}
+
+/* ============ CTA ============ */
+.cta{min-height:92vh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:clamp(36px,5vw,72px);padding:clamp(100px,14vw,200px) var(--gut);border-top:1px solid var(--line);text-align:center}
+.cta-over{margin-bottom:-1vw}
+.cta-line{display:block;font-family:var(--anton);font-weight:400;font-size:clamp(56px,12.5vw,192px);line-height:.88;letter-spacing:.01em}
+.cta-line.o .ch{color:transparent;-webkit-text-stroke:2px var(--bone);transition:color .4s,-webkit-text-stroke-color .4s}
+.cta-line.o:hover .ch{color:var(--acc);-webkit-text-stroke-color:var(--acc)}
+.cta-line .ch.pd{color:var(--acc)}
+.cta-line.o .ch.pd{color:transparent;-webkit-text-stroke-color:var(--acc)}
+.btn-big{padding:22px 34px;font-size:13px}
+.cta-actions{display:flex;flex-direction:column;align-items:center;gap:18px}
+
+/* ============ FOOTER ============ */
+.footer{border-top:1px solid var(--line);padding:6vw var(--gut) 0;overflow:hidden}
+.f-cols{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr;gap:4vw;padding-bottom:6vw}
+.f-logo{font-family:var(--anton);font-weight:400;font-size:34px;line-height:1}
+.f-logo-row{display:flex;align-items:center;gap:18px}
+.f-logo-row .badge-o{width:64px;height:64px}
+.f-blurb{color:var(--muted);max-width:34ch;margin:20px 0 24px}
+.f-col{display:flex;flex-direction:column;gap:12px}
+.f-head{color:var(--dim);margin-bottom:6px}
+.f-txt{font-size:14px;color:var(--muted)}
+.f-link{font:600 13px/1.3 var(--grot);letter-spacing:.1em;color:var(--bone);display:inline-flex;align-items:center;gap:8px;transition:color .3s}
+.f-link svg{width:11px;height:11px}
+.f-link:hover{color:var(--acc)}
+.f-word-wrap{overflow:hidden}
+.f-word{font-family:var(--anton);font-weight:400;font-size:clamp(64px,29vw,520px);line-height:.82;letter-spacing:.012em;color:var(--bone);white-space:nowrap}
+.f-bar{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:18px 0 22px;border-top:1px solid var(--line);margin-top:2vw}
+.to-top{display:inline-flex;align-items:center;gap:10px;color:var(--muted);transition:color .3s}
+.to-top:hover{color:var(--acc)}
+.to-top svg{width:12px;height:12px}
+
+/* ============ MODALS (pure CSS transitions) ============ */
+.modal{position:fixed;inset:0;z-index:1100;visibility:hidden;pointer-events:none;transition:visibility 0s .6s}
+.modal.open{visibility:visible;pointer-events:auto;transition:visibility 0s 0s}
+.modal-wrap{position:absolute;inset:0;background:var(--bg);will-change:transform;transform:translateY(103%);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.modal.open .modal-wrap{transform:translateY(0)}
+.modal-close{position:absolute;top:20px;right:var(--gut);z-index:5;width:52px;height:52px;border:1px solid var(--line2);display:grid;place-items:center;transition:background .3s,color .3s}
+.modal-close:hover{background:var(--acc);color:#0C0C0B;border-color:var(--acc)}
+.modal-close svg{width:18px;height:18px}
+.modal .modal-stag{opacity:0;transform:translateY(26px);transition:opacity .55s cubic-bezier(.2,.8,.2,1),transform .55s cubic-bezier(.2,.8,.2,1)}
+.modal.open .modal-stag{opacity:1;transform:none}
+/* coach */
+#coachModal .modal-wrap{display:grid;grid-template-columns:minmax(280px,44vw) 1fr;overscroll-behavior:contain}
+.cm-media{position:relative;overflow:hidden}
+.cm-media img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.08);transition:filter .55s}
+.cm-media:hover img{filter:grayscale(0)}
+.cm-tag{position:absolute;bottom:16px;left:16px;background:var(--acc);color:#0C0C0B;padding:9px 12px;font:700 10px/1 var(--grot);letter-spacing:.12em;text-transform:uppercase}
+.cm-body{display:flex;flex-direction:column;gap:22px;padding:110px var(--gut) 48px;overflow:auto;overscroll-behavior:contain}
+.cm-name{font-family:var(--anton);font-weight:400;font-size:clamp(40px,5.8vw,96px);line-height:.9}
+.cm-bio{color:var(--muted);font-size:17px;max-width:52ch}
+.cm-stats{display:flex;gap:3vw;flex-wrap:wrap;margin-top:8px}
+.cm-stat{flex:1;min-width:140px;border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:8px}
+.cm-val{font-weight:600;font-size:15px;letter-spacing:.04em;text-transform:uppercase}
+#cmBook{margin-top:auto;align-self:flex-start}
+/* join */
+#joinModal{z-index:1150}
+.jm-wrap{display:grid;place-items:center;padding:5vh var(--gut);overflow:auto;overscroll-behavior:contain}
+.jm-backdrop{position:absolute;inset:0;background:rgba(12,12,11,.55);opacity:0;transition:opacity .5s}
+.modal.open .jm-backdrop{opacity:1}
+.jm-card{position:relative;width:min(660px,94vw);border:1px solid var(--line);background:var(--bg);padding:clamp(28px,4.5vw,60px);transform:translateY(28px);opacity:0;transition:transform .6s .12s cubic-bezier(.2,.8,.2,1),opacity .6s .12s}
+.modal.open .jm-card{transform:none;opacity:1}
+.jm-card.shake{animation:shake .5s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.jm-sub{color:var(--acc);display:block;margin-bottom:14px}
+.jm-title{font-family:var(--anton);font-weight:400;font-size:clamp(38px,5.5vw,74px);line-height:.9;margin-bottom:30px}
+.jm-title .acc{color:var(--acc)}
+.field{margin-bottom:26px}
+.field label{display:block;margin-bottom:6px}
+.field input,.field select{width:100%;background:transparent;border:0;border-bottom:1px solid var(--line2);border-radius:0;padding:12px 0;font:500 17px var(--grot);color:var(--bone);transition:border-color .3s}
+.field input:focus,.field select:focus{outline:none;border-bottom-color:var(--acc)}
+.field select{appearance:none;-webkit-appearance:none;padding-right:26px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23D0F224' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center}
+.field option{background:#141412;color:var(--bone)}
+.field .msg{display:block;font:600 10px/1.4 var(--grot);letter-spacing:.12em;color:var(--red);margin-top:8px;opacity:0;transform:translateY(-4px);transition:.25s}
+.field.err .msg{opacity:1;transform:none}
+.field.err input{border-bottom-color:var(--red)}
+.form-fine{margin:6px 0 22px;max-width:44ch}
+.jm-note{color:var(--muted);max-width:46ch;margin:18px 0 30px}
+.jm-note b{color:var(--bone)}
+
+/* ============ REDUCED MOTION ============ */
+html.rm .badge-spin,html.rm .sh-line,html.rm .live-dot,html.rm .mq-track{animation:none}
+html.rm *{transition-duration:.01ms!important;transition-delay:0ms!important}
+@media (prefers-reduced-motion:reduce){
+  .badge-spin,.sh-line,.live-dot,.mq-track,.toast{animation:none!important}
+  .menu,.menu-link,.menu-foot,.modal,.modal-wrap,.modal-stag,.plan-body,.preloader,.pre-inner,.jm-card,.jm-backdrop,.coach-peek-in,[data-magnet]{transition:none!important}
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1100px){
+  .hero{padding-top:86px}
+  .hero-media{position:relative;top:auto;right:auto;width:100%;height:38vh;height:38svh;margin:12px 0 18px}
+  .hero-blurb{position:static;max-width:100%;margin:6px 0 20px}
+  .hero-side{display:none}
+}
+@media (max-width:1100px) and (min-width:901px){
+  .f-cols{grid-template-columns:1fr 1fr;row-gap:48px}
+  .f-brand{grid-column:1/-1}
+}
+@media (max-width:900px){
+  .nav-links{display:none}
+  .burger{display:flex}
+  .nav{height:70px}
+  .programs-vp{height:auto;padding-top:0;overflow:visible}
+  .programs{padding:clamp(90px,12vw,150px) 0 40px}
+  .prog-head{margin:0 var(--gut) 40px}
+  .programs-track{flex-direction:column;align-items:stretch;gap:76px}
+  .panel{width:100%;transform:none;grid-template-columns:1fr;gap:20px}
+  .panel.down .panel-media,.panel.down .panel-body{grid-column:auto;grid-row:auto}
+  .panel-media{width:100%;aspect-ratio:4/3}
+  .panel-media img{width:100%;margin-left:0}
+  .panel-index{top:-.5em;left:0;font-size:clamp(64px,16vw,150px)}
+  .panel-intro{width:100%;align-self:auto}
+  .pi-title{font-size:clamp(48px,12vw,96px)}
+  .prog-progress{display:none}
+  .stat-row{grid-template-columns:1fr;gap:10px}
+  .stat-note{text-align:left}
+  .coach-row{grid-template-columns:auto 1fr auto;gap:5vw}
+  .coach-rolebox{display:none}
+  .coach-name{font-size:clamp(28px,8.5vw,54px)}
+  .plan-head{grid-template-columns:1fr auto auto;grid-template-areas:"name price plus" "desc desc desc";row-gap:14px}
+  .plan-idx{display:none}
+  .plan-name-w{grid-area:name}
+  .plan-price-w{grid-area:price}
+  .plan-plus{grid-area:plus}
+  .plan-desc{grid-area:desc;max-width:100%}
+  .plan-pad{padding:0 0 8vw;flex-direction:column;align-items:flex-start}
+  #coachModal .modal-wrap{grid-template-columns:1fr;grid-template-rows:38vh 1fr}
+  .cm-body{padding:34px var(--gut) 40px}
+}
+@media (max-width:700px){
+  .nav-clock{display:none}
+  .manifesto-media{flex-direction:column;gap:56px}
+  .mm-a,.mm-b{width:100%;margin-top:0}
+}
+</style>
+
+<!-- HARD KILL-SWITCH: no matter what happens later (a CDN hanging, a JS error,
+     a blocked network) this guarantees the loader can never trap the page. -->
+<script>
+window.__preSaved = false;
+window.__preSafety = setTimeout(function(){
+  var p = document.getElementById('preloader');
+  if(p){ p.classList.add('force-hide'); window.__preSaved = true; }
+}, 5000);
+</script>
+</head>
+<body>
+
+<!-- cursor / grain / toasts -->
+<div class="cursor" aria-hidden="true">
+  <div class="cursor-dot"></div>
+  <div class="cursor-label"><span>VIEW</span></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+<div class="toasts" aria-live="polite"></div>
+
+<!-- preloader -->
+<div class="preloader" id="preloader">
+  <div class="pre-inner">
+    <div class="pre-top"><span class="label">FORGE ATHLETIC CLUB</span><span class="label">EAST WILLIAMSBURG — BK</span></div>
+    <div class="pre-bottom">
+      <span class="label">LOADING THE FLOOR —<br>CHALK UP</span>
+      <span class="pre-count">000</span>
+    </div>
+  </div>
+  <span class="pre-bar"></span>
+</div>
+
+<!-- nav -->
+<header class="nav">
+  <a class="nav-logo" href="#top" data-scrollto="#top">FORGE<span class="logo-d"></span></a>
+  <nav class="nav-links">
+    <a href="#manifesto" data-scrollto="#manifesto">MANIFESTO</a>
+    <a href="#programs" data-scrollto="#programs">PROGRAMS</a>
+    <a href="#coaches" data-scrollto="#coaches">COACHES</a>
+    <a href="#membership" data-scrollto="#membership">PLANS</a>
+    <a href="#contact" data-scrollto="#contact">CONTACT</a>
+  </nav>
+  <div class="nav-right">
+    <span class="label nav-clock">LOCAL — <span data-clock>00:00:00</span></span>
+    <button class="btn btn-ghost btn-nav" type="button" data-join>JOIN</button>
+    <button class="burger" type="button" aria-label="Menu"><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- mobile menu -->
+<div class="menu" id="menu">
+  <nav class="menu-links">
+    <button class="menu-link" type="button" data-scrollto="#manifesto"><span class="label">01</span>MANIFESTO</button>
+    <button class="menu-link" type="button" data-scrollto="#programs"><span class="label">02</span>PROGRAMS</button>
+    <button class="menu-link" type="button" data-scrollto="#coaches"><span class="label">04</span>COACHES</button>
+    <button class="menu-link" type="button" data-scrollto="#membership"><span class="label">05</span>PLANS</button>
+    <button class="menu-link" type="button" data-scrollto="#contact"><span class="label">—</span>CONTACT</button>
+  </nav>
+  <div class="menu-foot"><span class="label">EAST WILLIAMSBURG — 24/7</span><span class="label">FIRST WEEK FREE</span></div>
+</div>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-meta">
+      <span class="label">EST. 2012 — EAST WILLIAMSBURG</span>
+      <span class="label">OPEN 24/7 — 365</span>
+    </div>
+    <div class="hero-media">
+      <div class="media-frame">
+        <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1600&auto=format&fit=crop" alt="Dumbbell racks on the Forge training floor">
+      </div>
+      <span class="media-cap">THE FLOOR — 05:41 AM</span>
+    </div>
+    <p class="hero-blurb">A 24/7 iron house under the BQE arches in East Williamsburg. Barbells, turf, rings, sleds — and none of the theatre. Come mean it.</p>
+    <span class="hero-side label">STRENGTH IS A PLACE</span>
+    <h1 class="hero-title" aria-label="FORGE">
+      <span class="mask" aria-hidden="true"><span class="char">F</span></span><span class="mask" aria-hidden="true"><span class="char">R</span></span><span class="mask mask-b" aria-hidden="true"><span class="char"><span class="badge-o"><svg class="badge-spin" viewBox="0 0 100 100"><defs><path id="bp1" d="M50 50 m-42 0 a42 42 0 1 1 84 0 a42 42 0 1 1 -84 0"/></defs><text><textPath href="#bp1">FORGE ATHLETIC CLUB • BKLYN • EST. 2012 •</textPath></text></svg><span class="badge-core"><svg viewBox="0 0 24 24" fill="none" stroke="#0C0C0B" stroke-width="2.2"><path d="M6 18L18 6M8 6h10v10"/></svg></span></span></span></span><span class="mask" aria-hidden="true"><span class="char">G</span></span><span class="mask" aria-hidden="true"><span class="char">E</span></span>
+    </h1>
+    <div class="hero-bottom">
+      <span class="label">ATHLETIC CLUB — MMXII</span>
+      <a class="scroll-hint label" href="#manifesto" data-scrollto="#manifesto">SCROLL<span class="sh-line"></span></a>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="mq-track">
+      <div class="mq-chunk">
+        <span class="mq-w">FORGE</span><i class="mq-sep"></i><span class="mq-w o">STRENGTH</span><i class="mq-sep"></i><span class="mq-w">CONDITIONING</span><i class="mq-sep"></i><span class="mq-w o">MOBILITY</span><i class="mq-sep"></i><span class="mq-w">COMBAT</span><i class="mq-sep"></i><span class="mq-w o">RECOVERY</span><i class="mq-sep"></i>
+      </div>
+      <div class="mq-chunk">
+        <span class="mq-w">FORGE</span><i class="mq-sep"></i><span class="mq-w o">STRENGTH</span><i class="mq-sep"></i><span class="mq-w">CONDITIONING</span><i class="mq-sep"></i><span class="mq-w o">MOBILITY</span><i class="mq-sep"></i><span class="mq-w">COMBAT</span><i class="mq-sep"></i><span class="mq-w o">RECOVERY</span><i class="mq-sep"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANIFESTO -->
+  <section class="sec manifesto" id="manifesto">
+    <div class="sec-head" data-reveal>
+      <span class="label"><em>01</em> — MANIFESTO</span>
+      <span class="label">40.7031° N — 73.9219° W</span>
+    </div>
+    <p class="manifesto-text">Most gyms sell you a mirror. We hand you a barbell. FORGE is 12,000 square feet of chalk, iron and intent — built for the people who show up on the grey Mondays in February, not just the first week of January. No shortcuts sold here. Just programming that works, coaches who remember your name, and a floor that smells like effort.</p>
+    <div class="manifesto-media">
+      <figure class="mm-a" data-reveal>
+        <div class="media" data-parallax="26"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1100&auto=format&fit=crop" alt="The main training floor at Forge" loading="lazy"></div>
+        <figcaption class="label">THE RACK WALL — VARET ST</figcaption>
+      </figure>
+      <figure class="mm-b" data-reveal>
+        <div class="media" data-parallax="-30"><img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=800&auto=format&fit=crop" alt="Turf lane and dumbbell racks" loading="lazy"></div>
+        <figcaption class="label">TURF LANE — 06:00 CREW</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section class="programs" id="programs">
+    <div class="programs-vp">
+      <div class="sec-head prog-head">
+        <span class="label"><em>02</em> — THE PROGRAMS</span>
+        <span class="label">05 DISCIPLINES</span>
+      </div>
+      <div class="programs-track">
+        <article class="panel panel-intro">
+          <span class="label">( WHAT WE DO )</span>
+          <h3 class="pi-title">PICK YOUR<br>POISON.</h3>
+          <p class="pi-copy">One floor, five ways to hurt. Every track is coached, every block is written, and nothing in this building is decorative.</p>
+          <svg class="pi-arrow" viewBox="0 0 24 24"><path d="M3 12h18M14 5l7 7-7 7"/></svg>
+        </article>
+
+        <article class="panel up" data-pi="1">
+          <span class="panel-index" aria-hidden="true">01</span>
+          <div class="panel-media"><img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?q=80&w=1000&auto=format&fit=crop" alt="Athlete pressing a loaded barbell overhead" loading="lazy"><span class="media-cap">THE BARBELL FLOOR</span></div>
+          <div class="panel-body">
+            <h3 class="panel-title">STRENGTH</h3>
+            <p class="panel-desc">Barbell-first. Squat, hinge, press, pull — periodised in 12-week blocks with numbers you can watch go up.</p>
+            <div class="panel-meter"><span class="label">INTENSITY</span><span class="segs"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="label">4/5</span></div>
+            <div class="panel-meta label"><span>MON · WED · FRI</span><span>60 MIN</span><span>COACH — TANK</span></div>
+          </div>
+        </article>
+
+        <article class="panel down" data-pi="2">
+          <span class="panel-index" aria-hidden="true">02</span>
+          <div class="panel-media"><img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=1000&auto=format&fit=crop" alt="Athlete resting between intervals in a dark gym" loading="lazy"><span class="media-cap">SLED LANE — LANE 03</span></div>
+          <div class="panel-body">
+            <h3 class="panel-title">CONDITIONING</h3>
+            <p class="panel-desc">Engine work for people who hate cardio theatre. Sleds, ergs, intervals — and a clock that never lies.</p>
+            <div class="panel-meter"><span class="label">INTENSITY</span><span class="segs"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="label">5/5</span></div>
+            <div class="panel-meta label"><span>TUE · THU · SAT</span><span>45 MIN</span><span>COACH — LENA</span></div>
+          </div>
+        </article>
+
+        <article class="panel up" data-pi="3">
+          <span class="panel-index" aria-hidden="true">03</span>
+          <div class="panel-media"><img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=1000&auto=format&fit=crop" alt="Athlete holding a deep loaded stretch" loading="lazy"><span class="media-cap">THE QUIET ROOM</span></div>
+          <div class="panel-body">
+            <h3 class="panel-title">MOBILITY</h3>
+            <p class="panel-desc">The unsexy hour that keeps you under the bar at sixty. Controlled articular work, loaded stretching, breath.</p>
+            <div class="panel-meter"><span class="label">INTENSITY</span><span class="segs"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="label">2/5</span></div>
+            <div class="panel-meta label"><span>DAILY</span><span>30 MIN</span><span>COACH — AMARA</span></div>
+          </div>
+        </article>
+
+        <article class="panel down" data-pi="4">
+          <span class="panel-index" aria-hidden="true">04</span>
+          <div class="panel-media"><img src="https://images.unsplash.com/photo-1546483875-ad9014c88eba?q=80&w=1000&auto=format&fit=crop" alt="Boxer working the heavy bag in a dark gym" loading="lazy"><span class="media-cap">THE RING — BACK CORNER</span></div>
+          <div class="panel-body">
+            <h3 class="panel-title">COMBAT</h3>
+            <p class="panel-desc">Boxing and kickboxing fundamentals. Footwork, pads, heavy bags — the phone stays in the locker.</p>
+            <div class="panel-meter"><span class="label">INTENSITY</span><span class="segs"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="label">3/5</span></div>
+            <div class="panel-meta label"><span>TUE · THU · SUN</span><span>75 MIN</span><span>COACH — DARIO</span></div>
+          </div>
+        </article>
+
+        <article class="panel up" data-pi="5">
+          <span class="panel-index" aria-hidden="true">05</span>
+          <div class="panel-media"><img src="https://images.unsplash.com/photo-1554284126-aa88f22d8b74?q=80&w=1000&auto=format&fit=crop" alt="Athlete lying on the floor recovering after training" loading="lazy"><span class="media-cap">PLUNGE — 48°F</span></div>
+          <div class="panel-body">
+            <h3 class="panel-title">RECOVERY</h3>
+            <p class="panel-desc">Sauna, plunge, compression, bodywork. Training breaks you down — this is where the adapting happens.</p>
+            <div class="panel-meter"><span class="label">INTENSITY</span><span class="segs"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="label">1/5</span></div>
+            <div class="panel-meta label"><span>BY APPOINTMENT</span><span>45 MIN</span><span>SUITE — LEVEL −1</span></div>
+          </div>
+        </article>
+      </div>
+      <div class="prog-progress">
+        <span class="label"><span class="prog-idx">01</span> / 05</span>
+        <span class="prog-line"><span class="prog-bar"></span></span>
+        <span class="label">KEEP GOING</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUMBERS -->
+  <section class="sec numbers" id="numbers">
+    <div class="sec-head" data-reveal>
+      <span class="label"><em>03</em> — THE NUMBERS</span>
+      <span class="label">THE FLOOR KEEPS SCORE</span>
+    </div>
+    <div class="stats">
+      <div class="stat-row" data-reveal>
+        <span class="stat-num" data-count="12">12</span>
+        <span class="stat-label">Years of iron</span>
+        <span class="stat-note label">FOUNDED IN A RAILROAD ARCH — STILL LOUD</span>
+      </div>
+      <div class="stat-row" data-reveal>
+        <span class="stat-num" data-count="2400" data-suffix="+">2,400+</span>
+        <span class="stat-label">Active members</span>
+        <span class="stat-note label">CAPPED AT 3,000 — WE LIKE ROOM TO BREATHE</span>
+      </div>
+      <div class="stat-row" data-reveal>
+        <span class="stat-num" data-count="38">38</span>
+        <span class="stat-label">Certified coaches</span>
+        <span class="stat-note label">AVERAGE TENURE — 6.2 YEARS</span>
+      </div>
+      <div class="stat-row" data-reveal>
+        <span class="stat-num" data-count="120">120</span>
+        <span class="stat-label">Classes every week</span>
+        <span class="stat-note label">05:30 AM → 10:30 PM</span>
+      </div>
+      <div class="stat-row live" data-reveal>
+        <span class="stat-num"><i class="live-dot"></i><span data-live-lbs>94,213</span></span>
+        <span class="stat-label">Pounds moved today</span>
+        <span class="stat-note label">COUNTING LIVE — THE BAR NEVER LIES</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- COACHES -->
+  <section class="sec coaches" id="coaches">
+    <div class="sec-head" data-reveal>
+      <span class="label"><em>04</em> — THE COACHES</span>
+      <span class="label">FOUR NAMES YOU'LL LEARN FAST</span>
+    </div>
+    <div class="coach-list">
+      <button class="coach-row" type="button" data-coach="tank" data-cursor="OPEN BIO">
+        <span class="coach-idx label">01</span>
+        <span class="coach-name">MARCUS “TANK” ELLIS</span>
+        <span class="coach-rolebox"><span class="label">HEAD COACH — STRENGTH</span><span class="label">SQUAT / HINGE / PRESS</span></span>
+        <span class="coach-arrow"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 11.5L11.5 2.5M11.5 2.5H4M11.5 2.5v7.5"/></svg></span>
+      </button>
+      <button class="coach-row" type="button" data-coach="lena" data-cursor="OPEN BIO">
+        <span class="coach-idx label">02</span>
+        <span class="coach-name">LENA KOVACS</span>
+        <span class="coach-rolebox"><span class="label">CONDITIONING — ENGINE ROOM</span><span class="label">SLED / ERG / INTERVALS</span></span>
+        <span class="coach-arrow"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 11.5L11.5 2.5M11.5 2.5H4M11.5 2.5v7.5"/></svg></span>
+      </button>
+      <button class="coach-row" type="button" data-coach="dario" data-cursor="OPEN BIO">
+        <span class="coach-idx label">03</span>
+        <span class="coach-name">DARIO VOSS</span>
+        <span class="coach-rolebox"><span class="label">COMBAT — THE RING</span><span class="label">PADS / FOOTWORK / SPAR</span></span>
+        <span class="coach-arrow"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 11.5L11.5 2.5M11.5 2.5H4M11.5 2.5v7.5"/></svg></span>
+      </button>
+      <button class="coach-row" type="button" data-coach="amara" data-cursor="OPEN BIO">
+        <span class="coach-idx label">04</span>
+        <span class="coach-name">AMARA OSEI</span>
+        <span class="coach-rolebox"><span class="label">MOBILITY &amp; RECOVERY</span><span class="label">FRC / BREATH / PLUNGE</span></span>
+        <span class="coach-arrow"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 11.5L11.5 2.5M11.5 2.5H4M11.5 2.5v7.5"/></svg></span>
+      </button>
+    </div>
+    <div class="coach-peek" aria-hidden="true"><div class="coach-peek-in"><img src="" alt=""></div></div>
+  </section>
+
+  <!-- MEMBERSHIP -->
+  <section class="sec membership" id="membership">
+    <div class="sec-head" data-reveal>
+      <span class="label"><em>05</em> — MEMBERSHIP</span>
+      <span class="label">FIRST WEEK — ALWAYS FREE</span>
+    </div>
+    <div class="plans">
+      <div class="plan-row" data-reveal>
+        <button class="plan-head" type="button" data-cursor="DETAILS">
+          <span class="plan-idx label">01</span>
+          <span class="plan-name-w"><span class="plan-name">DAY PASS</span></span>
+          <span class="plan-desc">One day, the whole house. Come see what you're dealing with.</span>
+          <span class="plan-price-w"><span class="plan-price">$25</span><span class="per label">PER DAY</span></span>
+          <span class="plan-plus"></span>
+        </button>
+        <div class="plan-body"><div class="plan-body-in"><div class="plan-pad">
+          <div class="plan-includes">
+            <span>Full floor — one day</span><span>Any class on the schedule</span><span>Recovery suite day access</span>
+          </div>
+          <button class="btn plan-select" type="button" data-plan="day">SELECT — DAY PASS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h18M14 5l7 7-7 7"/></svg></button>
+        </div></div></div>
+      </div>
+      <div class="plan-row" data-reveal>
+        <button class="plan-head" type="button" data-cursor="DETAILS">
+          <span class="plan-idx label">02</span>
+          <span class="plan-name-w"><span class="plan-name">MONTHLY</span><span class="chip">MOST CHOSEN</span></span>
+          <span class="plan-desc">Month to month. Cancel anytime — we won't chase you.</span>
+          <span class="plan-price-w"><span class="plan-price">$89</span><span class="per label">PER MONTH</span></span>
+          <span class="plan-plus"></span>
+        </button>
+        <div class="plan-body"><div class="plan-body-in"><div class="plan-pad">
+          <div class="plan-includes">
+            <span>Unlimited classes + open floor</span><span>24/7 door code</span><span>Recovery suite</span><span>Programming app</span>
+          </div>
+          <button class="btn plan-select" type="button" data-plan="monthly">SELECT — MONTHLY <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h18M14 5l7 7-7 7"/></svg></button>
+        </div></div></div>
+      </div>
+      <div class="plan-row featured" data-reveal>
+        <button class="plan-head" type="button" data-cursor="DETAILS">
+          <span class="plan-idx label">03</span>
+          <span class="plan-name-w"><span class="plan-name">ANNUAL</span><span class="chip">BEST VALUE — SAVE 27%</span></span>
+          <span class="plan-desc">The commitment rate. For people who already know.</span>
+          <span class="plan-price-w"><span class="plan-price">$65</span><span class="per label">PER MO — BILLED YEARLY</span></span>
+          <span class="plan-plus"></span>
+        </button>
+        <div class="plan-body"><div class="plan-body-in"><div class="plan-pad">
+          <div class="plan-includes">
+            <span>Everything in monthly</span><span>2 guest passes / month</span><span>Quarterly body-comp scan</span><span>Locker + towel service</span>
+          </div>
+          <button class="btn plan-select" type="button" data-plan="annual">SELECT — ANNUAL <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h18M14 5l7 7-7 7"/></svg></button>
+        </div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="join">
+    <span class="label cta-over" data-reveal><em>06</em> — THE PART WHERE YOU ACT</span>
+    <h2 class="cta-lines">
+      <span class="cta-line">STOP</span>
+      <span class="cta-line">SCROLLING.</span>
+      <span class="cta-line">START</span>
+      <span class="cta-line o">LIFTING.</span>
+    </h2>
+    <div class="cta-actions">
+      <button class="btn btn-big" type="button" data-magnet=".3" data-join>CLAIM YOUR FREE WEEK <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 11.5L11.5 2.5M11.5 2.5H4M11.5 2.5v7.5"/></svg></button>
+      <span class="label">NO CARD — NO CONTRACT — WORST CASE, YOU LEAVE SORE</span>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer" id="contact">
+  <div class="f-cols">
+    <div class="f-col f-brand">
+      <div class="f-logo-row">
+        <span class="f-logo">FORGE</span>
+        <span class="badge-o"><svg class="badge-spin" viewBox="0 0 100 100"><defs><path id="bp2" d="M50 50 m-42 0 a42 42 0 1 1 84 0 a42 42 0 1 1 -84 0"/></defs><text><textPath href="#bp2">FORGE ATHLETIC CLUB • BKLYN • EST. 2012 •</textPath></text></svg><span class="badge-core"><svg viewBox="0 0 24 24" fill="none" stroke="#0C0C0B" stroke-width="2.2"><path d="M6 18L18 6M8 6h10v10"/></svg></span></span>
+      </div>
+      <p class="f-blurb">A gym for people who mean it. Iron, chalk and bad ideas about rest days since 2012.</p>
+      <span class="label">LOCAL TIME — <span data-clock>00:00:00</span></span>
+    </div>
+    <div class="f-col">
+      <span class="label f-head">VISIT</span>
+      <button class="f-link" type="button" data-copy="214 Varet St, Brooklyn NY 11206" data-cursor="COPY">214 VARET ST</button>
+      <span class="f-txt">BROOKLYN — NY 11206</span>
+      <span class="f-txt">L TRAIN — GRAND ST</span>
+    </div>
+    <div class="f-col">
+      <span class="label f-head">HOURS</span>
+      <span class="f-txt">MEMBERS — 24/7/365</span>
+      <span class="f-txt">STAFFED — 06:00 → 23:00</span>
+      <span class="f-txt">RECOVERY — 07:00 → 22:00</span>
+    </div>
+    <div class="f-col">
+      <span class="label f-head">CONTACT</span>
+      <button class="f-link" type="button" data-copy="front-desk@forge.club" data-cursor="COPY">FRONT-DESK@FORGE.CLUB</button>
+      <a class="f-link" href="tel:+17185550142">(718) 555-0142</a>
+    </div>
+    <div class="f-col">
+      <span class="label f-head">FOLLOW</span>
+      <a class="f-link" href="https://instagram.com" target="_blank" rel="noopener">INSTAGRAM <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 11.5L11.5 2.5M11.5 2.5H4M11.5 2.5v7.5"/></svg></a>
+      <a class="f-link" href="https://youtube.com" target="_blank" rel="noopener">YOUTUBE <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 11.5L11.5 2.5M11.5 2.5H4M11.5 2.5v7.5"/></svg></a>
+      <a class="f-link" href="https://x.com" target="_blank" rel="noopener">X <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 11.5L11.5 2.5M11.5 2.5H4M11.5 2.5v7.5"/></svg></a>
+    </div>
+  </div>
+  <div class="f-word-wrap" aria-hidden="true"><span class="f-word">F<span class="badge-o"><svg class="badge-spin" viewBox="0 0 100 100"><defs><path id="bp3" d="M50 50 m-42 0 a42 42 0 1 1 84 0 a42 42 0 1 1 -84 0"/></defs><text><textPath href="#bp3">FORGE ATHLETIC CLUB • BKLYN • EST. 2012 •</textPath></text></svg><span class="badge-core"><svg viewBox="0 0 24 24" fill="none" stroke="#0C0C0B" stroke-width="2.2"><path d="M6 18L18 6M8 6h10v10"/></svg></span></span>RGE</span></div>
+  <div class="f-bar">
+    <span class="label">© 2012–2025 FORGE ATHLETIC CLUB</span>
+    <span class="label">TRAINED, NOT RENDERED</span>
+    <button class="to-top label" type="button" data-magnet=".3" data-scrollto="#top">BACK TO TOP <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21V3M5 10l7-7 7 7"/></svg></button>
+  </div>
+</footer>
+
+<!-- COACH MODAL -->
+<div class="modal" id="coachModal" aria-hidden="true">
+  <div class="modal-wrap">
+    <div class="cm-media">
+      <img id="cmImg" src="" alt="">
+      <span class="cm-tag" id="cmTag"></span>
+    </div>
+    <div class="cm-body" data-lenis-prevent>
+      <span class="label modal-stag" id="cmRole"></span>
+      <h3 class="cm-name modal-stag" id="cmName"></h3>
+      <p class="cm-bio modal-stag" id="cmBio"></p>
+      <div class="cm-stats modal-stag" id="cmStats"></div>
+      <button class="btn modal-stag" type="button" id="cmBook">BOOK A SESSION <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 11.5L11.5 2.5M11.5 2.5H4M11.5 2.5v7.5"/></svg></button>
+    </div>
+    <button class="modal-close" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  </div>
+</div>
+
+<!-- JOIN MODAL -->
+<div class="modal" id="joinModal" aria-hidden="true">
+  <div class="modal-wrap jm-wrap" data-lenis-prevent>
+    <div class="jm-backdrop" data-close></div>
+    <div class="jm-card">
+      <span class="label jm-sub modal-stag">FIRST WEEK — ON US</span>
+      <h3 class="jm-title modal-stag">CLAIM YOUR<br>FREE WEEK.</h3>
+      <form id="joinForm" novalidate class="modal-stag">
+        <div class="field">
+          <label class="label" for="jfName">FULL NAME</label>
+          <input id="jfName" name="name" type="text" autocomplete="name" placeholder="Jane Mercer">
+          <span class="msg">WE NEED A NAME FOR THE CLIPBOARD.</span>
+        </div>
+        <div class="field">
+          <label class="label" for="jfEmail">EMAIL</label>
+          <input id="jfEmail" name="email" type="email" autocomplete="email" placeholder="jane@mail.com">
+          <span class="msg">THAT EMAIL LOOKS OFF.</span>
+        </div>
+        <div class="field">
+          <label class="label" for="jfPlan">PLAN</label>
+          <select id="jfPlan" name="plan">
+            <option value="week">FREE WEEK — START HERE</option>
+            <option value="day">DAY PASS — $25</option>
+            <option value="monthly">MONTHLY — $89/MO</option>
+            <option value="annual">ANNUAL — $65/MO</option>
+          </select>
+        </div>
+        <p class="form-fine label">We'll hold a pass at the front desk. No card, no auto-renew, no spam — just iron.</p>
+        <button class="btn btn-wide" type="submit">LOCK IT IN <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 11.5L11.5 2.5M11.5 2.5H4M11.5 2.5v7.5"/></svg></button>
+      </form>
+      <div class="jm-success" hidden>
+        <span class="label modal-stag">APPLICATION — ACCEPTED</span>
+        <h3 class="jm-title modal-stag">YOU'RE IN,<br><span class="acc" id="jsName"></span>.</h3>
+        <p class="jm-note modal-stag">Member <b id="jsId"></b>. A one-week pass is waiting at the front desk — ask for the clipboard with the torn corner.</p>
+        <button class="btn modal-stag" type="button" data-close>BACK TO THE FLOOR <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 11.5L11.5 2.5M11.5 2.5H4M11.5 2.5v7.5"/></svg></button>
+      </div>
+    </div>
+    <button class="modal-close" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  </div>
+</div>
+
+<noscript><style>.preloader,.cursor{display:none}</style></noscript>
+
+<!-- ============================================================
+     CORE — runs immediately, depends on NOTHING external.
+     Menu, modals, forms, accordion, counters, cursor, loader:
+     all vanilla. If every CDN below dies, this still works.
+============================================================ -->
+<script>
+(function(){
+'use strict';
+try{
+
+var $  = function(s,c){ return (c||document).querySelector(s); };
+var $$ = function(s,c){ return Array.prototype.slice.call((c||document).querySelectorAll(s)); };
+var html = document.documentElement;
+var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var isTouch = matchMedia('(hover: none)').matches;
+if (RM) html.classList.add('rm');
+/* optimistic fallback layout: stacked programs. The enhancement layer
+   removes this and activates the pinned horizontal track instead. */
+html.classList.add('no-st');
+
+/* intro handshake with the (optional) enhancement layer */
+window.__introWanted = false;
+function playIntro(){
+  window.__introWanted = true;
+  if (window.__intro){ try{ window.__intro(); }catch(e){} }
+}
+function clearSafety(){ if (window.__preSafety){ clearTimeout(window.__preSafety); window.__preSafety = null; } }
+
+/* ---------- toasts (CSS-animated) ---------- */
+var toasts = $('.toasts');
+function toast(msg){
+  if(!toasts) return;
+  var t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = '<span class="t-dot"></span>' + msg;
+  toasts.appendChild(t);
+  setTimeout(function(){
+    t.classList.add('out');
+    setTimeout(function(){ if(t.parentNode) t.parentNode.removeChild(t); }, 500);
+  }, 3400);
+}
+
+/* ---------- clock ---------- */
+function clockTick(){
+  var s;
+  try{ s = new Date().toLocaleTimeString('en-GB', {hour12:false}); }catch(e){ s = ''; }
+  $$('[data-clock]').forEach(function(el){ el.textContent = s; });
+}
+clockTick(); setInterval(clockTick, 1000);
+
+/* ---------- click-to-copy ---------- */
+ $$('[data-copy]').forEach(function(el){
+  el.addEventListener('click', function(){
+    var v = el.getAttribute('data-copy');
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(v).then(function(){ toast('COPIED — '+v); }, function(){ toast(v); });
+    } else { toast(v); }
+  });
+});
+
+/* ---------- custom cursor (vanilla rAF) ---------- */
+if (!isTouch){
+  html.classList.add('has-cursor');
+  var cur = $('.cursor'), labTxt = $('.cursor-label span');
+  var tx = innerWidth/2, ty = innerHeight/2, cx = tx, cy = ty, seen = false;
+  addEventListener('mousemove', function(e){
+    tx = e.clientX; ty = e.clientY;
+    if(!seen){ cx = tx; cy = ty; seen = true; cur.classList.add('on'); }
+  });
+  (function loop(){
+    cx += (tx-cx)*.16; cy += (ty-cy)*.16;
+    cur.style.transform = 'translate3d('+cx+'px,'+cy+'px,0)';
+    requestAnimationFrame(loop);
+  })();
+  document.addEventListener('mouseover', function(e){
+    if(!e.target || !e.target.closest) return;
+    var labEl = e.target.closest('[data-cursor]');
+    if (labEl){ if(labTxt) labTxt.textContent = labEl.getAttribute('data-cursor'); cur.classList.add('is-label'); cur.classList.remove('is-link'); return; }
+    var linkEl = e.target.closest('a,button,select,input,.plan-head');
+    if (linkEl){ cur.classList.add('is-link'); cur.classList.remove('is-label'); return; }
+    cur.classList.remove('is-link','is-label');
+  });
+  addEventListener('pointerdown', function(){ cur.classList.add('pressed'); });
+  addEventListener('pointerup',   function(){ cur.classList.remove('pressed'); });
+}
+
+/* ---------- magnetic elements (vanilla) ---------- */
+if (!isTouch && !RM){
+  $$('[data-magnet]').forEach(function(el){
+    var s = parseFloat(el.getAttribute('data-magnet')) || .3;
+    el.addEventListener('mousemove', function(e){
+      var r = el.getBoundingClientRect();
+      el.style.transform = 'translate('+((e.clientX-r.left-r.width/2)*s)+'px,'+((e.clientY-r.top-r.height/2)*s)+'px)';
+    });
+    el.addEventListener('mouseleave', function(){ el.style.transform = ''; });
+  });
+}
+
+/* ---------- preloader (100% vanilla + hard safety net) ---------- */
+var preEl = $('#preloader');
+function welcomeBack(){
+  try{
+    var m = JSON.parse(localStorage.getItem('forge-member') || 'null');
+    if (m && m.name) setTimeout(function(){ toast('WELCOME BACK, '+m.name.toUpperCase()+' — THE IRON MISSED YOU'); }, 900);
+  }catch(e){}
+}
+function endPre(){
+  clearSafety();
+  preEl.classList.add('done');                 // curtain lifts via CSS transition
+  setTimeout(playIntro, 480);                  // hero intro starts mid-lift
+  setTimeout(function(){ preEl.style.display = 'none'; }, 1000);
+}
+if (RM || window.__preSaved){
+  preEl.style.display = 'none';
+  clearSafety();
+  playIntro();
+  welcomeBack();
+} else {
+  var num = $('.pre-count'), bar = $('.pre-bar');
+  var t0 = null, DUR = 1600;
+  requestAnimationFrame(function fr(now){
+    if (t0 === null) t0 = now;
+    var p = Math.min(1, (now-t0)/DUR);
+    var e = p < .5 ? 2*p*p : 1 - Math.pow(-2*p+2, 2)/2;
+    if (num) num.textContent = ('00'+Math.round(e*100)).slice(-3);
+    if (bar) bar.style.transform = 'scaleX('+e+')';
+    if (p < 1) requestAnimationFrame(fr);
+    else { endPre(); welcomeBack(); }
+  });
+}
+
+/* ---------- counters (IntersectionObserver + rAF) ---------- */
+ $$('[data-count]').forEach(function(el){
+  var target = parseFloat(el.getAttribute('data-count')) || 0;
+  var suf = el.getAttribute('data-suffix') || '';
+  var fmt = function(n){ return n.toLocaleString('en-US'); };
+  if (RM || !('IntersectionObserver' in window)){ el.textContent = fmt(target)+suf; return; }
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      if (!en.isIntersecting) return;
+      io.disconnect();
+      var s0 = null, D = 1800;
+      requestAnimationFrame(function step(now){
+        if (s0 === null) s0 = now;
+        var p = Math.min(1, (now-s0)/D);
+        var e = 1 - Math.pow(1-p, 3);
+        el.textContent = fmt(Math.round(e*target))+suf;
+        if (p < 1) requestAnimationFrame(step);
+      });
+    });
+  }, {threshold:.4});
+  io.observe(el);
+});
+
+/* ---------- live pounds ticker ---------- */
+var lbsEl = $('[data-live-lbs]');
+if (lbsEl){
+  var lbs = 78000 + Math.floor(Math.random()*24000);
+  var fmtL = function(n){ return n.toLocaleString('en-US'); };
+  lbsEl.textContent = fmtL(lbs);
+  setInterval(function(){
+    lbs += 12 + Math.floor(Math.random()*80);
+    lbsEl.textContent = fmtL(lbs);
+  }, 750);
+}
+
+/* ---------- marquee reacts to scroll velocity (vanilla) ---------- */
+try{
+  var mqTrack = $('.mq-track');
+  if (mqTrack && !RM && mqTrack.getAnimations){
+    var an = mqTrack.getAnimations();
+    var anim = an && an[0];
+    if (anim){
+      var tgt = 1, mcur = 1, lastY2 = scrollY, lastT = performance.now();
+      addEventListener('scroll', function(){
+        var now = performance.now(), y = scrollY, dt = now - lastT;
+        if (dt > 0){
+          var v = (y - lastY2) / dt;             // px per ms
+          tgt = Math.max(-3, Math.min(4, 1 + v*1.6));
+        }
+        lastY2 = y; lastT = now;
+      }, {passive:true});
+      (function ml(){
+        tgt += (1-tgt)*.03;
+        mcur += (tgt-mcur)*.09;
+        try{ anim.playbackRate = mcur; }catch(e){}
+        requestAnimationFrame(ml);
+      })();
+    }
+  }
+}catch(e){}
+
+/* ---------- coaches data + modals ---------- */
+var COACHES = {
+  tank:  { name:'MARCUS “TANK” ELLIS', role:'HEAD COACH — STRENGTH', tag:'THE BARBELL ZEALOT',
+           img:'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=900&auto=format&fit=crop',
+           bio:'Former IPF powerlifter — 340kg deadlift, zero patience for ego lifting. Runs the barbell floor like a lab: numbers in, numbers out. Will not let you round your back. Ever.',
+           stats:[['YEARS COACHING','14'],['CERTS','NSCA-CSCS · IPF L2'],['ATHLETES COACHED','900+']] },
+  lena:  { name:'LENA KOVACS', role:'CONDITIONING — ENGINE ROOM', tag:'THE INTERVAL SMITH',
+           img:'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=900&auto=format&fit=crop',
+           bio:'Ex-800m national finalist turned engine-builder. Her interval blocks are famous, feared, and — clients swear — weirdly addictive. If the sleds are moving, she’s already smiling.',
+           stats:[['YEARS COACHING','11'],['CERTS','UESCA ENDURANCE L2'],['ENGINES BUILT','1,200+']] },
+  dario: { name:'DARIO VOSS', role:'COMBAT — THE RING', tag:'18 FIGHTS, 12 HANDS RAISED',
+           img:'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=900&auto=format&fit=crop',
+           bio:'Teaches boxing like a language — grammar first, poetry later. Sixteen years on the pads and still the calmest voice you’ll ever hear in round five.',
+           stats:[['YEARS COACHING','16'],['CERTS','USA BOXING L3'],['ROUNDS CORNERED','400+']] },
+  amara: { name:'AMARA OSEI', role:'MOBILITY & RECOVERY', tag:'THE UN-JAMMER',
+           img:'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=900&auto=format&fit=crop',
+           bio:'Physiotherapist turned coach. She can find the exact reason your squat looks like that — and usually fix it in six weeks. Runs the recovery suite like air traffic control.',
+           stats:[['YEARS COACHING','9'],['CERTS','DPT · FRC-MS'],['TWEAKS UNDONE','3,000+']] }
+};
+Object.keys(COACHES).forEach(function(k){ var i = new Image(); i.src = COACHES[k].img; });
+
+var coachModal = $('#coachModal'), joinModal = $('#joinModal');
+
+function openModal(m){
+  if (m.__ct){ clearTimeout(m.__ct); m.__ct = null; }
+  m.classList.add('open');
+  html.classList.add('modal-open');
+  if (window.__lenis) window.__lenis.stop();
+  $$('.modal-stag', m).forEach(function(el, i){ el.style.transitionDelay = (0.18 + i*0.07)+'s'; });
+}
+function closeModal(m){
+  if (m.__ct){ clearTimeout(m.__ct); m.__ct = null; }
+  $$('.modal-stag', m).forEach(function(el){ el.style.transitionDelay = '0s'; });
+  m.classList.remove('open');     // CSS slides it out
+  m.__ct = setTimeout(function(){
+    m.__ct = null;
+    if (!document.querySelector('.modal.open')){
+      html.classList.remove('modal-open');
+      if (window.__lenis) window.__lenis.start();
+    }
+  }, RM ? 0 : 650);
+}
+document.addEventListener('click', function(e){
+  if (!e.target || !e.target.closest) return;
+  var c = e.target.closest('[data-close]');
+  if (c){ var m = c.closest('.modal'); if (m) closeModal(m); }
+});
+addEventListener('keydown', function(e){
+  if (e.key !== 'Escape') return;
+  var m = $('.modal.open');
+  if (m) closeModal(m);
+  else if (menuOpen) toggleMenu(false);
+});
+
+function fillCoach(k){
+  var c = COACHES[k]; if (!c) return;
+  $('#cmImg').src = c.img; $('#cmImg').alt = c.name + ' — coach';
+  $('#cmTag').textContent = c.tag;
+  $('#cmRole').textContent = c.role;
+  $('#cmName').textContent = c.name;
+  $('#cmBio').textContent = c.bio;
+  $('#cmStats').innerHTML = c.stats.map(function(s){
+    return '<div class="cm-stat"><span class="label">'+s[0]+'</span><span class="cm-val">'+s[1]+'</span></div>';
+  }).join('');
+}
+ $$('.coach-row').forEach(function(r){
+  r.addEventListener('click', function(){ fillCoach(r.getAttribute('data-coach')); openModal(coachModal); });
+});
+
+/* floating coach preview that trails the cursor (vanilla) */
+if (matchMedia('(hover: hover) and (min-width: 901px)').matches && !RM){
+  var peek = $('.coach-peek'), peekImg = peek ? peek.querySelector('img') : null, list = $('.coach-list');
+  if (peek && peekImg && list){
+    var ptx = 0, pty = 0, px = 0, py = 0;
+    list.addEventListener('mousemove', function(e){
+      ptx = Math.min(Math.max(e.clientX+30, 8), innerWidth-320);
+      pty = Math.min(Math.max(e.clientY-170, 8), innerHeight-320);
+    });
+    (function pl(){
+      px += (ptx-px)*.14; py += (pty-py)*.14;
+      peek.style.transform = 'translate3d('+px+'px,'+py+'px,0)';
+      requestAnimationFrame(pl);
+    })();
+    $$('.coach-row').forEach(function(r){
+      r.addEventListener('mouseenter', function(){
+        peekImg.src = COACHES[r.getAttribute('data-coach')].img;
+        peek.classList.add('peek-on');
+      });
+    });
+    list.addEventListener('mouseleave', function(){ peek.classList.remove('peek-on'); });
+  }
+}
+
+/* ---------- pricing accordion (pure CSS animation) ---------- */
+ $$('.plan-head').forEach(function(head){
+  head.addEventListener('click', function(){
+    var row = head.closest('.plan-row');
+    var wasOpen = row.classList.contains('open');
+    $$('.plan-row.open').forEach(function(r){ if (r !== row) r.classList.remove('open'); });
+    row.classList.toggle('open', !wasOpen);
+  });
+});
+
+/* ---------- join modal + form ---------- */
+var joinForm = $('#joinForm'), jfName = $('#jfName'), jfEmail = $('#jfEmail'), jfPlan = $('#jfPlan'),
+    successView = $('.jm-success'), jmCard = $('.jm-card');
+var PLAN_LABEL = { day:'DAY PASS', monthly:'MONTHLY', annual:'ANNUAL' };
+
+function openJoin(plan){
+  successView.hidden = true;
+  joinForm.hidden = false;
+  if (plan) jfPlan.value = plan;
+  $('.jm-sub').textContent = plan
+    ? 'SELECTED — ' + (PLAN_LABEL[plan] || plan.toUpperCase())
+    : 'FIRST WEEK — ON US';
+  openModal(joinModal);
+  setTimeout(function(){ try{ jfName.focus({preventScroll:true}); }catch(e){} }, 700);
+}
+ $$('[data-join]').forEach(function(b){ b.addEventListener('click', function(){ openJoin(); }); });
+ $$('.plan-select').forEach(function(b){
+  b.addEventListener('click', function(e){ e.stopPropagation(); openJoin(b.getAttribute('data-plan')); });
+});
+ $('#cmBook').addEventListener('click', function(){
+  closeModal(coachModal);
+  setTimeout(function(){ openJoin('monthly'); }, RM ? 0 : 340);
+});
+
+joinForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  var nameOk = jfName.value.trim().length > 1;
+  var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(jfEmail.value.trim());
+  jfName.closest('.field').classList.toggle('err', !nameOk);
+  jfEmail.closest('.field').classList.toggle('err', !emailOk);
+  if (!nameOk || !emailOk){
+    jmCard.classList.remove('shake'); void jmCard.offsetWidth; jmCard.classList.add('shake');
+    setTimeout(function(){ jmCard.classList.remove('shake'); }, 600);
+    return;
+  }
+  var id = 'FRG-' + (1000 + Math.floor(Math.random()*9000));
+  var first = jfName.value.trim().split(' ')[0];
+  try{ localStorage.setItem('forge-member', JSON.stringify({name:first, plan:jfPlan.value, id:id})); }catch(e2){}
+  $('#jsName').textContent = first.toUpperCase();
+  $('#jsId').textContent = id;
+  joinForm.hidden = true;
+  successView.hidden = false;
+  $$('.modal-stag', successView).forEach(function(el, i){ el.style.transitionDelay = (0.08 + i*0.07)+'s'; });
+});
+[jfName, jfEmail].forEach(function(i){
+  i.addEventListener('input', function(){ i.closest('.field').classList.remove('err'); });
+});
+
+/* ---------- nav / menu / anchors ---------- */
+var nav = $('.nav'), menu = $('#menu'), burger = $('.burger');
+var menuOpen = false, lastY = scrollY;
+
+addEventListener('scroll', function(){
+  var y = scrollY;
+  nav.classList.toggle('scrolled', y > 60);
+  if (!menuOpen){
+    if (y > lastY + 4 && y > 420) nav.classList.add('hide');
+    else if (y < lastY - 4 || y <= 420) nav.classList.remove('hide');
+  }
+  lastY = y;
+}, {passive:true});
+
+function toggleMenu(force){
+  menuOpen = (force === undefined) ? !menuOpen : force;
+  menu.classList.toggle('open', menuOpen);
+  burger.classList.toggle('active', menuOpen);
+  html.classList.toggle('menu-open', menuOpen);
+  nav.classList.remove('hide');
+  if (menuOpen){ if (window.__lenis) window.__lenis.stop(); }
+  else { if (window.__lenis) window.__lenis.start(); }
+}
+burger.addEventListener('click', function(){ toggleMenu(); });
+
+function scrollToTarget(t){
+  var l = window.__lenis;
+  if (l){ l.scrollTo(t, {duration:1.4, easing:function(x){ return 1 - Math.pow(1-x, 4); }}); }
+  else if (typeof t === 'number'){ window.scrollTo({top:t, behavior: RM ? 'auto' : 'smooth'}); }
+  else { t.scrollIntoView({behavior: RM ? 'auto' : 'smooth'}); }
+}
+function goTo(sel){
+  if (sel === '#top'){ scrollToTarget(0); return; }
+  var el = $(sel); if (!el) return;
+  scrollToTarget(el.closest('.pin-spacer') || el);
+}
+ $$('[data-scrollto]').forEach(function(el){
+  el.addEventListener('click', function(e){
+    e.preventDefault();
+    if (menuOpen) toggleMenu(false);
+    goTo(el.getAttribute('data-scrollto'));
+  });
+});
+
+}catch(err){
+  /* absolute last resort: never let an error trap the page */
+  console.warn('FORGE core error:', err);
+  var p = document.getElementById('preloader');
+  if (p) p.style.display = 'none';
+}
+})();
+</script>
+
+<!-- CDN libraries: enhancement only. If any of these fail, the site above
+     is already fully functional. Loaded AFTER the core so the core never waits. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+<!-- ============================================================
+     ENHANCEMENT — GSAP/Lenis layer. Every block is guarded;
+     a failure here only costs an animation, never the page.
+============================================================ -->
+<script>
+(function(){
+'use strict';
+if (!window.gsap) return;                       // nothing to enhance with — core site stands alone
+function safe(fn){ try{ fn(); }catch(e){ console.warn('FORGE enhance:', e); } }
+
+var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var hasST = !!window.ScrollTrigger;
+var html = document.documentElement;
+if (hasST) gsap.registerPlugin(window.ScrollTrigger);
+
+/* ---------- smooth scroll (Lenis) ---------- */
+safe(function(){
+  if (!window.Lenis || RM) return;
+  var lenis = new Lenis({duration: 1.15});
+  window.__lenis = lenis;
+  if (hasST) lenis.on('scroll', function(){ window.ScrollTrigger.update(); });
+  gsap.ticker.add(function(t){ lenis.raf(t*1000); });
+  gsap.ticker.lagSmoothing(0);
+  if (html.classList.contains('modal-open') || html.classList.contains('menu-open')) lenis.stop();
+});
+
+/* ---------- hero intro (needs GSAP only; played by the core loader) ---------- */
+safe(function(){
+  if (RM) return;
+  var intro = gsap.timeline({
+    paused:true, defaults:{ease:'expo.out'},
+    onComplete: function(){ if (hasST){ try{ window.ScrollTrigger.refresh(); }catch(e){} } }
+  });
+  intro
+    .fromTo('.hero-media .media-frame', {clipPath:'inset(100% 0 0 0)'}, {clipPath:'inset(0% 0 0 0)', duration:1.2}, 0)
+    .fromTo('.hero-media img', {scale:1.25}, {scale:1, duration:1.4, ease:'power2.out'}, 0)
+    .fromTo('.hero-title .char', {yPercent:118}, {yPercent:0, duration:1.1, stagger:.055}, .18)
+    .fromTo(['.hero-meta','.hero-blurb','.hero-side','.hero-bottom'], {y:26, autoAlpha:0}, {y:0, autoAlpha:1, duration:.9, stagger:.08}, .55)
+    .fromTo('.nav', {y:-24, autoAlpha:0}, {y:0, autoAlpha:1, duration:.8}, .65)
+    .fromTo('.marquee', {autoAlpha:0}, {autoAlpha:1, duration:.9}, .85);
+  window.__intro = function(){ try{ intro.play(); }catch(e){} };
+  if (window.__introWanted) intro.play();      // loader already finished — play now
+});
+
+/* ---------- everything scroll-driven (needs ScrollTrigger) ---------- */
+safe(function(){
+  if (!hasST || RM) return;
+
+  /* hero parallax + velocity skew */
+  gsap.to('.hero-media', {yPercent:16, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}});
+  gsap.to('.hero-title', {yPercent:24, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}});
+  var skewSet = gsap.quickSetter('.hero-title','skewY','deg'), proxy = {s:0};
+  ScrollTrigger.create({start:0, end:'max', onUpdate:function(self){
+    var s = Math.max(-3, Math.min(3, self.getVelocity()/-350));
+    if (Math.abs(s) > Math.abs(proxy.s)){
+      proxy.s = s;
+      gsap.to(proxy, {s:0, duration:.8, ease:'power3', overwrite:true, onUpdate:function(){ skewSet(proxy.s); }});
+    }
+  }});
+
+  /* reveals + parallax */
+  document.querySelectorAll('[data-reveal]').forEach(function(el){
+    gsap.from(el, {y:46, autoAlpha:0, duration:1, ease:'power3',
+      scrollTrigger:{trigger:el, start:'top 88%', once:true}});
+  });
+  document.querySelectorAll('[data-parallax]').forEach(function(el){
+    var a = parseFloat(el.getAttribute('data-parallax')) || 20;
+    gsap.fromTo(el, {y:a}, {y:-a, ease:'none',
+      scrollTrigger:{trigger:el, start:'top bottom', end:'bottom top', scrub:true}});
+  });
+
+  /* manifesto writes itself */
+  html.classList.add('fx');
+  gsap.to('.manifesto-text .mw', {opacity:1, ease:'none', stagger:.06,
+    scrollTrigger:{trigger:'.manifesto-text', start:'top 78%', end:'bottom 42%', scrub:.5}});
+
+  /* CTA char reveal */
+  document.querySelectorAll('.cta-line').forEach(function(el){
+    var text = el.textContent;
+    el.setAttribute('aria-label', text.trim());
+    el.textContent = '';
+    Array.prototype.forEach.call(text, function(ch){
+      var m = document.createElement('span'); m.className = 'mask'; m.setAttribute('aria-hidden','true');
+      var c = document.createElement('span'); c.className = 'ch' + (ch==='.' ? ' pd' : '');
+      c.textContent = (ch===' ') ? '\u00A0' : ch;
+      m.appendChild(c); el.appendChild(m);
+    });
+  });
+  gsap.fromTo('.cta-line .ch', {yPercent:112}, {yPercent:0, duration:.9, stagger:.03, ease:'expo.out',
+    scrollTrigger:{trigger:'.cta', start:'top 72%', once:true}});
+  gsap.fromTo('.cta-actions', {y:30, autoAlpha:0}, {y:0, autoAlpha:1, duration:.8, delay:.2, ease:'power3',
+    scrollTrigger:{trigger:'.cta', start:'top 62%', once:true}});
+  gsap.fromTo('.f-word', {yPercent:75}, {yPercent:0, duration:1.2, ease:'expo.out',
+    scrollTrigger:{trigger:'.footer', start:'top 92%', once:true}});
+
+  /* pinned horizontal programs — only if there is room to pin */
+  gsap.matchMedia().add('(min-width: 901px)', function(){
+    var track = document.querySelector('.programs-track');
+    var vp = document.querySelector('.programs-vp');
+    if (!track || !vp) return;
+    var dist = function(){ return track.scrollWidth - window.innerWidth; };
+    if (dist() <= 8) return;                    // not wide enough — keep vertical fallback
+    html.classList.remove('no-st');             // upgrade to the horizontal experience
+    var idxEl = document.querySelector('.prog-idx');
+    var barEl = document.querySelector('.prog-bar');
+    var tween = gsap.to(track, {x:function(){ return -dist(); }, ease:'none',
+      scrollTrigger:{
+        trigger: vp, pin:true, start:'top top',
+        end: function(){ return '+=' + dist(); },
+        scrub:1, anticipatePin:1, invalidateOnRefresh:true,
+        onUpdate: function(self){ if (barEl) barEl.style.transform = 'scaleX('+self.progress+')'; }
+      }});
+    document.querySelectorAll('.panel[data-pi]').forEach(function(p){
+      var i = p.getAttribute('data-pi');
+      var setIdx = function(){ if (idxEl) idxEl.textContent = ('0'+i).slice(-2); };
+      ScrollTrigger.create({trigger:p, containerAnimation:tween, start:'left 75%', end:'right 25%',
+        onEnter:setIdx, onEnterBack:setIdx});
+      var img = p.querySelector('.panel-media img');
+      if (img) gsap.fromTo(img, {xPercent:-7}, {xPercent:7, ease:'none',
+        scrollTrigger:{trigger:p, containerAnimation:tween, start:'left right', end:'right left', scrub:true}});
+    });
+  });
+
+  /* re-measure once assets settle */
+  addEventListener('load', function(){ ScrollTrigger.refresh(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
+});
+})();
+</script>
+<!-- sflws:source-button:start -->
+<style>
+#sflws-source-btn{position:fixed;right:18px;bottom:18px;z-index:2147483000;display:none;
+padding:2px;border-radius:999px;text-decoration:none;line-height:0;
+background:linear-gradient(90deg,#ff4d4d,#ffb347,#ffe66d,#7bed9f,#48dbfb,#a29bfe,#ff4d4d);
+background-size:300% 100%;animation:sflws-rainbow 6s linear infinite;
+box-shadow:0 4px 20px rgba(0,0,0,.32);transition:transform .2s ease}
+#sflws-source-btn:hover{transform:translateY(-2px)}
+#sflws-source-btn>span{display:flex;align-items:center;gap:7px;padding:9px 15px;
+border-radius:999px;background:#0d0d0f;color:#f4f4f5;
+font:600 12px/1 ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+letter-spacing:.02em;white-space:nowrap}
+#sflws-source-btn>span>b{font:inherit;color:#9aa0a6;letter-spacing:0}
+@keyframes sflws-rainbow{to{background-position:300% 0}}
+@media(prefers-reduced-motion:reduce){#sflws-source-btn{animation:none}
+#sflws-source-btn:hover{transform:none}}
+@media(max-width:600px){#sflws-source-btn{right:12px;bottom:12px}
+#sflws-source-btn>span{padding:8px 13px;font-size:11px}}
+</style>
+<a id="sflws-source-btn" href="https://github.com/saawflws/SFLWS___TEMPLATE_WEBSITEs/tree/main/websites/static/gym/forgeathleticclub" target="_blank" rel="noopener noreferrer"
+ aria-label="View this template&#39;s source code on GitHub">
+<span><b aria-hidden="true">&lt;/&gt;</b>view source</span></a>
+<script>
+(function(){
+var h=location.hostname;
+var ok=h==='sflwsts.aasimahmed.com'||h==='localhost'||h==='127.0.0.1'||h==='[::1]'
+||/\.github\.io$/.test(h);
+var b=document.getElementById('sflws-source-btn');
+if(b&&ok)b.style.display='block';
+})();
+</script>
+<!-- sflws:source-button:end -->
+</body>
+</html>

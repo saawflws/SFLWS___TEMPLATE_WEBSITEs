@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#081114" />
+<title>Sanjivini Digital Solutions — Business first, technology next</title>
+<meta name="description" content="IT & business-systems consultancy in Dakshina Kannada & Bengaluru. Process discovery before tools — Zoho, custom apps, marketplaces, automation." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: { ink: '#081114', ink2: '#0b1417', paper: '#edf4ef' },
+    fontFamily: {
+      display: ['Fraunces', 'serif'],
+      sans: ['"Space Grotesk"', 'sans-serif'],
+      mono: ['"IBM Plex Mono"', 'monospace']
+    }
+  }}
+};
+</script>
+
+<style>
+/* ============ brand system: hue drifts blue -> emerald on scroll ============ */
+:root{ --h: 208; --hair: hsla(168, 22%, 82%, .13); }
+body{ background:#081114; color:#edf4ef; font-family:'Space Grotesk',sans-serif; }
+::selection{ background: hsl(var(--h) 70% 58%); color:#06110f; }
+:focus-visible{ outline:2px solid hsl(var(--h) 70% 58%); outline-offset:3px; }
+::-webkit-scrollbar{ width:10px; }
+::-webkit-scrollbar-track{ background:#081114; }
+::-webkit-scrollbar-thumb{ background:hsl(var(--h) 25% 22%); border-radius:99px; border:2px solid #081114; }
+
+/* Lenis recommended */
+html.lenis, html.lenis body{ height:auto; }
+.lenis.lenis-smooth{ scroll-behavior:auto !important; }
+.lenis.lenis-stopped{ overflow:hidden; }
+
+/* accent utilities driven by --h */
+.t-acc{ color: hsl(var(--h) 72% 62%); }
+.bg-acc{ background-color: hsl(var(--h) 70% 58%); }
+.hl{ border-color: var(--hair); }
+
+/* the one intentional brand gradient: blue -> teal -> emerald */
+.grad-text{
+  background-image: linear-gradient(100deg, hsl(208 80% 68%), hsl(183 70% 58%) 55%, hsl(152 62% 52%));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+.wrap{ width:100%; padding-inline: max(1.25rem, calc((100vw - 1160px)/2)); }
+.kicker{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:rgba(237,244,239,.42); }
+
+/* ============ buttons / nav ============ */
+.btn{ display:inline-flex; align-items:center; gap:.6rem; border-radius:999px; font-weight:500; font-size:.92rem;
+  transition: background-color .3s, color .3s, border-color .3s; }
+.btn-primary{ background:hsl(var(--h) 70% 58%); color:hsl(var(--h) 85% 8%); padding:.85rem 1.6rem; }
+.btn-primary:hover{ background:hsl(var(--h) 74% 68%); }
+.btn-ghost{ border:1px solid var(--hair); color:#edf4ef; padding:.85rem 1.6rem; }
+.btn-ghost:hover{ border-color:hsl(var(--h) 60% 52%); color:hsl(var(--h) 70% 62%); }
+
+.nlink{ position:relative; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+  color:rgba(237,244,239,.6); padding:.35rem 0; transition:color .3s; }
+.nlink::after{ content:''; position:absolute; left:0; right:0; bottom:0; height:1px; background:hsl(var(--h) 70% 60%);
+  transform:scaleX(0); transform-origin:left; transition:transform .35s cubic-bezier(.7,0,.2,1); }
+.nlink:hover{ color:#edf4ef; } .nlink:hover::after{ transform:scaleX(1); }
+.nlink.active{ color:hsl(var(--h) 72% 62%); } .nlink.active::after{ transform:scaleX(1); }
+
+#site-header{ transition: background-color .4s, border-color .4s; border-bottom:1px solid transparent; }
+#site-header.scrolled{ background:rgba(8,17,20,.78); backdrop-filter:blur(14px); border-bottom-color:var(--hair); }
+
+/* ============ loader ============ */
+#loader{ position:fixed; inset:0; z-index:100; background:#081114; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.3rem; }
+.loader-word{ display:flex; overflow:hidden; font-family:Fraunces,serif; font-style:italic; font-weight:500; font-size:clamp(2.4rem,7vw,4.5rem); line-height:1.1; }
+.loader-word span{ display:inline-block; }
+.loader-bar{ width:180px; height:1px; background:rgba(237,244,239,.12); overflow:hidden; }
+.loader-bar i{ display:block; height:100%; background:hsl(var(--h) 70% 58%); transform-origin:left; }
+.loader-sub{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.3em; text-transform:uppercase; color:rgba(237,244,239,.4); }
+
+#progress{ position:fixed; top:0; left:0; width:100%; height:2px; background:hsl(var(--h) 72% 58%); transform:scaleX(0); transform-origin:left; z-index:60; }
+#grain{ position:fixed; inset:0; z-index:70; pointer-events:none; opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* ============ hero ============ */
+.hero-scrim{ position:absolute; inset:0;
+  background: linear-gradient(90deg, rgba(8,17,20,.72) 0%, rgba(8,17,20,.3) 45%, rgba(8,17,20,.05) 75%),
+              linear-gradient(180deg, rgba(8,17,20,0) 62%, rgba(8,17,20,.65) 100%); }
+.dot-live{ width:7px; height:7px; border-radius:50%; background:hsl(var(--h) 75% 60%); position:relative; display:inline-block; flex:none; }
+.dot-live::after{ content:''; position:absolute; inset:-4px; border-radius:50%; border:1px solid hsl(var(--h) 75% 60%); animation:pulse 2.4s ease-out infinite; }
+@keyframes pulse{ 0%{ transform:scale(.4); opacity:1 } 70%,100%{ transform:scale(1.6); opacity:0 } }
+.scroll-cue{ display:inline-block; }
+.scroll-cue i{ display:block; width:1px; height:40px; background:rgba(237,244,239,.18); position:relative; overflow:hidden; }
+.scroll-cue i::after{ content:''; position:absolute; left:0; top:-30%; width:100%; height:30%; background:hsl(var(--h) 70% 60%); animation:cue 2.2s cubic-bezier(.6,0,.4,1) infinite; }
+@keyframes cue{ to{ top:130% } }
+
+/* ============ marquee ============ */
+.mq-track{ display:flex; width:max-content; animation:mq 44s linear infinite; }
+.mq-track span{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.25em; text-transform:uppercase; color:rgba(237,244,239,.42); white-space:nowrap; }
+.mq-track span::after{ content:'·'; margin-inline:2.8rem; color:hsl(var(--h) 65% 55%); }
+@keyframes mq{ to{ transform:translateX(-50%); } }
+#marquee:hover .mq-track{ animation-play-state:paused; }
+
+/* ============ manifesto ============ */
+.word{ opacity:.13; }
+.word-em{ font-family:Fraunces,serif; font-style:italic; color:hsl(var(--h) 72% 62%); }
+
+/* ============ process (pinned horizontal) ============ */
+#process{ background:#0b1417; }
+.process-track{ display:flex; flex-direction:column; }
+.process-panel{ flex:0 0 auto; display:flex; flex-direction:column; justify-content:center; gap:1.1rem; padding:2.6rem 0; border-top:1px solid var(--hair); }
+.panel-intro{ border-top:0; padding-top:0; }
+.p-num{ font-family:'IBM Plex Mono',monospace; font-weight:500; font-size:clamp(3.2rem,6.5vw,5.4rem); line-height:1;
+  color:transparent; -webkit-text-stroke:1.5px hsla(var(--h),68%,66%,.55); }
+.p-title{ font-family:Fraunces,serif; font-weight:500; font-size:clamp(1.9rem,3vw,2.7rem); }
+.p-body{ color:rgba(237,244,239,.62); max-width:26rem; line-height:1.7; }
+.p-fact{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:hsl(var(--h) 62% 58%); display:flex; align-items:center; gap:.6rem; margin-top:.6rem; }
+.p-fact::before{ content:''; width:22px; height:1px; background:hsl(var(--h) 60% 55%); }
+#proc-bar{ height:2px; background:rgba(237,244,239,.12); flex:1; }
+#proc-bar i{ display:block; height:100%; background:hsl(var(--h) 70% 58%); transform:scaleX(0); transform-origin:left; }
+@media (min-width:1024px){
+  .process-shell{ height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+  .process-track{ flex-direction:row; align-items:stretch; flex:1; padding-inline:max(1.25rem, calc((100vw - 1160px)/2)); }
+  .process-panel{ border-top:0; border-left:1px solid var(--hair); width:min(580px,86vw); padding:0 3.4rem; }
+  .panel-intro{ border-left:0; width:min(620px,92vw); padding-left:0; }
+}
+
+/* ============ services ============ */
+.service{ border-top:1px solid var(--hair); transition:background-color .4s; }
+.service:last-child{ border-bottom:1px solid var(--hair); }
+.service-head{ width:100%; text-align:left; display:grid; grid-template-columns:2.6rem 1fr 2.6rem; column-gap:1.2rem; align-items:center; padding:1.9rem 0; cursor:pointer; }
+.s-idx{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(237,244,239,.35); }
+.s-title{ display:block; font-family:Fraunces,serif; font-weight:500; font-size:clamp(1.55rem,3.4vw,2.5rem); line-height:1.05; transition:color .35s; }
+.s-one{ display:block; margin-top:.5rem; font-size:.92rem; color:rgba(237,244,239,.55); max-width:34rem; }
+.s-tags{ display:none; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:rgba(237,244,239,.38); text-align:right; }
+.s-plus{ width:2.6rem; height:2.6rem; border:1px solid var(--hair); border-radius:50%; display:flex; align-items:center; justify-content:center; justify-self:end;
+  transition:border-color .3s, background-color .3s; color:rgba(237,244,239,.65); }
+.service-body{ height:0; overflow:hidden; }
+@media (hover:hover){
+  .service:hover{ background:hsla(var(--h),55%,50%,.035); }
+  .service:hover .s-title{ color:hsl(var(--h) 72% 64%); }
+  .service:hover .s-plus{ border-color:hsl(var(--h) 55% 48%); }
+}
+.service.open .s-title{ color:hsl(var(--h) 72% 64%); }
+.service.open .s-plus{ border-color:hsl(var(--h) 55% 48%); background:hsla(var(--h),60%,50%,.08); }
+@media (min-width:1024px){
+  .service-head{ grid-template-columns:4rem 1fr auto 3rem; }
+  .s-tags{ display:block; }
+}
+
+/* cursor-following preview image */
+#follower{ position:fixed; top:0; left:0; width:290px; height:190px; margin:-95px 0 0 -145px; border-radius:14px; overflow:hidden;
+  pointer-events:none; z-index:60; opacity:0; visibility:hidden; }
+#follower img{ width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(1.1) brightness(.9); }
+#follower .ftint{ position:absolute; inset:0; background:hsl(var(--h) 72% 55%); mix-blend-mode:color; }
+#follower .fshade{ position:absolute; inset:0; background:hsl(var(--h) 70% 12%); mix-blend-mode:multiply; opacity:.35; }
+@media (hover:none){ #follower{ display:none; } }
+
+/* duotone image treatment */
+.duo{ position:relative; overflow:hidden; }
+.duo img{ display:block; width:100%; height:100%; object-fit:cover; filter:grayscale(.85) contrast(1.08) brightness(.82); }
+.duo::after{ content:''; position:absolute; inset:0; z-index:1; background:hsl(var(--h) 55% 42%); mix-blend-mode:color; opacity:.8; }
+
+/* ============ LocalFarmers mockups ============ */
+.lf-stage{ position:relative; }
+.mock{ position:relative; z-index:1; box-shadow:0 44px 90px -30px rgba(0,0,0,.85); }
+.mock-store{ width:100%; }
+.mock-phone{ margin:-3.2rem auto 0; z-index:2; width:250px; }
+.mock-console{ margin:-2.6rem auto 0; z-index:3; width:min(420px,92%); }
+@media (min-width:1024px){
+  .lf-stage{ height:700px; }
+  .mock{ position:absolute; }
+  .mock-store{ top:24px; right:0; width:74%; }
+  .mock-phone{ top:150px; left:0; margin:0; }
+  .mock-console{ bottom:0; right:4%; width:56%; margin:0; }
+}
+
+.browser{ background:#0c1518; border:1px solid rgba(255,255,255,.13); border-radius:16px; overflow:hidden; }
+.browser-bar{ display:flex; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--hair); }
+.browser-dots{ display:flex; gap:6px; }
+.browser-dots i{ width:9px; height:9px; border-radius:50%; background:rgba(237,244,239,.14); }
+.browser-url{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(237,244,239,.5); background:rgba(255,255,255,.04); padding:3px 12px; border-radius:99px; display:flex; align-items:center; gap:6px; }
+
+.store-band{ position:relative; height:170px; overflow:hidden; }
+.store-band::before{ content:''; position:absolute; inset:0; z-index:2; background:linear-gradient(180deg, rgba(8,17,20,.05), rgba(8,17,20,.55) 80%); }
+.store-band-cap{ position:absolute; z-index:3; left:18px; bottom:12px; font-family:Fraunces,serif; font-style:italic; font-size:19px; }
+.store-badge{ position:absolute; z-index:3; top:12px; right:12px; background:rgba(8,17,20,.72); border:1px solid rgba(255,255,255,.15);
+  font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.15em; text-transform:uppercase; padding:5px 10px; border-radius:99px; color:#edf4ef; }
+.store-body{ padding:16px 18px 18px; }
+.store-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:12px; }
+.store-tile{ border-radius:12px; border:1px solid rgba(255,255,255,.07); padding:12px; display:flex; flex-direction:column; gap:5px; min-height:92px; }
+.st-name{ font-family:Fraunces,serif; font-size:13px; line-height:1.15; }
+.st-unit{ font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(237,244,239,.4); }
+.st-price{ font-family:'IBM Plex Mono',monospace; font-size:12px; margin-top:auto; }
+.tone-amber{ background:hsl(38 42% 15%); } .tone-amber .st-price{ color:hsl(40 85% 64%); }
+.tone-green{ background:hsl(152 38% 12%); } .tone-green .st-price{ color:hsl(150 65% 62%); }
+.tone-leaf{ background:hsl(130 34% 12%); } .tone-leaf .st-price{ color:hsl(130 60% 62%); }
+.tone-sand{ background:hsl(46 28% 15%); } .tone-sand .st-price{ color:hsl(46 70% 70%); }
+.tone-brown{ background:hsl(24 34% 12%); } .tone-brown .st-price{ color:hsl(22 80% 64%); }
+
+.phone{ background:#0d1416; border:1px solid rgba(255,255,255,.14); border-radius:42px; padding:10px; }
+.phone-screen{ border-radius:33px; overflow:hidden; background:#081114; display:flex; flex-direction:column; height:500px; position:relative; }
+.phone-notch{ position:absolute; top:12px; left:50%; transform:translateX(-50%); width:86px; height:24px; background:#000; border-radius:999px; z-index:6; border:1px solid rgba(255,255,255,.06); }
+.app-status{ display:flex; justify-content:space-between; align-items:center; padding:16px 20px 6px; font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(237,244,239,.6); }
+.app-head{ display:flex; align-items:center; gap:8px; padding:8px 16px 10px; }
+.app-title{ font-family:Fraunces,serif; font-style:italic; font-weight:500; font-size:17px; }
+.app-chips{ display:flex; gap:6px; padding:0 16px 10px; }
+.mode-chip{ flex:1; text-align:center; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; padding:6px 0; border-radius:99px;
+  border:1px solid var(--hair); color:rgba(237,244,239,.55); cursor:pointer; transition:all .3s; background:transparent; }
+.mode-chip.active{ background:hsl(var(--h) 70% 58%); color:#07110e; border-color:transparent; font-weight:500; }
+.app-band{ position:relative; height:92px; margin:0 12px; border-radius:12px; }
+.app-band-cap{ position:absolute; z-index:3; left:10px; bottom:8px; font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:.12em; text-transform:uppercase; color:#edf4ef; }
+.app-rows{ flex:1; padding:10px 16px 0; overflow:hidden; }
+.app-row{ display:flex; justify-content:space-between; align-items:baseline; padding:9px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+.app-row:last-child{ border-bottom:0; }
+.ar-name{ font-family:Fraunces,serif; font-size:13.5px; }
+.ar-unit{ font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(237,244,239,.4); margin-left:6px; }
+.ar-price{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:hsl(var(--h) 68% 62%); }
+.app-note{ padding:8px 16px 12px; font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:.08em; color:rgba(237,244,239,.42); }
+.app-nav{ display:flex; justify-content:space-around; align-items:center; padding:10px 8px 18px; border-top:1px solid rgba(255,255,255,.07); color:rgba(237,244,239,.38); }
+.app-nav .active{ color:hsl(var(--h) 72% 62%); }
+.cart-dot{ position:absolute; top:-4px; right:-5px; width:6px; height:6px; border-radius:50%; background:hsl(var(--h) 72% 60%); }
+
+.console{ background:#0a1113; border:1px solid rgba(255,255,255,.12); border-radius:16px; overflow:hidden; font-family:'IBM Plex Mono',monospace; }
+.console-bar{ display:flex; align-items:center; gap:10px; padding:11px 16px; border-bottom:1px solid var(--hair); font-size:11px; color:rgba(237,244,239,.55); }
+.console-live{ margin-left:auto; display:flex; align-items:center; gap:6px; font-size:9px; letter-spacing:.2em; color:hsl(152 60% 58%); }
+.c-row{ display:flex; justify-content:space-between; align-items:center; gap:12px; padding:11px 16px; border-bottom:1px solid rgba(255,255,255,.05); font-size:11.5px; }
+.c-row:last-child{ border-bottom:0; }
+.c-label{ color:rgba(237,244,239,.9); }
+.c-val{ color:rgba(237,244,239,.5); display:flex; align-items:center; gap:8px; white-space:nowrap; }
+.c-dot{ width:6px; height:6px; border-radius:50%; background:hsl(152 60% 55%); flex:none; }
+.c-dot.warn{ background:hsl(40 80% 55%); }
+
+.mode-btn{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.15em; text-transform:uppercase; padding:.7rem 1.5rem; border-radius:99px;
+  border:1px solid var(--hair); color:rgba(237,244,239,.6); cursor:pointer; transition:all .35s; background:transparent; }
+.mode-btn.active{ background:hsl(var(--h) 70% 58%); color:#07110e; border-color:transparent; }
+.mode-btn:not(.active):hover{ border-color:hsl(var(--h) 60% 52%); color:#edf4ef; }
+
+/* ============ contact ============ */
+.info-item{ display:flex; gap:14px; align-items:flex-start; padding:15px 0; border-top:1px solid var(--hair); }
+.info-ico{ width:38px; height:38px; flex:none; border:1px solid var(--hair); border-radius:50%; display:flex; align-items:center; justify-content:center; color:hsl(var(--h) 68% 60%); }
+.soc{ width:44px; height:44px; border:1px solid var(--hair); border-radius:50%; display:flex; align-items:center; justify-content:center;
+  color:rgba(237,244,239,.65); transition:all .3s; }
+.soc:hover{ color:hsl(var(--h) 70% 60%); border-color:hsl(var(--h) 60% 50%); transform:translateY(-3px); }
+
+.field label{ display:block; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:rgba(237,244,239,.45); margin-bottom:.55rem; }
+.field input, .field textarea, .field select{ width:100%; background:transparent; border:0; border-bottom:1px solid rgba(237,244,239,.16);
+  padding:.7rem 0; color:#edf4ef; font-size:.95rem; font-family:'Space Grotesk',sans-serif; border-radius:0; transition:border-color .3s; }
+.field input:focus, .field textarea:focus, .field select:focus{ outline:0; border-bottom-color:hsl(var(--h) 70% 58%); }
+.field textarea{ min-height:110px; resize:vertical; }
+.field select{ appearance:none; -webkit-appearance:none; cursor:pointer; }
+.field select option{ background:#0b1417; color:#edf4ef; }
+.field input::placeholder, .field textarea::placeholder{ color:rgba(237,244,239,.28); }
+input:-webkit-autofill{ -webkit-box-shadow:0 0 0 1000px #0b1417 inset; -webkit-text-fill-color:#edf4ef; }
+.select-wrap{ position:relative; }
+.select-wrap .chev{ position:absolute; right:2px; top:50%; transform:translateY(-50%); pointer-events:none; color:rgba(237,244,239,.4); width:16px; height:16px; }
+.field.err input, .field.err textarea, .field.err select{ border-bottom-color:hsl(8 78% 62%); }
+.field-msg{ display:none; font-size:11.5px; font-family:'IBM Plex Mono',monospace; color:hsl(8 80% 64%); margin-top:.45rem; }
+.field.err .field-msg{ display:block; }
+
+/* ============ toast ============ */
+#toasts{ position:fixed; bottom:22px; left:50%; transform:translateX(-50%); z-index:90; display:flex; flex-direction:column; gap:10px; align-items:center; pointer-events:none; }
+.toast{ display:flex; align-items:center; gap:10px; background:#0d171a; border:1px solid var(--hair); border-left:2px solid hsl(var(--h) 70% 58%);
+  padding:12px 18px; border-radius:10px; font-size:13.5px; box-shadow:0 18px 40px -12px rgba(0,0,0,.6); max-width:min(92vw,480px); }
+.toast .t-ico{ color:hsl(var(--h) 70% 60%); display:flex; }
+
+/* ============ footer ============ */
+.footer-word{ font-family:Fraunces,serif; font-style:italic; font-weight:500; font-size:clamp(3.8rem,16vw,13rem); line-height:.9; letter-spacing:-.02em; user-select:none; }
+.footer-word .dot{ color:hsl(var(--h) 72% 60%); }
+
+@media (prefers-reduced-motion: reduce){
+  .mq-track{ animation:none; }
+  .dot-live::after, .scroll-cue i::after{ animation:none; }
+}
+</style>
+</head>
+
+<body class="font-sans antialiased bg-ink text-paper overflow-x-hidden">
+
+<!-- loader -->
+<div id="loader">
+  <div class="loader-word" aria-hidden="true"><span>S</span><span>a</span><span>n</span><span>j</span><span>i</span><span>v</span><span>i</span><span>n</span><span>i</span></div>
+  <div class="loader-bar"><i></i></div>
+  <p class="loader-sub">business first · technology next</p>
+</div>
+<noscript><style>#loader{display:none!important}</style></noscript>
+
+<div id="progress"></div>
+<div id="grain" aria-hidden="true"></div>
+
+<!-- header -->
+<header id="site-header" class="fixed top-0 inset-x-0 z-50">
+  <div class="wrap flex items-center justify-between h-[72px]">
+    <a href="#hero" class="nav-el flex items-center gap-2.5" aria-label="Sanjivini Digital Solutions — home">
+      <span class="t-acc"><i data-lucide="sprout" class="w-[18px] h-[18px]"></i></span>
+      <span class="font-display italic font-medium text-[19px] leading-none">Sanjivini</span>
+      <span class="hidden sm:inline font-mono text-[9px] tracking-[0.3em] uppercase text-paper/40 mt-[3px]">Digital Solutions</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-9 nav-el">
+      <a class="nlink" href="#process" data-nav="process">Approach</a>
+      <a class="nlink" href="#services" data-nav="services">Services</a>
+      <a class="nlink" href="#work" data-nav="work">Work</a>
+      <a class="nlink" href="#contact" data-nav="contact">Contact</a>
+    </nav>
+    <div class="flex items-center gap-6">
+      <span class="nav-el hidden lg:flex items-center gap-2 font-mono text-[11px] text-paper/45"><i data-lucide="clock" class="w-3.5 h-3.5"></i><span data-clock>—</span></span>
+      <a href="#contact" class="nav-el btn btn-primary hidden sm:inline-flex">Start a conversation <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+      <button id="menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center" aria-label="Toggle menu">
+        <i data-lucide="menu" id="icon-menu" class="w-6 h-6"></i>
+        <i data-lucide="x" id="icon-close" class="w-6 h-6 hidden"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile menu -->
+<div id="mmenu" class="fixed inset-0 z-[80] bg-ink/95 backdrop-blur-xl invisible opacity-0 flex flex-col">
+  <div class="wrap flex-1 flex flex-col justify-center gap-1">
+    <a class="mm-link font-display text-5xl py-3 hover:text-paper/60 transition-colors" href="#process">Approach</a>
+    <a class="mm-link font-display text-5xl py-3 hover:text-paper/60 transition-colors" href="#services">Services</a>
+    <a class="mm-link font-display text-5xl py-3 hover:text-paper/60 transition-colors" href="#work">Work</a>
+    <a class="mm-link font-display text-5xl py-3 hover:text-paper/60 transition-colors" href="#contact">Contact</a>
+  </div>
+  <div class="wrap pb-10 flex flex-col gap-2 font-mono text-xs text-paper/55">
+    <a class="mm-foot hover:t-acc transition-colors" href="mailto:support@sanjivini-it.com">support@sanjivini-it.com</a>
+    <a class="mm-foot hover:t-acc transition-colors" href="tel:+919008242363">+91 90082 42363</a>
+  </div>
+</div>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section id="hero" class="relative min-h-screen flex flex-col">
+  <canvas id="hero-canvas" class="absolute inset-0 w-full h-full"></canvas>
+  <div class="hero-scrim"></div>
+
+  <div class="relative z-10 wrap flex-1 flex flex-col justify-center pt-32 pb-10">
+    <p class="hero-eyebrow font-mono text-[11px] tracking-[0.28em] uppercase text-paper/50 mb-8 flex items-center gap-3">
+      <span class="t-acc">IT &amp; business-systems consultancy</span>
+      <span class="hidden sm:inline-block w-8 h-px bg-paper/20"></span>
+      <span class="hidden sm:inline">Dakshina Kannada · Bengaluru</span>
+    </p>
+    <h1 class="font-display font-medium leading-[0.98] tracking-[-0.02em] text-[clamp(2.4rem,9.5vw,7.6rem)]">
+      <span class="block overflow-hidden pb-1"><span class="hero-line block">Business first,</span></span>
+      <span class="block overflow-hidden pb-2"><span class="hero-line block"><em class="grad-text">technology next.</em></span></span>
+    </h1>
+    <p class="hero-sub mt-8 max-w-xl text-[1.05rem] md:text-lg text-paper/70 leading-relaxed">
+      We map how your business actually runs — then build only what the map calls for.
+      Zoho, custom apps, marketplaces, automation: chosen after the process, never before it.
+    </p>
+    <div class="hero-cta mt-10 flex flex-wrap items-center gap-4">
+      <a href="#contact" class="btn btn-primary magnetic">Start a conversation <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+      <a href="#process" class="btn btn-ghost magnetic">See how we work <i data-lucide="arrow-down" class="w-4 h-4"></i></a>
+    </div>
+  </div>
+
+  <div class="hero-meta relative z-10 border-t hl">
+    <div class="wrap flex items-center justify-between gap-4 py-5 font-mono text-[11px] text-paper/50">
+      <span class="flex items-center gap-2.5"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i>Bantwal, Karnataka — <span data-clock>—</span></span>
+      <span class="hidden md:flex items-center gap-3">Scroll to explore <span class="scroll-cue"><i></i></span></span>
+      <span class="flex items-center gap-2.5"><span class="dot-live"></span>Taking new projects</span>
+    </div>
+  </div>
+</section>
+
+<!-- sectors marquee -->
+<div id="marquee" class="border-y hl py-4 overflow-hidden">
+  <div class="mq-track">
+    <div class="flex">
+      <span>Manufacturing</span><span>Retail</span><span>Construction</span><span>Agriculture</span><span>Professional services</span><span>E-commerce</span>
+    </div>
+    <div class="flex" aria-hidden="true">
+      <span>Manufacturing</span><span>Retail</span><span>Construction</span><span>Agriculture</span><span>Professional services</span><span>E-commerce</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MANIFESTO ============ -->
+<section id="manifesto">
+  <div class="wrap py-28 md:py-40">
+    <p class="kicker mb-10" data-reveal><span class="t-acc">(01)</span> — The approach</p>
+    <p id="manifesto-text" class="max-w-4xl font-medium text-[clamp(1.45rem,3.1vw,2.5rem)] leading-[1.35] tracking-[-0.01em]">
+      Most software projects don't fail at the code. They fail earlier — when a tool is bought
+      before <em>the process is understood</em>. So we arrive with questions, not proposals:
+      we map how work moves through your people, paperwork and bottlenecks —
+      and only then choose what to build.
+    </p>
+  </div>
+</section>
+
+<!-- ============ PROCESS (pinned horizontal) ============ -->
+<section id="process" class="border-y hl">
+  <div class="process-shell">
+    <div class="wrap flex items-end justify-between pt-24 pb-6">
+      <p class="kicker"><span class="t-acc">(02)</span> — The method</p>
+      <p class="hidden lg:flex items-baseline gap-3 font-mono text-[11px] text-paper/40">
+        <span id="proc-count" class="t-acc">01 / 04</span><span id="proc-name">Listen</span>
+      </p>
+    </div>
+
+    <div class="process-track">
+      <article class="process-panel panel-intro">
+        <h2 class="pa font-display font-medium text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[1.02]">Process first.<br/>Tools second.</h2>
+        <p class="pa text-paper/65 max-w-md mt-2 leading-relaxed">Four steps, always in this order. It's the unglamorous reason our projects ship — and keep running.</p>
+        <p class="pa hidden lg:flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] uppercase text-paper/35 mt-6">Keep scrolling <i data-lucide="arrow-right" class="w-4 h-4"></i></p>
+      </article>
+
+      <article class="process-panel">
+        <span class="pa p-num">01</span>
+        <h3 class="pa p-title">Listen</h3>
+        <p class="pa p-body">A conversation, not a pitch. We ask how work really happens — the spreadsheet in the corner, the WhatsApp group that runs the warehouse. Our first reply is always questions.</p>
+        <p class="pa p-fact">starts with a 30-minute call</p>
+      </article>
+
+      <article class="process-panel">
+        <span class="pa p-num">02</span>
+        <h3 class="pa p-title">Map</h3>
+        <p class="pa p-body">We put the process on paper — people, hand-offs, bottlenecks, the cost of every delay. The map decides the tool; never the other way round.</p>
+        <p class="pa p-fact">the deliverable is the map</p>
+      </article>
+
+      <article class="process-panel">
+        <span class="pa p-num">03</span>
+        <h3 class="pa p-title">Build</h3>
+        <p class="pa p-body">Zoho rollouts, custom web &amp; mobile apps, marketplaces, automation — built in the order that pays back soonest, and nothing the map doesn't call for.</p>
+        <p class="pa p-fact">in payback order</p>
+      </article>
+
+      <article class="process-panel">
+        <span class="pa p-num">04</span>
+        <h3 class="pa p-title">Run</h3>
+        <p class="pa p-body">Launch is the midpoint, not the finish. We train your team, tune the system and stay reachable — we run our own marketplace daily, so we know what live costs.</p>
+        <p class="pa p-fact">we stay after launch</p>
+      </article>
+    </div>
+
+    <div class="wrap pb-10 hidden lg:flex items-center gap-6">
+      <div id="proc-bar"><i></i></div>
+      <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-paper/35">Scroll to advance</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="wrap py-28 md:py-36">
+    <div class="flex flex-wrap items-end justify-between gap-6 mb-12">
+      <div data-reveal>
+        <p class="kicker"><span class="t-acc">(03)</span> — Services</p>
+        <h2 class="font-display font-medium text-[clamp(2.1rem,5vw,3.9rem)] leading-[1.02] mt-5">Five ways we help.<br/><span class="italic text-paper/55">Always in this order.</span></h2>
+      </div>
+      <p class="font-mono text-[11px] text-paper/40 tracking-[0.15em] uppercase" data-reveal>Hover to preview · click to expand</p>
+    </div>
+
+    <ul id="service-list">
+      <li class="service" data-img="https://picsum.photos/seed/sd-consulting/640/420.jpg">
+        <button class="service-head" aria-expanded="false">
+          <span class="s-idx">01</span>
+          <span>
+            <span class="s-title">Business Systems Consulting</span>
+            <span class="s-one">We study how work actually flows — before any tool is chosen.</span>
+          </span>
+          <span class="s-tags">Audit · Mapping · Roadmap</span>
+          <span class="s-plus"><i data-lucide="plus" class="w-4 h-4"></i></span>
+        </button>
+        <div class="service-body">
+          <div class="pb-8 lg:pl-[5.2rem] max-w-3xl">
+            <p class="text-paper/65 leading-relaxed">A structured discovery of how your business runs: people, paperwork, hand-offs, and the quiet workarounds nobody documents. You get a process map and a technology roadmap you can act on — with us, or with anyone else.</p>
+            <div class="body-img duo lg:hidden mt-6 h-44"><img src="https://picsum.photos/seed/sd-consulting/800/440.jpg" alt="Business systems consulting" loading="lazy"></div>
+            <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
+              <span class="font-mono text-[10.5px] tracking-[0.15em] uppercase text-paper/40 lg:hidden">Audit · Process mapping · Roadmap</span>
+              <a class="discuss t-acc font-mono text-[11px] tracking-[0.18em] uppercase flex items-center gap-2 hover:gap-3 transition-all" data-service="Business Systems Consulting" href="#contact">Discuss this <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="service" data-img="https://picsum.photos/seed/sd-zoho/640/420.jpg">
+        <button class="service-head" aria-expanded="false">
+          <span class="s-idx">02</span>
+          <span>
+            <span class="s-title">Zoho Implementation &amp; Customization</span>
+            <span class="s-one">Rollouts tuned to your process — not the default demo.</span>
+          </span>
+          <span class="s-tags">Zoho One · CRM · Books</span>
+          <span class="s-plus"><i data-lucide="plus" class="w-4 h-4"></i></span>
+        </button>
+        <div class="service-body">
+          <div class="pb-8 lg:pl-[5.2rem] max-w-3xl">
+            <p class="text-paper/65 leading-relaxed">From CRM and Books to custom Zoho Creator apps and Flows — configured around the way your team already works, so adoption isn't a six-month battle. We customise the platform to the process, never the reverse.</p>
+            <div class="body-img duo lg:hidden mt-6 h-44"><img src="https://picsum.photos/seed/sd-zoho/800/440.jpg" alt="Zoho implementation" loading="lazy"></div>
+            <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
+              <span class="font-mono text-[10.5px] tracking-[0.15em] uppercase text-paper/40 lg:hidden">Zoho One · CRM · Books · Creator</span>
+              <a class="discuss t-acc font-mono text-[11px] tracking-[0.18em] uppercase flex items-center gap-2 hover:gap-3 transition-all" data-service="Zoho Implementation &amp; Customization" href="#contact">Discuss this <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="service" data-img="https://picsum.photos/seed/sd-apps/640/420.jpg">
+        <button class="service-head" aria-expanded="false">
+          <span class="s-idx">03</span>
+          <span>
+            <span class="s-title">Custom Web &amp; Mobile Applications</span>
+            <span class="s-one">Software shaped to the process it serves.</span>
+          </span>
+          <span class="s-tags">Web · Android · iOS</span>
+          <span class="s-plus"><i data-lucide="plus" class="w-4 h-4"></i></span>
+        </button>
+        <div class="service-body">
+          <div class="pb-8 lg:pl-[5.2rem] max-w-3xl">
+            <p class="text-paper/65 leading-relaxed">Web and mobile applications designed around a mapped workflow, not a template. Built lean enough for a small team to maintain, solid enough to run a marketplace on — because ours does.</p>
+            <div class="body-img duo lg:hidden mt-6 h-44"><img src="https://picsum.photos/seed/sd-apps/800/440.jpg" alt="Custom applications" loading="lazy"></div>
+            <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
+              <span class="font-mono text-[10.5px] tracking-[0.15em] uppercase text-paper/40 lg:hidden">Web apps · Android · iOS</span>
+              <a class="discuss t-acc font-mono text-[11px] tracking-[0.18em] uppercase flex items-center gap-2 hover:gap-3 transition-all" data-service="Custom Web &amp; Mobile Applications" href="#contact">Discuss this <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="service" data-img="https://picsum.photos/seed/sd-marketplace/640/420.jpg">
+        <button class="service-head" aria-expanded="false">
+          <span class="s-idx">04</span>
+          <span>
+            <span class="s-title">Marketplace &amp; Platform Development</span>
+            <span class="s-one">Two-sided platforms, proven on our own.</span>
+          </span>
+          <span class="s-tags">Multi-vendor · Payments</span>
+          <span class="s-plus"><i data-lucide="plus" class="w-4 h-4"></i></span>
+        </button>
+        <div class="service-body">
+          <div class="pb-8 lg:pl-[5.2rem] max-w-3xl">
+            <p class="text-paper/65 leading-relaxed">Vendor onboarding, catalogues, scheduling, payments, payouts — every piece of a two-sided platform, built and battle-tested on our own LocalFarmers marketplace before we ever offer it to you.</p>
+            <div class="body-img duo lg:hidden mt-6 h-44"><img src="https://picsum.photos/seed/sd-marketplace/800/440.jpg" alt="Marketplace development" loading="lazy"></div>
+            <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
+              <span class="font-mono text-[10.5px] tracking-[0.15em] uppercase text-paper/40 lg:hidden">Multi-vendor · Payments · Logistics</span>
+              <a class="discuss t-acc font-mono text-[11px] tracking-[0.18em] uppercase flex items-center gap-2 hover:gap-3 transition-all" data-service="Marketplace &amp; Platform Development" href="#contact">Discuss this <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="service" data-img="https://picsum.photos/seed/sd-automation/640/420.jpg">
+        <button class="service-head" aria-expanded="false">
+          <span class="s-idx">05</span>
+          <span>
+            <span class="s-title">Business Process Automation</span>
+            <span class="s-one">Repetitive work, handed to software.</span>
+          </span>
+          <span class="s-tags">Workflows · Integrations</span>
+          <span class="s-plus"><i data-lucide="plus" class="w-4 h-4"></i></span>
+        </button>
+        <div class="service-body">
+          <div class="pb-8 lg:pl-[5.2rem] max-w-3xl">
+            <p class="text-paper/65 leading-relaxed">Approvals, reminders, invoices, stock updates, schedules — the quiet workflows that eat hours every week. We automate them with the lightest tool that does the job properly, and nothing heavier.</p>
+            <div class="body-img duo lg:hidden mt-6 h-44"><img src="https://picsum.photos/seed/sd-automation/800/440.jpg" alt="Process automation" loading="lazy"></div>
+            <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
+              <span class="font-mono text-[10.5px] tracking-[0.15em] uppercase text-paper/40 lg:hidden">Workflows · Integrations · Alerts</span>
+              <a class="discuss t-acc font-mono text-[11px] tracking-[0.18em] uppercase flex items-center gap-2 hover:gap-3 transition-all" data-service="Business Process Automation" href="#contact">Discuss this <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ LOCALFARMERS (proof of work) ============ -->
+<section id="work" class="border-t hl">
+  <div class="wrap py-28 lg:py-36 grid lg:grid-cols-[0.92fr_1.08fr] gap-16 lg:gap-20">
+    <div class="lg:sticky lg:top-24 self-start">
+      <p class="kicker" data-reveal><span class="t-acc">(04)</span> — Flagship · proof of work</p>
+      <h2 class="font-display font-medium text-[clamp(2.6rem,5.5vw,4.4rem)] leading-[1] mt-5 flex items-center gap-4" data-reveal>
+        LocalFarmers <span class="t-acc"><i data-lucide="sprout" class="w-8 h-8"></i></span>
+      </h2>
+      <p class="mt-6 text-paper/70 leading-relaxed max-w-md" data-reveal>
+        Our own farm-to-consumer grocery marketplace — designed, built and operated across
+        Dakshina Kannada &amp; Bengaluru. Everything we sell as a service, we've already run in production.
+      </p>
+      <p class="mt-6 font-mono text-[11px] tracking-[0.18em] uppercase text-paper/40 flex flex-wrap gap-x-6 gap-y-2" data-reveal>
+        <span><span class="t-acc">3</span> surfaces</span>
+        <span><span class="t-acc">2</span> shopping modes</span>
+        <span><span class="t-acc">2</span> cities</span>
+        <span class="t-acc">live daily</span>
+      </p>
+      <ul class="mt-8" data-reveal>
+        <li class="flex items-center gap-3 py-4 border-t hl border-b hl text-sm text-paper/75"><span class="t-acc"><i data-lucide="smartphone" class="w-4 h-4"></i></span>Android app — Play Store</li>
+        <li class="flex items-center gap-3 py-4 border-b hl text-sm text-paper/75"><span class="t-acc"><i data-lucide="monitor" class="w-4 h-4"></i></span>Consumer storefront — localfarmers.in</li>
+        <li class="flex items-center gap-3 py-4 border-b hl text-sm text-paper/75"><span class="t-acc"><i data-lucide="terminal" class="w-4 h-4"></i></span>Operations console — internal</li>
+      </ul>
+      <div class="mt-10" data-reveal>
+        <p class="font-mono text-[10.5px] tracking-[0.25em] uppercase text-paper/40 mb-3">Shopping modes</p>
+        <div class="flex gap-3">
+          <button class="mode-btn active" data-mode="ebazar">e-Bazar</button>
+          <button class="mode-btn" data-mode="estore">eStore</button>
+        </div>
+        <p class="mt-3 text-[13px] text-paper/55 leading-relaxed">e-Bazar — scheduled, farm-direct batches · eStore — in-stock essentials, delivered next day. Try the toggle: the storefront and app respond.</p>
+      </div>
+      <a href="https://localfarmers.in" target="_blank" rel="noopener" class="mt-8 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] uppercase t-acc hover:gap-3 transition-all" data-reveal>
+        Visit localfarmers.in <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+      </a>
+    </div>
+
+    <!-- device composition -->
+    <div class="lf-stage">
+      <!-- storefront -->
+      <div class="mock mock-store lf-mock browser" data-depth="0.5">
+        <div class="browser-bar">
+          <div class="browser-dots"><i></i><i></i><i></i></div>
+          <div class="browser-url"><i data-lucide="lock" class="w-3 h-3"></i>localfarmers.in</div>
+        </div>
+        <div class="store-band duo">
+          <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1200&q=70" alt="Farm fields of Dakshina Kannada"
+               onerror="this.onerror=null;this.src='https://picsum.photos/seed/localfarmers-field/1200/500.jpg'">
+          <span class="store-band-cap" id="store-cap" data-swap>Fresh from the district's farms</span>
+          <span class="store-badge" id="store-badge" data-swap>e-Bazar · scheduled</span>
+        </div>
+        <div class="store-body">
+          <div class="flex items-baseline justify-between gap-3" data-swap>
+            <h4 class="font-display italic text-lg">This week</h4>
+            <span class="font-mono text-[10px] text-paper/40" id="store-note">Orders close Thursday, 8 pm</span>
+          </div>
+          <div class="store-grid" id="store-tiles" data-swap></div>
+        </div>
+      </div>
+
+      <!-- android app -->
+      <div class="mock mock-phone lf-mock phone" data-depth="1">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="app-status">
+            <span data-clock>—</span>
+            <span class="flex items-center gap-1.5"><i data-lucide="wifi" class="w-3 h-3"></i><i data-lucide="battery-full" class="w-4 h-4"></i></span>
+          </div>
+          <div class="app-head">
+            <span class="t-acc"><i data-lucide="sprout" class="w-4 h-4"></i></span>
+            <span class="app-title">LocalFarmers</span>
+            <span class="font-mono text-[8.5px] tracking-[0.15em] uppercase text-paper/35 ml-auto">Bantwal</span>
+          </div>
+          <div class="app-chips">
+            <button class="mode-chip active" data-mode="ebazar">e-Bazar</button>
+            <button class="mode-chip" data-mode="estore">eStore</button>
+          </div>
+          <div class="app-band duo">
+            <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=600&h=400&q=70" alt=""
+                 onerror="this.onerror=null;this.src='https://picsum.photos/seed/localfarmers-veg/600/400.jpg'">
+            <span class="app-band-cap" id="phone-cap" data-swap>Harvest batch · Saturday</span>
+          </div>
+          <div class="app-rows" id="phone-tiles" data-swap></div>
+          <p class="app-note" id="phone-note" data-swap>Orders close Thu · harvest Fri · pickup Sat</p>
+          <div class="app-nav">
+            <i data-lucide="home" class="w-4 h-4 active"></i>
+            <i data-lucide="search" class="w-4 h-4"></i>
+            <span class="relative"><i data-lucide="shopping-cart" class="w-4 h-4"></i><span class="cart-dot"></span></span>
+            <i data-lucide="user" class="w-4 h-4"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- ops console -->
+      <div class="mock mock-console lf-mock console" data-depth="1.4">
+        <div class="console-bar">
+          <span class="t-acc"><i data-lucide="terminal" class="w-3.5 h-3.5"></i></span>
+          <span>ops.localfarmers.in</span>
+          <span class="console-live"><span class="c-dot"></span>LIVE</span>
+        </div>
+        <div>
+          <div class="c-row"><span class="c-label">Catalogue</span><span class="c-val"><span class="c-dot"></span>214 SKUs synced</span></div>
+          <div class="c-row"><span class="c-label">Farmer onboarding</span><span class="c-val"><span class="c-dot warn"></span>6 pending reviews</span></div>
+          <div class="c-row"><span class="c-label">Saturday routes</span><span class="c-val"><span class="c-dot"></span>14 pickups scheduled</span></div>
+          <div class="c-row"><span class="c-label">Payouts</span><span class="c-val"><span class="c-dot"></span>queued for Friday</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="border-t hl">
+  <div class="wrap py-28 lg:py-36 grid lg:grid-cols-2 gap-16 lg:gap-24">
+    <div>
+      <p class="kicker" data-reveal><span class="t-acc">(05)</span> — Contact</p>
+      <h2 class="font-display font-medium text-[clamp(2.3rem,5vw,4rem)] leading-[1.02] mt-5" data-reveal>Start with a<br/>conversation.</h2>
+      <p class="mt-6 text-paper/70 leading-relaxed max-w-md" data-reveal>
+        Tell us what's slowing your business down. We reply within one business day —
+        with questions, not a proposal. If it still feels right after that, we set up a 30-minute call.
+      </p>
+      <ul class="mt-10 border-b hl" data-reveal>
+        <li class="info-item">
+          <span class="info-ico"><i data-lucide="mail" class="w-4 h-4"></i></span>
+          <div><p class="font-mono text-[10px] tracking-[0.2em] uppercase text-paper/40 mb-1">Email</p><a href="mailto:support@sanjivini-it.com" class="hover:t-acc transition-colors">support@sanjivini-it.com</a></div>
+        </li>
+        <li class="info-item">
+          <span class="info-ico"><i data-lucide="phone" class="w-4 h-4"></i></span>
+          <div><p class="font-mono text-[10px] tracking-[0.2em] uppercase text-paper/40 mb-1">Phone</p><a href="tel:+919008242363" class="hover:t-acc transition-colors">+91 90082 42363</a></div>
+        </li>
+        <li class="info-item">
+          <span class="info-ico"><i data-lucide="map-pin" class="w-4 h-4"></i></span>
+          <div><p class="font-mono text-[10px] tracking-[0.2em] uppercase text-paper/40 mb-1">Office</p><p class="text-paper/80 text-sm leading-relaxed">Sanjivini Eco Solutions, Ground Floor, 12-57/D,<br/>Brahmin Parishat Building, BC Road, Bantwal,<br/>Dakshina Kannada — 574219</p></div>
+        </li>
+        <li class="info-item">
+          <span class="info-ico"><i data-lucide="clock" class="w-4 h-4"></i></span>
+          <div><p class="font-mono text-[10px] tracking-[0.2em] uppercase text-paper/40 mb-1">Hours</p><p class="text-paper/80 text-sm">Mon–Fri · 10:00–19:00 IST</p></div>
+        </li>
+      </ul>
+      <div class="mt-8 flex items-center gap-3" data-reveal>
+        <a class="soc" href="https://www.linkedin.com/company/sanjivini-digital-solutions" target="_blank" rel="noopener" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-[18px] h-[18px]"></i></a>
+        <a class="soc" href="https://www.instagram.com/sanjiviniitsolutions" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram" class="w-[18px] h-[18px]"></i></a>
+      </div>
+    </div>
+
+    <div>
+      <form id="contact-form" novalidate class="grid sm:grid-cols-2 gap-x-8 gap-y-7" data-reveal>
+        <div class="field">
+          <label for="f-name">Name *</label>
+          <input id="f-name" type="text" placeholder="Your name" autocomplete="name">
+          <p class="field-msg">Please tell us your name.</p>
+        </div>
+        <div class="field">
+          <label for="f-company">Company</label>
+          <input id="f-company" type="text" placeholder="Business name" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="f-email">Work email *</label>
+          <input id="f-email" type="email" placeholder="you@company.com" autocomplete="email">
+          <p class="field-msg">A valid email helps us reply.</p>
+        </div>
+        <div class="field">
+          <label for="f-phone">Phone</label>
+          <input id="f-phone" type="tel" placeholder="+91 ·····" autocomplete="tel">
+        </div>
+        <div class="field sm:col-span-2 select-wrap">
+          <label for="f-service">What do you need? *</label>
+          <select id="f-service">
+            <option value="" selected disabled>Choose a service</option>
+            <option>Business Systems Consulting</option>
+            <option>Zoho Implementation &amp; Customization</option>
+            <option>Custom Web &amp; Mobile Applications</option>
+            <option>Marketplace &amp; Platform Development</option>
+            <option>Business Process Automation</option>
+            <option>Not sure yet — help me decide</option>
+          </select>
+          <i data-lucide="chevron-down" class="chev"></i>
+          <p class="field-msg">Pick the closest — "not sure" is a fine answer.</p>
+        </div>
+        <div class="field sm:col-span-2">
+          <label for="f-msg">What's slowing things down? *</label>
+          <textarea id="f-msg" placeholder="A few lines about the process, the pain, the timeline…"></textarea>
+          <p class="field-msg">A sentence or two is all we need to start.</p>
+        </div>
+        <div class="sm:col-span-2 flex flex-wrap items-center justify-between gap-4">
+          <p class="font-mono text-[10.5px] text-paper/35 tracking-wide">No lists, no spam — details stay with us.</p>
+          <button type="submit" class="btn btn-primary magnetic">Send the note <i data-lucide="send" class="w-4 h-4"></i></button>
+        </div>
+      </form>
+
+      <div id="form-done" class="hidden">
+        <div class="w-12 h-12 rounded-full border hl flex items-center justify-center t-acc"><i data-lucide="check" class="w-5 h-5"></i></div>
+        <h3 class="font-display text-3xl mt-6" id="done-title">Thanks.</h3>
+        <p class="mt-3 text-paper/70 leading-relaxed max-w-md" id="done-body"></p>
+        <button id="form-reset" class="btn btn-ghost mt-8">Write another <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t hl overflow-hidden">
+  <div class="wrap pt-14 pb-8">
+    <h2 id="footer-word" class="footer-word grad-text opacity-50" aria-hidden="true">Sanjivini<span class="dot">.</span></h2>
+    <div class="mt-8 border-t hl pt-8 flex flex-wrap items-center justify-between gap-6">
+      <p class="font-mono text-[11px] text-paper/40">© 2025 Sanjivini Digital Solutions · <a href="https://sanjivini-it.com" target="_blank" rel="noopener" class="hover:t-acc transition-colors">sanjivini-it.com</a></p>
+      <div class="flex gap-8">
+        <a class="nlink" href="#process">Approach</a>
+        <a class="nlink" href="#services">Services</a>
+        <a class="nlink" href="#work">Work</a>
+        <a class="nlink" href="#contact">Contact</a>
+      </div>
+      <button id="to-top" class="soc" aria-label="Back to top"><i data-lucide="arrow-up" class="w-4 h-4"></i></button>
+    </div>
+    <p class="mt-6 font-mono text-[10px] text-paper/25 tracking-wide">Built and run between the fields of Bantwal and the traffic of Bengaluru.</p>
+  </div>
+</footer>
+
+<!-- cursor-follow image preview -->
+<div id="follower" aria-hidden="true"><img alt=""><div class="ftint"></div><div class="fshade"></div></div>
+<div id="toasts" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  lucide.createIcons();
+  gsap.registerPlugin(ScrollTrigger);
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouch = window.matchMedia('(hover: none)').matches;
+
+  /* ---------- Lenis <-> GSAP wiring ---------- */
+  const lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(t => lenis.raf(t * 1000));
+  gsap.ticker.lagSmoothing(0);
+  lenis.stop(); // hold scroll during loader
+
+  /* ---------- live IST clock ---------- */
+  const clockEls = document.querySelectorAll('[data-clock]');
+  const fmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: false });
+  const tick = () => clockEls.forEach(el => el.textContent = fmt.format(new Date()) + ' IST');
+  tick(); setInterval(tick, 15000);
+
+  /* ---------- toast ---------- */
+  const toastsEl = document.getElementById('toasts');
+  function toast(msg, kind = 'ok'){
+    const el = document.createElement('div'); el.className = 'toast';
+    const ico = document.createElement('span'); ico.className = 't-ico';
+    ico.innerHTML = `<i data-lucide="${kind === 'warn' ? 'info' : 'check'}" class="w-4 h-4"></i>`;
+    const txt = document.createElement('span'); txt.textContent = msg;
+    el.append(ico, txt); toastsEl.appendChild(el);
+    lucide.createIcons();
+    gsap.from(el, { y: 18, autoAlpha: 0, duration: .45, ease: 'power3.out' });
+    gsap.to(el, { autoAlpha: 0, y: -10, delay: 4, duration: .4, onComplete: () => el.remove() });
+  }
+
+  /* ---------- the signature: hue drifts blue -> emerald over the page ---------- */
+  let currentHue = 208;
+  const hueObj = { h: 208 };
+  gsap.to(hueObj, {
+    h: 152, ease: 'none',
+    scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: .6 },
+    onUpdate: () => { currentHue = hueObj.h; document.documentElement.style.setProperty('--h', currentHue.toFixed(1)); }
+  });
+
+  /* scroll progress hairline + header state */
+  gsap.to('#progress', { scaleX: 1, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: .3 } });
+  const headerEl = document.getElementById('site-header');
+  lenis.on('scroll', ({ scroll }) => headerEl.classList.toggle('scrolled', scroll > 60));
+
+  /* ---------- hero flow-field canvas ---------- */
+  (function initFlow(){
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+    let W = 0, H = 0, t = 0, active = true;
+    const mouse = { x: -9999, y: -9999 };
+    let parts = [];
+
+    const spawn = p => { p.x = Math.random()*W; p.y = Math.random()*H; p.sp = 1.1 + Math.random()*1.5;
+      p.life = 120 + Math.random()*280; p.ho = Math.random()*36 - 18; p.l = 45 + Math.random()*28; p.a = .22 + Math.random()*.4; return p; };
+
+    function resize(){
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.6);
+      W = canvas.clientWidth; H = canvas.clientHeight;
+      canvas.width = Math.floor(W * dpr); canvas.height = Math.floor(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.fillStyle = '#081114'; ctx.fillRect(0, 0, W, H);
+      parts = Array.from({ length: Math.min(720, Math.max(220, Math.floor(W * H / 4200))) }, () => spawn({}));
+    }
+    const field = (x, y) => (Math.sin(x*.0021 + t*.34) + Math.cos(y*.0024 - t*.22) + Math.sin((x+y)*.0011 + t*.11)) * 1.9;
+
+    function step(){
+      t += .005;
+      ctx.fillStyle = 'rgba(8,17,20,.065)'; ctx.fillRect(0, 0, W, H);
+      ctx.lineWidth = 1;
+      for (const p of parts){
+        const a = field(p.x, p.y);
+        let vx = Math.cos(a) * p.sp, vy = Math.sin(a) * p.sp;
+        const dx = p.x - mouse.x, dy = p.y - mouse.y, d2 = dx*dx + dy*dy;
+        if (d2 < 32400){ // cursor acts like a stone in the stream
+          const d = Math.sqrt(d2) || 1, s = (1 - d/180) * 2.2;
+          vx += (-dy/d) * s + (dx/d) * s * .3;
+          vy += ( dx/d) * s + (dy/d) * s * .3;
+        }
+        const nx = p.x + vx, ny = p.y + vy;
+        ctx.strokeStyle = `hsla(${(currentHue + p.ho).toFixed(1)}, 68%, ${p.l}%, ${p.a})`;
+        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(nx, ny); ctx.stroke();
+        p.x = nx; p.y = ny; p.life--;
+        if (p.life <= 0 || p.x < -20 || p.x > W+20 || p.y < -20 || p.y > H+20) spawn(p);
+      }
+    }
+    function loop(){ if (active && !document.hidden) step(); requestAnimationFrame(loop); }
+    resize();
+    window.addEventListener('resize', resize);
+    if (reduced){ for (let i = 0; i < 220; i++) step(); } else loop();
+
+    const hero = document.getElementById('hero');
+    hero.addEventListener('pointermove', e => { const r = canvas.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
+    hero.addEventListener('pointerleave', () => { mouse.x = -9999; mouse.y = -9999; });
+    ScrollTrigger.create({ trigger: '#hero', start: 'top bottom', end: 'bottom top', onToggle: s => active = s.isActive });
+  })();
+
+  /* ---------- loader + hero intro ---------- */
+  const loaderEl = document.getElementById('loader');
+  function finishIntro(){ lenis.start(); ScrollTrigger.refresh(); }
+
+  if (reduced){
+    loaderEl.style.display = 'none';
+    finishIntro();
+  } else {
+    const heroIn = gsap.timeline({ paused: true, defaults: { ease: 'power4.out' } });
+    heroIn
+      .from('#site-header .nav-el', { y: -26, opacity: 0, duration: .8, stagger: .07 })
+      .from('.hero-eyebrow', { y: 18, opacity: 0, duration: .7 }, '-=.5')
+      .from('.hero-line', { yPercent: 112, duration: 1.1, stagger: .12 }, '-=.55')
+      .from('.hero-sub', { y: 22, opacity: 0, duration: .8 }, '-=.65')
+      .from('.hero-cta > *', { y: 18, opacity: 0, duration: .7, stagger: .08 }, '-=.55')
+      .from('.hero-meta .wrap > *', { y: 14, opacity: 0, duration: .6, stagger: .08 }, '-=.45')
+      .from('#hero-canvas', { opacity: 0, duration: 1.4, ease: 'power2.out' }, .1);
+
+    gsap.timeline()
+      .from('.loader-word span', { yPercent: 120, duration: .7, stagger: .045, ease: 'power3.out' })
+      .from('.loader-bar i', { scaleX: 0, duration: .9, ease: 'power2.inOut' }, '-=.35')
+      .from('.loader-sub', { opacity: 0, y: 10, duration: .5 }, '-=.5')
+      .to('#loader', { yPercent: -100, duration: .85, ease: 'power4.inOut', delay: .25,
+        onStart: () => { heroIn.play(); finishIntro(); } })
+      .set('#loader', { display: 'none' });
+  }
+
+  /* ---------- manifesto: words light up as you read ---------- */
+  function splitWords(root){
+    const out = [];
+    const walk = (node, extra) => {
+      if (node.nodeType === Node.TEXT_NODE){
+        const frag = document.createDocumentFragment();
+        node.textContent.split(/(\s+)/).forEach(tok => {
+          if (!tok) return;
+          if (/^\s+$/.test(tok)){ frag.appendChild(document.createTextNode(' ')); return; }
+          const s = document.createElement('span');
+          s.className = 'word' + (extra ? ' ' + extra : '');
+          s.textContent = tok; frag.appendChild(s); out.push(s);
+        });
+        node.replaceWith(frag);
+      } else if (node.nodeType === Node.ELEMENT_NODE){
+        const cls = node.tagName === 'EM' ? 'word-em' : extra;
+        Array.from(node.childNodes).forEach(ch => walk(ch, cls));
+      }
+    };
+    Array.from(root.childNodes).forEach(n => walk(n, ''));
+    return out;
+  }
+  const words = splitWords(document.getElementById('manifesto-text'));
+  if (reduced) gsap.set(words, { opacity: 1 });
+  else gsap.to(words, { opacity: 1, ease: 'none', stagger: .6,
+    scrollTrigger: { trigger: '#manifesto-text', start: 'top 80%', end: 'bottom 40%', scrub: .5 } });
+
+  /* ---------- process: pinned horizontal on desktop, stacked on mobile ---------- */
+  const countEl = document.getElementById('proc-count');
+  const nameEl = document.getElementById('proc-name');
+  const barFill = document.querySelector('#proc-bar i');
+  const STEP_NAMES = ['Listen', 'Map', 'Build', 'Run'];
+  const mm = gsap.matchMedia();
+
+  mm.add('(min-width: 1024px)', () => {
+    const track = document.querySelector('.process-track');
+    const amt = () => track.scrollWidth - window.innerWidth;
+    const tween = gsap.to(track, {
+      x: () => -amt(), ease: 'none',
+      scrollTrigger: {
+        trigger: '#process', start: 'top top', end: () => '+=' + amt(),
+        scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true,
+        onUpdate: self => {
+          const idx = Math.min(4, Math.floor(self.progress * 4) + 1);
+          countEl.textContent = '0' + idx + ' / 04';
+          nameEl.textContent = STEP_NAMES[idx - 1];
+          gsap.set(barFill, { scaleX: self.progress });
+        }
+      }
+    });
+    gsap.utils.toArray('.process-panel').forEach(p => {
+      const items = p.querySelectorAll('.pa');
+      if (items.length) gsap.from(items, { y: 44, opacity: 0, duration: .75, stagger: .09, ease: 'power3.out',
+        scrollTrigger: { trigger: p, containerAnimation: tween, start: 'left 78%' } });
+    });
+  });
+  mm.add('(max-width: 1023px)', () => {
+    gsap.utils.toArray('.process-panel').forEach(p => {
+      const items = p.querySelectorAll('.pa');
+      if (items.length) gsap.from(items, { y: 36, opacity: 0, duration: .7, stagger: .08, ease: 'power3.out',
+        scrollTrigger: { trigger: p, start: 'top 85%' } });
+    });
+  });
+
+  /* ---------- generic reveals ---------- */
+  gsap.utils.toArray('[data-reveal]').forEach(el => {
+    if (reduced) return;
+    gsap.from(el, { y: 34, opacity: 0, duration: .9, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 88%' } });
+  });
+
+  /* ---------- services: cursor-following duotone preview ---------- */
+  const follower = document.getElementById('follower');
+  const fimg = follower.querySelector('img');
+  if (!isTouch && !reduced){
+    gsap.set(follower, { scale: .82 });
+    const fx = gsap.quickTo(follower, 'x', { duration: .55, ease: 'power3' });
+    const fy = gsap.quickTo(follower, 'y', { duration: .55, ease: 'power3' });
+    const fr = gsap.quickTo(follower, 'rotation', { duration: .6, ease: 'power3' });
+    let lastX = 0;
+    document.getElementById('services').addEventListener('mousemove', e => {
+      fx(e.clientX); fy(e.clientY);
+      fr(gsap.utils.clamp(-12, 12, (e.clientX - lastX) * .6));
+      lastX = e.clientX;
+    });
+    document.querySelectorAll('.service').forEach(li => {
+      const src = li.dataset.img;
+      new Image().src = src; // preload
+      li.addEventListener('mouseenter', e => {
+        fimg.src = src;
+        gsap.set(follower, { x: e.clientX, y: e.clientY });
+        gsap.to(follower, { autoAlpha: 1, scale: 1, duration: .4, ease: 'power3.out' });
+      });
+      li.addEventListener('mouseleave', () => gsap.to(follower, { autoAlpha: 0, scale: .82, duration: .35, ease: 'power3.in' }));
+    });
+  }
+
+  /* ---------- services: accordions ---------- */
+  document.querySelectorAll('.service').forEach(li => {
+    const head = li.querySelector('.service-head');
+    const body = li.querySelector('.service-body');
+    const plus = li.querySelector('.s-plus');
+    head.addEventListener('click', () => {
+      const open = !li.classList.contains('open');
+      li.classList.toggle('open', open);
+      head.setAttribute('aria-expanded', open);
+      gsap.to(body, { height: open ? body.scrollHeight : 0, duration: .55, ease: 'power3.inOut',
+        onComplete: () => ScrollTrigger.refresh() });
+      gsap.to(plus, { rotate: open ? 45 : 0, duration: .4, ease: 'power2.out' });
+    });
+  });
+
+  /* ---------- "discuss this" pre-selects the service ---------- */
+  const select = document.getElementById('f-service');
+  document.querySelectorAll('.discuss').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      select.value = a.dataset.service;
+      lenis.scrollTo('#contact', { offset: -72, duration: 1.25 });
+      toast('Pre-selected — tell us a bit more below.');
+    });
+  });
+
+  /* ---------- LocalFarmers: e-Bazar / eStore modes ---------- */
+  const LF = {
+    ebazar: {
+      cap: 'Harvest batch · Saturday',
+      note: 'Orders close Thu · harvest Fri · pickup Sat',
+      storeNote: 'Orders close Thursday, 8 pm',
+      badge: 'e-Bazar · scheduled',
+      storeCap: "Fresh from the district's farms",
+      items: [
+        { n: 'Nendran banana', u: 'kg', p: '₹48', t: 'amber' },
+        { n: 'Ash gourd', u: 'kg', p: '₹32', t: 'green' },
+        { n: 'Keerai bundle', u: 'pc', p: '₹20', t: 'leaf' }
+      ]
+    },
+    estore: {
+      cap: 'In stock · packed today',
+      note: 'Packed today · delivered tomorrow',
+      storeNote: 'Packed today, delivered tomorrow',
+      badge: 'eStore · in stock',
+      storeCap: 'Everyday essentials, always in stock',
+      items: [
+        { n: 'Sonamasuri rice', u: '10 kg', p: '₹520', t: 'sand' },
+        { n: 'Coconut oil', u: '1 L', p: '₹340', t: 'amber' },
+        { n: 'Jaggery blocks', u: '1 kg', p: '₹95', t: 'brown' }
+      ]
+    }
+  };
+  const phoneTiles = document.getElementById('phone-tiles');
+  const storeTiles = document.getElementById('store-tiles');
+  const rowsHTML = items => items.map(i =>
+    `<div class="app-row"><span><span class="ar-name">${i.n}</span><span class="ar-unit">${i.u}</span></span><span class="ar-price">${i.p}</span></div>`).join('');
+  const tilesHTML = items => items.map(i =>
+    `<div class="store-tile tone-${i.t}"><span class="st-name">${i.n}</span><span class="st-unit">${i.u}</span><span class="st-price">${i.p}</span></div>`).join('');
+
+  function applyMode(m){
+    const d = LF[m];
+    phoneTiles.innerHTML = rowsHTML(d.items);
+    storeTiles.innerHTML = tilesHTML(d.items);
+    document.getElementById('phone-note').textContent = d.note;
+    document.getElementById('phone-cap').textContent = d.cap;
+    document.getElementById('store-note').textContent = d.storeNote;
+    document.getElementById('store-badge').textContent = d.badge;
+    document.getElementById('store-cap').textContent = d.storeCap;
+    document.querySelectorAll('.mode-btn, .mode-chip').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  }
+  let currentMode = 'ebazar';
+  applyMode(currentMode);
+
+  document.querySelectorAll('.mode-btn, .mode-chip').forEach(b => {
+    b.addEventListener('click', () => {
+      const m = b.dataset.mode;
+      if (m === currentMode) return;
+      currentMode = m;
+      const swapEls = gsap.utils.toArray('[data-swap]');
+      gsap.to(swapEls, { opacity: 0, y: -10, duration: .28, stagger: .04, ease: 'power2.in',
+        onComplete: () => {
+          applyMode(m);
+          gsap.fromTo(swapEls, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .45, stagger: .05, ease: 'power3.out' });
+        }});
+    });
+  });
+
+  /* parallax on the device composition (desktop) */
+  mm.add('(min-width: 1024px)', () => {
+    if (reduced) return;
+    gsap.utils.toArray('.lf-mock').forEach(el => {
+      const depth = parseFloat(el.dataset.depth || '1');
+      gsap.fromTo(el, { y: 46 * depth }, { y: -46 * depth, ease: 'none',
+        scrollTrigger: { trigger: '#work', start: 'top bottom', end: 'bottom top', scrub: .8 } });
+    });
+  });
+
+  /* ---------- contact form ---------- */
+  const form = document.getElementById('contact-form');
+  const done = document.getElementById('form-done');
+  const setErr = (id, on) => document.getElementById(id).closest('.field').classList.toggle('err', on);
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('f-name').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const msg = document.getElementById('f-msg').value.trim();
+    const service = select.value;
+    let ok = true;
+    setErr('f-name', !name); ok = ok && !!name;
+    const eok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); setErr('f-email', !eok); ok = ok && eok;
+    setErr('f-msg', msg.length < 10); ok = ok && msg.length >= 10;
+    setErr('f-service', !service); ok = ok && !!service;
+    if (!ok){ toast('A couple of fields need attention.', 'warn'); return; }
+
+    document.getElementById('done-title').textContent = 'Thanks, ' + (name.split(' ')[0]) + '.';
+    document.getElementById('done-body').textContent =
+      `Your note about "${service}" is in our inbox. Expect a reply at ${email} within one business day — questions first, as always.`;
+    gsap.to(form, { opacity: 0, y: -14, duration: .4, ease: 'power2.in',
+      onComplete: () => {
+        form.classList.add('hidden');
+        done.classList.remove('hidden');
+        gsap.fromTo(done, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .55, ease: 'power3.out' });
+        toast('Note received — we reply within one business day.');
+      }});
+  });
+
+  document.getElementById('form-reset').addEventListener('click', () => {
+    gsap.to(done, { opacity: 0, duration: .3,
+      onComplete: () => {
+        done.classList.add('hidden');
+        form.reset(); form.classList.remove('hidden');
+        gsap.fromTo(form, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5 });
+      }});
+  });
+
+  /* ---------- mobile menu ---------- */
+  const menuBtn = document.getElementById('menu-btn');
+  const iconMenu = document.getElementById('icon-menu');
+  const iconClose = document.getElementById('icon-close');
+  const mmenu = document.getElementById('mmenu');
+  let menuOpen = false;
+  const mtl = gsap.timeline({ paused: true })
+    .to(mmenu, { autoAlpha: 1, duration: .35, ease: 'power2.out' })
+    .from('.mm-link', { y: 34, opacity: 0, duration: .5, stagger: .06, ease: 'power3.out' }, '-=.1')
+    .from('.mm-foot', { opacity: 0, y: 10, duration: .4, stagger: .06 }, '-=.3');
+  function setMenu(open){
+    menuOpen = open;
+    iconMenu.classList.toggle('hidden', open);
+    iconClose.classList.toggle('hidden', !open);
+    if (open){ mtl.timeScale(1).play(); lenis.stop(); }
+    else { mtl.timeScale(1.6).reverse(); lenis.start(); }
+  }
+  menuBtn.addEventListener('click', () => setMenu(!menuOpen));
+
+  /* ---------- smooth anchors ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id.length < 2) return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      if (menuOpen) setMenu(false);
+      lenis.scrollTo(target, { offset: -72, duration: 1.25, easing: t => 1 - Math.pow(1 - t, 4) });
+    });
+  });
+  document.getElementById('to-top').addEventListener('click', () => lenis.scrollTo(0, { duration: 1.6 }));
+
+  /* ---------- active nav highlight ---------- */
+  const setActive = id => document.querySelectorAll('.nlink').forEach(l => l.classList.toggle('active', l.dataset.nav === id));
+  [['process', '#process'], ['services', '#services'], ['work', '#work'], ['contact', '#contact']].forEach(([id, sel]) => {
+    ScrollTrigger.create({ trigger: sel, start: 'top center', end: 'bottom center',
+      onToggle: s => { if (s.isActive) setActive(id); } });
+  });
+
+  /* ---------- magnetic buttons ---------- */
+  if (!isTouch) document.querySelectorAll('.magnetic').forEach(el => {
+    const xTo = gsap.quickTo(el, 'x', { duration: .4, ease: 'power3' });
+    const yTo = gsap.quickTo(el, 'y', { duration: .4, ease: 'power3' });
+    el.addEventListener('mousemove', e => {
+      const r = el.getBoundingClientRect();
+      xTo((e.clientX - r.left - r.width/2) * .25);
+      yTo((e.clientY - r.top - r.height/2) * .35);
+    });
+    el.addEventListener('mouseleave', () => { xTo(0); yTo(0); });
+  });
+
+  /* ---------- footer word ---------- */
+  if (!reduced) gsap.from('#footer-word', { yPercent: 32, opacity: 0, duration: 1, ease: 'power3.out',
+    scrollTrigger: { trigger: 'footer', start: 'top 85%' } });
+
+  window.addEventListener('load', () => ScrollTrigger.refresh());
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());
+});
+</script>
+<!-- sflws:source-button:start -->
+<style>
+#sflws-source-btn{position:fixed;right:18px;bottom:18px;z-index:2147483000;display:none;
+padding:2px;border-radius:999px;text-decoration:none;line-height:0;
+background:linear-gradient(90deg,#ff4d4d,#ffb347,#ffe66d,#7bed9f,#48dbfb,#a29bfe,#ff4d4d);
+background-size:300% 100%;animation:sflws-rainbow 6s linear infinite;
+box-shadow:0 4px 20px rgba(0,0,0,.32);transition:transform .2s ease}
+#sflws-source-btn:hover{transform:translateY(-2px)}
+#sflws-source-btn>span{display:flex;align-items:center;gap:7px;padding:9px 15px;
+border-radius:999px;background:#0d0d0f;color:#f4f4f5;
+font:600 12px/1 ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+letter-spacing:.02em;white-space:nowrap}
+#sflws-source-btn>span>b{font:inherit;color:#9aa0a6;letter-spacing:0}
+@keyframes sflws-rainbow{to{background-position:300% 0}}
+@media(prefers-reduced-motion:reduce){#sflws-source-btn{animation:none}
+#sflws-source-btn:hover{transform:none}}
+@media(max-width:600px){#sflws-source-btn{right:12px;bottom:12px}
+#sflws-source-btn>span{padding:8px 13px;font-size:11px}}
+</style>
+<a id="sflws-source-btn" href="https://github.com/saawflws/SFLWS___TEMPLATE_WEBSITEs/tree/main/websites/static/it_consultancy/sanjivinifirst" target="_blank" rel="noopener noreferrer"
+ aria-label="View this template&#39;s source code on GitHub">
+<span><b aria-hidden="true">&lt;/&gt;</b>view source</span></a>
+<script>
+(function(){
+var h=location.hostname;
+var ok=h==='sflwsts.aasimahmed.com'||h==='localhost'||h==='127.0.0.1'||h==='[::1]'
+||/\.github\.io$/.test(h);
+var b=document.getElementById('sflws-source-btn');
+if(b&&ok)b.style.display='block';
+})();
+</script>
+<!-- sflws:source-button:end -->
+</body>
+</html>

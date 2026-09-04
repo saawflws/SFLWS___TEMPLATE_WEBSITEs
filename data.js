@@ -10,15 +10,59 @@
  * what the showcase shows, edit the source INDEX.md / META.md files
  * and run:  node scripts/build-data.js
  *
- * Generated: 2026-08-31
- * Templates: 10 across 5 categories
+ * Generated: 2026-09-04
+ * Templates: 16 across 7 categories
  * ============================================================ */
 
 const FRAMEWORKS = ["static"];
 
 const TEMPLATES = [
   {
-    "title": "FORGE",
+    "title": "FORGE — Athletic Club",
+    "slug": "forgeathleticclub",
+    "path": "/websites/static/gym/forgeathleticclub",
+    "framework": "static",
+    "category": "gym",
+    "desc": "A near-black, acid-green 24/7 Brooklyn iron house with a pinned horizontal programs track and a fully progressive-enhancement build that stands up with every CDN dead.",
+    "tags": [
+      "acid-green-accent",
+      "pinned-horizontal-programs",
+      "progressive-enhancement",
+      "usd-membership-tiers",
+      "high-contrast-dark",
+      "anton-display-type",
+      "grayscale-photography",
+      "custom-cursor-magnetic"
+    ],
+    "meta": "/websites/static/gym/forgeathleticclub/META.md",
+    "origin": "AI-generated from p.md (prompt reconstructed)",
+    "fullTitle": "FORGE — Athletic Club, Brooklyn",
+    "thumb": "/websites/static/gym/forgeathleticclub/thumb.webp"
+  },
+  {
+    "title": "FORGE — Conditioning Studio",
+    "slug": "forgecoaching",
+    "path": "/websites/static/gym/forgecoaching",
+    "framework": "static",
+    "category": "gym",
+    "desc": "A dark iron-and-ember single-coach strength studio that sells four coaching services (not memberships), with heavy GSAP/Lenis motion and a horizontal article library.",
+    "tags": [
+      "ember-red-accent",
+      "single-coach-brand",
+      "service-not-membership",
+      "pinned-horizontal-library",
+      "high-contrast-dark",
+      "anton-display-type",
+      "gsap-splittext-lenis",
+      "article-reader-modal"
+    ],
+    "meta": "/websites/static/gym/forgecoaching/META.md",
+    "origin": "AI-generated from p.md (prompt reconstructed)",
+    "fullTitle": "FORGE — Strength & Conditioning Studio",
+    "thumb": "/websites/static/gym/forgecoaching/thumb.webp"
+  },
+  {
+    "title": "FORGE — Fitness Studio",
     "slug": "forgefitnessstudio",
     "path": "/websites/static/gym/forgefitnessstudio",
     "framework": "static",
@@ -38,6 +82,28 @@ const TEMPLATES = [
     "origin": "AI-generated from p.md",
     "fullTitle": "FORGE — Iron doesn't lie. Built by the barbell, since 2017.",
     "thumb": "/websites/static/gym/forgefitnessstudio/thumb.webp"
+  },
+  {
+    "title": "FUN&FIT",
+    "slug": "funandfit",
+    "path": "/websites/static/gym/funandfit",
+    "framework": "static",
+    "category": "gym",
+    "desc": "A bright paper-and-volt-yellow, multi-discipline Indian group fitness studio with a kinetic variable-font hero, a live today-aware timetable and INR memberships.",
+    "tags": [
+      "light-paper-palette",
+      "volt-yellow-accent",
+      "multi-discipline-group-classes",
+      "today-aware-timetable",
+      "variable-font-kinetic-type",
+      "inr-membership-tiers",
+      "3d-tilt-flip-card",
+      "playful-editorial-voice"
+    ],
+    "meta": "/websites/static/gym/funandfit/META.md",
+    "origin": "AI-generated from p.md (prompt reconstructed)",
+    "fullTitle": "FUN&FIT — Group Fitness Studio",
+    "thumb": "/websites/static/gym/funandfit/thumb.webp"
   },
   {
     "title": "IRONFORGE",
@@ -102,7 +168,8 @@ const TEMPLATES = [
     ],
     "meta": "/websites/static/gym/marcusreid/META.md",
     "origin": "Origin could not be established (prompt reconstructed)",
-    "fullTitle": "Marcus Reid — Certified Personal Trainer"
+    "fullTitle": "Marcus Reid — Certified Personal Trainer",
+    "thumb": "/websites/static/gym/marcusreid/thumb.webp"
   },
   {
     "title": "MORROW",
@@ -238,6 +305,70 @@ const TEMPLATES = [
     "origin": "AI-generated from p.md",
     "fullTitle": "KILBURN — Tech Reviews Without the Marketing Filter",
     "thumb": "/websites/static/techYouTubers_home/killburn/thumb.webp"
+  },
+  {
+    "title": "Sanjivini — Business first, technology next",
+    "slug": "sanjivinifirst",
+    "path": "/websites/static/it_consultancy/sanjivinifirst",
+    "framework": "static",
+    "category": "it_consultancy",
+    "desc": "A dark teal-ink IT-consultancy landing page with a scroll-driven blue→emerald hue drift, a flow-field particle hero, and a live e-Bazar/eStore device composition.",
+    "tags": [
+      "scroll-hue-drift",
+      "flow-field-particle-hero",
+      "live-device-composition",
+      "fraunces-serif-display",
+      "dark-teal-ink",
+      "pinned-horizontal-process",
+      "duotone-cursor-preview",
+      "process-first-consultancy"
+    ],
+    "meta": "/websites/static/it_consultancy/sanjivinifirst/META.md",
+    "origin": "AI-generated from p.md (prompt reconstructed)",
+    "thumb": "/websites/static/it_consultancy/sanjivinifirst/thumb.webp"
+  },
+  {
+    "title": "Sanjivini — Business-first technology partners",
+    "slug": "sanjivinipartners",
+    "path": "/websites/static/it_consultancy/sanjivinipartners",
+    "framework": "static",
+    "category": "it_consultancy",
+    "desc": "A blueprint-grid IT-consultancy landing page with a self-drawing SVG process flowchart, a cool cyan→emerald accent, and a pinned one-surface-per-panel LocalFarmers showcase.",
+    "tags": [
+      "blueprint-grid",
+      "self-drawing-svg-flowchart",
+      "pinned-horizontal-showcase",
+      "pure-css-device-mockups",
+      "cyan-to-emerald-accent",
+      "fraunces-serif-display",
+      "honeypot-contact-form",
+      "graceful-cdn-fallback"
+    ],
+    "meta": "/websites/static/it_consultancy/sanjivinipartners/META.md",
+    "origin": "AI-generated from p.md (prompt reconstructed)",
+    "thumb": "/websites/static/it_consultancy/sanjivinipartners/thumb.webp"
+  },
+  {
+    "title": "PRETTY DISTORTION",
+    "slug": "prettydistortion",
+    "path": "/websites/static/event_poster/prettydistortion",
+    "framework": "static",
+    "category": "event_poster",
+    "desc": "A single-screen, fixed-canvas digital gig flyer for a nightlife/electronic event: a chrome melting title, a keyed-out performer cut-out, and grain — driven by one editable DATA object.",
+    "tags": [
+      "fixed-canvas-poster",
+      "chrome-melting-title",
+      "canvas-photo-keying",
+      "grain-print-texture",
+      "single-screen-non-scrolling",
+      "data-driven-content",
+      "nightlife-rave-flyer",
+      "mouse-parallax"
+    ],
+    "meta": "/websites/static/event_poster/prettydistortion/META.md",
+    "origin": "AI-generated from p.md (prompt reconstructed)",
+    "fullTitle": "PRETTY DISTORTION — Event Poster",
+    "thumb": "/websites/static/event_poster/prettydistortion/thumb.webp"
   }
 ];
 
