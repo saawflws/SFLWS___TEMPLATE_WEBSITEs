@@ -1,0 +1,97 @@
+# Builds the showcase and every framework template, then deploys the whole
+# site to GitHub Pages. See AGENTS.md ("Deploying the showcase") for the model
+# and the one-time Settings → Pages → Source: "GitHub Actions" switch this needs.
+name: Deploy showcase to Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'data.js'
+      - 'assets/**'
+      - 'websites/**'
+      - 'CNAME'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time; never cancel an in-flight Pages deploy.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22' # satisfies Vite 8 engine: ^20.19 || >=22.12
+
+      # Fail fast if the generated catalog drifted from the source META/INDEX files.
+      - name: Validate the shelf
+        run: node scripts/build-data.js --check
+
+      # Copy the servable repo content into _site, excluding VCS / deps / build output.
+      # CNAME is copied (keeps the custom domain); .nojekyll is added defensively.
+      - name: Assemble static site
+        run: |
+          set -euo pipefail
+          rm -rf _site && mkdir -p _site
+          rsync -a \
+            --exclude='.git' \
+            --exclude='_site' \
+            --exclude='.github' \
+            --exclude='node_modules' \
+            --exclude='dist' \
+            ./ _site/
+          touch _site/.nojekyll
+
+      # Build each framework project with its base set to its own shelf subpath,
+      # then overlay the production output onto _site at that same path (so the
+      # showcase card, which links to /websites/<fw>/<cat>/<slug>/, opens the built app).
+      - name: Build framework templates in place
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          built=0
+          for fw in react nextjs astro; do
+            for dir in websites/$fw/*/*/; do
+              [ -f "${dir}package.json" ] || continue
+              base="/${dir}"                 # e.g. /websites/react/creative_agency/vanguard/
+              echo "::group::build ${dir} (base=${base})"
+              ( cd "${dir}" && npm ci )
+              case "$fw" in
+                react)  ( cd "${dir}" && npm run build -- --base="${base}" ); out=dist ;;
+                astro)  ( cd "${dir}" && npm run build ); out=dist ;;   # base set in astro.config
+                nextjs) ( cd "${dir}" && npm run build ); out=out ;;    # next.config: output:'export' + basePath
+              esac
+              dest="_site/${dir}"
+              rm -f "${dest}index.html"      # drop the dev entry that was copied in
+              cp -R "${dir}${out}/." "${dest}"
+              built=$((built + 1))
+              echo "::endgroup::"
+            done
+          done
+          echo "Built ${built} framework template(s)."
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

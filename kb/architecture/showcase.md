@@ -2,9 +2,9 @@
 id: showcase
 title: The showcase site
 area: architecture
-updated: 2026-08-29T15:00:00Z
+updated: 2026-09-04T07:00:00Z
 summary: The GitHub Pages front end — static thumbnails, a CSS hover pan, and no live iframes.
-related: [data-pipeline, data-js, thumbnails]
+related: [data-pipeline, data-js, thumbnails, publish-showcase]
 ---
 
 # The showcase site
@@ -18,7 +18,12 @@ Root `index.html` plus `assets/`, served by GitHub Pages at `sflwsts.aasimahmed.
 | `assets/scripts/main.js` | All behaviour |
 | `data.js` | GENERATED — the template list |
 
-`index.html` loads `data.js` before `main.js`; the page has no build step and no framework.
+`index.html` loads `data.js` before `main.js`; the page itself has no build step and no
+framework. The *site* around it is now assembled and deployed by a GitHub Actions workflow,
+which also builds each framework template in place — see
+[publish-showcase](../workflows/publish-showcase.md) and
+[decision 0010](../decisions/0010-host-framework-builds-on-pages.md). The showcase grid stays
+static thumbnails; clicking a framework card opens the CI-built app at its shelf path.
 
 ## Cards are screenshots, not live sites
 

@@ -1,6 +1,6 @@
 {
-  "generated": "2026-08-29T17:06:39.558Z",
-  "count": 31,
+  "generated": "2026-09-04T07:33:55.157Z",
+  "count": 32,
   "areas": [
     "concepts",
     "architecture",
@@ -26,11 +26,12 @@
       "id": "frameworks",
       "title": "Frameworks on the shelf",
       "area": "concepts",
-      "updated": "2026-08-29T18:00:00Z",
+      "updated": "2026-09-04T07:00:00Z",
       "summary": "static, astro, react and nextjs — what each means here, and why detection order matters.",
       "related": [
         "the-shelf",
-        "template"
+        "template",
+        "publish-showcase"
       ],
       "path": "kb/concepts/frameworks.md"
     },
@@ -89,12 +90,13 @@
       "id": "showcase",
       "title": "The showcase site",
       "area": "architecture",
-      "updated": "2026-08-29T15:00:00Z",
+      "updated": "2026-09-04T07:00:00Z",
       "summary": "The GitHub Pages front end — static thumbnails, a CSS hover pan, and no live iframes.",
       "related": [
         "data-pipeline",
         "data-js",
-        "thumbnails"
+        "thumbnails",
+        "publish-showcase"
       ],
       "path": "kb/architecture/showcase.md"
     },
@@ -256,12 +258,13 @@
       "id": "publish-showcase",
       "title": "Publishing the showcase",
       "area": "workflows",
-      "updated": "2026-08-29T15:00:00Z",
-      "summary": "What GitHub Pages serves, what has to be regenerated first, and how to check it locally.",
+      "updated": "2026-09-04T07:00:00Z",
+      "summary": "A GitHub Actions build assembles the site and builds each framework template in place, then deploys the whole thing to Pages.",
       "related": [
         "showcase",
         "data-pipeline",
-        "running-scripts"
+        "running-scripts",
+        "frameworks"
       ],
       "path": "kb/workflows/publish-showcase.md"
     },
@@ -401,6 +404,19 @@
         "running-scripts"
       ],
       "path": "kb/decisions/0009-filesystem-discovery.md"
+    },
+    {
+      "id": "0010-host-framework-builds-on-pages",
+      "title": "0010 — Build and host framework templates on Pages via Actions",
+      "area": "decisions",
+      "updated": "2026-09-04T07:00:00Z",
+      "summary": "A GitHub Actions build compiles each framework project in place, so its showcase card opens a working app instead of a dev entry.",
+      "related": [
+        "publish-showcase",
+        "showcase",
+        "frameworks"
+      ],
+      "path": "kb/decisions/0010-host-framework-builds-on-pages.md"
     }
   ]
 }

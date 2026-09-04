@@ -2,9 +2,9 @@
 id: frameworks
 title: Frameworks on the shelf
 area: concepts
-updated: 2026-08-29T18:00:00Z
+updated: 2026-09-04T07:00:00Z
 summary: static, astro, react and nextjs — what each means here, and why detection order matters.
-related: [the-shelf, template]
+related: [the-shelf, template, publish-showcase]
 ---
 
 # Frameworks on the shelf
@@ -37,6 +37,11 @@ This is not bookkeeping. A `static` template can be served, screenshotted and co
 step. A framework project needs an install, a build, and a running server before anything can
 even look at it. That single difference drives the two drop zones, the two ingest skills, and two separate
 thumbnail paths.
+
+For the **live site**, that build is automated: the Pages workflow builds each framework
+template in place so its showcase card opens a working app rather than a dev entry (decision
+[0010](../decisions/0010-host-framework-builds-on-pages.md),
+[publish-showcase](../workflows/publish-showcase.md)).
 
 ## Framework is the first filter when choosing
 

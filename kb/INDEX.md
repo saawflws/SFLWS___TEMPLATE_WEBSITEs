@@ -6,7 +6,7 @@ Every entry in `kb/`, grouped by area and newest-updated first within each.
 Regenerate with `node scripts/build-kb.js`. See [`README.md`](README.md) for how the
 KB works and [`schemas/kb-entry.md`](schemas/kb-entry.md) for the entry contract.
 
-`31 entries · 6 areas · index generated 2026-08-29`
+`32 entries · 6 areas · index generated 2026-09-04`
 
 ## concepts
 
@@ -14,7 +14,7 @@ What the moving parts are, and the vocabulary the rest of the repo assumes.
 
 | Entry | Summary | Updated |
 | --- | --- | --- |
-| [Frameworks on the shelf](concepts/frameworks.md) | static, astro, react and nextjs — what each means here, and why detection order matters. | 2026-08-29 |
+| [Frameworks on the shelf](concepts/frameworks.md) | static, astro, react and nextjs — what each means here, and why detection order matters. | 2026-09-04 |
 | [What counts as a template](concepts/template.md) | A self-contained site plus the metadata that makes it choosable without opening it. | 2026-08-29 |
 | [The two entry chains](concepts/entry-chains.md) | Local-dev docs and external-consumer docs are separate on purpose and must not cross-link. | 2026-08-29 |
 | [Provenance and licensing](concepts/provenance.md) | Where templates come from, why origin is recorded per template, and what MIT cannot cover. | 2026-08-29 |
@@ -26,10 +26,10 @@ How the pieces fit together and why they are shaped that way.
 
 | Entry | Summary | Updated |
 | --- | --- | --- |
+| [The showcase site](architecture/showcase.md) | The GitHub Pages front end — static thumbnails, a CSS hover pan, and no live iframes. | 2026-09-04 |
 | [How thumbnails are made](architecture/thumbnails.md) | Driving Chrome over the DevTools Protocol with zero dependencies, and why the page is swept before capture. | 2026-08-29 |
 | [The source button](architecture/source-button.md) | The rainbow "view source" pill injected into every template, and why it hides itself off the showcase. | 2026-08-29 |
 | [The data pipeline](architecture/data-pipeline.md) | How INDEX.md and META.md become data.js, and why the script refuses to write on drift. | 2026-08-29 |
-| [The showcase site](architecture/showcase.md) | The GitHub Pages front end — static thumbnails, a CSS hover pan, and no live iframes. | 2026-08-29 |
 | [The skills layer](architecture/skills-layer.md) | Why skill logic lives in exactly one place and every tool path holds a pointer. | 2026-08-29 |
 | [Tool support and shims](architecture/tool-support.md) | Which agent tools read AGENTS.md natively, which need a shim, and what each one was verified against. | 2026-08-29 |
 
@@ -51,10 +51,10 @@ End-to-end paths through the system, with the reasoning behind each step.
 
 | Entry | Summary | Updated |
 | --- | --- | --- |
+| [Publishing the showcase](workflows/publish-showcase.md) | A GitHub Actions build assembles the site and builds each framework template in place, then deploys the whole thing to Pages. | 2026-09-04 |
 | [Importing a framework project](workflows/import-framework-project.md) | End-to-end path for a React, Next.js or Astro project, and why verification precedes flagging. | 2026-08-29 |
 | [Adding a static template](workflows/add-static-template.md) | End-to-end path for a static template, and the reasoning behind the order of steps. | 2026-08-29 |
 | [Generating a site from the shelf](workflows/generate-a-site.md) | How a request becomes a built site, including the strict-clone versus loose-reference call. | 2026-08-29 |
-| [Publishing the showcase](workflows/publish-showcase.md) | What GitHub Pages serves, what has to be regenerated first, and how to check it locally. | 2026-08-29 |
 
 ## operations
 
@@ -71,6 +71,7 @@ Dated records of choices made, the alternatives, and what would reverse them.
 
 | Entry | Summary | Updated |
 | --- | --- | --- |
+| [0010 — Build and host framework templates on Pages via Actions](decisions/0010-host-framework-builds-on-pages.md) | A GitHub Actions build compiles each framework project in place, so its showcase card opens a working app instead of a dev entry. | 2026-09-04 |
 | [0008 — Three ingest shapes, one flow](decisions/0008-three-ingest-shapes.md) | Accepting pairs, bare HTML and multi-file folders without branching the ingest flow. | 2026-08-29 |
 | [0009 — Tools discover the shelf from disk, not data.js](decisions/0009-filesystem-discovery.md) | Reading the generated catalog to decide what to generate is a deadlock; walking websites/ is not. | 2026-08-29 |
 | [0001 — AGENTS.md as the single source of truth](decisions/0001-agents-md-single-source.md) | One instruction file, with every tool-specific path holding a pointer rather than a copy. | 2026-08-29 |

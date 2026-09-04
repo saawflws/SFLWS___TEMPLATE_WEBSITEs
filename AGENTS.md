@@ -275,6 +275,30 @@ python -m http.server 8000
 Then open `http://localhost:8000`. It must be served over HTTP, not opened as a `file://`
 URL — the card previews are same-origin iframes and will not measure correctly otherwise.
 
+### Deploying the showcase (GitHub Actions)
+
+The live site is published by [`.github/workflows/pages.yml`](.github/workflows/pages.yml),
+not classic deploy-from-branch. On a push to `main` that touches the served surface it
+assembles the whole site (showcase + static templates + built framework apps) and deploys it
+to Pages as one artifact. Rationale and detail live in
+[`kb/workflows/publish-showcase.md`](kb/INDEX.md) and decision `0010`.
+
+- **One-time setup (manual, GitHub UI):** repo **Settings → Pages → Source → "GitHub
+  Actions"**. Until that is set, the deploy step cannot publish. The custom domain persists
+  in settings and the committed `CNAME` keeps it (the workflow bundles it into the artifact).
+- **Framework templates are built in place.** For each `websites/<fw>/<cat>/<slug>/` with a
+  `package.json`, CI runs `npm ci` + a production build with the app's **base set to its own
+  subpath** (`/websites/<fw>/<cat>/<slug>/`) and overlays the output onto that folder — so
+  the showcase card (which links to the shelf path) opens the built app. `dist/`/`out/` are
+  never committed; they exist only inside the build.
+- **Base-path is the one knob a framework author must get right** (a root-base build 404s
+  under a subpath): **react/Vite** takes it from the CLI (the workflow passes `--base`, no
+  project change needed); **astro** must set `base` in `astro.config`; **nextjs** must set
+  `output: 'export'` + `basePath`/`assetPrefix` (and `images.unoptimized`). Record any such
+  requirement in the template's `META.md`.
+- The workflow runs `node scripts/build-data.js --check` first, so a drifted `data.js` fails
+  the deploy instead of publishing stale.
+
 ---
 
 ## Conventions
