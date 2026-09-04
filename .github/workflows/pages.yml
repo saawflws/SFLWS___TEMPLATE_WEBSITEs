@@ -35,6 +35,11 @@ jobs:
         with:
           node-version: '22' # satisfies Vite 8 engine: ^20.19 || >=22.12
 
+      # Sets up the Pages deployment context, and (with permission) flips the
+      # Pages source to "GitHub Actions" so deploy-pages can publish. If the repo
+      # Pages setting still needs to be switched by hand, this is where it takes hold.
+      - uses: actions/configure-pages@v5
+
       # Fail fast if the generated catalog drifted from the source META/INDEX files.
       - name: Validate the shelf
         run: node scripts/build-data.js --check
