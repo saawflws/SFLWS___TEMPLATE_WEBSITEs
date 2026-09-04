@@ -11,10 +11,10 @@
  * and run:  node scripts/build-data.js
  *
  * Generated: 2026-09-04
- * Templates: 16 across 7 categories
+ * Templates: 18 across 9 categories
  * ============================================================ */
 
-const FRAMEWORKS = ["static"];
+const FRAMEWORKS = ["static","react"];
 
 const TEMPLATES = [
   {
@@ -369,6 +369,50 @@ const TEMPLATES = [
     "origin": "AI-generated from p.md (prompt reconstructed)",
     "fullTitle": "PRETTY DISTORTION — Event Poster",
     "thumb": "/websites/static/event_poster/prettydistortion/thumb.webp"
+  },
+  {
+    "title": "CINEMATIC",
+    "slug": "cinematic",
+    "path": "/websites/react/streaming_service/cinematic",
+    "framework": "react",
+    "category": "streaming_service",
+    "desc": "A single-viewport, black-and-glass streaming/movie-showcase landing: a muted autoplay video hero with a rotating IMDB-rated title carousel and search, profile, trailer and detail modals.",
+    "tags": [
+      "fullscreen-video-hero",
+      "liquid-glass-ui",
+      "imdb-title-carousel",
+      "modal-heavy",
+      "blur-fade-up-entrance",
+      "black-and-white-monochrome",
+      "single-viewport-no-scroll",
+      "ott-streaming"
+    ],
+    "meta": "/websites/react/streaming_service/cinematic/META.md",
+    "origin": "AI-generated",
+    "fullTitle": "CINEMATIC — Streaming Service Hero",
+    "thumb": "/websites/react/streaming_service/cinematic/thumb.webp"
+  },
+  {
+    "title": "VANGUARD",
+    "slug": "vanguard",
+    "path": "/websites/react/creative_agency/vanguard",
+    "framework": "react",
+    "category": "creative_agency",
+    "desc": "A single-screen, black-and-white brand-studio landing: a muted video background under a sharp PODIUM display headline (\"Design. Disrupt. Conquer.\"), agency stats, and a full-screen mobile menu.",
+    "tags": [
+      "fullscreen-video-hero",
+      "monochrome-black-white",
+      "podium-sharp-display",
+      "agency-stat-row",
+      "single-hero-landing",
+      "fade-up-entrance",
+      "fullscreen-mobile-menu",
+      "brand-studio"
+    ],
+    "meta": "/websites/react/creative_agency/vanguard/META.md",
+    "origin": "AI-generated",
+    "fullTitle": "VANGUARD — Creative Agency Hero",
+    "thumb": "/websites/react/creative_agency/vanguard/thumb.webp"
   }
 ];
 

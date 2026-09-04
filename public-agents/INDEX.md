@@ -21,7 +21,10 @@ Single-file, self-contained `index.html`. No build step, no local assets.
 
 ## react/
 
-*(empty for now)*
+Vite + React projects (build step required). Not single-file.
+
+- `streaming_service` → [`websites/react/streaming_service/INDEX.md`](../websites/react/streaming_service/INDEX.md)
+- `creative_agency` → [`websites/react/creative_agency/INDEX.md`](../websites/react/creative_agency/INDEX.md)
 
 ## nextjs/
 
