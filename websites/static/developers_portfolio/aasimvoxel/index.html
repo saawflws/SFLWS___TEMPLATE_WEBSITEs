@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aasim Ahmed — Full-stack Developer &amp; AI/ML Engineer</title>
+<meta name="description" content="Portfolio of Aasim Ahmed — full-stack developer and AI/ML engineer from India. Web products, Zoho automation, ML systems, and the occasional toy compiler.">
+<script>document.documentElement.classList.add('js');</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: { bg:'#0B0E08', panel:'#12160D', line:'#252C19', ink:'#E7E4D3', muted:'#8C9078', grass:'#A3D34A', ember:'#E5A13D' },
+    fontFamily: { display:['"Bricolage Grotesque"','sans-serif'], mono:['"JetBrains Mono"','ui-monospace','monospace'] }
+  } }
+};
+</script>
+
+<style>
+:root{--bg:#0B0E08;--panel:#12160D;--line:#252C19;--ink:#E7E4D3;--muted:#8C9078;--grass:#A3D34A;--ember:#E5A13D}
+html{scroll-behavior:smooth}
+html.loading{overflow:hidden}
+html,body{overflow-x:clip}
+body{background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",sans-serif;-webkit-font-smoothing:antialiased}
+::selection{background:var(--grass);color:#0B0E08}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:#0B0E08}
+::-webkit-scrollbar-thumb{background:#252C19;border:2px solid #0B0E08}
+::-webkit-scrollbar-thumb:hover{background:#3A4526}
+:focus-visible{outline:2px solid var(--grass);outline-offset:3px}
+
+/* ---------- film grain + hero vignette ---------- */
+#grain{position:fixed;inset:-60%;z-index:70;pointer-events:none;opacity:.055;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+ animation:grain 9s steps(10) infinite}
+@keyframes grain{0%{transform:translate(0,0)}50%{transform:translate(-4%,3%)}100%{transform:translate(3%,-4%)}}
+.hero-vig{position:absolute;inset:0;z-index:5;pointer-events:none;
+ background:radial-gradient(ellipse 95% 75% at 62% 38%,transparent 45%,rgba(3,5,2,.6) 100%)}
+
+/* ---------- custom crosshair cursor ---------- */
+#cursor{position:fixed;left:0;top:0;z-index:80;pointer-events:none;opacity:0;will-change:transform}
+#cursor .ch{position:relative;display:block;width:22px;height:22px;margin:-11px 0 0 -11px;transition:transform .3s cubic-bezier(.22,1,.36,1)}
+#cursor .ch::before,#cursor .ch::after{content:"";position:absolute;background:#E7E4D3;mix-blend-mode:difference;transition:background .2s}
+#cursor .ch::before{left:50%;top:0;width:2px;height:100%;transform:translateX(-50%)}
+#cursor .ch::after{top:50%;left:0;height:2px;width:100%;transform:translateY(-50%)}
+html.ch-hover #cursor .ch{transform:rotate(45deg) scale(1.5)}
+html.ch-hover #cursor .ch::before,html.ch-hover #cursor .ch::after{background:var(--grass);mix-blend-mode:normal}
+@media (hover:hover) and (pointer:fine){ html.js *{cursor:none!important} }
+
+/* ---------- preloader (world generation) ---------- */
+#loader{position:fixed;inset:0;z-index:90;background:var(--bg);display:flex;align-items:center;justify-content:center;animation:ldrbye .5s ease 3.8s forwards}
+@keyframes ldrbye{to{opacity:0;visibility:hidden}}
+[data-ll]{opacity:0}
+#lbar .seg{flex:1;height:9px;background:var(--line)}
+#lbar .seg.f{background:var(--grass)}
+
+/* ---------- split-word masks ---------- */
+.wmw{display:inline-block;overflow:hidden;vertical-align:top}
+.wmw>span{display:inline-block;will-change:transform}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:.65rem;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;font-weight:500;padding:1rem 1.5rem;border:1px solid transparent;transition:background-color .25s,border-color .25s,color .25s;pointer-events:auto}
+.btn svg{width:14px;height:14px}
+.btn-solid{background:var(--grass);color:#10140A;border-color:var(--grass)}
+.btn-solid:hover{background:#BCE868;border-color:#BCE868}
+.btn-ghost{border-color:var(--line);color:var(--ink);background:transparent}
+.btn-ghost:hover{border-color:var(--grass);color:var(--grass)}
+
+/* ---------- hero extras ---------- */
+.outline-text{color:transparent;-webkit-text-stroke:2px var(--ink);transition:color .5s,-webkit-text-stroke-color .5s}
+.outline-text:hover{color:var(--grass);-webkit-text-stroke-color:var(--grass)}
+.twc{display:inline-block;width:.55em;height:1.05em;transform:translateY(.16em);background:var(--grass);margin-left:.18em;animation:blink 1.1s steps(2,start) infinite}
+@keyframes blink{50%{opacity:0}}
+#scroll-cue .line{position:relative;display:block;width:1px;height:44px;background:var(--line);overflow:hidden}
+#scroll-cue .line i{position:absolute;left:0;top:0;width:100%;height:14px;background:var(--grass);animation:scan 1.9s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes scan{0%{transform:translateY(-16px)}100%{transform:translateY(48px)}}
+
+/* ---------- hotbar nav (Minecraft slot bevel) ---------- */
+#dock{box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.slotbtn{position:relative;width:44px;height:44px;display:grid;place-items:center;flex:0 0 auto;background:#141A0F;border:1px solid #2A3220;
+ box-shadow:inset 2px 2px 0 rgba(0,0,0,.55),inset -2px -2px 0 rgba(255,255,255,.05);transition:transform .2s,border-color .2s}
+.slotbtn svg{width:18px;height:18px;color:#9AA085;transition:color .2s}
+.slotbtn:hover{transform:translateY(-3px);border-color:rgba(163,211,74,.5)}
+.slotbtn:hover svg{color:var(--grass)}
+.slotbtn.on{outline:2px solid var(--ink);outline-offset:1px}
+.slotbtn.on svg{color:var(--grass)}
+.slotbtn .tip{position:absolute;bottom:calc(100% + 12px);left:50%;transform:translate(-50%,5px);opacity:0;transition:.2s;white-space:nowrap;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;color:var(--ink);background:var(--panel);border:1px solid var(--line);padding:5px 9px;pointer-events:none}
+.slotbtn:hover .tip,.slotbtn:focus-visible .tip{opacity:1;transform:translate(-50%,0)}
+.slotbtn .num{position:absolute;top:2px;right:4px;font-family:"JetBrains Mono",monospace;font-size:8px;color:#6A705C}
+
+/* ---------- inventory panel ---------- */
+.inv-slot{position:relative;aspect-ratio:1;display:grid;place-items:center;background:#141A0F;border:1px solid #2A3220;
+ box-shadow:inset 2px 2px 0 rgba(0,0,0,.55),inset -2px -2px 0 rgba(255,255,255,.05);transition:transform .18s,border-color .18s}
+.inv-slot svg{width:40%;height:40%;color:#9AA085;transition:color .18s}
+.inv-slot:hover,.inv-slot:focus-visible{border-color:rgba(163,211,74,.55);transform:translateY(-3px)}
+.inv-slot:hover svg,.inv-slot:focus-visible svg{color:var(--grass)}
+.inv-slot .cnt{position:absolute;right:6px;bottom:4px;font-family:"JetBrains Mono",monospace;font-size:11px;color:#E7E4D3;text-shadow:1px 1px 0 rgba(0,0,0,.9)}
+.tab{position:relative;flex:1 1 auto;min-width:96px;color:var(--muted);padding:.85rem .6rem;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.2em;transition:color .2s}
+.tab:hover{color:var(--ink)}
+.tab.on{color:var(--grass)}
+.tab.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--grass)}
+#tip{position:fixed;z-index:50;width:250px;pointer-events:none;display:none;will-change:transform,opacity}
+
+/* ---------- projects ---------- */
+.proj-head{transition:background-color .3s}
+.proj:hover .proj-head{background:rgba(163,211,74,.03)}
+.proj .plus{transition:transform .35s cubic-bezier(.22,1,.36,1),color .3s;color:var(--muted)}
+.proj .plus svg{width:18px;height:18px}
+.proj.open .plus{transform:rotate(45deg);color:var(--grass)}
+.proj .pj-title{transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.proj:hover .pj-title{transform:translateX(10px)}
+.proj .idx{transition:color .3s}
+.proj:hover .idx{color:var(--ember)}
+.proj-body{height:0;overflow:hidden}
+.chip{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;color:var(--muted);border:1px solid var(--line);padding:5px 10px;transition:color .2s,border-color .2s}
+.chip:hover{color:var(--grass);border-color:rgba(163,211,74,.4)}
+.plink{display:inline-flex;align-items:center;gap:.5rem;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.18em;color:var(--ink);border:1px solid var(--line);padding:10px 16px;transition:.25s}
+.plink:hover{color:var(--grass);border-color:rgba(163,211,74,.5)}
+.plink svg{width:12px;height:12px;transition:transform .25s}
+.plink:hover svg{transform:translate(2px,-2px)}
+#preview{will-change:transform;box-shadow:0 24px 60px rgba(0,0,0,.55)}
+@media (hover:none){#preview{display:none}}
+
+/* ---------- quest timeline ---------- */
+.qd{position:absolute;left:0;top:6px;width:11px;height:11px;transform:rotate(45deg);background:var(--panel);border:1px solid var(--line);transition:background-color .4s,border-color .4s,box-shadow .4s}
+.quest.lit .qd{background:var(--ember);border-color:var(--ember);box-shadow:0 0 14px rgba(229,161,61,.55)}
+.quest .xp{opacity:.35;transition:opacity .4s}
+.quest.lit .xp{opacity:1}
+
+/* ---------- end-portal grid ---------- */
+#portal-grid{display:grid;grid-template-columns:repeat(20,10px);gap:12px;opacity:.55;
+ -webkit-mask-image:radial-gradient(closest-side,#000 45%,transparent);mask-image:radial-gradient(closest-side,#000 45%,transparent)}
+.pcell{width:10px;height:10px;background:#9FCE54;opacity:.06;animation:tw var(--d) linear var(--dl) infinite}
+.pcell.em{background:var(--ember)}
+@keyframes tw{0%,100%{opacity:.05}50%{opacity:.5}}
+
+/* ---------- misc ---------- */
+.wm{position:absolute;top:-1.5rem;right:1.5rem;font-weight:800;font-size:clamp(6rem,14vw,11rem);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(231,228,211,.08);pointer-events:none;user-select:none}
+.ledger>div{display:flex;justify-content:space-between;gap:1.5rem;padding:.8rem 0;border-bottom:1px solid rgba(37,44,25,.6);font-family:"JetBrains Mono",monospace;font-size:11px}
+.ledger dt{color:var(--muted);letter-spacing:.18em}
+.ledger dd{text-align:right}
+.srow{display:flex;align-items:center;gap:1rem;padding:1.15rem .25rem;border-bottom:1px solid var(--line);color:var(--ink);transition:padding-left .3s cubic-bezier(.22,1,.36,1),background-color .3s}
+.srow:first-child{border-top:1px solid var(--line)}
+.srow svg{width:16px;height:16px;color:var(--muted);transition:color .25s}
+.srow .arr{margin-left:auto;color:var(--muted);transition:transform .3s,color .25s;display:inline-flex}
+.srow .arr svg{width:14px;height:14px}
+.srow:hover{padding-left:.9rem;background:rgba(163,211,74,.04)}
+.srow:hover svg{color:var(--grass)}
+.srow:hover .arr{transform:translate(3px,-3px);color:var(--grass)}
+#toasts{position:fixed;right:1rem;bottom:5.5rem;z-index:60;display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
+.toast{display:flex;align-items:center;gap:.6rem;background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--grass);padding:.7rem 1rem;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink);animation:toastin .45s cubic-bezier(.22,1,.36,1);cursor:pointer;max-width:min(78vw,340px)}
+.toast .tk{color:var(--grass);flex:0 0 auto}
+@keyframes toastin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.toast.bye{animation:toastout .3s ease forwards}
+@keyframes toastout{to{opacity:0;transform:translateY(-8px)}}
+#gl{display:block;touch-action:pan-y}
+#spawn{user-select:none;-webkit-user-select:none}
+
+@media (prefers-reduced-motion:reduce){
+ .twc,.pcell,#scroll-cue .line i,#grain,#loader{animation:none}
+ html{scroll-behavior:auto}
+}
+</style>
+<noscript><style>#loader{display:none}html.loading{overflow:auto}</style></noscript>
+</head>
+
+<body class="bg-bg text-ink font-display antialiased">
+
+<!-- ============ preloader: "generating world" ============ -->
+<div id="loader" role="status" aria-label="Loading">
+  <div class="w-[min(460px,88vw)]">
+    <div class="font-mono text-[11px] leading-6 text-muted">
+      <p data-ll>&gt; aasim.dev — v2.4.1</p>
+      <p data-ll>&gt; generating terrain .......... <span class="text-grass">ok</span></p>
+      <p data-ll>&gt; spawning player ............. <span class="text-grass">ok</span></p>
+      <p data-ll>&gt; loading chunks [12, 84] ..... <span class="text-grass">ok</span></p>
+    </div>
+    <div id="lbar" class="flex gap-[3px] h-[9px] mt-5"></div>
+    <p class="font-mono text-[10px] text-muted/70 mt-3">seed 1189787 · render distance 12 chunks</p>
+  </div>
+</div>
+
+<!-- chrome: cursor, grain -->
+<div id="cursor" aria-hidden="true"><span class="ch"></span></div>
+<div id="grain" aria-hidden="true"></div>
+
+<!-- ============ topbar ============ -->
+<header id="topbar" class="fixed top-0 inset-x-0 z-40 flex items-center justify-between px-6 py-4 pointer-events-none">
+  <a href="#spawn" class="pointer-events-auto flex items-center gap-3" aria-label="Aasim Ahmed — back to top">
+    <span class="block w-3 h-3 border border-black/60 relative overflow-hidden flex-none">
+      <span class="absolute inset-x-0 top-0 h-[40%] bg-grass"></span>
+      <span class="absolute inset-x-0 bottom-0 h-[60%] bg-[#7A5636]"></span>
+    </span>
+    <span class="font-mono text-[11px] tracking-[0.22em] text-ink">AASIM.AHMED</span>
+  </a>
+  <div class="pointer-events-auto hidden md:flex items-center gap-2.5 font-mono text-[10px] tracking-[0.2em] text-muted border border-line bg-bg/60 backdrop-blur-sm px-3.5 py-2">
+    <span class="w-1.5 h-1.5 bg-grass inline-block animate-pulse"></span> OPEN TO WORK
+  </div>
+</header>
+
+<!-- ============ F3-style debug HUD ============ -->
+<aside id="hud" class="fixed top-16 right-6 z-30 hidden lg:block pointer-events-none text-right font-mono text-[10px] leading-[1.8] text-muted">
+  <div><span id="fps" class="text-grass">60</span> FPS · IST <span id="clock" class="text-ink">--:--</span></div>
+  <div>XYZ <span id="coords" class="text-ink">12 / 64 / 0</span></div>
+  <div>BIOME <span id="biome" class="text-grass">minecraft:plains</span></div>
+  <div>BLOCKS_MINED <span id="mined" class="text-ember">0</span></div>
+</aside>
+
+<!-- ============ hotbar section nav ============ -->
+<nav id="dock" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 flex gap-1.5 p-1.5 border border-line bg-[rgba(11,14,8,.72)] backdrop-blur-md" aria-label="Section navigation">
+  <button class="slotbtn on" data-target="spawn" aria-label="Hero — spawn point"><i data-lucide="compass"></i><span class="tip">00 · SPAWN</span><span class="num">1</span></button>
+  <button class="slotbtn" data-target="overworld" aria-label="About — overworld"><i data-lucide="user"></i><span class="tip">01 · OVERWORLD</span><span class="num">2</span></button>
+  <button class="slotbtn" data-target="hotbar" aria-label="Skills — hotbar"><i data-lucide="wrench"></i><span class="tip">02 · HOTBAR</span><span class="num">3</span></button>
+  <button class="slotbtn" data-target="builds" aria-label="Projects — builds"><i data-lucide="hammer"></i><span class="tip">03 · BUILDS</span><span class="num">4</span></button>
+  <button class="slotbtn" data-target="quests" aria-label="Experience — quests"><i data-lucide="trophy"></i><span class="tip">04 · QUESTS</span><span class="num">5</span></button>
+  <button class="slotbtn" data-target="portal" aria-label="Contact — portal"><i data-lucide="send"></i><span class="tip">05 · PORTAL</span><span class="num">6</span></button>
+</nav>
+
+<main>
+
+<!-- ============ 00 · HERO — SPAWN ============ -->
+<section id="spawn" class="relative min-h-[100svh] overflow-hidden">
+  <canvas id="gl" class="absolute inset-0 w-full h-full z-0" aria-label="Interactive voxel island — drag to rotate, click a block"></canvas>
+  <div class="hero-vig" aria-hidden="true"></div>
+
+  <div class="absolute inset-0 z-10 flex flex-col justify-center pointer-events-none">
+    <div id="spawn-inner" class="max-w-[1160px] mx-auto px-6 w-full pt-32 pb-36 md:pt-16 md:pb-24">
+      <div id="hero-tag" class="flex items-center gap-3 font-mono text-[10px] md:text-xs tracking-[0.28em] text-muted">
+        <span class="w-1.5 h-1.5 bg-grass inline-block"></span> SPAWN POINT
+        <span class="text-ink/40">/</span> <span class="text-grass">00</span>
+        <span class="text-ink/40">·</span> INDIA · UTC+5:30
+      </div>
+
+      <h1 id="hero-name" class="mt-6 font-display font-extrabold leading-[0.88] tracking-[-0.02em] text-[clamp(4.5rem,13vw,10rem)]">
+        <span class="block" data-split>AASIM</span>
+        <span class="block outline-text" data-split>AHMED</span>
+      </h1>
+
+      <div id="hero-role" class="mt-7 font-mono text-[11px] md:text-sm tracking-[0.16em] text-ink/90">
+        <span class="text-grass">&gt;</span> <span id="tw"></span><span class="twc" aria-hidden="true"></span>
+      </div>
+
+      <p id="hero-desc" class="mt-6 max-w-md text-sm md:text-base text-muted leading-relaxed">
+        I build web products, automation systems and ML tools that survive contact with production —
+        from React front-ends and Node services to RAG pipelines and the occasional toy compiler.
+      </p>
+
+      <div id="hero-ctas" class="mt-9 flex flex-wrap items-center gap-4">
+        <a href="#builds" class="btn btn-solid magnetic">VIEW BUILDS <i data-lucide="arrow-down"></i></a>
+        <button id="mail-mini" class="btn btn-ghost magnetic" type="button">hello@aasimahmed.dev <i data-lucide="copy"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="scroll-cue" class="absolute bottom-24 left-6 hidden md:flex flex-col items-center gap-3 font-mono text-[9px] tracking-[0.3em] text-muted/80">
+    <span>SCROLL</span><span class="line"><i></i></span>
+  </div>
+  <div id="drag-hint" class="absolute bottom-24 right-6 hidden lg:flex items-center gap-2.5 font-mono text-[9px] tracking-[0.25em] text-muted/70">
+    <i data-lucide="hand" class="w-3.5 h-3.5"></i> DRAG TO ROTATE · CLICK A BLOCK
+  </div>
+</section>
+
+<!-- ============ 01 · ABOUT — OVERWORLD ============ -->
+<section id="overworld" class="relative py-28 md:py-40">
+  <span class="wm" data-wm aria-hidden="true">01</span>
+  <div class="max-w-[1160px] mx-auto px-6">
+    <div class="flex items-center gap-4 md:gap-6">
+      <span class="font-mono text-xs text-grass tracking-[0.25em]">01</span>
+      <span class="h-px flex-1 bg-line" data-rule></span>
+      <span class="font-mono text-[10px] md:text-xs tracking-[0.28em] text-muted">OVERWORLD — WHO'S PLAYING</span>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 mt-12 md:mt-16">
+      <div class="lg:col-span-8">
+        <h2 class="font-display font-bold text-[clamp(2rem,4.6vw,3.6rem)] leading-[1.02] tracking-tight" data-split>Scouting terrain since 2021.</h2>
+
+        <p class="mt-9 text-xl md:text-2xl leading-relaxed text-ink/90 max-w-[46rem]" data-reveal>
+          I treat every product like a survival world — <span class="text-grass">scout the terrain</span>,
+          craft the right tools, and build things that are still standing after the first night in production.
+        </p>
+        <p class="mt-7 text-muted leading-relaxed max-w-[42rem]" data-reveal>
+          Four years of building took me across the whole map: React and Next.js front-ends, Node services,
+          Zoho automation farms for real sales teams, and ML models that had to run on cheap phones — not
+          just in notebooks. I like the unglamorous parts: error states, migrations, edge cases. That's where
+          products actually live or die.
+        </p>
+        <p class="mt-4 text-muted leading-relaxed max-w-[42rem]" data-reveal>
+          Lately I've been tunneling downward — writing a toy language in Rust and reading the Go runtime for
+          fun. Going lower made the upper layers make more sense, not less.
+        </p>
+        <p class="mt-11 font-mono text-[11px] md:text-xs tracking-wide text-ink/80 leading-7" data-reveal>
+          <span class="text-grass">24+</span> builds shipped&nbsp;&nbsp;·&nbsp;&nbsp;<span class="text-grass">200+</span>
+          CRM automations live&nbsp;&nbsp;·&nbsp;&nbsp;<span class="text-grass">3</span> RAG systems in
+          production&nbsp;&nbsp;·&nbsp;&nbsp;<span class="text-grass">1</span> toy compiler (and counting)
+        </p>
+      </div>
+
+      <aside class="lg:col-span-4">
+        <div class="lg:sticky lg:top-28 border border-line bg-panel/50" data-reveal>
+          <div class="border-b border-line px-5 py-3.5 font-mono text-[10px] tracking-[0.28em] text-muted flex justify-between">
+            <span>PLAYER DATA</span><span class="text-grass">LV.21</span>
+          </div>
+          <dl class="px-5 py-2 ledger">
+            <div><dt>LOCATION</dt><dd>India · UTC+5:30</dd></div>
+            <div><dt>CLASS</dt><dd>Full-stack × AI/ML</dd></div>
+            <div><dt>EDUCATION</dt><dd>B.Tech CS — grad '23</dd></div>
+            <div><dt>STATUS</dt><dd class="text-grass">open to work</dd></div>
+            <div><dt>LEARNING</dt><dd>Rust · compilers</dd></div>
+            <div><dt>HOME BIOME</dt><dd>deep_dark, obviously</dd></div>
+          </dl>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 · SKILLS — HOTBAR ============ -->
+<section id="hotbar" class="relative py-28 md:py-40">
+  <span class="wm" data-wm aria-hidden="true">02</span>
+  <div class="max-w-[1160px] mx-auto px-6">
+    <div class="flex items-center gap-4 md:gap-6">
+      <span class="font-mono text-xs text-grass tracking-[0.25em]">02</span>
+      <span class="h-px flex-1 bg-line" data-rule></span>
+      <span class="font-mono text-[10px] md:text-xs tracking-[0.28em] text-muted">HOTBAR — THE INVENTORY</span>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 mt-12 md:mt-16">
+      <div class="lg:col-span-5">
+        <h2 class="font-display font-bold text-[clamp(2rem,4.6vw,3.6rem)] leading-[1.02] tracking-tight" data-split>Everything in the hotbar.</h2>
+        <p class="mt-8 text-muted leading-relaxed max-w-md" data-reveal>
+          The tools I actually reach for, sorted by category. Proficiency is self-graded and honest —
+          nothing here is "familiar" in the résumé sense of the word.
+        </p>
+        <p class="mt-6 font-mono text-[11px] leading-6 tracking-wide text-ink/70" data-reveal>
+          HOVER A SLOT TO INSPECT THE ITEM<br>
+          <span class="text-ember">ENCHANTS</span> REFLECT PROFICIENCY
+        </p>
+      </div>
+
+      <div class="lg:col-span-7" data-reveal>
+        <div class="border border-line bg-panel/60">
+          <div class="flex items-center justify-between border-b border-line px-4 md:px-5 py-3 font-mono text-[10px] tracking-[0.28em] text-muted">
+            <span>INVENTORY</span><span id="inv-note" class="text-grass">surface layer</span>
+          </div>
+          <div class="tabs flex flex-wrap border-b border-line" role="tablist" aria-label="Skill categories">
+            <button class="tab on" role="tab" aria-selected="true"  data-tab="frontend">FRONTEND</button>
+            <button class="tab"    role="tab" aria-selected="false" data-tab="backend">BACKEND</button>
+            <button class="tab"    role="tab" aria-selected="false" data-tab="aiml">AI / ML</button>
+            <button class="tab"    role="tab" aria-selected="false" data-tab="systems">SYSTEMS</button>
+            <button class="tab"    role="tab" aria-selected="false" data-tab="tooling">TOOLING</button>
+          </div>
+          <div id="slots" class="grid grid-cols-5 gap-2.5 p-4 md:p-5"></div>
+          <div class="border-t border-line px-4 md:px-5 py-2.5 font-mono text-[10px] text-muted tracking-wide">
+            9 slots · durability bar = honest self-assessment
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- skills tooltip -->
+<div id="tip" role="tooltip">
+  <div class="border border-grass/40 bg-[#0F130A]/95 backdrop-blur px-4 py-3.5 shadow-[0_10px_36px_rgba(0,0,0,.55)]">
+    <div class="flex justify-between items-baseline gap-4 font-mono">
+      <span id="tp-name" class="text-xs font-bold text-grass tracking-wide"></span>
+      <span id="tp-lvl" class="text-[10px] text-muted"></span>
+    </div>
+    <div class="mt-2.5 h-[5px] bg-line/80"><div id="tp-bar" class="h-full bg-grass" style="width:0%"></div></div>
+    <p id="tp-lore" class="mt-3 font-mono text-[10px] leading-[1.6] text-ink/75"></p>
+    <p id="tp-ench" class="mt-2 font-mono text-[10px] text-ember tracking-[0.2em]"></p>
+  </div>
+</div>
+
+<!-- ============ 03 · PROJECTS — BUILDS ============ -->
+<section id="builds" class="relative py-28 md:py-40">
+  <span class="wm" data-wm aria-hidden="true">03</span>
+  <div class="max-w-[1160px] mx-auto px-6">
+    <div class="flex items-center gap-4 md:gap-6">
+      <span class="font-mono text-xs text-grass tracking-[0.25em]">03</span>
+      <span class="h-px flex-1 bg-line" data-rule></span>
+      <span class="font-mono text-[10px] md:text-xs tracking-[0.28em] text-muted">BUILDS — SELECTED WORK</span>
+    </div>
+
+    <h2 class="mt-12 md:mt-16 font-display font-bold text-[clamp(2rem,4.6vw,3.6rem)] leading-[1.02] tracking-tight max-w-3xl" data-split>Made it past the loading screen.</h2>
+    <p class="mt-6 text-muted leading-relaxed max-w-xl" data-reveal>
+      Five projects that survived contact with users — hover to preview, click to open the crafting notes.
+    </p>
+
+    <div class="mt-14 md:mt-20">
+
+      <article class="proj border-t border-line last:border-b" data-seed="semanttra" data-name="SEMANTRA" data-year="2024">
+        <button class="proj-head w-full text-left py-7 md:py-9 grid grid-cols-[2.6rem_1fr_auto] md:grid-cols-[5rem_1fr_auto] items-center gap-4 md:gap-6" aria-expanded="false" type="button">
+          <span class="idx font-mono text-xs md:text-sm text-muted">01</span>
+          <span class="block min-w-0">
+            <span class="pj-title block font-display text-[1.65rem] md:text-[2.5rem] font-bold tracking-tight leading-tight">SEMANTRA</span>
+            <span class="block font-mono text-[10px] md:text-[11px] tracking-[0.18em] text-muted mt-2">2024 · AI / SEARCH · SEMANTIC RETRIEVAL</span>
+          </span>
+          <span class="plus flex items-center gap-4 md:gap-6"><i data-lucide="plus"></i></span>
+        </button>
+        <div class="proj-body">
+          <div class="pb-10 md:pb-12 grid md:grid-cols-12 gap-8 md:gap-10">
+            <div class="md:col-span-5">
+              <img src="https://picsum.photos/seed/semanttra/900/600.jpg" alt="SEMANTRA — semantic documentation search" class="w-full aspect-[3/2] object-cover border border-line" loading="lazy">
+            </div>
+            <div class="md:col-span-7">
+              <p class="text-muted leading-relaxed">A retrieval layer that indexes a team's scattered docs, wikis and tickets, then answers questions with citations instead of links. Local sentence-transformer embeddings, pgvector storage, and a Next.js front-end that streams responses token-by-token. Built for the "where is X documented?" problem — the one that quietly eats engineering hours.</p>
+              <p class="mt-5 font-mono text-[11px] leading-6 text-ink/85"><span class="inline-block w-2 h-2 bg-ember mr-2 align-middle"></span>OUTCOME — internal "where is…" messages dropped ~70% for a 15-person team.</p>
+              <div class="mt-6 flex flex-wrap gap-2">
+                <span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">pgvector</span><span class="chip">sentence-transformers</span><span class="chip">Node</span>
+              </div>
+              <div class="mt-8 flex flex-wrap gap-3">
+                <button class="plink" data-kind="repository" type="button">REPOSITORY <i data-lucide="external-link"></i></button>
+                <button class="plink" data-kind="live site" type="button">LIVE DEMO <i data-lucide="external-link"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj border-t border-line last:border-b" data-seed="zflow" data-name="ZFLOW" data-year="2023–24">
+        <button class="proj-head w-full text-left py-7 md:py-9 grid grid-cols-[2.6rem_1fr_auto] md:grid-cols-[5rem_1fr_auto] items-center gap-4 md:gap-6" aria-expanded="false" type="button">
+          <span class="idx font-mono text-xs md:text-sm text-muted">02</span>
+          <span class="block min-w-0">
+            <span class="pj-title block font-display text-[1.65rem] md:text-[2.5rem] font-bold tracking-tight leading-tight">ZFLOW</span>
+            <span class="block font-mono text-[10px] md:text-[11px] tracking-[0.18em] text-muted mt-2">2023–24 · CRM / AUTOMATION · ZOHO ECOSYSTEM</span>
+          </span>
+          <span class="plus flex items-center gap-4 md:gap-6"><i data-lucide="plus"></i></span>
+        </button>
+        <div class="proj-body">
+          <div class="pb-10 md:pb-12 grid md:grid-cols-12 gap-8 md:gap-10">
+            <div class="md:col-span-5">
+              <img src="https://picsum.photos/seed/zflow/900/600.jpg" alt="ZFLOW — Zoho CRM automation architecture" class="w-full aspect-[3/2] object-cover border border-line" loading="lazy">
+            </div>
+            <div class="md:col-span-7">
+              <p class="text-muted leading-relaxed">The full automation layer for a growing sales org: 200+ Deluge workflows, lead-scoring functions, cross-module blueprints and nightly reconciliation — plus a Node sidecar service for everything Deluge couldn't do cleanly. Failure alerting and audit trails from day one, because silent automation is a liability, not a feature.</p>
+              <p class="mt-5 font-mono text-[11px] leading-6 text-ink/85"><span class="inline-block w-2 h-2 bg-ember mr-2 align-middle"></span>OUTCOME — sales ops cut manual entry ~60%. Zero silent failures since alerting shipped.</p>
+              <div class="mt-6 flex flex-wrap gap-2">
+                <span class="chip">Zoho CRM</span><span class="chip">Deluge</span><span class="chip">Node.js</span><span class="chip">Redis</span>
+              </div>
+              <div class="mt-8 flex flex-wrap gap-3">
+                <button class="plink" data-kind="repository" type="button">REPOSITORY <i data-lucide="external-link"></i></button>
+                <button class="plink" data-kind="case study" type="button">CASE STUDY <i data-lucide="external-link"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj border-t border-line last:border-b" data-seed="riverlang" data-name="RIVER-LANG" data-year="2025">
+        <button class="proj-head w-full text-left py-7 md:py-9 grid grid-cols-[2.6rem_1fr_auto] md:grid-cols-[5rem_1fr_auto] items-center gap-4 md:gap-6" aria-expanded="false" type="button">
+          <span class="idx font-mono text-xs md:text-sm text-muted">03</span>
+          <span class="block min-w-0">
+            <span class="pj-title block font-display text-[1.65rem] md:text-[2.5rem] font-bold tracking-tight leading-tight">RIVER-LANG</span>
+            <span class="block font-mono text-[10px] md:text-[11px] tracking-[0.18em] text-muted mt-2">2025 · COMPILERS / RUST · WASM</span>
+          </span>
+          <span class="plus flex items-center gap-4 md:gap-6"><i data-lucide="plus"></i></span>
+        </button>
+        <div class="proj-body">
+          <div class="pb-10 md:pb-12 grid md:grid-cols-12 gap-8 md:gap-10">
+            <div class="md:col-span-5">
+              <img src="https://picsum.photos/seed/riverlang/900/600.jpg" alt="river-lang — toy language playground" class="w-full aspect-[3/2] object-cover border border-line" loading="lazy">
+            </div>
+            <div class="md:col-span-7">
+              <p class="text-muted leading-relaxed">An expression-first toy language with a lexer, Pratt parser and bytecode VM, written in Rust and compiled to WASM so the playground runs fully client-side. Error messages were treated as a product feature, not an afterthought — every parse failure points at the exact character and suggests a fix.</p>
+              <p class="mt-5 font-mono text-[11px] leading-6 text-ink/85"><span class="inline-block w-2 h-2 bg-ember mr-2 align-middle"></span>OUTCOME — ~900 LOC of core · 120+ passing tests · playground works offline.</p>
+              <div class="mt-6 flex flex-wrap gap-2">
+                <span class="chip">Rust</span><span class="chip">WASM</span><span class="chip">Vite</span><span class="chip">TypeScript</span>
+              </div>
+              <div class="mt-8 flex flex-wrap gap-3">
+                <button class="plink" data-kind="repository" type="button">REPOSITORY <i data-lucide="external-link"></i></button>
+                <button class="plink" data-kind="live site" type="button">PLAYGROUND <i data-lucide="external-link"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj border-t border-line last:border-b" data-seed="farmhand" data-name="FARMHAND" data-year="2023">
+        <button class="proj-head w-full text-left py-7 md:py-9 grid grid-cols-[2.6rem_1fr_auto] md:grid-cols-[5rem_1fr_auto] items-center gap-4 md:gap-6" aria-expanded="false" type="button">
+          <span class="idx font-mono text-xs md:text-sm text-muted">04</span>
+          <span class="block min-w-0">
+            <span class="pj-title block font-display text-[1.65rem] md:text-[2.5rem] font-bold tracking-tight leading-tight">FARMHAND</span>
+            <span class="block font-mono text-[10px] md:text-[11px] tracking-[0.18em] text-muted mt-2">2023 · MOBILE / ML · OFFLINE-FIRST</span>
+          </span>
+          <span class="plus flex items-center gap-4 md:gap-6"><i data-lucide="plus"></i></span>
+        </button>
+        <div class="proj-body">
+          <div class="pb-10 md:pb-12 grid md:grid-cols-12 gap-8 md:gap-10">
+            <div class="md:col-span-5">
+              <img src="https://picsum.photos/seed/farmhand/900/600.jpg" alt="Farmhand — crop disease detection" class="w-full aspect-[3/2] object-cover border border-line" loading="lazy">
+            </div>
+            <div class="md:col-span-7">
+              <p class="text-muted leading-relaxed">A TFLite image classifier fine-tuned on plant-pathology datasets, wrapped in a lightweight app built for low-connectivity districts. Int8-quantised down to 11 MB, inference in ~180 ms on budget Android hardware, with a full offline cache — the field is the only network it needs.</p>
+              <p class="mt-5 font-mono text-[11px] leading-6 text-ink/85"><span class="inline-block w-2 h-2 bg-ember mr-2 align-middle"></span>OUTCOME — 87% top-1 across 12 diseases on held-out regional validation.</p>
+              <div class="mt-6 flex flex-wrap gap-2">
+                <span class="chip">Python</span><span class="chip">TensorFlow</span><span class="chip">TFLite</span><span class="chip">OpenCV</span>
+              </div>
+              <div class="mt-8 flex flex-wrap gap-3">
+                <button class="plink" data-kind="repository" type="button">REPOSITORY <i data-lucide="external-link"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj border-t border-line last:border-b" data-seed="blockmap" data-name="BLOCKMAP" data-year="2025">
+        <button class="proj-head w-full text-left py-7 md:py-9 grid grid-cols-[2.6rem_1fr_auto] md:grid-cols-[5rem_1fr_auto] items-center gap-4 md:gap-6" aria-expanded="false" type="button">
+          <span class="idx font-mono text-xs md:text-sm text-muted">05</span>
+          <span class="block min-w-0">
+            <span class="pj-title block font-display text-[1.65rem] md:text-[2.5rem] font-bold tracking-tight leading-tight">BLOCKMAP</span>
+            <span class="block font-mono text-[10px] md:text-[11px] tracking-[0.18em] text-muted mt-2">2025 · WEBGL / GENERATIVE · THREE.JS</span>
+          </span>
+          <span class="plus flex items-center gap-4 md:gap-6"><i data-lucide="plus"></i></span>
+        </button>
+        <div class="proj-body">
+          <div class="pb-10 md:pb-12 grid md:grid-cols-12 gap-8 md:gap-10">
+            <div class="md:col-span-5">
+              <img src="https://picsum.photos/seed/blockmap/900/600.jpg" alt="Blockmap — procedural voxel world" class="w-full aspect-[3/2] object-cover border border-line" loading="lazy">
+            </div>
+            <div class="md:col-span-7">
+              <p class="text-muted leading-relaxed">Seeded value-noise terrain, greedy-meshed chunks, fog and a small day-night cycle — a weekend flight into engine work that turned into a month. The world is deterministic from its seed, effectively infinite in X/Z, and generated on the fly as you walk. (Yes, the floating island in the hero is a cousin.)</p>
+              <p class="mt-5 font-mono text-[11px] leading-6 text-ink/85"><span class="inline-block w-2 h-2 bg-ember mr-2 align-middle"></span>OUTCOME — holds 60 fps with ~250k visible blocks on a mid-tier laptop.</p>
+              <div class="mt-6 flex flex-wrap gap-2">
+                <span class="chip">Three.js</span><span class="chip">TypeScript</span><span class="chip">Web Workers</span>
+              </div>
+              <div class="mt-8 flex flex-wrap gap-3">
+                <button class="plink" data-kind="live site" type="button">LIVE DEMO <i data-lucide="external-link"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- floating project preview (follows cursor) -->
+<div id="preview" class="fixed z-30 top-0 left-0 w-[300px] pointer-events-none opacity-0">
+  <div class="border border-line bg-panel">
+    <img id="pv-img" class="w-full h-[190px] object-cover" alt="" style="filter:saturate(.85) contrast(1.05)">
+    <div class="font-mono text-[10px] tracking-[0.16em] px-3 py-2.5 flex justify-between">
+      <span id="pv-name" class="text-grass"></span><span id="pv-meta" class="text-muted"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 04 · EXPERIENCE — QUESTS ============ -->
+<section id="quests" class="relative py-28 md:py-40">
+  <span class="wm" data-wm aria-hidden="true">04</span>
+  <div class="max-w-[1160px] mx-auto px-6">
+    <div class="flex items-center gap-4 md:gap-6">
+      <span class="font-mono text-xs text-grass tracking-[0.25em]">04</span>
+      <span class="h-px flex-1 bg-line" data-rule></span>
+      <span class="font-mono text-[10px] md:text-xs tracking-[0.28em] text-muted">QUESTS — EXPERIENCE LOG</span>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 mt-12 md:mt-16">
+      <div class="lg:col-span-4">
+        <div class="lg:sticky lg:top-28">
+          <h2 class="font-display font-bold text-[clamp(2rem,4.6vw,3.6rem)] leading-[1.02] tracking-tight" data-split>XP earned the hard way.</h2>
+          <p class="mt-8 text-muted leading-relaxed max-w-sm" data-reveal>
+            Every role was a biome with its own hazards. The full log, most recent first —
+            the torch follows your scroll.
+          </p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-8">
+        <div id="tl-wrap" class="relative">
+          <div class="tl-track absolute left-[5px] top-2 bottom-2 w-px bg-line/70">
+            <div id="tl-fill" class="absolute top-0 left-0 w-full bg-grass" style="height:0%">
+              <span id="torch" class="absolute -bottom-1 -left-[3.5px] w-2 h-2 bg-ember shadow-[0_0_14px_rgba(229,161,61,.65)]"></span>
+            </div>
+          </div>
+
+          <ol class="relative">
+            <li class="quest relative pl-10 md:pl-14 pb-14">
+              <span class="qd"></span>
+              <div class="font-mono text-[10px] tracking-[0.22em] text-muted flex flex-wrap gap-x-5 gap-y-1">
+                <span class="text-ink/80">2025 — NOW</span><span>FREELANCE · REMOTE</span>
+                <span class="xp text-grass ml-auto">+3,200 XP</span>
+              </div>
+              <h3 class="mt-3.5 font-display text-2xl md:text-3xl font-bold tracking-tight">Freelance Full-stack &amp; AI Engineer</h3>
+              <p class="mt-3.5 text-muted leading-relaxed max-w-xl">Shipping end-to-end for founders and small teams: Next.js products, Node/Postgres backends, and RAG pipelines with real evaluation loops. Also the person they call when a Zoho automation farm has quietly rotted for two years.</p>
+              <div class="mt-4.5 mt-5 flex flex-wrap gap-2">
+                <span class="chip">Next.js</span><span class="chip">Node</span><span class="chip">Postgres</span><span class="chip">LangChain</span>
+              </div>
+            </li>
+
+            <li class="quest relative pl-10 md:pl-14 pb-14">
+              <span class="qd"></span>
+              <div class="font-mono text-[10px] tracking-[0.22em] text-muted flex flex-wrap gap-x-5 gap-y-1">
+                <span class="text-ink/80">2023 — 2025</span><span>ZOHO CONSULTANCY · BENGALURU</span>
+                <span class="xp text-grass ml-auto">+5,400 XP</span>
+              </div>
+              <h3 class="mt-3.5 font-display text-2xl md:text-3xl font-bold tracking-tight">CRM &amp; Automation Architect</h3>
+              <p class="mt-3.5 text-muted leading-relaxed max-w-xl">Designed the automation layer for a 40-seat sales org: 200+ Deluge workflows, lead-scoring functions, nightly reconciliation and failure alerting, with a Node sidecar for everything Deluge couldn't do cleanly. Ops overhead dropped by roughly 60%.</p>
+              <div class="mt-5 flex flex-wrap gap-2">
+                <span class="chip">Zoho CRM</span><span class="chip">Deluge</span><span class="chip">Node</span><span class="chip">REST</span>
+              </div>
+            </li>
+
+            <li class="quest relative pl-10 md:pl-14 pb-14">
+              <span class="qd"></span>
+              <div class="font-mono text-[10px] tracking-[0.22em] text-muted flex flex-wrap gap-x-5 gap-y-1">
+                <span class="text-ink/80">2022 — 2023</span><span>PRODUCT STUDIO · REMOTE</span>
+                <span class="xp text-grass ml-auto">+2,600 XP</span>
+              </div>
+              <h3 class="mt-3.5 font-display text-2xl md:text-3xl font-bold tracking-tight">Full-stack Developer</h3>
+              <p class="mt-3.5 text-muted leading-relaxed max-w-xl">Built and maintained React/Next front-ends and Node APIs across eight client launches. Learned that most "ML features" die in deployment, not in modeling — and started fixing that side of the pipeline.</p>
+              <div class="mt-5 flex flex-wrap gap-2">
+                <span class="chip">React</span><span class="chip">Next.js</span><span class="chip">Express</span><span class="chip">MongoDB</span>
+              </div>
+            </li>
+
+            <li class="quest relative pl-10 md:pl-14 pb-14">
+              <span class="qd"></span>
+              <div class="font-mono text-[10px] tracking-[0.22em] text-muted flex flex-wrap gap-x-5 gap-y-1">
+                <span class="text-ink/80">2021 — 2022</span><span>EARLY-STAGE STARTUP · HYDERABAD</span>
+                <span class="xp text-grass ml-auto">+800 XP</span>
+              </div>
+              <h3 class="mt-3.5 font-display text-2xl md:text-3xl font-bold tracking-tight">Web Development Intern</h3>
+              <p class="mt-3.5 text-muted leading-relaxed max-w-xl">First boss fight. Shipped internal tooling, a TFLite prototype for document triage, and a durable habit of writing down every production mistake.</p>
+              <div class="mt-5 flex flex-wrap gap-2">
+                <span class="chip">Python</span><span class="chip">TFLite</span><span class="chip">Flask</span>
+              </div>
+            </li>
+
+            <li class="quest relative pl-10 md:pl-14">
+              <span class="qd"></span>
+              <div class="font-mono text-[10px] tracking-[0.22em] text-muted flex flex-wrap gap-x-5 gap-y-1">
+                <span class="text-ink/80">2019 — 2023</span><span>UNIVERSITY</span>
+                <span class="xp text-grass ml-auto">DEGREE UNLOCKED</span>
+              </div>
+              <h3 class="mt-3.5 font-display text-2xl md:text-3xl font-bold tracking-tight">B.Tech, Computer Science</h3>
+              <p class="mt-3.5 text-muted leading-relaxed max-w-xl">Officially: algorithms, DBMS, operating systems. Unofficially: compilers, graphics, and far too many side projects. Left with a degree and a much longer reading list.</p>
+              <div class="mt-5 flex flex-wrap gap-2">
+                <span class="chip">C++</span><span class="chip">DBMS</span><span class="chip">Operating Systems</span>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 · CONTACT — PORTAL ============ -->
+<section id="portal" class="relative pt-28 md:pt-40 pb-20 md:pb-28 overflow-hidden">
+  <span class="wm" data-wm aria-hidden="true">05</span>
+  <div id="portal-grid" aria-hidden="true" class="absolute left-1/2 top-14 -translate-x-1/2 pointer-events-none"></div>
+
+  <div class="max-w-[1160px] mx-auto px-6 relative">
+    <div class="flex items-center gap-4 md:gap-6">
+      <span class="font-mono text-xs text-grass tracking-[0.25em]">05</span>
+      <span class="h-px flex-1 bg-line" data-rule></span>
+      <span class="font-mono text-[10px] md:text-xs tracking-[0.28em] text-muted">PORTAL — THE END?</span>
+    </div>
+
+    <h2 class="mt-12 md:mt-16 font-display font-bold text-[clamp(2.4rem,6.4vw,5rem)] leading-[0.98] tracking-tight">
+      <span class="block" data-split>Let's build something</span>
+      <span class="block text-grass" data-split>that survives.</span>
+    </h2>
+    <p class="mt-8 text-muted leading-relaxed max-w-xl" data-reveal>
+      The portal's open — for freelance work, full-time roles, or a good argument about compilers.
+      I read everything and usually reply within a day, IST.
+    </p>
+
+    <div class="mt-12 grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      <div class="lg:col-span-7">
+        <p class="font-mono text-[10px] md:text-[11px] tracking-[0.22em] text-muted" data-reveal>
+          STATUS — <span class="text-grass">OPEN</span> · FREELANCE / FULL-TIME · IST (UTC+5:30)
+        </p>
+        <button id="mail" class="magnetic mt-6 group w-full max-w-xl border border-line px-6 md:px-9 py-6 md:py-8 flex items-center justify-between gap-6 hover:border-grass transition-colors" type="button" data-reveal>
+          <span class="font-display text-xl md:text-4xl font-bold tracking-tight text-ink group-hover:text-grass transition-colors text-left">hello@aasimahmed.dev</span>
+          <span class="text-muted group-hover:text-grass transition-colors">
+            <span id="ic-copy"><i data-lucide="copy"></i></span>
+            <span id="ic-check" class="hidden"><i data-lucide="check"></i></span>
+          </span>
+        </button>
+        <p class="mt-4 font-mono text-[10px] tracking-[0.18em] text-muted/70" data-reveal>CLICK TO COPY · NO FORMS, NO FUNNEL</p>
+      </div>
+
+      <div class="lg:col-span-5" data-reveal>
+        <p class="font-mono text-[10px] tracking-[0.28em] text-muted mb-4">ELSEWHERE</p>
+        <div>
+          <a class="srow" href="https://github.com/aasimahmed" target="_blank" rel="noopener">
+            <i data-lucide="github"></i><span class="font-mono text-[11px] tracking-[0.18em]">GITHUB</span>
+            <span class="arr"><i data-lucide="arrow-up-right"></i></span>
+          </a>
+          <a class="srow" href="https://www.linkedin.com/in/aasimahmed" target="_blank" rel="noopener">
+            <i data-lucide="linkedin"></i><span class="font-mono text-[11px] tracking-[0.18em]">LINKEDIN</span>
+            <span class="arr"><i data-lucide="arrow-up-right"></i></span>
+          </a>
+          <a class="srow" href="https://x.com/aasimahmed" target="_blank" rel="noopener">
+            <i data-lucide="twitter"></i><span class="font-mono text-[11px] tracking-[0.18em]">X / TWITTER</span>
+            <span class="arr"><i data-lucide="arrow-up-right"></i></span>
+          </a>
+          <a class="srow" href="https://www.kaggle.com/aasimahmed" target="_blank" rel="noopener">
+            <i data-lucide="bar-chart-2"></i><span class="font-mono text-[11px] tracking-[0.18em]">KAGGLE</span>
+            <span class="arr"><i data-lucide="arrow-up-right"></i></span>
+          </a>
+          <button class="srow w-full text-left" type="button" data-toast="Résumé — drop the PDF link here in production.">
+            <i data-lucide="file-text"></i><span class="font-mono text-[11px] tracking-[0.18em]">RÉSUMÉ</span>
+            <span class="arr"><i data-lucide="arrow-up-right"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="border-t border-line">
+  <div class="max-w-[1160px] mx-auto px-6 py-8 flex flex-col md:flex-row gap-4 md:items-center justify-between font-mono text-[10px] tracking-[0.2em] text-muted">
+    <span>© 2025 AASIM AHMED</span>
+    <span class="hidden md:inline">WORLD RENDERED CLIENT-SIDE · 0 TEMPLATES HARMED</span>
+    <a href="#spawn" class="text-grass hover:text-ink transition-colors flex items-center gap-2">BACK TO SPAWN <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i></a>
+  </div>
+</footer>
+
+<div id="toasts" aria-live="polite"></div>
+
+<!-- ============ libraries (CDN) ============ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/motion@10.18.0/dist/motion.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+
+<script>
+(function(){
+'use strict';
+
+/* ================= helpers & flags ================= */
+var $=function(s,c){return (c||document).querySelector(s)};
+var $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var FINE=matchMedia('(hover: hover) and (pointer: fine)').matches;
+var hasG=!!(window.gsap&&window.ScrollTrigger);
+var M=window.Motion||null;
+if(hasG) gsap.registerPlugin(ScrollTrigger);
+var ANIM=hasG&&!RM;
+
+/* Motion for micro-interactions (gsap-free springy pops); degrades silently */
+function micro(el,kf,op){
+  if(M&&M.animate){
+    try{
+      var opts={duration:.45};
+      opts.easing=(M.spring)?M.spring({stiffness:320,damping:24}):'cubic-bezier(.22,1,.36,1)';
+      if(op) for(var k in op) opts[k]=op[k];
+      return M.animate(el,kf,opts);
+    }catch(e){}
+  }
+  return null;
+}
+
+/* icons */
+if(window.lucide) lucide.createIcons();
+
+/* ================= toast ================= */
+var toastBox=$('#toasts');
+function toast(msg){
+  if(!toastBox) return;
+  var t=document.createElement('div');
+  t.className='toast';
+  t.innerHTML='<svg class="tk" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>'+msg+'</span>';
+  toastBox.appendChild(t);
+  var done=false;
+  var kill=function(){ if(done||!t.parentNode) return; done=true; t.classList.add('bye'); setTimeout(function(){t.remove()},320); };
+  t.addEventListener('click',kill);
+  setTimeout(kill,3000);
+}
+
+/* ================= clipboard ================= */
+function legacyCopy(txt){
+  var ta=document.createElement('textarea'); ta.value=txt;
+  ta.style.cssText='position:fixed;opacity:0';
+  document.body.appendChild(ta); ta.select();
+  var ok=false; try{ ok=document.execCommand('copy'); }catch(e){}
+  ta.remove(); return ok;
+}
+function copyText(txt){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    return navigator.clipboard.writeText(txt).then(function(){return true}).catch(function(){return legacyCopy(txt)});
+  }
+  return Promise.resolve(legacyCopy(txt));
+}
+var EMAIL='hello@aasimahmed.dev';
+function wireCopy(btn){
+  if(!btn) return;
+  btn.addEventListener('click',function(){
+    copyText(EMAIL).then(function(ok){
+      toast(ok? EMAIL+' — copied to clipboard' : 'Copy blocked — select it manually');
+      var ic=$('#ic-copy'),ck=$('#ic-check');
+      if(btn.id==='mail'&&ic&&ck&&ok){
+        ic.classList.add('hidden'); ck.classList.remove('hidden');
+        setTimeout(function(){ ic.classList.remove('hidden'); ck.classList.add('hidden'); },1500);
+      }
+    });
+  });
+}
+wireCopy($('#mail'));
+wireCopy($('#mail-mini'));
+
+/* ================= custom cursor + HUD ================= */
+var CUR={dom:false,three:false};
+function syncHover(){ document.documentElement.classList.toggle('ch-hover',CUR.dom||CUR.three); }
+var cursorEl=$('#cursor'), hud={fps:$('#fps'),coords:$('#coords'),biome:$('#biome'),clock:$('#clock')};
+var tx=innerWidth/2, ty=innerHeight/2, ccx=tx, ccy=ty, mnx=0, mny=0, curShown=false;
+
+window.addEventListener('mousemove',function(e){
+  tx=e.clientX; ty=e.clientY;
+  mnx=(e.clientX/innerWidth)*2-1; mny=(e.clientY/innerHeight)*2-1;
+  var t=e.target;
+  CUR.dom=!!(t&&t.closest&&t.closest('a,button,[role="tab"]'));
+  syncHover();
+  if(FINE&&!curShown){ curShown=true; cursorEl.style.opacity=1; ccx=tx; ccy=ty; }
+});
+document.addEventListener('mouseleave',function(){ if(cursorEl) cursorEl.style.opacity=0; curShown=false; });
+document.addEventListener('mouseenter',function(){ if(cursorEl&&curShown) cursorEl.style.opacity=1; });
+
+var frames=0, fpsLast=performance.now();
+function uiLoop(now){
+  requestAnimationFrame(uiLoop);
+  if(FINE&&cursorEl){
+    ccx+=(tx-ccx)*.25; ccy+=(ty-ccy)*.25;
+    cursorEl.style.transform='translate('+ccx+'px,'+ccy+'px)';
+  }
+  frames++;
+  if(now-fpsLast>500){
+    if(hud.fps) hud.fps.textContent=Math.round(frames*1000/(now-fpsLast));
+    frames=0; fpsLast=now;
+  }
+  if(hud.coords){
+    var y=64+Math.round(-mny*2+Math.sin(window.scrollY*.002)*2);
+    hud.coords.textContent=(12+Math.round(mnx*26))+' / '+y+' / '+(-Math.round(window.scrollY*.37));
+  }
+}
+requestAnimationFrame(uiLoop);
+
+function tickClock(){
+  if(!hud.clock) return;
+  try{ hud.clock.textContent=new Date().toLocaleTimeString('en-GB',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit'}); }
+  catch(e){ hud.clock.textContent=''; }
+}
+tickClock(); setInterval(tickClock,30000);
+
+/* ================= hotbar nav + biome tracking ================= */
+var BIOMES={spawn:'minecraft:plains',overworld:'minecraft:cherry_groove',hotbar:'minecraft:deep_dark',builds:'minecraft:taiga',quests:'minecraft:badlands',portal:'minecraft:the_end'};
+var slotBtns={};
+ $$('#dock .slotbtn').forEach(function(b){
+  slotBtns[b.dataset.target]=b;
+  b.addEventListener('click',function(){
+    var t=document.getElementById(b.dataset.target);
+    if(t) t.scrollIntoView({behavior:RM?'auto':'smooth'});
+    micro(b,{scale:[1,.85,1.12,1]},{duration:.5});
+  });
+});
+function setActive(id){
+  Object.keys(slotBtns).forEach(function(k){ slotBtns[k].classList.toggle('on',k===id); });
+  if(hud.biome&&BIOMES[id]&&hud.biome.textContent!==BIOMES[id]){
+    hud.biome.textContent=BIOMES[id];
+    micro(hud.biome,{opacity:[0,1]},{duration:.5});
+  }
+}
+var secIO=new IntersectionObserver(function(es){
+  es.forEach(function(en){ if(en.isIntersecting) setActive(en.target.id); });
+},{rootMargin:'-40% 0px -55% 0px'});
+['spawn','overworld','hotbar','builds','quests','portal'].forEach(function(id){
+  var el=document.getElementById(id); if(el) secIO.observe(el);
+});
+setActive('spawn');
+
+/* ================= magnetic buttons ================= */
+if(FINE&&hasG&&!RM){
+  $$('.magnetic').forEach(function(el){
+    var xTo=gsap.quickTo(el,'x',{duration:.4,ease:'power3'});
+    var yTo=gsap.quickTo(el,'y',{duration:.4,ease:'power3'});
+    el.addEventListener('mousemove',function(e){
+      var r=el.getBoundingClientRect();
+      xTo((e.clientX-r.left-r.width/2)*.28);
+      yTo((e.clientY-r.top-r.height/2)*.34);
+    });
+    el.addEventListener('mouseleave',function(){ gsap.to(el,{x:0,y:0,duration:.7,ease:'elastic.out(1,.45)'}); });
+  });
+}
+
+/* ================= THREE.JS — floating voxel island ================= */
+var api3=null;
+function init3D(){
+  if(!window.THREE) return null;
+  var canvas=$('#gl'), hero=$('#spawn');
+  if(!canvas||!hero) return null;
+  try{
+    var renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+    renderer.setClearColor(0x000000,0);
+    var scene=new THREE.Scene();
+    scene.fog=new THREE.Fog(0x0b0e08,18,46);
+    var camera=new THREE.PerspectiveCamera(34,1,.1,120);
+
+    scene.add(new THREE.AmbientLight(0xAEB9A0,.6));
+    var key=new THREE.DirectionalLight(0xFFE9C4,.95); key.position.set(6,10,4); scene.add(key);
+    var rim=new THREE.DirectionalLight(0x9EC26A,.35); rim.position.set(-8,4,-6); scene.add(rim);
+
+    var world=new THREE.Group(); scene.add(world);   /* rotates with drag */
+    var fx=new THREE.Group();    scene.add(fx);      /* clouds / orbiters, ignore drag */
+    var torch=new THREE.PointLight(0xFFB85C,1.1,9,2); world.add(torch);
+
+    /* seeded rng (deterministic island) */
+    var _s=20241207;
+    function rng(){ _s^=_s<<13; _s^=_s>>>17; _s^=_s<<5; _s>>>=0; return _s/4294967296; }
+    function noise(x,z){ return Math.sin(x*.85+1.7)*Math.cos(z*.72-.6)+Math.sin((x+z)*.42)*.7+Math.sin(x*.3)*Math.cos(z*.26)*1.2; }
+
+    /* ---- island: heightmap columns, grass/dirt/stone, floating underside ---- */
+    var N=11, R=5.4, cols=[], tops={};
+    for(var x=-5;x<=5;x++) for(var z=-5;z<=5;z++){
+      var d=Math.hypot(x,z);
+      if(d>R-Math.abs(noise(x,z))*1.3) continue;
+      var top=Math.max(1,Math.min(5,Math.round(2.1+noise(x*1.1,z*1.1)*1.35)));
+      var depth=Math.max(1,Math.round((R-d)*.75+Math.abs(noise(z,x))*.6));
+      tops[x+','+z]=top;
+      for(var y=top;y>top-depth;y--){
+        var t=(y===top)?'grass':((y===top-1)?'dirt':'stone');
+        cols.push({x:x,y:y,z:z,t:t});
+      }
+    }
+    function spot(cands,used){
+      for(var i=0;i<cands.length;i++){ var c=cands[i]; if(tops[c[0]+','+c[1]]!=null&&used.indexOf(c[0]+','+c[1])<0) return c; }
+      return [0,0];
+    }
+    /* tree */
+    var gp=spot([[3,-2],[2,-2],[-3,-2],[3,2]],[]);   /* glowstone spot */
+    var tp=spot([[-2,2],[2,2],[-2,-2],[1,-2]],[]);
+    var ty0=tops[tp[0]+','+tp[1]];
+    for(var k=1;k<=2;k++) cols.push({x:tp[0],y:ty0+k,z:tp[1],t:'wood'});
+    for(var dx=-1;dx<=1;dx++) for(var dz=-1;dz<=1;dz++) cols.push({x:tp[0]+dx,y:ty0+3,z:tp[1]+dz,t:'leaf'});
+    [[0,0],[1,0],[-1,0],[0,1],[0,-1]].forEach(function(o){ cols.push({x:tp[0]+o[0],y:ty0+4,z:tp[1]+o[1],t:'leaf'}); });
+
+    var PAL={grass:0x77A83E,dirt:0x7A5636,stone:0x767D70,wood:0x6B4A2C,leaf:0x4E8A35};
+    var geo=new THREE.BoxGeometry(.96,.96,.96);
+    var inst=new THREE.InstancedMesh(geo,new THREE.MeshLambertMaterial({color:0xffffff}),cols.length);
+    inst.frustumCulled=false;
+    var dummy=new THREE.Object3D(), col=new THREE.Color();
+    for(var i=0;i<cols.length;i++){
+      dummy.position.set(cols[i].x,cols[i].y,cols[i].z);
+      dummy.scale.setScalar(1); dummy.updateMatrix();
+      inst.setMatrixAt(i,dummy.matrix);
+      col.setHex(PAL[cols[i].t]).multiplyScalar(.86+rng()*.26);
+      inst.setColorAt(i,col);
+    }
+    if(inst.instanceColor) inst.instanceColor.needsUpdate=true;
+    world.add(inst);
+
+    /* glowstone blocks (torchlight) */
+    var glowGeo=new THREE.BoxGeometry(.98,.98,.98), glows=[];
+    function glow(x,y,z){
+      var m=new THREE.Mesh(glowGeo,new THREE.MeshBasicMaterial({color:0xE8A33D}));
+      m.position.set(x,y,z); world.add(m); glows.push(m); return m;
+    }
+    var gy=tops[gp[0]+','+gp[1]];
+    var g1=glow(gp[0],gy+1,gp[1]);
+    glow(tp[0]+1,ty0+1,tp[1]); /* a second lantern near the tree */
+    torch.position.copy(g1.position).add(new THREE.Vector3(0,.9,0));
+
+    /* drifting clouds */
+    var cloudMat=new THREE.MeshBasicMaterial({color:0xDDE3D3,transparent:true,opacity:.38});
+    var clouds=[];
+    function cloud(x,y,z){
+      var g=new THREE.Group();
+      [[0,0,0,2.2,.7,1.6],[1.6,.2,.4,1.4,.6,1.2],[-1.4,.1,-.5,1.2,.55,1.1]].forEach(function(c){
+        var m=new THREE.Mesh(new THREE.BoxGeometry(c[3],c[4],c[5]),cloudMat);
+        m.position.set(c[0],c[1],c[2]); g.add(m);
+      });
+      g.position.set(x,y,z); g.userData.sp=.12+rng()*.12; fx.add(g); clouds.push(g);
+    }
+    cloud(-7,9,-5); cloud(6,10.5,-7); cloud(-1,11.5,6); cloud(8,8.5,4);
+
+    /* tiny orbiting satellites */
+    var orbiters=[];
+    for(var j=0;j<7;j++){
+      var cc=(j%3===0)?0xE5A13D:((j%3===1)?0xA3D34A:0xE7E4D3);
+      var m=new THREE.Mesh(new THREE.BoxGeometry(.2,.2,.2),new THREE.MeshBasicMaterial({color:cc}));
+      fx.add(m);
+      orbiters.push({m:m,r:6.5+rng()*3.5,a:rng()*Math.PI*2,s:.18+rng()*.22,y:.5+rng()*4});
+    }
+
+    /* click-burst particles */
+    var parts=[];
+    var pgeo=new THREE.BoxGeometry(.16,.16,.16);
+    for(var p=0;p<26;p++){
+      var pm=new THREE.Mesh(pgeo,new THREE.MeshBasicMaterial({color:0xffffff,transparent:true}));
+      pm.visible=false; world.add(pm);
+      parts.push({m:pm,vel:new THREE.Vector3(),life:0,max:1});
+    }
+    function burst(x,y,z,hex){
+      var n=0;
+      for(var q=0;q<parts.length;q++){
+        var pt=parts[q]; if(pt.life>0) continue;
+        pt.life=.65+rng()*.25; pt.max=pt.life;
+        pt.m.visible=true; pt.m.position.set(x,y+.3,z);
+        pt.m.material.color.setHex(hex); pt.m.material.opacity=1;
+        pt.vel.set((rng()-.5)*4,2.5+rng()*2.5,(rng()-.5)*4);
+        if(++n>=5) break;
+      }
+    }
+
+    /* ---- interaction state ---- */
+    var rotY=-1.9, rotVel=0, rotX=0, rotXT=0, dragging=false, lastX=0, lastY=0, moved=0;
+    var mouseN=new THREE.Vector2(0,0), px=0, py=0;
+    var hoverId=-1, hoverGlow=null, mined=0, minedToast=false;
+    var pops={}, activeIds=new Set(), curScale=new Float32Array(cols.length).fill(1);
+    var ray=new THREE.Raycaster(), rayTargets=[inst].concat(glows);
+    var scrollP=0, boost=(window.gsap&&!RM)?1.15:0, introS=(window.gsap&&!RM)?.001:1;
+    var introSt={v:introS}, boostSt={v:boost};
+    var baseX=4.6, baseY=0, baseScale=.72, lookY=1, shown=.001;
+    var camPos=new THREE.Vector3(7,6.5,14);
+
+    function setM(i,s,lift){
+      dummy.position.set(cols[i].x,cols[i].y+(lift||0),cols[i].z);
+      dummy.scale.setScalar(s); dummy.updateMatrix();
+      inst.setMatrixAt(i,dummy.matrix);
+    }
+    function onMined(){
+      var el=$('#mined'); if(el){ el.textContent=mined; micro(el,{scale:[1,1.6,1]},{duration:.5}); }
+      if(!minedToast){ minedToast=true; toast('ACHIEVEMENT — first block mined'); }
+    }
+    function popAt(cx,cy){
+      var r=canvas.getBoundingClientRect();
+      var nx=((cx-r.left)/r.width)*2-1, ny=-(((cy-r.top)/r.height)*2-1);
+      ray.setFromCamera({x:nx,y:ny},camera);
+      var hits=ray.intersectObjects(rayTargets,false);
+      if(!hits.length) return;
+      var h=hits[0];
+      if(h.object===inst&&h.instanceId!=null){
+        pops[h.instanceId]=performance.now(); activeIds.add(h.instanceId);
+        burst(cols[h.instanceId].x,cols[h.instanceId].y,cols[h.instanceId].z,PAL[cols[h.instanceId].t]);
+      }else{
+        h.object.userData.pop=performance.now();
+        burst(h.object.position.x,h.object.position.y,h.object.position.z,0xE8A33D);
+      }
+      mined++; onMined();
+    }
+
+    hero.addEventListener('pointermove',function(e){
+      var r=hero.getBoundingClientRect();
+      mouseN.x=((e.clientX-r.left)/r.width)*2-1;
+      mouseN.y=-(((e.clientY-r.top)/r.height)*2-1);
+      px=mouseN.x; py=mouseN.y;
+    });
+    hero.addEventListener('pointerdown',function(e){
+      if(e.target&&e.target.closest&&e.target.closest('a,button,input,textarea,select')) return;
+      dragging=true; moved=0; lastX=e.clientX; lastY=e.clientY;
+    });
+    window.addEventListener('pointermove',function(e){
+      if(!dragging) return;
+      var dx=e.clientX-lastX, dy=e.clientY-lastY;
+      moved+=Math.abs(dx)+Math.abs(dy);
+      rotVel=dx*.0048; rotY+=rotVel;
+      rotXT=Math.max(-.22,Math.min(.5,rotXT+dy*.0024));
+      lastX=e.clientX; lastY=e.clientY;
+    });
+    window.addEventListener('pointerup',function(e){
+      if(!dragging) return;
+      dragging=false;
+      if(moved<8) popAt(e.clientX,e.clientY);
+    });
+    window.addEventListener('pointercancel',function(){ dragging=false; });
+
+    /* layout / resize */
+    function layout(){
+      var w=hero.clientWidth, h=hero.clientHeight;
+      if(!w||!h) return;
+      renderer.setSize(w,h,false);
+      camera.aspect=w/h; camera.updateProjectionMatrix();
+      var mob=w<820;
+      baseX=mob?0:4.6; baseY=mob?-2.2:0; baseScale=mob?.55:.72; lookY=mob?-.8:1;
+      camPos.set(mob?5.5:7, mob?5:6.5, mob?16.5:14);
+    }
+    layout();
+    window.addEventListener('resize',layout);
+    if(window.ResizeObserver) new ResizeObserver(layout).observe(hero);
+
+    /* pause when offscreen */
+    var visible=true;
+    new IntersectionObserver(function(en){ visible=en[0].isIntersecting; }).observe(canvas);
+
+    /* render loop */
+    var last=performance.now();
+    function frame(){
+      requestAnimationFrame(frame);
+      var now=performance.now();
+      var dt=Math.min((now-last)/1000,.05); last=now;
+      if(!visible||document.hidden) return;
+      var t=now/1000;
+
+      if(!dragging){ rotY+=(.14+boost)*dt+rotVel; rotVel*=Math.exp(-dt*3); }
+      world.rotation.y=rotY;
+      rotX+=(rotXT-rotX)*Math.min(1,dt*6); world.rotation.x=rotX;
+
+      var target=baseScale*introS*(1-scrollP*.3);
+      shown+=(target-shown)*.1; if(shown<.002&&target<.002) shown=.002;
+      world.scale.setScalar(shown);
+      world.position.set(baseX, baseY+Math.sin(t*.7)*.18-scrollP*2.4, 0);
+
+      torch.intensity=1.05+Math.sin(t*9.3)*.08+Math.sin(t*23.7)*.05;
+
+      clouds.forEach(function(c){ c.position.x+=c.userData.sp*dt; if(c.position.x>10) c.position.x=-10; });
+      orbiters.forEach(function(o){
+        o.a+=o.s*dt;
+        o.m.position.set(baseX+Math.cos(o.a)*o.r, o.y+Math.sin(o.a*2)*.5, Math.sin(o.a)*o.r);
+        o.m.rotation.x+=dt; o.m.rotation.y+=dt*.7;
+      });
+
+      /* hover raycast (desktop) */
+      if(FINE&&!dragging){
+        ray.setFromCamera(mouseN,camera);
+        var hits=ray.intersectObjects(rayTargets,false);
+        var hit=hits[0]||null;
+        var nh=(hit&&hit.object===inst&&hit.instanceId!=null)?hit.instanceId:-1;
+        if(nh!==hoverId){ if(hoverId>=0) activeIds.add(hoverId); if(nh>=0) activeIds.add(nh); hoverId=nh; }
+        hoverGlow=(hit&&hit.object!==inst)?hit.object:null;
+        CUR.three=!!hit; syncHover();
+      }
+
+      /* block pops + hover scale */
+      var dirty=false, id;
+      for(id in pops){
+        var pr=(now-pops[id])/450;
+        if(pr>=1){ delete pops[id]; setM(+id,curScale[+id],0); dirty=true; }
+        else{ var s=1+Math.sin(pr*Math.PI)*.85; setM(+id,s,Math.sin(pr*Math.PI)*.5); dirty=true; }
+      }
+      activeIds.forEach(function(aid){
+        if(pops[aid]!=null) return;
+        var tg=(aid===hoverId)?1.12:1;
+        curScale[aid]+=(tg-curScale[aid])*.22;
+        setM(aid,curScale[aid],0); dirty=true;
+        if(Math.abs(curScale[aid]-tg)<.005){ curScale[aid]=tg; if(tg===1&&pops[aid]==null) activeIds.delete(aid); }
+      });
+      glows.forEach(function(g){
+        var s=1;
+        if(g.userData.pop!=null){
+          var gp2=(now-g.userData.pop)/450;
+          if(gp2>=1) g.userData.pop=null; else s=1+Math.sin(gp2*Math.PI)*.5;
+        }else{
+          g.userData.hs=g.userData.hs||1;
+          var gt=(hoverGlow===g)?1.15:1;
+          g.userData.hs+=(gt-g.userData.hs)*.25; s=g.userData.hs;
+        }
+        g.scale.setScalar(s);
+      });
+      if(dirty) inst.instanceMatrix.needsUpdate=true;
+
+      /* particles */
+      parts.forEach(function(pt){
+        if(pt.life<=0) return;
+        pt.life-=dt;
+        if(pt.life<=0){ pt.m.visible=false; return; }
+        pt.vel.y-=8*dt;
+        pt.m.position.addScaledVector(pt.vel,dt);
+        pt.m.material.opacity=Math.min(1,pt.life/pt.max*1.4);
+        pt.m.rotation.x+=dt*6; pt.m.rotation.z+=dt*5;
+      });
+
+      camera.position.set(camPos.x+px*.6, camPos.y-py*.45, camPos.z);
+      camera.lookAt(0,lookY,0);
+      renderer.render(scene,camera);
+    }
+    requestAnimationFrame(frame);
+
+    return {
+      intro:function(){
+        if(window.gsap&&!RM){
+          gsap.to(introSt,{v:1,duration:1.7,ease:'power3.out',onUpdate:function(){introS=introSt.v}});
+          gsap.to(boostSt,{v:0,duration:2.6,ease:'power2.out',onUpdate:function(){boost=boostSt.v}});
+        }else{ introS=1; boost=0; }
+      },
+      setScroll:function(p){ scrollP=p; }
+    };
+  }catch(e){ return null; }
+}
+api3=init3D();
+
+/* ================= typewriter (hero role) ================= */
+var twEl=$('#tw'), twStarted=false;
+var ROLES=['FULL-STACK DEVELOPER','AI / ML ENGINEER','AUTOMATION ARCHITECT','OCCASIONAL COMPILER AUTHOR'];
+function startTypewriter(){
+  if(twStarted||!twEl) return; twStarted=true;
+  if(RM){ twEl.textContent=ROLES[0]; return; }
+  var ri=0;
+  (function type(){
+    var s=ROLES[ri], i=0;
+    (function st(){ twEl.textContent=s.slice(0,++i); if(i<s.length) setTimeout(st,34+Math.random()*46); else setTimeout(erase,1900); })();
+  })();
+  function erase(){
+    var s=twEl.textContent, i=s.length;
+    (function st(){ twEl.textContent=s.slice(0,--i); if(i>0) setTimeout(st,16); else{ ri=(ri+1)%ROLES.length; setTimeout(type,260); } })();
+  }
+}
+
+/* ================= word splitter ================= */
+function splitWords(el){
+  var words=el.textContent.trim().split(/\s+/);
+  el.textContent='';
+  words.forEach(function(w,i){
+    var mask=document.createElement('span'); mask.className='wmw';
+    var inner=document.createElement('span'); inner.textContent=w;
+    mask.appendChild(inner); el.appendChild(mask);
+    if(i<words.length-1) el.appendChild(document.createTextNode(' '));
+  });
+  return $$('.wmw>span',el);
+}
+
+/* ================= skills inventory ================= */
+var SKILLS={
+  frontend:{note:'surface layer',items:[
+    ['React',95,'atom','4 yrs · 12+ production apps · lately server components'],
+    ['Next.js',92,'layers','App Router, ISR, edge middleware — the whole toolkit'],
+    ['TypeScript',91,'braces','strict on · any is a bug, not a shortcut'],
+    ['Tailwind CSS',88,'wind','design systems without stylesheet archaeology'],
+    ['GSAP + Motion',84,'wand','scroll choreography — this page runs both'],
+    ['Three.js / WebGL',78,'box','at home below the DOM · the island? hand-rolled'],
+    ['Zustand / Redux',85,'boxes','state that survives a refactor'],
+    ['Vite',80,'gauge','sub-second HMR or it does not ship'],
+    ['HTML / CSS',97,'code','before frameworks, after frameworks, always']
+  ]},
+  backend:{note:'the mines',items:[
+    ['Node.js',92,'server','4 yrs · APIs, workers, CLIs, the odd daemon'],
+    ['Express / Fastify',88,'plug','validation at the borders, trust nowhere else'],
+    ['PostgreSQL',86,'database','EXPLAIN plans · window functions · regret-free migrations'],
+    ['MongoDB',80,'leaf','used where it fits, avoided where it does not'],
+    ['REST / GraphQL',87,'network','contracts people can actually code against'],
+    ['Redis',75,'hard-drive','caching, queues, rate-limits — the three good uses'],
+    ['Prisma',83,'triangle','typed data access, migrations on rails'],
+    ['Python',89,'terminal','5 yrs · the glue between everything else'],
+    ['WebSockets',74,'radio','real-time without the polling guilt']
+  ]},
+  aiml:{note:'enchantments',items:[
+    ['PyTorch',84,'flame','training loops, fine-tunes, NaN debugging at 2 a.m.'],
+    ['scikit-learn',88,'binary','baselines first — embarrassingly hard to beat'],
+    ['Hugging Face',82,'brain','fine-tuned transformers for classify + retrieval'],
+    ['RAG / LangChain',81,'link','3 systems in prod · evals before vibes'],
+    ['pandas / NumPy',90,'table','data munging as a core survival skill'],
+    ['OpenCV',76,'eye','image pipelines and real-world camera quirks'],
+    ['ONNX / TFLite',72,'cpu','models small enough for $120 phones'],
+    ['pgvector / FAISS',79,'crosshair','embeddings with somewhere to live'],
+    ['Jupyter',85,'book-open','where hypotheses go to die (or fly)']
+  ]},
+  systems:{note:'the deep dark',items:[
+    ['Rust',70,'cog','the toy compiler · borrow-checker therapy'],
+    ['Go',68,'rocket','services and CLIs · reads the runtime for fun'],
+    ['C++',64,'cpu','enough to be dangerous, humble, and careful'],
+    ['WASM',66,'package','shipping Rust to the browser since river-lang'],
+    ['Linux / shell',86,'terminal','daily driver · the terminal is home biome'],
+    ['Git',93,'git-branch','bisect, rebase, blame — forensically'],
+    ['Docker',80,'container','dev-prod parity instead of dev-prod folklore'],
+    ['Networking',62,'network','TCP, DNS, TLS — enough to debug prod at 3 a.m.'],
+    ['CMake / Make',58,'wrench','only when the compiler demands tribute']
+  ]},
+  tooling:{note:'crafting table',items:[
+    ['Zoho / Deluge',94,'workflow','200+ workflows live across client orgs'],
+    ['n8n / Zapier',85,'git-fork','glue for where Deluge meets its ceiling'],
+    ['Figma',72,'pen-tool','enough to argue about spacing with receipts'],
+    ['GitHub Actions',78,'infinity','CI that fails fast and means it'],
+    ['Vercel / AWS',74,'cloud','previews, deploys, the occasional IAM puzzle'],
+    ['Postman',86,'activity','collections as living API docs'],
+    ['Vitest / Jest',81,'flask-conical','tests written by someone who got burned'],
+    ['Grafana',70,'line-chart','graphs that answer the real question: was it us?'],
+    ['Tech writing',77,'scroll','docs people actually read, allegedly']
+  ]}
+};
+function ench(l){ return l>=90?'EFFICIENCY V':l>=83?'EFFICIENCY IV':l>=76?'EFFICIENCY III':l>=68?'EFFICIENCY II':'EFFICIENCY I'; }
+
+var slotsEl=$('#slots'), noteEl=$('#inv-note'), tip=$('#tip'), currentKey='frontend', pinned=null, tipToken=0;
+function showTip(btn){
+  if(!tip) return;
+  var it=SKILLS[currentKey].items[+btn.dataset.i];
+  $('#tp-name').textContent=it[0];
+  $('#tp-lvl').textContent=it[1]+' / 100';
+  $('#tp-bar').style.width=it[1]+'%';
+  $('#tp-lore').textContent=it[3];
+  $('#tp-ench').textContent='ENCH · '+ench(it[1]);
+  tipToken++;
+  tip.style.display='block';
+  var r=btn.getBoundingClientRect(), w=tip.offsetWidth||250, h=tip.offsetHeight||160;
+  var x=Math.min(Math.max(8,r.left+r.width/2-w/2),innerWidth-w-8);
+  var y=r.top-h-14; if(y<64) y=r.bottom+14;
+  tip.style.left=x+'px'; tip.style.top=y+'px';
+  micro(tip,{opacity:[0,1],y:[10,0]},{duration:.4});
+}
+function hideTip(){
+  if(!tip) return;
+  var tk=++tipToken;
+  micro(tip,{opacity:[1,0],y:[0,6]},{duration:.22});
+  setTimeout(function(){ if(tipToken===tk) tip.style.display='none'; },240);
+  if(!M) tip.style.display='none';
+}
+function bindSlot(btn){
+  btn.addEventListener('mouseenter',function(){ showTip(btn); });
+  btn.addEventListener('focus',function(){ showTip(btn); });
+  btn.addEventListener('mouseleave',function(){ if(pinned!==btn) hideTip(); });
+  btn.addEventListener('blur',hideTip);
+  btn.addEventListener('click',function(e){
+    e.stopPropagation();
+    if(pinned===btn){ pinned=null; hideTip(); }
+    else{ pinned=btn; showTip(btn); }
+  });
+}
+function renderTab(key){
+  var cat=SKILLS[key];
+  if(noteEl) noteEl.textContent=cat.note;
+  slotsEl.innerHTML=cat.items.map(function(it,i){
+    return '<button class="inv-slot" type="button" data-i="'+i+'" aria-label="'+it[0]+', level '+it[1]+'">'+
+           '<i data-lucide="'+it[2]+'"></i><span class="cnt">'+it[1]+'</span></button>';
+  }).join('');
+  if(window.lucide) lucide.createIcons();
+  if(ANIM) gsap.from('#slots .inv-slot',{y:14,opacity:0,scale:.92,stagger:.035,duration:.45,ease:'back.out(1.7)'});
+  $$('.inv-slot',slotsEl).forEach(bindSlot);
+  hideTip();
+}
+ $$('.tab').forEach(function(t){
+  t.addEventListener('click',function(){
+    var k=t.dataset.tab;
+    if(k===currentKey) return;
+    currentKey=k; pinned=null;
+    $$('.tab').forEach(function(x){
+      x.classList.toggle('on',x===t);
+      x.setAttribute('aria-selected',x===t?'true':'false');
+    });
+    renderTab(k);
+  });
+});
+if(slotsEl) renderTab('frontend');
+document.addEventListener('click',function(e){
+  if(pinned&&!(e.target.closest&&e.target.closest('.inv-slot'))){ pinned=null; hideTip(); }
+});
+
+/* ================= projects: accordion + floating preview ================= */
+function setBody(p,open){
+  var body=$('.proj-body',p);
+  if(!hasG||RM){ body.style.height=open?'auto':'0px'; return; }
+  gsap.to(body,{height:open?'auto':0,duration:.65,ease:'power3.inOut'});
+}
+ $$('.proj').forEach(function(p){
+  var head=$('.proj-head',p);
+  head.addEventListener('click',function(){
+    var open=p.classList.toggle('open');
+    head.setAttribute('aria-expanded',open?'true':'false');
+    $$('.proj.open').forEach(function(o){
+      if(o!==p){ o.classList.remove('open'); $('.proj-head',o).setAttribute('aria-expanded','false'); setBody(o,false); }
+    });
+    setBody(p,open);
+    if(open) hidePreview();
+  });
+});
+function hidePreview(){ if(window.gsap&&pv) gsap.to(pv,{autoAlpha:0,scale:.94,duration:.2}); }
+var pv=$('#preview');
+if(pv&&FINE&&hasG&&!RM){
+  var pvImg=$('#pv-img'), pvName=$('#pv-name'), pvMeta=$('#pv-meta'), pvOn=false, lastPX=0;
+  var qx=gsap.quickTo(pv,'x',{duration:.4,ease:'power3'});
+  var qy=gsap.quickTo(pv,'y',{duration:.4,ease:'power3'});
+  var qr=gsap.quickTo(pv,'rotation',{duration:.35,ease:'power2'});
+  gsap.set(pv,{autoAlpha:0,scale:.94});
+  $$('.proj').forEach(function(p){
+    p.addEventListener('mouseenter',function(){
+      if(p.classList.contains('open')) return;
+      pvImg.src='https://picsum.photos/seed/'+p.dataset.seed+'/520/330.jpg';
+      pvName.textContent=p.dataset.name; pvMeta.textContent=p.dataset.year;
+      pvOn=true;
+      gsap.to(pv,{autoAlpha:1,scale:1,duration:.35,ease:'power3.out'});
+    });
+    p.addEventListener('mouseleave',function(){
+      pvOn=false;
+      gsap.to(pv,{autoAlpha:0,scale:.94,duration:.3,ease:'power2.in'});
+    });
+  });
+  window.addEventListener('mousemove',function(e){
+    if(!pvOn){ lastPX=e.clientX; return; }
+    qx(Math.min(e.clientX+30,innerWidth-320));
+    qy(Math.max(12,e.clientY-215));
+    qr(Math.max(-9,Math.min(9,(e.clientX-lastPX)*.4)));
+    lastPX=e.clientX;
+  });
+}
+ $$('.plink').forEach(function(b){
+  b.addEventListener('click',function(){
+    toast('Prototype build — wire this to the real '+(b.dataset.kind||'link')+'.');
+  });
+});
+ $$('[data-toast]').forEach(function(b){
+  b.addEventListener('click',function(e){ e.preventDefault(); toast(b.dataset.toast); });
+});
+
+/* ================= end-portal twinkle grid ================= */
+var pg=$('#portal-grid');
+if(pg){
+  var h='';
+  for(var ci=0;ci<140;ci++){
+    var em=Math.random()<.08;
+    h+='<span class="pcell'+(em?' em':'')+'" style="--d:'+(2.2+Math.random()*3).toFixed(2)+'s;--dl:'+(Math.random()*3).toFixed(2)+'s"></span>';
+  }
+  pg.innerHTML=h;
+}
+
+/* ================= scroll animation (GSAP + ScrollTrigger) ================= */
+if(ANIM){
+  $$('[data-split]').filter(function(el){ return !el.closest('#hero-name'); }).forEach(function(el){
+    var inners=splitWords(el);
+    gsap.set(inners,{yPercent:118});
+    gsap.to(inners,{yPercent:0,duration:1.05,ease:'power4.out',stagger:.07,
+      scrollTrigger:{trigger:el,start:'top 88%',once:true}});
+  });
+  $$('[data-reveal]').forEach(function(el){
+    gsap.from(el,{y:28,opacity:0,duration:1,ease:'power3.out',
+      scrollTrigger:{trigger:el,start:'top 90%',once:true}});
+  });
+  $$('[data-rule]').forEach(function(el){
+    gsap.from(el,{scaleX:0,transformOrigin:'0 50%',duration:1.2,ease:'power3.inOut',
+      scrollTrigger:{trigger:el,start:'top 92%',once:true}});
+  });
+  $$('[data-wm]').forEach(function(el){
+    gsap.fromTo(el,{yPercent:36},{yPercent:-30,ease:'none',
+      scrollTrigger:{trigger:el.closest('section')||el,start:'top bottom',end:'bottom top',scrub:1}});
+  });
+  $$('.proj').forEach(function(el){
+    gsap.from(el,{y:44,opacity:0,duration:1,ease:'power3.out',
+      scrollTrigger:{trigger:el,start:'top 92%',once:true}});
+  });
+  /* hero parallax + island fade on scroll */
+  gsap.to('#spawn-inner',{y:-90,ease:'none',
+    scrollTrigger:{trigger:'#spawn',start:'top top',end:'bottom top',scrub:.5}});
+  gsap.to('#gl',{opacity:.18,ease:'none',
+    scrollTrigger:{trigger:'#spawn',start:'top top',end:'bottom top',scrub:.5,
+      onUpdate:function(self){ if(api3) api3.setScroll(self.progress); }}});
+  /* quest timeline scrub */
+  gsap.fromTo('#tl-fill',{height:'0%'},{height:'100%',ease:'none',
+    scrollTrigger:{trigger:'#tl-wrap',start:'top 70%',end:'bottom 60%',scrub:.4}});
+  $$('.quest').forEach(function(q){
+    ScrollTrigger.create({trigger:q,start:'top 64%',
+      onEnter:function(){q.classList.add('lit')},onLeaveBack:function(){q.classList.remove('lit')}});
+  });
+}else{
+  var fl=$('#tl-fill'); if(fl) fl.style.height='100%';
+  $$('.quest').forEach(function(q){ q.classList.add('lit'); });
+}
+
+/* ================= preloader sequence ================= */
+var loader=$('#loader');
+function killLoader(cb){
+  document.documentElement.classList.remove('loading');
+  if(loader&&loader.parentNode) loader.remove();
+  if(cb) cb();
+}
+function heroIntro(){
+  var ti=gsap.timeline({defaults:{ease:'power4.out'}});
+  ti.to('#hero-name .wmw>span',{yPercent:0,duration:1.15,stagger:.1},0)
+    .to('#hero-tag',{y:0,opacity:1,duration:.8},.15)
+    .to('#hero-role',{y:0,opacity:1,duration:.8},.5)
+    .to('#hero-desc',{y:0,opacity:1,duration:.9},.62)
+    .to('#hero-ctas',{y:0,opacity:1,duration:.9},.74)
+    .to('#topbar, #hud',{opacity:1,duration:.8},.8)
+    .to('#dock',{opacity:1,duration:.15},.82)
+    .fromTo('#dock .slotbtn',{y:16,opacity:0},{y:0,opacity:1,stagger:.06,duration:.5,ease:'back.out(1.8)'},.86)
+    .to('#scroll-cue, #drag-hint',{opacity:1,duration:.8},1.05);
+  startTypewriter();
+  if(api3) api3.intro();
+}
+if(ANIM&&loader){
+  /* hide hero pieces behind the loader, then run the "world generation" timeline */
+  gsap.set('#hero-tag,#hero-desc,#hero-ctas,#hero-role',{y:24,opacity:0});
+  gsap.set('#topbar,#hud,#dock,#scroll-cue,#drag-hint',{opacity:0});
+  var heroInners=[];
+  $$('#hero-name [data-split]').forEach(function(el){ heroInners=heroInners.concat(splitWords(el)); });
+  gsap.set(heroInners,{yPercent:118});
+  var bar=$('#lbar');
+  for(var si=0;si<26;si++){ var sg=document.createElement('span'); sg.className='seg'; bar.appendChild(sg); }
+  var tl=gsap.timeline({onComplete:function(){ killLoader(); }});
+  tl.to('[data-ll]',{opacity:1,duration:.06,stagger:.24},.1)
+    .to('#lbar .seg',{backgroundColor:'#A3D34A',duration:.03,stagger:.024},.3)
+    .to({},{duration:.15})
+    .to('#loader',{yPercent:-100,duration:.7,ease:'expo.inOut',onStart:function(){ setTimeout(heroIntro,120); }});
+}else{
+  killLoader(function(){ startTypewriter(); });
+}
+
+})();
+</script>
+<!-- sflws:source-button:start -->
+<style>
+#sflws-source-btn{position:fixed;right:18px;bottom:18px;z-index:2147483000;display:none;
+padding:2px;border-radius:999px;text-decoration:none;line-height:0;
+background:linear-gradient(90deg,#ff4d4d,#ffb347,#ffe66d,#7bed9f,#48dbfb,#a29bfe,#ff4d4d);
+background-size:300% 100%;animation:sflws-rainbow 6s linear infinite;
+box-shadow:0 4px 20px rgba(0,0,0,.32);transition:transform .2s ease}
+#sflws-source-btn:hover{transform:translateY(-2px)}
+#sflws-source-btn>span{display:flex;align-items:center;gap:7px;padding:9px 15px;
+border-radius:999px;background:#0d0d0f;color:#f4f4f5;
+font:600 12px/1 ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+letter-spacing:.02em;white-space:nowrap}
+#sflws-source-btn>span>b{font:inherit;color:#9aa0a6;letter-spacing:0}
+@keyframes sflws-rainbow{to{background-position:300% 0}}
+@media(prefers-reduced-motion:reduce){#sflws-source-btn{animation:none}
+#sflws-source-btn:hover{transform:none}}
+@media(max-width:600px){#sflws-source-btn{right:12px;bottom:12px}
+#sflws-source-btn>span{padding:8px 13px;font-size:11px}}
+</style>
+<a id="sflws-source-btn" href="https://github.com/saawflws/SFLWS___TEMPLATE_WEBSITEs/tree/main/websites/static/developers_portfolio/aasimvoxel" target="_blank" rel="noopener noreferrer"
+ aria-label="View this template&#39;s source code on GitHub">
+<span><b aria-hidden="true">&lt;/&gt;</b>view source</span></a>
+<script>
+(function(){
+var h=location.hostname;
+var ok=h==='sflwsts.aasimahmed.com'||h==='localhost'||h==='127.0.0.1'||h==='[::1]'
+||/\.github\.io$/.test(h);
+var b=document.getElementById('sflws-source-btn');
+if(b&&ok)b.style.display='block';
+})();
+</script>
+<!-- sflws:source-button:end -->
+</body>
+</html>

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aasim Ahmed — Full-Stack Developer &amp; AI/ML Engineer</title>
+<meta name="description" content="Portfolio of Aasim Ahmed — full-stack developer and AI/ML engineer based in India, building web products, AI-driven automation, and the occasional compiler.">
+<meta name="theme-color" content="#0A0E16">
+
+<!-- Tailwind (utilities for layout/spacing only — visual identity lives in the stylesheet below) -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Lucide icons -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<style>
+  :root{
+    --bg: #0A0E16;
+    --bg-2: #0F1420;
+    --bg-3: #141A28;
+    --ink: #ECE7DA;
+    --ink-body: #C7C3B8;
+    --ink-dim: #7D8497;
+    --brass: #C9A227;
+    --brass-soft: #E3C267;
+    --teal: #6FC8BC;
+    --line: rgba(236,231,218,0.09);
+    --line-strong: rgba(236,231,218,0.18);
+    --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+    --font-body: 'Manrope', system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; scroll-padding-top:88px; }
+  body{
+    background:var(--bg);
+    color:var(--ink-body);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--brass); color:var(--bg); }
+
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; }
+  img,svg{ display:block; max-width:100%; }
+
+  h1,h2,h3{ font-family:var(--font-display); color:var(--ink); font-weight:600; letter-spacing:-0.01em; }
+
+  .wrap{ max-width:1180px; margin:0 auto; padding-left:24px; padding-right:24px; }
+  section{ position:relative; padding:120px 0; }
+
+  /* ---------- atmosphere ---------- */
+  #bg-field{ position:fixed; inset:0; width:100vw; height:100vh; z-index:0; pointer-events:none; }
+  .grain{
+    position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.035; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  main, header, footer{ position:relative; z-index:2; }
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(10,14,22,0.7); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{ max-width:1180px; margin:0 auto; padding:18px 24px; display:flex; align-items:center; justify-content:space-between; }
+  .nav-brand{ font-family:var(--font-display); font-weight:600; font-size:1.05rem; color:var(--ink); }
+  .nav-links{ display:flex; align-items:center; gap:36px; }
+  .nav-links a{ font-size:0.95rem; color:var(--ink-body); transition:color 0.25s ease; position:relative; }
+  .nav-links a:not(.nav-cta)::after{
+    content:''; position:absolute; left:0; right:0; bottom:-6px; height:1px; background:var(--brass-soft);
+    transform:scaleX(0); transform-origin:left; transition:transform 0.3s ease;
+  }
+  .nav-links a:not(.nav-cta):hover{ color:var(--ink); }
+  .nav-links a:not(.nav-cta):hover::after{ transform:scaleX(1); }
+  .nav-cta{
+    font-family:var(--font-mono); font-size:0.85rem; color:var(--bg); background:var(--brass);
+    padding:8px 16px; border-radius:999px; transition:background 0.25s ease;
+  }
+  .nav-cta:hover{ background:var(--brass-soft); }
+  .nav-toggle{ display:none; background:none; border:none; color:var(--ink); cursor:pointer; padding:4px; }
+  .nav-toggle .icon-close{ display:none; }
+
+  @media (max-width:820px){
+    .nav-toggle{ display:block; }
+    .nav-links{
+      position:fixed; inset:64px 0 0 0; flex-direction:column; justify-content:center; align-items:flex-start;
+      gap:28px; padding:40px 32px; background:var(--bg); transform:translateY(-12px); opacity:0; pointer-events:none;
+      transition:opacity 0.3s ease, transform 0.3s ease;
+    }
+    .nav-links a{ font-size:1.5rem; }
+    body.nav-open .nav-links{ transform:translateY(0); opacity:1; pointer-events:auto; }
+    body.nav-open .nav-toggle .icon-menu{ display:none; }
+    body.nav-open .nav-toggle .icon-close{ display:block; }
+  }
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; font-family:var(--font-body); font-weight:600;
+    font-size:0.95rem; padding:14px 26px; border-radius:999px; cursor:pointer; will-change:transform;
+  }
+  .btn-primary{ background:var(--brass); color:var(--bg); }
+  .btn-ghost{ background:transparent; color:var(--ink); border:1px solid var(--line-strong); }
+  .btn-ghost:hover{ border-color:var(--brass-soft); }
+  .btn i{ width:16px; height:16px; }
+
+  /* ---------- hero ---------- */
+  .hero{ min-height:100vh; display:flex; align-items:center; padding-top:88px; }
+  .hero-inner{ max-width:1180px; margin:0 auto; padding:0 24px; width:100%; }
+  .hero-kicker{ font-family:var(--font-mono); font-size:0.9rem; color:var(--brass-soft); margin-bottom:28px; }
+  .hero-title{ font-size:clamp(3rem,9vw,7.2rem); line-height:0.94; letter-spacing:-0.02em; }
+  .hero-title .line{ display:block; overflow:hidden; }
+  .hero-role{ font-family:var(--font-display); font-size:clamp(1.2rem,2.4vw,1.6rem); color:var(--ink); margin-top:28px; font-weight:500; }
+  .hero-lede{ max-width:56ch; color:var(--ink-dim); font-size:1.05rem; margin-top:20px; }
+  .hero-actions{ display:flex; gap:16px; margin-top:44px; flex-wrap:wrap; }
+  .scroll-cue{
+    position:absolute; bottom:36px; left:50%; transform:translateX(-50%); font-family:var(--font-mono);
+    font-size:0.75rem; color:var(--ink-dim); display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+  .scroll-cue span{ width:1px; height:34px; background:linear-gradient(var(--brass-soft), transparent); }
+
+  /* ---------- section head ---------- */
+  .section-head{ margin-bottom:64px; max-width:640px; }
+  .section-head h2{ font-size:clamp(1.9rem,3.6vw,2.6rem); margin-bottom:12px; }
+  .section-head p{ color:var(--ink-dim); font-size:1.02rem; }
+
+  /* ---------- about ---------- */
+  .about-grid{ display:grid; grid-template-columns:1.4fr 1fr; gap:64px; }
+  .about-text h2{ font-size:clamp(1.9rem,3.6vw,2.6rem); margin-bottom:24px; }
+  .about-text p{ max-width:56ch; font-size:1.05rem; }
+  .about-stats{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border-top:1px solid var(--line); border-left:1px solid var(--line); }
+  .stat{ background:var(--bg); padding:28px 22px; }
+  .stat-num{ display:block; font-family:var(--font-mono); font-size:2.4rem; color:var(--brass-soft); font-weight:600; }
+  .stat-label{ display:block; margin-top:8px; font-size:0.88rem; color:var(--ink-dim); max-width:20ch; }
+
+  @media (max-width:880px){
+    .about-grid{ grid-template-columns:1fr; gap:40px; }
+  }
+
+  /* ---------- skills / depth bands ---------- */
+  .depth-bands{ display:flex; flex-direction:column; border-top:1px solid var(--line); }
+  .band{
+    display:grid; grid-template-columns:220px 1fr; gap:32px; align-items:center;
+    padding:32px 28px; border-bottom:1px solid var(--line); background:var(--bg-2);
+  }
+  .band[data-depth="application"]{ background:#0D1220; padding-left:44px; }
+  .band[data-depth="intelligence"]{ background:#0B0F1A; padding-left:60px; }
+  .band[data-depth="systems"]{ background:#090C14; padding-left:76px; }
+  .band-label{ display:flex; flex-direction:column; gap:6px; }
+  .band-index{ font-family:var(--font-display); font-size:1.15rem; color:var(--ink); font-weight:600; }
+  .band-desc{ font-size:0.85rem; color:var(--ink-dim); }
+  .band-depth{ font-family:var(--font-mono); font-size:0.72rem; color:var(--ink-dim); letter-spacing:0.02em; }
+  .band[data-depth="systems"] .band-depth,
+  .band[data-depth="systems"] .band-index{ color:var(--teal); }
+  .band-tags{ display:flex; flex-wrap:wrap; gap:10px; }
+  .tag{
+    font-family:var(--font-mono); font-size:0.82rem; color:var(--ink-body); border:1px solid var(--line-strong);
+    padding:7px 14px; border-radius:999px; white-space:nowrap;
+  }
+  .band[data-depth="systems"] .tag{ border-color:rgba(111,200,188,0.35); color:var(--teal); }
+
+  @media (max-width:720px){
+    .band{ grid-template-columns:1fr; padding-left:28px !important; gap:16px; }
+  }
+
+  /* ---------- work / projects ---------- */
+  .project-list{ display:flex; flex-direction:column; gap:1px; background:var(--line); }
+  .project{
+    display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; background:var(--bg); padding:56px 8px;
+  }
+  .project:nth-child(even) .project-visual{ order:2; }
+  .project-visual{
+    aspect-ratio:4/3; border-radius:2px 22px 2px 22px; overflow:hidden; position:relative;
+    border:1px solid var(--line-strong); background:var(--bg-3);
+  }
+  .project-visual svg{ width:100%; height:100%; }
+  .project-info h3{ font-size:1.7rem; margin-bottom:14px; }
+  .project-info p{ max-width:48ch; font-size:0.98rem; margin-bottom:20px; }
+  .project-tags{ display:flex; flex-wrap:wrap; gap:10px; }
+
+  @media (max-width:860px){
+    .project{ grid-template-columns:1fr; padding:36px 4px; }
+    .project:nth-child(even) .project-visual{ order:0; }
+  }
+
+  /* ---------- experience / timeline ---------- */
+  .timeline{ position:relative; padding-left:40px; }
+  .timeline-track{ position:absolute; left:5px; top:6px; bottom:6px; width:2px; background:var(--line-strong); }
+  .timeline-progress{ position:absolute; left:5px; top:6px; width:2px; height:100%; background:var(--brass-soft); transform:scaleY(0); transform-origin:top; }
+  .tl-item{ position:relative; padding-bottom:52px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-marker{ position:absolute; left:-40px; top:6px; width:12px; height:12px; border-radius:50%; background:var(--bg); border:2px solid var(--brass-soft); }
+  .tl-date{ font-family:var(--font-mono); font-size:0.82rem; color:var(--brass-soft); }
+  .tl-content h3{ font-size:1.3rem; margin:8px 0 10px; }
+  .tl-content p{ max-width:56ch; font-size:0.98rem; color:var(--ink-body); }
+
+  /* ---------- contact ---------- */
+  .contact{ text-align:center; }
+  .contact h2{ font-size:clamp(2rem,5vw,3rem); max-width:16ch; margin:0 auto 18px; }
+  .contact > .wrap > p{ color:var(--ink-dim); max-width:44ch; margin:0 auto; }
+  .contact-links{ display:flex; justify-content:center; gap:28px; flex-wrap:wrap; margin-top:48px; }
+  .contact-link{
+    display:flex; align-items:center; gap:10px; font-family:var(--font-mono); font-size:0.95rem;
+    color:var(--ink); border-bottom:1px solid var(--line-strong); padding-bottom:4px; transition:border-color 0.25s ease, color 0.25s ease;
+  }
+  .contact-link:hover{ color:var(--brass-soft); border-color:var(--brass-soft); }
+  .contact-link i{ width:16px; height:16px; }
+
+  /* ---------- footer ---------- */
+  .site-footer{ border-top:1px solid var(--line); padding:32px 0; }
+  .site-footer .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+  .footer-status{ font-family:var(--font-mono); font-size:0.82rem; color:var(--teal); }
+  .footer-copy{ font-size:0.82rem; color:var(--ink-dim); }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+  }
+</style>
+</head>
+<body>
+
+  <canvas id="bg-field" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-brand">Aasim Ahmed</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#work">Work</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact" class="nav-cta">Contact</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <i data-lucide="menu" class="icon-menu"></i>
+        <i data-lucide="x" class="icon-close"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="hero-inner">
+        <p class="hero-kicker">Based in India — open to remote and contract work</p>
+        <h1 class="hero-title">
+          <span class="line">Aasim</span><span class="line">Ahmed</span>
+        </h1>
+        <p class="hero-role">Full-stack developer &amp; AI/ML engineer</p>
+        <p class="hero-lede">I build web products end to end, wire AI into workflows that actually need it, and spend my evenings somewhere lower in the stack — compilers, Rust, the parts most people skip.</p>
+        <div class="hero-actions">
+          <a href="#work" class="btn btn-primary magnetic">View the work</a>
+          <!-- Replace this href with a link to your hosted resume PDF -->
+          <a href="./resume-aasim-ahmed.pdf" class="btn btn-ghost magnetic" id="resumeBtn">
+            Resume <i data-lucide="arrow-down-to-line"></i>
+          </a>
+        </div>
+      </div>
+      <div class="scroll-cue"><span></span>scroll</div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about">
+      <div class="wrap about-grid">
+        <div class="about-text">
+          <h2>About</h2>
+          <p>I'm a full-stack developer and AI/ML engineer based in India. Most of my work sits at the intersection of product and automation — React and Next.js on the front end, Node.js underneath, and increasingly an AI model wired into the plumbing so it actually does something useful.</p>
+          <p style="margin-top:18px;">I've spent real hours inside Zoho's CRM and automation tools, building pipelines that quietly replace spreadsheets and follow-up reminders. When I'm not shipping client work, I'm usually somewhere lower in the stack — Rust, Go, or a compiler side-project — mostly to understand what's actually happening beneath the frameworks I use every day.</p>
+        </div>
+        <div class="about-stats">
+          <div class="stat"><span class="stat-num" data-target="5" data-suffix="+">0</span><span class="stat-label">years building for the web</span></div>
+          <div class="stat"><span class="stat-num" data-target="20" data-suffix="+">0</span><span class="stat-label">projects shipped</span></div>
+          <div class="stat"><span class="stat-num" data-target="3" data-suffix="">0</span><span class="stat-label">languages I still enjoy debugging in</span></div>
+          <div class="stat"><span class="stat-num" data-target="1" data-suffix="">0</span><span class="stat-label">compiler, slowly, for fun</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="skills">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>What I actually use</h2>
+          <p>Roughly a depth chart — surface-level product work down to the systems underneath it.</p>
+        </div>
+      </div>
+      <div class="depth-bands">
+        <div class="band" data-depth="surface">
+          <div class="band-label">
+            <span class="band-index">Surface</span>
+            <span class="band-desc">Interface &amp; product</span>
+            <span class="band-depth">0 m</span>
+          </div>
+          <div class="band-tags">
+            <span class="tag">React</span><span class="tag">Next.js</span><span class="tag">TypeScript</span>
+            <span class="tag">Tailwind CSS</span><span class="tag">GSAP</span>
+          </div>
+        </div>
+        <div class="band" data-depth="application">
+          <div class="band-label">
+            <span class="band-index">Application</span>
+            <span class="band-desc">Backend &amp; automation</span>
+            <span class="band-depth">− 420 m</span>
+          </div>
+          <div class="band-tags">
+            <span class="tag">Node.js</span><span class="tag">PostgreSQL</span><span class="tag">REST &amp; GraphQL</span>
+            <span class="tag">Zoho CRM &amp; Creator</span><span class="tag">Workflow Automation</span>
+          </div>
+        </div>
+        <div class="band" data-depth="intelligence">
+          <div class="band-label">
+            <span class="band-index">Intelligence</span>
+            <span class="band-desc">AI/ML in production</span>
+            <span class="band-depth">− 1,150 m</span>
+          </div>
+          <div class="band-tags">
+            <span class="tag">Python</span><span class="tag">LLM Integration</span><span class="tag">RAG Pipelines</span>
+            <span class="tag">Agent Design</span><span class="tag">Vector Search</span>
+          </div>
+        </div>
+        <div class="band" data-depth="systems">
+          <div class="band-label">
+            <span class="band-index">Systems</span>
+            <span class="band-desc">Core &amp; internals</span>
+            <span class="band-depth">− 3,600 m</span>
+          </div>
+          <div class="band-tags">
+            <span class="tag">Rust</span><span class="tag">Go</span><span class="tag">C++</span>
+            <span class="tag">Compilers &amp; Interpreters</span><span class="tag">Performance Profiling</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section id="work" class="work">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Selected work</h2>
+          <p>A few things I've shipped that I'd happily walk you through.</p>
+        </div>
+      </div>
+      <div class="wrap">
+        <div class="project-list">
+
+          <article class="project">
+            <div class="project-visual">
+              <svg viewBox="0 0 400 300" preserveAspectRatio="none">
+                <rect width="400" height="300" fill="#141A28"/>
+                <path d="M-10 220 C 80 180, 140 260, 220 200 S 360 120, 420 160" stroke="#C9A227" stroke-width="2" fill="none" opacity="0.7"/>
+                <path d="M-10 160 C 90 220, 150 100, 230 150 S 350 210, 420 90" stroke="#7D8497" stroke-width="1.5" fill="none" opacity="0.5"/>
+                <circle cx="220" cy="200" r="4" fill="#E3C267"/>
+              </svg>
+            </div>
+            <div class="project-info">
+              <h3>Fieldwork</h3>
+              <p>A lead-routing system for a home-services company, built on Zoho Creator with custom webhooks into Node.js. New enquiries get scored, assigned, and followed up automatically instead of sitting in an inbox.</p>
+              <div class="project-tags">
+                <span class="tag">Zoho Creator</span><span class="tag">Node.js</span><span class="tag">Automation</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project-visual">
+              <svg viewBox="0 0 400 300">
+                <rect width="400" height="300" fill="#141A28"/>
+                <circle cx="160" cy="150" r="90" stroke="#C9A227" stroke-width="1.5" fill="none" opacity="0.6"/>
+                <circle cx="240" cy="150" r="90" stroke="#6FC8BC" stroke-width="1.5" fill="none" opacity="0.6"/>
+              </svg>
+            </div>
+            <div class="project-info">
+              <h3>Compass CRM Sync</h3>
+              <p>A bi-directional sync layer between an e-commerce storefront and a client's CRM, built with idempotent job queues in Node.js and Postgres. Orders, refunds, and customer edits stay consistent on both sides without anyone touching a CSV.</p>
+              <div class="project-tags">
+                <span class="tag">Node.js</span><span class="tag">PostgreSQL</span><span class="tag">Systems design</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project-visual">
+              <svg viewBox="0 0 400 300">
+                <rect width="400" height="300" fill="#141A28"/>
+                <g stroke="#C9A227" stroke-width="1" opacity="0.5">
+                  <line x1="0" y1="60" x2="400" y2="60"/><line x1="0" y1="110" x2="400" y2="110"/>
+                  <line x1="0" y1="160" x2="400" y2="160"/><line x1="0" y1="210" x2="400" y2="210"/>
+                </g>
+                <rect x="140" y="90" width="120" height="30" fill="none" stroke="#E3C267" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <div class="project-info">
+              <h3>Ledger</h3>
+              <p>An AI-assisted pipeline that turns messy invoice and report PDFs into structured, queryable data. A layout-aware parser plus an LLM extraction step handles the documents a plain regex never could.</p>
+              <div class="project-tags">
+                <span class="tag">Python</span><span class="tag">LLMs</span><span class="tag">RAG</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project-visual">
+              <svg viewBox="0 0 400 300">
+                <rect width="400" height="300" fill="#0F1420"/>
+                <rect y="0" width="400" height="75" fill="#141A28"/>
+                <rect y="75" width="400" height="75" fill="#0D1220"/>
+                <rect y="150" width="400" height="75" fill="#0B0F1A"/>
+                <rect y="225" width="400" height="75" fill="#090C14"/>
+                <rect y="225" width="400" height="75" fill="#6FC8BC" opacity="0.08"/>
+              </svg>
+            </div>
+            <div class="project-info">
+              <h3>Strata</h3>
+              <p>A small tree-walking interpreter for a toy language, written in Rust to actually understand how the tools I use every day work underneath. Lexer, parser, evaluator — no shortcuts.</p>
+              <div class="project-tags">
+                <span class="tag">Rust</span><span class="tag">Compilers</span><span class="tag">Side project</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="experience">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Experience</h2>
+          <p>The version with fewer buzzwords.</p>
+        </div>
+        <div class="timeline">
+          <div class="timeline-track"></div>
+          <div class="timeline-progress"></div>
+
+          <div class="tl-item">
+            <div class="tl-marker"></div>
+            <span class="tl-date">2024 — Present</span>
+            <div class="tl-content">
+              <h3>Freelance Full-Stack &amp; AI Engineer</h3>
+              <p>Independent practice building web products and AI-integrated automation for small businesses and startups — discovery through deployment, plus the maintenance nobody budgets for.</p>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-marker"></div>
+            <span class="tl-date">Ongoing</span>
+            <div class="tl-content">
+              <h3>Systems &amp; Language Study — Self-Directed</h3>
+              <p>Working through compilers, Rust, and Go outside client work, mostly to understand what the frameworks I use every day are actually doing underneath.</p>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-marker"></div>
+            <span class="tl-date">2022 — 2024</span>
+            <div class="tl-content">
+              <h3>Automation &amp; CRM Systems — Contract</h3>
+              <p>Designed and built Zoho CRM and Creator workflows for service businesses, replacing manual spreadsheets and follow-ups with automated pipelines that actually got used.</p>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-marker"></div>
+            <span class="tl-date">2021 — 2022</span>
+            <div class="tl-content">
+              <h3>Web Developer — Early Freelance</h3>
+              <p>First paid projects, mostly React and Node marketing sites for small businesses. Learned the difference between "it works on my machine" and "it works."</p>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-marker"></div>
+            <span class="tl-date">2020</span>
+            <div class="tl-content">
+              <h3>B.Tech, Computer Science</h3>
+              <p>Graduated in India. Most of what stuck came from the projects built after, not during.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+      <div class="wrap">
+        <h2>Let's build something that works.</h2>
+        <p>Open to freelance projects, contract work, and long conversations about compilers.</p>
+        <div class="contact-links">
+          <!-- Placeholder contact details — swap for your real handles -->
+          <a href="mailto:hello@aasimahmed.dev" class="contact-link"><i data-lucide="mail"></i>hello@aasimahmed.dev</a>
+          <a href="https://github.com/aasimahmed" target="_blank" rel="noopener" class="contact-link"><i data-lucide="github"></i>GitHub</a>
+          <a href="https://linkedin.com/in/aasimahmed" target="_blank" rel="noopener" class="contact-link"><i data-lucide="linkedin"></i>LinkedIn</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span class="footer-status">$ status — available for new work</span>
+      <span class="footer-copy">© 2026 Aasim Ahmed — built with Tailwind, GSAP, Three.js and Motion.</span>
+    </div>
+  </footer>
+
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script type="module">
+    import { animate as motionAnimate } from "https://cdn.jsdelivr.net/npm/motion@11.11.17/+esm";
+
+    // Icons
+    if (window.lucide) lucide.createIcons();
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------------- mobile nav ---------------- */
+    const navToggle = document.getElementById('navToggle');
+    const navLinksEl = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      const isOpen = document.body.classList.toggle('nav-open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    navLinksEl.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => document.body.classList.remove('nav-open'));
+    });
+
+    /* ---------------- ambient particle field (Three.js) ---------------- */
+    (function initField(){
+      const canvas = document.getElementById('bg-field');
+      if (reduceMotion || !window.THREE) { canvas.style.display = 'none'; return; }
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera.position.z = 10;
+
+      const count = 420;
+      const positions = new Float32Array(count * 3);
+      const colors = new Float32Array(count * 3);
+      const brass = new THREE.Color('#C9A227');
+      const teal = new THREE.Color('#6FC8BC');
+      for (let i = 0; i < count; i++) {
+        positions[i * 3]     = (Math.random() - 0.5) * 32;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 32;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 32;
+        const c = Math.random() > 0.78 ? teal : brass;
+        colors[i * 3] = c.r; colors[i * 3 + 1] = c.g; colors[i * 3 + 2] = c.b;
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+      const mat = new THREE.PointsMaterial({ size: 0.05, vertexColors: true, transparent: true, opacity: 0.5, sizeAttenuation: true });
+      const points = new THREE.Points(geo, mat);
+      scene.add(points);
+
+      let mouseX = 0, mouseY = 0, scrollProgress = 0;
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX / window.innerWidth - 0.5;
+        mouseY = e.clientY / window.innerHeight - 0.5;
+      });
+      window.addEventListener('scroll', () => {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        scrollProgress = h > 0 ? window.scrollY / h : 0;
+      });
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      function tick() {
+        requestAnimationFrame(tick);
+        points.rotation.y += 0.0006;
+        points.rotation.x += 0.0002;
+        camera.position.x += (mouseX * 1.2 - camera.position.x) * 0.02;
+        camera.position.y += (-mouseY * 1.2 - camera.position.y) * 0.02;
+        camera.position.z = 10 - scrollProgress * 4;
+        camera.lookAt(scene.position);
+        renderer.render(scene, camera);
+      }
+      tick();
+    })();
+
+    /* ---------------- GSAP: hero entrance + scroll choreography ---------------- */
+    if (window.gsap) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero entrance — one orchestrated moment
+      if (!reduceMotion) {
+        gsap.set(['.hero-kicker', '.hero-title .line', '.hero-role', '.hero-lede', '.hero-actions'], { opacity: 0, y: 24 });
+        const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        heroTl
+          .to('.hero-kicker', { opacity: 1, y: 0, duration: 0.6 })
+          .to('.hero-title .line', { opacity: 1, y: 0, duration: 0.8, stagger: 0.12 }, '-=0.3')
+          .to('.hero-role', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
+          .to('.hero-lede', { opacity: 1, y: 0, duration: 0.6 }, '-=0.35')
+          .to('.hero-actions', { opacity: 1, y: 0, duration: 0.6 }, '-=0.35');
+
+        // Hero sinks slightly as you leave it — layered parallax
+        gsap.to('.hero-inner', {
+          yPercent: 14, ease: 'none',
+          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+        });
+
+        // Depth bands drift at different rates on the way past
+        document.querySelectorAll('.band').forEach((band, i) => {
+          gsap.to(band, {
+            yPercent: (i - 1.5) * 7, ease: 'none',
+            scrollTrigger: { trigger: '.depth-bands', start: 'top bottom', end: 'bottom top', scrub: 0.6 }
+          });
+        });
+
+        // Timeline progress line fills as you scroll through it
+        gsap.to('.timeline-progress', {
+          scaleY: 1, ease: 'none',
+          scrollTrigger: { trigger: '.timeline', start: 'top 75%', end: 'bottom 60%', scrub: 0.6 }
+        });
+      }
+
+      // Stat count-up
+      document.querySelectorAll('.stat-num').forEach((el) => {
+        const target = parseFloat(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        if (reduceMotion) { el.textContent = target + suffix; return; }
+        const obj = { val: 0 };
+        ScrollTrigger.create({
+          trigger: el, start: 'top 85%', once: true,
+          onEnter: () => {
+            gsap.to(obj, {
+              val: target, duration: 1.4, ease: 'power2.out',
+              onUpdate: () => { el.textContent = Math.round(obj.val) + suffix; }
+            });
+          }
+        });
+      });
+    }
+
+    /* ---------------- Motion: magnetic buttons ---------------- */
+    if (!reduceMotion) {
+      document.querySelectorAll('.magnetic').forEach((el) => {
+        el.addEventListener('mousemove', (e) => {
+          const rect = el.getBoundingClientRect();
+          const relX = e.clientX - rect.left - rect.width / 2;
+          const relY = e.clientY - rect.top - rect.height / 2;
+          motionAnimate(el, { x: relX * 0.25, y: relY * 0.35 }, { duration: 0.4, easing: 'ease-out' });
+        });
+        el.addEventListener('mouseleave', () => {
+          motionAnimate(el, { x: 0, y: 0 }, { duration: 0.5, easing: [0.22, 1, 0.36, 1] });
+        });
+      });
+
+      document.querySelectorAll('.project-visual').forEach((el) => {
+        el.addEventListener('mouseenter', () => motionAnimate(el, { scale: 1.03 }, { duration: 0.4, easing: 'ease-out' }));
+        el.addEventListener('mouseleave', () => motionAnimate(el, { scale: 1 }, { duration: 0.4, easing: 'ease-out' }));
+      });
+    }
+  </script>
+
+<!-- sflws:source-button:start -->
+<style>
+#sflws-source-btn{position:fixed;right:18px;bottom:18px;z-index:2147483000;display:none;
+padding:2px;border-radius:999px;text-decoration:none;line-height:0;
+background:linear-gradient(90deg,#ff4d4d,#ffb347,#ffe66d,#7bed9f,#48dbfb,#a29bfe,#ff4d4d);
+background-size:300% 100%;animation:sflws-rainbow 6s linear infinite;
+box-shadow:0 4px 20px rgba(0,0,0,.32);transition:transform .2s ease}
+#sflws-source-btn:hover{transform:translateY(-2px)}
+#sflws-source-btn>span{display:flex;align-items:center;gap:7px;padding:9px 15px;
+border-radius:999px;background:#0d0d0f;color:#f4f4f5;
+font:600 12px/1 ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+letter-spacing:.02em;white-space:nowrap}
+#sflws-source-btn>span>b{font:inherit;color:#9aa0a6;letter-spacing:0}
+@keyframes sflws-rainbow{to{background-position:300% 0}}
+@media(prefers-reduced-motion:reduce){#sflws-source-btn{animation:none}
+#sflws-source-btn:hover{transform:none}}
+@media(max-width:600px){#sflws-source-btn{right:12px;bottom:12px}
+#sflws-source-btn>span{padding:8px 13px;font-size:11px}}
+</style>
+<a id="sflws-source-btn" href="https://github.com/saawflws/SFLWS___TEMPLATE_WEBSITEs/tree/main/websites/static/developers_portfolio/aasimdepthchart" target="_blank" rel="noopener noreferrer"
+ aria-label="View this template&#39;s source code on GitHub">
+<span><b aria-hidden="true">&lt;/&gt;</b>view source</span></a>
+<script>
+(function(){
+var h=location.hostname;
+var ok=h==='sflwsts.aasimahmed.com'||h==='localhost'||h==='127.0.0.1'||h==='[::1]'
+||/\.github\.io$/.test(h);
+var b=document.getElementById('sflws-source-btn');
+if(b&&ok)b.style.display='block';
+})();
+</script>
+<!-- sflws:source-button:end -->
+</body>
+</html>

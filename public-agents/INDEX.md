@@ -14,6 +14,7 @@ Single-file, self-contained `index.html`. No build step, no local assets.
 - `techYouTubers_home` → [`websites/static/techYouTubers_home/INDEX.md`](../websites/static/techYouTubers_home/INDEX.md)
 - `it_consultancy` → [`websites/static/it_consultancy/INDEX.md`](../websites/static/it_consultancy/INDEX.md)
 - `event_poster` → [`websites/static/event_poster/INDEX.md`](../websites/static/event_poster/INDEX.md)
+- `developers_portfolio` → [`websites/static/developers_portfolio/INDEX.md`](../websites/static/developers_portfolio/INDEX.md)
 
 ## astro/
 

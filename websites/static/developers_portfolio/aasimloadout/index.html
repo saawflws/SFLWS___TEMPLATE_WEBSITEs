@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AASIM'AHMED — Full-Stack & AI/ML Engineer</title>
+<meta name="description" content="Aasim Ahmed — full-stack developer & AI/ML engineer. React, Next.js, Node, ML pipelines, and the Rust underneath. Bangalore, India.">
+<meta name="theme-color" content="#0D0C0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Crect x='0' y='0' width='5' height='5' fill='%23EAE3D6'/%3E%3Crect x='7' y='0' width='5' height='5' fill='none' stroke='%236B655A'/%3E%3Crect x='0' y='7' width='5' height='5' fill='%23A8A092'/%3E%3Crect x='7' y='7' width='5' height='5' fill='%23E8A33D'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind (CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      ink:  '#0D0C0A', ink2: '#14120E', ink3: '#1C1915',
+      bone: '#EAE3D6', bone2:'#A8A092', faint:'#6B655A',
+      ember:'#E8A33D', ember2:'#F6C464', moss:'#93A878', rust:'#C4653A',
+      line: 'rgba(233,226,214,0.12)'
+    },
+    fontFamily: {
+      serif: ['Fraunces','Georgia','serif'],
+      mono:  ['"JetBrains Mono"','ui-monospace','monospace']
+    }
+  }}
+};
+</script>
+
+<style>
+  :root{ --ember:#E8A33D; --line:rgba(233,226,214,.12); }
+  html{ background:#0D0C0A; }
+  body{ -webkit-font-smoothing:antialiased; }
+  ::selection{ background:#E8A33D; color:#0D0C0A; }
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-track{ background:#0D0C0A; }
+  ::-webkit-scrollbar-thumb{ background:#2B2721; border:2px solid #0D0C0A; }
+  ::-webkit-scrollbar-thumb:hover{ background:#E8A33D; }
+  :focus-visible{ outline:1px solid rgba(232,163,61,.8); outline-offset:3px; }
+  input:-webkit-autofill,textarea:-webkit-autofill{ -webkit-box-shadow:0 0 0 60px #14120E inset; -webkit-text-fill-color:#EAE3D6; }
+
+  /* film grain */
+  .grain{ position:fixed; inset:0; z-index:64; pointer-events:none; opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* word-mask reveal */
+  [data-split] .w, .hero-h1 .w{ display:inline-block; overflow:hidden; padding-bottom:.14em; margin-bottom:-.14em; }
+  [data-split] .wi, .hero-h1 .wi{ display:inline-block; will-change:transform; }
+
+  /* typewriter caret */
+  #twCaret{ display:inline-block; width:8px; height:1.05em; background:var(--ember); margin-left:8px; vertical-align:-0.18em; animation:caret 1.1s steps(2,start) infinite; }
+  @keyframes caret{ to{ visibility:hidden; } }
+
+  /* hero canvas fade-in */
+  #three{ opacity:0; transition:opacity 1.8s ease .1s; }
+  #three.on{ opacity:1; }
+  .hero-shadow{ text-shadow:0 2px 22px rgba(13,12,10,.75); }
+
+  /* ticker */
+  #tickerWrap{ display:flex; width:max-content; animation:marquee 52s linear infinite; }
+  .ticker:hover #tickerWrap{ animation-play-state:paused; }
+  @keyframes marquee{ to{ transform:translateX(-50%); } }
+
+  /* nav */
+  #nav{ border-bottom:1px solid transparent; transition:background .4s, border-color .4s, backdrop-filter .4s; }
+  .nav-scrolled{ background:rgba(13,12,10,.84); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border-bottom-color:var(--line) !important; }
+  .nav-link{ color:#A8A092; transition:color .25s; padding:4px 0; }
+  .nav-link .idx{ color:#5E594E; margin-right:6px; transition:color .25s; }
+  .nav-link:hover{ color:#EAE3D6; }
+  .nav-link.active{ color:#EAE3D6; }
+  .nav-link.active .idx{ color:var(--ember); }
+
+  /* status ping */
+  .status-dot{ width:6px; height:6px; border-radius:50%; background:var(--ember); animation:ping 2.4s ease-out infinite; }
+  @keyframes ping{ 0%{box-shadow:0 0 0 0 rgba(232,163,61,.45)} 70%{box-shadow:0 0 0 6px rgba(232,163,61,0)} 100%{box-shadow:0 0 0 0 rgba(232,163,61,0)} }
+
+  /* scroll hint dash */
+  .scroll-line{ position:relative; width:1px; height:34px; background:rgba(233,226,214,.18); overflow:hidden; }
+  .scroll-line::after{ content:''; position:absolute; left:0; top:-12px; width:1px; height:12px; background:var(--ember); animation:dash 1.9s cubic-bezier(.65,0,.35,1) infinite; }
+  @keyframes dash{ to{ transform:translateY(48px); } }
+
+  /* hotbar slots */
+  .slot{ position:relative; transition:border-color .2s, background .2s; }
+  .slot .slot-idx{ position:absolute; right:4px; bottom:3px; font-size:8px; color:#5E594E; font-family:'JetBrains Mono',monospace; }
+  .slot .slot-rar{ position:absolute; left:0; right:0; bottom:0; height:2px; }
+  .slot:hover{ border-color:rgba(233,226,214,.32); }
+  .slot.sel{ border-color:var(--ember) !important; background:#1C1915; }
+  .slot.sel svg{ color:var(--ember); }
+  .slot-caret{ position:absolute; top:-7px; left:50%; width:7px; height:7px; background:var(--ember); transform:translateX(-50%) rotate(45deg); opacity:0; transition:opacity .2s; }
+  .slot.sel .slot-caret{ opacity:1; }
+
+  /* toasts */
+  .toast{ transform:translateX(24px); opacity:0; }
+
+  .proj-thumb, #face{ image-rendering:pixelated; }
+  .field-err{ border-color:#C4653A !important; }
+
+  /* custom cursor */
+  #cursorDot,#cursorRing{ position:fixed; top:0; left:0; pointer-events:none; }
+  #cursorDot{ width:6px; height:6px; border-radius:50%; background:var(--ember); z-index:130; }
+  #cursorRing{ z-index:129; }
+  #cursorRingIn{ width:36px; height:36px; margin-left:-18px; margin-top:-18px; border:1px solid rgba(234,227,214,.35); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:border-color .25s; }
+  #cursorLabel{ font-family:'JetBrains Mono',monospace; font-size:8px; letter-spacing:.14em; color:var(--ember); opacity:0; transition:opacity .2s; }
+  body.cursor-fine, body.cursor-fine *{ cursor:none !important; }
+  body.cursor-fine input, body.cursor-fine textarea{ cursor:text !important; }
+  body.cursor-hide #cursorDot, body.cursor-hide #cursorRing{ opacity:0; }
+
+  @media (prefers-reduced-motion: reduce){
+    #tickerWrap, .scroll-line::after, #twCaret, .status-dot{ animation:none !important; }
+    #three{ transition:none; }
+  }
+</style>
+</head>
+
+<body class="bg-ink text-bone font-serif overflow-x-hidden">
+<noscript><style>#loader{display:none!important}</style></noscript>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ PRELOADER ============ -->
+<div id="loader" class="fixed inset-0 z-[100] bg-ink flex items-center justify-center">
+  <div id="loaderInner" class="w-[min(440px,84vw)]">
+    <div class="flex justify-between font-mono text-[10px] tracking-[0.24em] text-bone2">
+      <span>GENERATING WORLD</span><span id="loadPct">000</span>
+    </div>
+    <div class="mt-3 h-px bg-white/10"><div id="loadBar" class="h-px bg-ember" style="width:0%"></div></div>
+    <div class="mt-3 flex justify-between font-mono text-[9px] tracking-[0.18em] text-faint">
+      <span>SEED 0xA51M</span><span id="loadMsg">BOOTING…</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<nav id="nav" class="fixed top-0 inset-x-0 z-50 h-16 flex items-center">
+  <div class="mx-auto w-[min(1200px,92vw)] flex items-center justify-between">
+    <a href="#hero" class="flex items-center gap-3" aria-label="Back to top">
+      <svg viewBox="0 0 12 12" class="w-5 h-5" aria-hidden="true">
+        <rect x="0" y="0" width="5" height="5" fill="#EAE3D6"/><rect x="7" y="0" width="5" height="5" fill="none" stroke="#6B655A"/>
+        <rect x="0" y="7" width="5" height="5" fill="#A8A092"/><rect x="7" y="7" width="5" height="5" fill="#E8A33D"/>
+      </svg>
+      <span class="font-mono text-[11px] tracking-[0.18em] text-bone">AASIM'AHMED</span>
+    </a>
+    <div class="hidden md:flex items-center gap-7 font-mono text-[11px] tracking-[0.14em]">
+      <a data-nav href="#about" class="nav-link"><span class="idx">01</span>ABOUT</a>
+      <a data-nav href="#skills" class="nav-link"><span class="idx">02</span>LOADOUT</a>
+      <a data-nav href="#projects" class="nav-link"><span class="idx">03</span>EXPEDITIONS</a>
+      <a data-nav href="#experience" class="nav-link"><span class="idx">04</span>DEPTH LOG</a>
+      <a data-nav href="#contact" class="nav-link"><span class="idx">05</span>CONTACT</a>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="#contact" class="hidden sm:flex items-center gap-2.5 font-mono text-[10px] tracking-[0.14em] border border-line px-3.5 py-2.5 text-bone2 hover:border-ember/60 hover:text-bone transition-colors">
+        <span class="status-dot"></span>OPEN TO WORK
+      </a>
+      <button id="menuBtn" class="md:hidden w-10 h-10 border border-line flex items-center justify-center text-bone2" aria-label="Open menu">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HUD ============ -->
+<div id="hud" class="fixed left-6 bottom-6 z-40 hidden md:flex items-end gap-3 font-mono text-[10px] tracking-[0.14em]">
+  <div class="h-10 w-px bg-white/10 relative overflow-hidden"><div id="hudGaugeFill" class="absolute bottom-0 left-0 w-px bg-ember" style="height:0%"></div></div>
+  <div>
+    <div><span class="text-faint">Y </span><span id="hudY" class="text-bone2 tabular-nums">64.00</span></div>
+    <div class="mt-1"><span class="text-faint">BIOME </span><span id="hudBiome" class="text-ember">PLAINS</span></div>
+  </div>
+</div>
+<div id="seedTag" class="fixed right-6 bottom-6 z-40 hidden md:block font-mono text-[10px] tracking-[0.18em] text-faint">SEED 0xA51M</div>
+
+<main>
+<!-- ============ HERO ============ -->
+<header id="hero" class="relative min-h-screen flex items-center overflow-hidden select-none">
+  <div class="absolute inset-0"><canvas id="three" class="w-full h-full block"></canvas></div>
+
+  <div class="hero-crn absolute top-20 left-5 w-4 h-4 border-l border-t border-ember/30" aria-hidden="true"></div>
+  <div class="hero-crn absolute top-20 right-5 w-4 h-4 border-r border-t border-ember/30" aria-hidden="true"></div>
+  <div class="hero-crn absolute bottom-5 left-5 w-4 h-4 border-l border-b border-ember/30" aria-hidden="true"></div>
+  <div class="hero-crn absolute bottom-5 right-5 w-4 h-4 border-r border-b border-ember/30" aria-hidden="true"></div>
+
+  <div class="relative z-10 mx-auto w-[min(1200px,92vw)] pt-28 pb-24 pointer-events-none">
+    <div class="hero-inner">
+      <div class="font-mono text-[11px] tracking-[0.22em] text-bone2 hero-shadow flex items-center">
+        <span class="text-ember mr-2">//</span><span id="twText"></span><span id="twCaret"></span>
+      </div>
+      <h1 class="hero-h1 font-light text-[clamp(2.5rem,6.6vw,5.9rem)] leading-[1.03] tracking-[-0.01em] mt-7 max-w-5xl hero-shadow">
+        <span class="block"><span class="w"><span class="wi">Full-stack</span></span> <span class="w"><span class="wi">engineer</span></span></span>
+        <span class="block"><span class="w"><span class="wi">building</span></span> <span class="w"><span class="wi"><em class="italic font-normal text-ember2">intelligent</em></span></span> <span class="w"><span class="wi"><em class="italic font-normal text-ember2">systems</em></span></span></span>
+        <span class="block"><span class="w"><span class="wi">from</span></span> <span class="w"><span class="wi">browser</span></span> <span class="w"><span class="wi">to</span></span> <span class="w"><span class="wi">bedrock</span><span class="text-ember">.</span></span></span>
+      </h1>
+      <p id="heroSub" class="mt-7 max-w-xl text-bone2 text-lg md:text-xl leading-relaxed hero-shadow">
+        I design, ship and maintain software across the whole stack — React frontends, Node services,
+        ML pipelines, and the occasional bytecode VM in Rust. Based in Bangalore, working worldwide.
+      </p>
+      <div id="heroCtas" class="mt-10 flex flex-wrap gap-4">
+        <a href="#projects" data-magnet class="flex items-center gap-3 bg-ember text-ink font-mono text-[11px] tracking-[0.16em] px-7 py-4 hover:bg-ember2 transition-colors">VIEW EXPEDITIONS <i data-lucide="arrow-down" class="w-4 h-4"></i></a>
+        <a href="#contact" data-magnet class="flex items-center gap-3 border border-bone/25 text-bone font-mono text-[11px] tracking-[0.16em] px-7 py-4 hover:border-ember hover:text-ember2 transition-colors">OPEN BASE CAMP <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div id="heroFoot" class="absolute bottom-7 inset-x-0 z-10 pointer-events-none">
+    <div class="mx-auto w-[min(1200px,92vw)] flex items-end justify-between font-mono text-[9px] tracking-[0.22em] text-faint">
+      <div class="flex items-center gap-4"><div class="scroll-line"></div><span>SCROLL TO DESCEND</span></div>
+      <span class="hidden md:block">DRAG TO ROTATE TERRAIN</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ TICKER ============ -->
+<div class="ticker border-y border-line py-3.5 overflow-hidden select-none" aria-hidden="true">
+  <div id="tickerWrap"><div class="ticker-track flex items-center font-mono text-[11px] tracking-[0.22em] text-faint"></div><div class="ticker-track flex items-center font-mono text-[11px] tracking-[0.22em] text-faint"></div></div>
+</div>
+
+<!-- ============ 01 / ABOUT ============ -->
+<section id="about" class="relative py-28 md:py-36">
+  <div class="mx-auto w-[min(1200px,92vw)]">
+    <div class="flex items-center gap-4 font-mono text-[11px] tracking-[0.18em] text-faint">
+      <span class="text-ember">01</span><span>EXPEDITION LOG</span>
+      <span class="flex-1 h-px bg-line origin-left" data-rule></span>
+    </div>
+    <h2 class="mt-7 font-light text-[clamp(2.3rem,5.2vw,4.4rem)] leading-[1.04] tracking-[-0.01em]" data-split>The route <em class="italic font-normal text-ember2">so far.</em></h2>
+
+    <div class="mt-12 md:mt-16 grid md:grid-cols-12 gap-10 md:gap-14 items-start">
+      <!-- ID card -->
+      <div class="md:col-span-4 md:sticky md:top-24" data-reveal>
+        <div class="border border-line bg-ink2">
+          <div class="p-5 border-b border-line flex items-center gap-5">
+            <div class="shrink-0">
+              <canvas id="face" width="96" height="96" class="w-[76px] h-[76px] border border-line" aria-label="Pixel avatar of Aasim"></canvas>
+              <div class="mt-2 font-mono text-[8px] tracking-[0.18em] text-faint text-center">SKIN — AASIM_V1</div>
+            </div>
+            <div class="font-mono text-[10px] leading-[1.9] tracking-[0.06em]">
+              <div><span class="text-faint">NAME&nbsp;&nbsp;</span><span class="text-bone">AASIM AHMED</span></div>
+              <div><span class="text-faint">CLASS&nbsp;</span><span class="text-bone2">ENGINEER</span></div>
+              <div><span class="text-faint">BASE&nbsp;&nbsp;</span><span class="text-bone2">BANGALORE · IN</span></div>
+              <div><span class="text-faint">STATUS&nbsp;</span><span class="text-ember">OPEN TO QUESTS</span></div>
+            </div>
+          </div>
+          <div class="px-5 py-4 border-b border-line grid grid-cols-2 font-mono text-[10px] tracking-[0.06em] gap-y-1">
+            <div><span class="text-faint">LEVEL </span><span class="text-bone">05</span></div>
+            <div><span class="text-faint">ALTITUDE </span><span class="text-bone2">920M</span></div>
+            <div><span class="text-faint">COORDS </span><span class="text-bone2">12.97N 77.59E</span></div>
+            <div><span class="text-faint">PING </span><span class="text-bone2">12MS</span></div>
+          </div>
+          <div class="p-5">
+            <div class="font-mono text-[9px] tracking-[0.24em] text-faint mb-3">ADVANCEMENTS</div>
+            <div class="space-y-3">
+              <div class="flex gap-3 items-start"><i data-lucide="zap" class="w-4 h-4 text-ember mt-0.5 shrink-0"></i><div><div class="font-mono text-[11px] text-bone tracking-[0.06em]">SHIP IT</div><div class="font-mono text-[9px] text-faint mt-0.5">14 PROJECTS DELIVERED END-TO-END</div></div></div>
+              <div class="flex gap-3 items-start"><i data-lucide="cpu" class="w-4 h-4 text-ember mt-0.5 shrink-0"></i><div><div class="font-mono text-[11px] text-bone tracking-[0.06em]">TAME THE MACHINE</div><div class="font-mono text-[9px] text-faint mt-0.5">A BYTECODE VM, WRITTEN IN RUST</div></div></div>
+              <div class="flex gap-3 items-start"><i data-lucide="workflow" class="w-4 h-4 text-ember mt-0.5 shrink-0"></i><div><div class="font-mono text-[11px] text-bone tracking-[0.06em]">THE QUIET AUTOMATOR</div><div class="font-mono text-[9px] text-faint mt-0.5">40+ WORKFLOWS IN PRODUCTION</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- narrative -->
+      <div class="md:col-span-8">
+        <p class="text-[1.25rem] md:text-[1.45rem] leading-[1.5] text-bone" data-reveal>
+          I got into software the way you get into an open world — no map, no quest markers, just
+          curiosity and a stubborn streak. What began with view-source and broken tutorials became a
+          discipline: take messy, real problems and ship systems that survive contact with users.
+        </p>
+        <p class="mt-6 text-bone2 leading-[1.85] max-w-[62ch]" data-reveal>
+          These days I work the full vertical. React and Next.js at the surface, Node and Postgres
+          underneath, ML pipelines wherever they genuinely earn their keep — and, when nobody's
+          watching, compilers and virtual machines in Rust, because I like knowing what the machine
+          is actually doing.
+        </p>
+        <p class="mt-5 text-bone2 leading-[1.85] max-w-[62ch]" data-reveal>
+          Two years architecting Zoho CRM automations for real businesses taught me the thing I value
+          most: software is only good if it still runs on a Friday evening, when nobody is babysitting
+          it. I build to that standard — and then I document it, so the next person doesn't have to guess.
+        </p>
+        <div class="mt-8 border-l-2 border-ember pl-5 font-mono text-[11px] leading-[1.9] text-bone2" data-reveal>
+          CURRENTLY — building a RAG evaluation harness · third pass of
+          <span class="text-bone">Crafting Interpreters</span> · resisting the urge to rewrite this site in Rust
+        </div>
+
+        <!-- ledger -->
+        <div class="mt-12 border-t border-line" data-reveal>
+          <div class="grid grid-cols-[1fr_auto] items-baseline py-4 border-b border-line">
+            <span class="font-mono text-[10px] tracking-[0.2em] text-faint">YEARS IN THE FIELD</span>
+            <span class="font-light text-4xl md:text-5xl tabular-nums" data-count="5">00</span>
+          </div>
+          <div class="grid grid-cols-[1fr_auto] items-baseline py-4 border-b border-line">
+            <span class="font-mono text-[10px] tracking-[0.2em] text-faint">PROJECTS SHIPPED</span>
+            <span class="font-light text-4xl md:text-5xl tabular-nums" data-count="14">00</span>
+          </div>
+          <div class="grid grid-cols-[1fr_auto] items-baseline py-4 border-b border-line">
+            <span class="font-mono text-[10px] tracking-[0.2em] text-faint">ML PIPELINES IN PRODUCTION</span>
+            <span class="font-light text-4xl md:text-5xl tabular-nums" data-count="3">00</span>
+          </div>
+          <div class="grid grid-cols-[1fr_auto] items-baseline py-4 border-b border-line">
+            <span class="font-mono text-[10px] tracking-[0.2em] text-faint">WORKFLOWS AUTOMATED</span>
+            <span class="font-light text-4xl md:text-5xl tabular-nums" data-count="40" data-suffix="+">00</span>
+          </div>
+          <div class="grid grid-cols-[1fr_auto] items-baseline py-4 border-b border-line">
+            <span class="font-mono text-[10px] tracking-[0.2em] text-faint">FRIDAY INCIDENTS</span>
+            <span class="font-light text-4xl md:text-5xl tabular-nums" data-count="0">00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 / SKILLS ============ -->
+<section id="skills" class="relative py-28 md:py-36 bg-ink2/40 border-y border-line">
+  <div class="mx-auto w-[min(1200px,92vw)]">
+    <div class="flex items-center gap-4 font-mono text-[11px] tracking-[0.18em] text-faint">
+      <span class="text-ember">02</span><span>THE LOADOUT</span>
+      <span class="flex-1 h-px bg-line origin-left" data-rule></span>
+    </div>
+    <h2 class="mt-7 font-light text-[clamp(2.3rem,5.2vw,4.4rem)] leading-[1.04] tracking-[-0.01em]" data-split>Nine slots, <em class="italic font-normal text-ember2">earned</em> in the field.</h2>
+
+    <div class="mt-9 flex flex-wrap items-center gap-4">
+      <span class="font-mono text-[10px] tracking-[0.18em] text-faint">SELECT A SLOT TO INSPECT</span>
+      <span class="hidden md:inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.18em] text-faint">OR PRESS
+        <kbd class="border border-line px-1.5 py-0.5 text-bone2 text-[10px]">E</kbd>
+      </span>
+      <button id="invOpen" class="ml-auto flex items-center gap-2.5 font-mono text-[10px] tracking-[0.16em] border border-line px-4 py-2.5 text-bone2 hover:text-ember hover:border-ember/60 transition-colors">
+        <i data-lucide="backpack" class="w-3.5 h-3.5"></i>FULL INVENTORY <span id="invCountShort" class="text-faint"></span>
+      </button>
+    </div>
+
+    <div id="hotbar" class="mt-6 flex flex-wrap md:flex-nowrap gap-1.5" data-reveal></div>
+
+    <div id="loadDetail" class="mt-6 border border-line bg-ink2" data-reveal>
+      <div class="grid md:grid-cols-12">
+        <div class="md:col-span-7 p-6 md:p-8 border-b md:border-b-0 md:border-r border-line">
+          <div class="flex items-center gap-4 flex-wrap">
+            <h3 id="ldName" class="text-2xl md:text-3xl"></h3>
+            <span id="ldRar" class="font-mono text-[9px] tracking-[0.18em] border px-2 py-1"></span>
+            <span id="ldCat" class="font-mono text-[9px] tracking-[0.18em] text-faint ml-auto"></span>
+          </div>
+          <p id="ldLore" class="mt-4 text-bone2 leading-relaxed max-w-lg"></p>
+          <div class="mt-7 font-mono text-[9px] tracking-[0.24em] text-faint mb-3">ENCHANTMENTS</div>
+          <ul id="ldEnch" class="grid sm:grid-cols-2 gap-x-10 gap-y-2.5 font-mono text-[11px]"></ul>
+        </div>
+        <div class="md:col-span-5 p-6 md:p-8">
+          <div class="flex justify-between font-mono text-[9px] tracking-[0.24em] text-faint"><span>PROFICIENCY</span><span id="ldXpTxt" class="text-bone2"></span></div>
+          <div class="mt-2.5 h-[5px] bg-white/10"><div id="ldXp" class="h-full bg-ember" style="width:0%"></div></div>
+          <div class="mt-7 space-y-3.5 font-mono text-[11px]">
+            <div class="flex justify-between border-b border-line pb-2.5"><span class="text-faint tracking-[0.16em]">YEARS</span><span id="ldYrs" class="text-bone"></span></div>
+            <div class="flex justify-between border-b border-line pb-2.5"><span class="text-faint tracking-[0.16em]">DEPLOYED</span><span id="ldDep" class="text-bone"></span></div>
+            <div class="flex justify-between border-b border-line pb-2.5"><span class="text-faint tracking-[0.16em]">LAST USED</span><span id="ldLast" class="text-bone"></span></div>
+          </div>
+          <div class="mt-7 font-mono text-[9px] text-faint leading-relaxed tracking-[0.1em]">SLOT <span id="ldSlot" class="text-ember">01</span> / 09 — SELECTED FROM THE HOTBAR</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 / PROJECTS ============ -->
+<section id="projects" class="relative py-28 md:py-36">
+  <div class="mx-auto w-[min(1200px,92vw)]">
+    <div class="flex items-center gap-4 font-mono text-[11px] tracking-[0.18em] text-faint">
+      <span class="text-ember">03</span><span>EXPEDITIONS</span>
+      <span class="flex-1 h-px bg-line origin-left" data-rule></span>
+    </div>
+    <h2 class="mt-7 font-light text-[clamp(2.3rem,5.2vw,4.4rem)] leading-[1.04] tracking-[-0.01em]" data-split>Shipped, documented, <em class="italic font-normal text-ember2">lived in.</em></h2>
+    <p class="mt-6 font-mono text-[10px] tracking-[0.2em] text-faint">FIVE FIELD REPORTS — SELECT A ROW TO OPEN THE FULL REPORT</p>
+    <div id="projList" class="mt-10 border-b border-line"></div>
+  </div>
+</section>
+
+<!-- ============ 04 / EXPERIENCE ============ -->
+<section id="experience" class="relative py-28 md:py-36 bg-ink2/40 border-y border-line">
+  <div class="mx-auto w-[min(1200px,92vw)]">
+    <div class="flex items-center gap-4 font-mono text-[11px] tracking-[0.18em] text-faint">
+      <span class="text-ember">04</span><span>DEPTH LOG</span>
+      <span class="flex-1 h-px bg-line origin-left" data-rule></span>
+    </div>
+    <h2 class="mt-7 font-light text-[clamp(2.3rem,5.2vw,4.4rem)] leading-[1.04] tracking-[-0.01em]" data-split>Descending the <em class="italic font-normal text-ember2">strata.</em></h2>
+    <p class="mt-6 font-mono text-[10px] tracking-[0.2em] text-faint">Y 128 → BEDROCK — SCROLL TO DESCEND THE SHAFT</p>
+    <div id="strataWrap" class="relative mt-14">
+      <div id="shaft" class="absolute top-0 bottom-0 left-[5px] md:left-1/2 w-px bg-line">
+        <div id="shaftFill" class="absolute inset-0 bg-ember origin-top" style="transform:scaleY(0)"></div>
+      </div>
+      <div id="strataList"></div>
+      <a href="#contact" class="relative block mt-6 pl-8 md:pl-0 md:text-center">
+        <span class="inline-block border border-line bg-ink3 px-5 py-3 font-mono text-[10px] tracking-[0.18em] text-bone2 hover:border-ember/60 hover:text-ember2 transition-colors">BEDROCK — CAN'T DIG FURTHER · BASE CAMP IS THIS WAY ↓</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 / CONTACT ============ -->
+<section id="contact" class="relative py-28 md:py-36">
+  <div class="mx-auto w-[min(1200px,92vw)]">
+    <div class="flex items-center gap-4 font-mono text-[11px] tracking-[0.18em] text-faint">
+      <span class="text-ember">05</span><span>BASE CAMP</span>
+      <span class="flex-1 h-px bg-line origin-left" data-rule></span>
+    </div>
+    <h2 class="mt-7 font-light text-[clamp(2.3rem,5.2vw,4.4rem)] leading-[1.04] tracking-[-0.01em]" data-split>Base camp is <em class="italic font-normal text-ember2">open.</em></h2>
+
+    <div class="mt-14 grid md:grid-cols-12 gap-12 md:gap-16 items-start">
+      <div class="md:col-span-6" data-reveal>
+        <p class="text-bone2 leading-[1.85] max-w-[52ch]">
+          Freelance engagements, full-time roles, or one gnarly automation problem — if it ends in
+          real, shipped software, I want to read about it. I reply within 24 hours (IST), usually
+          with questions, always with interest.
+        </p>
+        <div class="mt-12">
+          <div class="font-mono text-[10px] tracking-[0.24em] text-faint">DIRECT CHANNEL</div>
+          <div class="mt-4 flex items-center gap-4 flex-wrap">
+            <a href="mailto:hi@aasimahmed.dev" class="text-[clamp(1.5rem,3.2vw,2.4rem)] hover:text-ember2 transition-colors">hi@aasimahmed.dev</a>
+            <button id="copyEmail" data-magnet class="w-11 h-11 border border-line flex items-center justify-center text-bone2 hover:text-ember hover:border-ember transition-colors" aria-label="Copy email address">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a data-magnet href="https://github.com/aasimahmed" target="_blank" rel="noreferrer" class="flex items-center gap-2.5 border border-line px-4 py-3 font-mono text-[10px] tracking-[0.16em] text-bone2 hover:border-ember/60 hover:text-bone transition-colors"><i data-lucide="github" class="w-4 h-4"></i>GITHUB<i data-lucide="arrow-up-right" class="w-3 h-3 text-faint ml-1"></i></a>
+          <a data-magnet href="https://www.linkedin.com/in/aasimahmed" target="_blank" rel="noreferrer" class="flex items-center gap-2.5 border border-line px-4 py-3 font-mono text-[10px] tracking-[0.16em] text-bone2 hover:border-ember/60 hover:text-bone transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i>LINKEDIN<i data-lucide="arrow-up-right" class="w-3 h-3 text-faint ml-1"></i></a>
+          <a data-magnet href="https://x.com/aasimahmed" target="_blank" rel="noreferrer" class="flex items-center gap-2.5 border border-line px-4 py-3 font-mono text-[10px] tracking-[0.16em] text-bone2 hover:border-ember/60 hover:text-bone transition-colors"><i data-lucide="twitter" class="w-4 h-4"></i>X / TWITTER<i data-lucide="arrow-up-right" class="w-3 h-3 text-faint ml-1"></i></a>
+          <a data-magnet href="mailto:hi@aasimahmed.dev?subject=Resume%20request" class="flex items-center gap-2.5 border border-line px-4 py-3 font-mono text-[10px] tracking-[0.16em] text-bone2 hover:border-ember/60 hover:text-bone transition-colors"><i data-lucide="file-text" class="w-4 h-4"></i>REQUEST RESUME</a>
+        </div>
+        <div class="mt-10 font-mono text-[10px] tracking-[0.18em] text-faint flex items-center gap-2.5">
+          <span class="status-dot"></span>UTC+5:30 · BANGALORE · OPEN TO WORK
+        </div>
+      </div>
+
+      <div class="md:col-span-6" data-reveal>
+        <form id="contactForm" class="border border-line bg-ink2 p-6 md:p-8" novalidate>
+          <div class="font-mono text-[10px] tracking-[0.22em] text-faint">SEND A MESSAGE — IT ROUTES TO MY INBOX</div>
+          <div class="mt-7">
+            <label for="fName" class="font-mono text-[10px] tracking-[0.18em] text-faint">NAME</label>
+            <input id="fName" type="text" autocomplete="name" placeholder="Your name" class="mt-2 w-full bg-transparent border-b border-line focus:border-ember outline-none py-2.5 text-lg placeholder:text-faint/50 transition-colors">
+          </div>
+          <div class="mt-6">
+            <label for="fEmail" class="font-mono text-[10px] tracking-[0.18em] text-faint">EMAIL</label>
+            <input id="fEmail" type="email" autocomplete="email" placeholder="you@somewhere.dev" class="mt-2 w-full bg-transparent border-b border-line focus:border-ember outline-none py-2.5 text-lg placeholder:text-faint/50 transition-colors">
+          </div>
+          <div class="mt-6">
+            <label for="fMsg" class="font-mono text-[10px] tracking-[0.18em] text-faint">WHAT ARE WE BUILDING?</label>
+            <textarea id="fMsg" rows="4" placeholder="A few honest sentences beat a spec doc." class="mt-2 w-full bg-transparent border-b border-line focus:border-ember outline-none py-2.5 text-lg placeholder:text-faint/50 resize-none transition-colors"></textarea>
+          </div>
+          <button type="submit" data-magnet class="mt-8 w-full flex items-center justify-center gap-3 bg-ember text-ink font-mono text-[11px] tracking-[0.16em] px-7 py-4 hover:bg-ember2 transition-colors">
+            TRANSMIT MESSAGE <i data-lucide="send" class="w-4 h-4"></i>
+          </button>
+          <p class="mt-4 font-mono text-[9px] tracking-[0.1em] text-faint leading-relaxed">PROTOTYPE MODE — NO BACKEND HERE. SUBMITTING OPENS YOUR MAIL APP WITH EVERYTHING PREFILLED.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-line py-10">
+  <div class="mx-auto w-[min(1200px,92vw)] flex flex-col md:flex-row gap-5 md:items-center justify-between font-mono text-[10px] tracking-[0.14em] text-faint">
+    <div>© 2025 AASIM'AHMED — BUILT BY HAND, NO TEMPLATES HARMED</div>
+    <div class="flex gap-6 items-center flex-wrap">
+      <span>SEED 0xA51M</span><span>Y -64 · BEDROCK</span>
+      <button id="toTop" class="flex items-center gap-2 text-bone2 hover:text-ember transition-colors">RETURN TO SURFACE <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i></button>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ PROJECT MODAL ============ -->
+<div id="modal" class="hidden fixed inset-0 z-[80]" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div id="modalBack" class="absolute inset-0 bg-ink/85 backdrop-blur-[2px] opacity-0"></div>
+  <div class="absolute inset-0 overflow-y-auto flex justify-center items-start md:items-center p-4 md:p-10 pointer-events-none" data-lenis-prevent>
+    <div id="modalPanel" class="pointer-events-auto w-[min(880px,100%)] bg-ink2 border border-line opacity-0">
+      <div class="flex items-center justify-between border-b border-line px-6 md:px-8 py-4">
+        <div class="font-mono text-[10px] tracking-[0.22em] text-faint">FIELD REPORT — <span id="mIndex" class="text-ember"></span></div>
+        <button id="modalClose" class="flex items-center gap-2 font-mono text-[10px] tracking-[0.16em] text-faint hover:text-bone transition-colors">ESC <i data-lucide="x" class="w-4 h-4"></i></button>
+      </div>
+      <div class="grid md:grid-cols-12">
+        <div class="md:col-span-7 p-6 md:p-8">
+          <h3 id="mTitle" class="text-3xl md:text-4xl"></h3>
+          <p id="mLede" class="mt-3 text-bone2 leading-relaxed"></p>
+          <div id="mMeta" class="mt-6 font-mono text-[11px]"></div>
+          <p id="mBody" class="mt-6 text-bone2 leading-[1.85]"></p>
+          <div class="mt-7 font-mono text-[9px] tracking-[0.24em] text-faint mb-3">HIGHLIGHTS</div>
+          <ul id="mHighlights" class="space-y-2.5"></ul>
+        </div>
+        <div class="md:col-span-5 border-t md:border-t-0 md:border-l border-line p-6 md:p-8 flex flex-col">
+          <canvas id="mCanvas" class="w-full border border-line"></canvas>
+          <div class="mt-2.5 flex justify-between font-mono text-[9px] tracking-[0.14em] text-faint"><span id="mSeed"></span><span>TOPOGRAPHY</span></div>
+          <div id="mStack" class="mt-6 flex flex-wrap gap-2"></div>
+          <div class="mt-7">
+            <div class="font-mono text-[9px] tracking-[0.24em] text-faint mb-2">COMPLEXITY</div>
+            <div id="mComplexity" class="flex gap-1"></div>
+          </div>
+          <a id="mLink" href="#" target="_blank" rel="noreferrer" class="mt-auto pt-8 flex items-center gap-2 font-mono text-[11px] tracking-[0.16em] text-ember2 hover:text-ember transition-colors">VIEW SOURCE <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ INVENTORY OVERLAY ============ -->
+<div id="inventory" class="hidden fixed inset-0 z-[82]" role="dialog" aria-modal="true" aria-label="Full inventory">
+  <div id="invBack" class="absolute inset-0 bg-ink/85 backdrop-blur-[2px] opacity-0"></div>
+  <div class="absolute inset-0 flex items-center justify-center p-4 pointer-events-none">
+    <div id="invPanel" class="pointer-events-auto w-[min(980px,100%)] max-h-[86vh] flex flex-col bg-ink2 border border-line opacity-0">
+      <div class="flex flex-wrap items-center gap-4 px-6 md:px-8 py-4 border-b border-line">
+        <span class="font-mono text-[11px] tracking-[0.22em] text-bone">INVENTORY</span>
+        <span id="invCount" class="font-mono text-[10px] tracking-[0.12em] text-faint"></span>
+        <div class="flex items-center gap-2.5 ml-auto border border-line px-3 py-1.5 flex-1 max-w-[220px]">
+          <i data-lucide="search" class="w-3.5 h-3.5 text-faint shrink-0"></i>
+          <input id="invFilter" class="bg-transparent outline-none font-mono text-[11px] w-full text-bone placeholder:text-faint/60" placeholder="FILTER ITEMS">
+        </div>
+        <button id="invClose" class="font-mono text-[10px] tracking-[0.14em] text-faint hover:text-bone flex items-center gap-2">ESC <i data-lucide="x" class="w-3.5 h-3.5"></i></button>
+      </div>
+      <div id="invBody" class="overflow-y-auto p-6 md:p-8 grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-9" data-lenis-prevent></div>
+      <div class="px-6 md:px-8 py-3.5 border-t border-line font-mono text-[9px] tracking-[0.14em] text-faint">[E] TOGGLE · [ESC] CLOSE · CLICK A LOADOUT SLOT FOR DETAILS</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MOBILE MENU ============ -->
+<div id="menu" class="hidden fixed inset-0 z-[86] bg-ink flex flex-col">
+  <div class="mx-auto w-[min(1200px,92vw)] h-16 flex items-center justify-between">
+    <span class="font-mono text-[11px] tracking-[0.18em] text-bone">AASIM'AHMED</span>
+    <button id="menuClose" class="w-10 h-10 border border-line flex items-center justify-center text-bone2" aria-label="Close menu"><i data-lucide="x" class="w-5 h-5"></i></button>
+  </div>
+  <nav class="mx-auto w-[min(1200px,92vw)] flex-1 flex flex-col justify-center">
+    <a href="#about" class="menu-row border-t border-line py-5 flex items-baseline gap-5 hover:pl-3 transition-all"><span class="font-mono text-[11px] text-ember">01</span><div><div class="text-3xl">About</div><div class="font-mono text-[9px] tracking-[0.2em] text-faint mt-1">THE ROUTE SO FAR</div></div></a>
+    <a href="#skills" class="menu-row border-t border-line py-5 flex items-baseline gap-5 hover:pl-3 transition-all"><span class="font-mono text-[11px] text-ember">02</span><div><div class="text-3xl">Loadout</div><div class="font-mono text-[9px] tracking-[0.2em] text-faint mt-1">NINE SLOTS, EARNED</div></div></a>
+    <a href="#projects" class="menu-row border-t border-line py-5 flex items-baseline gap-5 hover:pl-3 transition-all"><span class="font-mono text-[11px] text-ember">03</span><div><div class="text-3xl">Expeditions</div><div class="font-mono text-[9px] tracking-[0.2em] text-faint mt-1">FIELD REPORTS</div></div></a>
+    <a href="#experience" class="menu-row border-t border-line py-5 flex items-baseline gap-5 hover:pl-3 transition-all"><span class="font-mono text-[11px] text-ember">04</span><div><div class="text-3xl">Depth Log</div><div class="font-mono text-[9px] tracking-[0.2em] text-faint mt-1">Y 128 → Y -64</div></div></a>
+    <a href="#contact" class="menu-row border-y border-line py-5 flex items-baseline gap-5 hover:pl-3 transition-all"><span class="font-mono text-[11px] text-ember">05</span><div><div class="text-3xl">Base Camp</div><div class="font-mono text-[9px] tracking-[0.2em] text-faint mt-1">SAY HELLO</div></div></a>
+  </nav>
+  <div class="mx-auto w-[min(1200px,92vw)] py-8 font-mono text-[10px] tracking-[0.14em] text-faint flex items-center gap-3"><span class="status-dot"></span>OPEN TO WORK · hi@aasimahmed.dev</div>
+</div>
+
+<!-- toasts -->
+<div id="toasts" class="fixed bottom-5 right-5 z-[110] flex flex-col gap-2 items-end" aria-live="polite"></div>
+
+<!-- tooltip -->
+<div id="tt" class="hidden fixed z-[78] pointer-events-none border border-line bg-ink2/95 backdrop-blur px-3.5 py-2.5" style="display:none">
+  <div id="ttName" class="font-mono text-[11px] tracking-[0.08em] text-bone"></div>
+  <div id="ttRar" class="mt-1 font-mono text-[9px] tracking-[0.18em]"></div>
+  <div class="mt-1.5 font-mono text-[9px] tracking-[0.08em] text-faint">LVL V — CLICK TO INSPECT</div>
+</div>
+
+<!-- ============ LIBRARIES (CDN) ============ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.149.0/three.min.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/motion@10.18.0/dist/motion.min.js"></script>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------- helpers & constants ---------- */
+const $  = (s, ctx) => (ctx||document).querySelector(s);
+const $$ = (s, ctx) => Array.from((ctx||document).querySelectorAll(s));
+const FINE    = matchMedia('(hover:hover) and (pointer:fine)').matches;
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const RAR = { E:['EPIC','#E8A33D'], R:['RARE','#93A878'], C:['COMMON','#A8A092'] };
+const pad2 = n => String(n).padStart(2,'0');
+
+function safeIcons(){ if(window.lucide){ try{ lucide.createIcons(); }catch(e){} } }
+
+/* Motion (micro-interactions) with a GSAP fallback */
+function mo(el, props, opts){
+  opts = opts || {};
+  const ease = opts.easing || [.22,.75,.2,1];
+  if(window.Motion && window.Motion.animate){
+    try{ return window.Motion.animate(el, props, { duration: opts.duration||.4, easing: ease, ease: ease }); }catch(e){}
+  }
+  const from = {}, to = {};
+  Object.keys(props).forEach(k => { if(Array.isArray(props[k])){ from[k]=props[k][0]; to[k]=props[k][1]; } });
+  return gsap.fromTo(el, from, to, { duration: opts.duration||.4, ease:'power2.out' });
+}
+
+/* ---------- data ---------- */
+const SKILLS = [
+  { name:'React + Next.js', icon:'atom', cat:'FRONTEND', rar:'E', xp:92, yrs:4, dep:'PRODUCTION', last:'TODAY',
+    lore:'The surface layer. Server components, streaming, suspense boundaries — interfaces that feel instant because, mostly, they are.',
+    ench:[['TYPESCRIPT','V'],['RSC / STREAMING','IV'],['STATE ARCHITECTURE','IV'],['ACCESSIBILITY','III']] },
+  { name:'Node.js', icon:'server', cat:'BACKEND', rar:'E', xp:88, yrs:4, dep:'PRODUCTION', last:'TODAY',
+    lore:'APIs, queues and services that stay boring under load. Fastify when it needs to be fast, Express when it needs to be everywhere.',
+    ench:[['FASTIFY','IV'],['REST / GRAPHQL','IV'],['WEBSOCKETS','III'],['QUEUES / BULLMQ','III']] },
+  { name:'Python · PyTorch', icon:'flame', cat:'AI / ML', rar:'E', xp:84, yrs:3, dep:'PRODUCTION', last:'THIS WEEK',
+    lore:'Where the models live. Training loops, evaluation harnesses, and the unglamorous data work that makes both possible.',
+    ench:[['PYTORCH','IV'],['SCIKIT-LEARN','IV'],['PANDAS','V'],['EVAL HARNESS','III']] },
+  { name:'PostgreSQL + pgvector', icon:'database', cat:'DATA', rar:'R', xp:78, yrs:3, dep:'PRODUCTION', last:'TODAY',
+    lore:'One database, worn many hats: relational core, vector store, job queue and — occasionally — spreadsheet replacement.',
+    ench:[['SQL','V'],['INDEX DESIGN','IV'],['PGVECTOR','III'],['PRISMA','III']] },
+  { name:'Zoho CRM + Deluge', icon:'workflow', cat:'AUTOMATION', rar:'E', xp:90, yrs:2, dep:'PRODUCTION', last:'THIS WEEK',
+    lore:'Two years making CRMs do things the vendor said weren\u2019t possible. Deluge is strange; production is still production.',
+    ench:[['DELUGE','V'],['ZOHO FLOW','IV'],['WEBHOOK BRIDGES','IV'],['DATA MIGRATION','III']] },
+  { name:'Rust', icon:'hammer', cat:'SYSTEMS', rar:'R', xp:62, yrs:2, dep:'SIDE QUESTS', last:'YESTERDAY',
+    lore:'The deep layer. Compilers, VMs and CLI tools — borrow checker argued with, lifetimes befriended, zero regrets.',
+    ench:[['OWNERSHIP','III'],['CARGO','IV'],['TOKIO','II'],['MACROS','II']] },
+  { name:'Docker + CI', icon:'container', cat:'DELIVERY', rar:'R', xp:74, yrs:3, dep:'PRODUCTION', last:'THIS WEEK',
+    lore:'If it isn\u2019t reproducible, it isn\u2019t shipped. Multi-stage builds, GitHub Actions pipelines, deploys that don\u2019t need a person.',
+    ench:[['COMPOSE','III'],['GH ACTIONS','III'],['NGINX','III'],['MULTI-STAGE','III']] },
+  { name:'Go', icon:'boxes', cat:'SYSTEMS', rar:'C', xp:55, yrs:1, dep:'SANDBOX', last:'LAST WEEK',
+    lore:'Recent pickup, already earning its keep: single-binary tools and network services with standard-library discipline.',
+    ench:[['GOROUTINES','II'],['NET / HTTP','III'],['INTERFACES','II'],['GO MODULES','II']] },
+  { name:'Field Kit — Git / Linux', icon:'terminal', cat:'TOOLING', rar:'C', xp:95, yrs:5, dep:'EVERYTHING', last:'RIGHT NOW',
+    lore:'tmux, neovim, git bisect. The item you never screenshot but equip every single day. Dullest color, most durability.',
+    ench:[['GIT','V'],['LINUX','IV'],['SHELL','IV'],['NEOVIM','III']] }
+];
+
+const PROJECTS = [
+  { title:'Cartograph', index:'EXPL.01', year:'2024', type:'AI / ML — RAG SYSTEM', role:'DESIGN · BUILD · SHIP', status:'IN PRODUCTION',
+    complexity:4, seedHex:'0x5D3A', seed:0x5D3A,
+    lede:'A RAG knowledge engine that lets a 200-person organisation ask its own documents questions — in plain language, with citations.',
+    body:'Cartograph chunks and indexes 80,000+ internal documents, then answers natural-language queries through a hybrid retrieval pipeline: BM25 for the words people actually typed, dense vectors (pgvector) for what they meant, and a re-ranker that reconciles both. Every answer is citation-first — if the sources don\u2019t support the claim, the engine says so instead of improvising. An offline evaluation harness (faithfulness, context precision, p95 latency) gates every retrieval change.',
+    highlights:['Hybrid retrieval cut evaled "wrong-source" answers by 38% over pure vector search.','p95 end-to-end latency under 900ms across an 80k-document corpus.','Citation-first UI: every sentence in an answer links to its source chunk.'],
+    stack:['NEXT.JS','NODE','POSTGRES','PGVECTOR','LANGCHAIN','PYTHON','DOCKER'],
+    link:'https://github.com/aasimahmed/cartograph' },
+  { title:'Waypoint Ops', index:'EXPL.02', year:'2023–24', type:'AUTOMATION ARCHITECTURE', role:'ARCHITECT · IMPLEMENT', status:'IN PRODUCTION',
+    complexity:3, seedHex:'0x9F14', seed:0x9F14,
+    lede:'A Zoho CRM rebuild for a logistics firm — fourteen spreadsheets folded into one automated pipeline that runs itself.',
+    body:'The client ran dispatch, billing and vendor payouts across fourteen interconnected spreadsheets, maintained by hand, twice a day. I rebuilt the whole flow inside Zoho CRM: forty-plus Deluge workflows with retries and audit trails, webhook integrations with their transport partners, and a small Node bridge service for the parts Deluge genuinely cannot do. The pipeline now triggers, validates, notifies and reconciles without a human in the loop — and fails loudly instead of silently when a partner API misbehaves.',
+    highlights:['~20 staff-hours per week recovered, verified over a quarter.','Every workflow carries retries, idempotency keys and an audit trail.','Custom Node microservice bridges Deluge to partner APIs and SFTP.'],
+    stack:['ZOHO CRM','DELUGE','ZOHO FLOW','NODE','REST WEBHOOKS','POSTGRES'],
+    link:'https://github.com/aasimahmed/waypoint-ops' },
+  { title:'oxvm', index:'EXPL.03', year:'2024', type:'SYSTEMS — COMPILERS', role:'SOLO PROJECT', status:'OPEN SOURCE',
+    complexity:5, seedHex:'0x0C5A', seed:0x0C5A,
+    lede:'A bytecode compiler and stack-based virtual machine for a Lox-dialect scripting language — written in Rust, benchmarked honestly.',
+    body:'oxvm started as a weekend excuse to read Crafting Interpreters properly and became a year-long obsession: a Pratt parser, a bytecode compiler emitting a compact instruction set, a mark-sweep garbage collector, and a stack VM with call frames and closures. It also kept the original tree-walking interpreter around, so every claim about speed is measured, not vibes. 412 tests and a fuzzed parser keep the whole thing honest.',
+    highlights:['Tree-walker → stack VM: 6.8× speedup on the fib(30) benchmark suite.','Mark-sweep GC with a shadow-stack root set; no leaks under stress runs.','412 tests; the parser is fuzzed with arbitrary token streams.'],
+    stack:['RUST','BYTECODE','MARK-SWEEP GC','CRITERION','FUZZING'],
+    link:'https://github.com/aasimahmed/oxvm' },
+  { title:'chunkd', index:'EXPL.04', year:'2023', type:'SYSTEMS — STORAGE', role:'SOLO PROJECT', status:'OPEN SOURCE',
+    complexity:4, seedHex:'0x3E77', seed:0x3E77,
+    lede:'A content-addressed chunk-storage server in Go: split, hash, dedupe, serve — as a single static binary.',
+    body:'chunkd splits incoming streams into content-defined chunks (rolling-hash boundaries, so inserts don\u2019t shift everything), SHA-256s each chunk, and stores them deduplicated in a bbolt-backed store. Reference counts garbage-collect chunks no manifest points at. The whole thing is one Go binary with zero runtime dependencies — and resumable uploads fall out of the design for free, because a resumed upload just re-sends the chunks the server says it lacks.',
+    highlights:['61% storage saved on a 40GB redundant-file test corpus.','Content-defined chunking: inserting data at a file\u2019s start re-chunks only locally.','Resumable uploads with zero extra machinery — the model implies them.'],
+    stack:['GO','SHA-256','BBOLT','HTTP','ROLLING HASH'],
+    link:'https://github.com/aasimahmed/chunkd' },
+  { title:'driftwatch', index:'EXPL.05', year:'2024', type:'MLOPS — MONITORING', role:'DESIGN · BUILD', status:'OPEN SOURCE',
+    complexity:3, seedHex:'0x7B2E', seed:0x7B2E,
+    lede:'A CLI + dashboard that watches production models for drift and pings before the fire, not after.',
+    body:'Models decay quietly: inputs shift, features rot, and accuracy dashboards stay green for weeks because the test set doesn\u2019t. driftwatch computes PSI, KL and Jensen-Shannon divergence between training and serving distributions, tracks them over time in SQLite, and sends one daily digest — not forty alerts. The CLI installs with pipx and needs five minutes against any Parquet or CSV snapshot pair.',
+    highlights:['Caught a feature drift nine days before downstream metrics moved — on real data.','Three divergence metrics across 12 distribution families, reported with confidence notes.','One digest per day by design; alert fatigue is a bug, not a feature.'],
+    stack:['PYTHON','PSI / KL / JS-DIV','SQLITE','PANDAS','SLACK API'],
+    link:'https://github.com/aasimahmed/driftwatch' }
+];
+
+const STRATA = [
+  { y:'Y 128', date:'2024 — PRESENT', tag:'INDEPENDENT — BANGALORE / REMOTE', role:'Freelance AI & Full-stack Engineer',
+    desc:'Post-graduation practice: end-to-end product work for clients in logistics, ed-tech and professional services. I scope, build, ship — and stay for the maintenance, the part most people ghost.',
+    bullets:['Designed and shipped Cartograph — a RAG engine answering questions over 80k+ internal documents.','Built driftwatch after watching a client\u2019s model decay silently for a quarter.','Own the whole loop: discovery → architecture → deployment → on-call (rare, by design).'] },
+  { y:'Y 64', date:'2023 — 2024', tag:'KESTREL SYSTEMS — BENGALURU', role:'Automation Architect, Zoho Practice',
+    desc:'Architected CRM and process automation for mid-market operations teams. Deluge by day, Node bridges by night — wherever the platform ran out of road.',
+    bullets:['40+ production workflows with retries, audit trails and failure alerts.','Folded a 14-spreadsheet logistics pipeline into one automated system.','Wrote the internal Deluge style guide; trained two juniors to ship safely.'] },
+  { y:'Y 0', date:'2022 — 2023', tag:'NORTHLINE LABS — PART-TIME DURING DEGREE', role:'Full-stack Developer',
+    desc:'Product features across a React/Next.js multi-tenant dashboard backed by Node and Postgres — my first taste of software with real users and real deadlines.',
+    bullets:['Migrated a legacy jQuery portal to Next.js — cut time-to-interactive by ~60%.','Designed the REST API layer and its versioning strategy, still in use today.'] },
+  { y:'Y -32', date:'SUMMER 2022', tag:'CORTEXA AI — INTERNSHIP', role:'ML Engineering Intern',
+    desc:'Ten weeks inside a real ML pipeline — data cleaning, feature stores, and the wide gap between notebooks and production.',
+    bullets:['Built feature-extraction jobs (pandas / sklearn) feeding a churn model serving 200k users.','Wrote the evaluation report that killed a model before it shipped. Proud of that one.'] },
+  { y:'Y -64', date:'2020 — 2024', tag:'VTU, KARNATAKA', role:'B.E. Computer Science',
+    desc:'Compiler electives, ML coursework, and a final-year project that refused to stay a final-year project.',
+    bullets:['Final-year project: a bytecode compiler + VM for a Lox-dialect, written in Rust.','Teaching assistant for Programming Languages, two semesters.'] }
+];
+
+const INV_CATS = [
+  ['FRONTEND',  [['React',5,'E'],['Next.js',5,'E'],['TypeScript',5,'E'],['Tailwind CSS',4,'R'],['React Query',4,'R'],['Zustand',3,'R'],['Vite',3,'C'],['GSAP',3,'C']]],
+  ['BACKEND',   [['Node.js',5,'E'],['REST APIs',5,'E'],['Express',4,'R'],['Fastify',4,'R'],['GraphQL',3,'R'],['WebSockets',3,'R'],['tRPC',3,'C'],['BullMQ',2,'C']]],
+  ['AI / ML',   [['PyTorch',4,'E'],['scikit-learn',4,'E'],['RAG pipelines',4,'E'],['pandas',5,'E'],['LangChain',3,'R'],['HuggingFace',3,'R'],['Jupyter',4,'C'],['ONNX',2,'C']]],
+  ['SYSTEMS',   [['Rust',3,'R'],['Compilers',3,'R'],['Go',2,'C'],['C++',2,'C'],['Bash',4,'C'],['x86 assembly',1,'C'],['LLVM',1,'C']]],
+  ['DATA',      [['PostgreSQL',4,'R'],['pgvector',3,'R'],['SQLite',4,'C'],['Redis',3,'C'],['MongoDB',3,'C'],['Prisma',3,'C']]],
+  ['AUTOMATION',[['Zoho CRM',5,'E'],['Deluge',5,'E'],['Zoho Flow',4,'E'],['Webhooks',4,'R'],['Data migration',4,'R']]],
+  ['DELIVERY',  [['Docker',4,'R'],['GitHub Actions',3,'R'],['Linux',5,'C'],['Git',5,'C'],['Nginx',3,'C']]]
+];
+
+const LOADER_MSGS = ['ROLLING TERRAIN…','PLACING TORCHES…','CARVING CAVES…','SPAWNING ENGINEER…'];
+const BIOME_MAP = [['#hero','PLAINS'],['#about','BIRCH FOREST'],['#skills','DRIPSTONE CAVES'],['#projects','DEEP DARK'],['#experience','DEEPSLATE'],['#contact','BEDROCK']];
+
+/* ---------- generative "seed" topography ---------- */
+function ramp(t){
+  if(t > .93) return '#E8A33D';
+  if(t > .84) return '#9A9080';
+  if(t > .68) return '#4A443A';
+  if(t > .50) return '#332F28';
+  if(t > .32) return '#241F1A';
+  return '#17150F';
+}
+function drawMap(cv, seed, cols, rows){
+  const dpr = Math.min(window.devicePixelRatio||1, 2);
+  const w = cv.clientWidth || 96, h = w * rows / cols;
+  cv.width = Math.round(w*dpr); cv.height = Math.round(h*dpr);
+  const ctx = cv.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0);
+  let s = (seed>>>0) || 1;
+  const rnd = () => { s = (s*1664525 + 1013904223) >>> 0; return s/4294967296; };
+  let g = []; for(let j=0;j<rows;j++){ g.push([]); for(let i=0;i<cols;i++) g[j].push(rnd()); }
+  for(let pass=0; pass<2; pass++){
+    const n = g.map(r=>r.slice());
+    for(let j=0;j<rows;j++) for(let i=0;i<cols;i++){
+      let sum=0,c=0;
+      for(let dj=-1;dj<=1;dj++) for(let di=-1;di<=1;di++){
+        const jj=j+dj, ii=i+di;
+        if(jj>=0&&jj<rows&&ii>=0&&ii<cols){ sum+=n[jj][ii]; c++; }
+      }
+      g[j][i]=sum/c;
+    }
+  }
+  let mn=1,mx=0; g.forEach(r=>r.forEach(v=>{ mn=Math.min(mn,v); mx=Math.max(mx,v); }));
+  const span=(mx-mn)||1, cs=w/cols, rs=h/rows;
+  for(let j=0;j<rows;j++) for(let i=0;i<cols;i++){
+    const t=(g[j][i]-mn)/span;
+    ctx.fillStyle = ramp(t);
+    ctx.fillRect(i*cs+.5, j*rs+.5, cs-1, rs-1);
+    if(t>.24 && t<.62 && rnd()>.93){
+      ctx.fillStyle = '#E8A33D';
+      ctx.fillRect(i*cs+cs/2-1.5, j*rs+rs/2-1.5, 3, 3);
+    }
+  }
+}
+
+/* ---------- build dynamic DOM ---------- */
+const hotbar = $('#hotbar');
+SKILLS.forEach((s,i)=>{
+  const btn = document.createElement('button');
+  btn.className = 'slot w-12 h-12 md:w-14 md:h-14 border border-line bg-ink2 flex items-center justify-center';
+  btn.setAttribute('aria-label', s.name);
+  btn.innerHTML = '<i data-lucide="'+s.icon+'" class="w-5 h-5 text-bone2"></i>'
+    + '<span class="slot-idx">'+pad2(i+1)+'</span>'
+    + '<span class="slot-rar" style="background:'+RAR[s.rar][1]+'"></span>'
+    + '<span class="slot-caret"></span>';
+  btn.addEventListener('click', ()=> selectSlot(i));
+  btn.addEventListener('pointerenter', e => showTT(s, e));
+  btn.addEventListener('pointermove',  e => moveTT(e));
+  btn.addEventListener('pointerleave', hideTT);
+  hotbar.appendChild(btn);
+});
+
+const blocks = c => Array.from({length:5},(_,k)=>'<span class="w-[7px] h-[7px] '+(k<c?'bg-ember':'bg-white/10')+'"></span>').join('');
+
+const projList = $('#projList');
+PROJECTS.forEach((p,i)=>{
+  const row = document.createElement('article');
+  row.className = 'proj group border-t border-line py-8 md:py-10 md:grid md:grid-cols-12 gap-6 md:gap-8 items-center cursor-pointer hover:bg-ink2/60 transition-colors';
+  row.setAttribute('tabindex','0'); row.setAttribute('role','button');
+  row.setAttribute('aria-label','Open field report: '+p.title);
+  row.innerHTML =
+    '<div class="font-mono text-[11px] text-faint md:col-span-1">'+pad2(i+1)+'</div>'
+    + '<div class="mt-3 md:mt-0 md:col-span-6">'
+    +   '<h3 class="text-2xl md:text-[2.1rem] leading-tight transition-transform duration-300 group-hover:translate-x-2">'+p.title+'</h3>'
+    +   '<p class="mt-2.5 text-bone2 max-w-md leading-relaxed">'+p.lede+'</p>'
+    + '</div>'
+    + '<div class="mt-4 md:mt-0 md:col-span-2 font-mono text-[10px] tracking-[0.12em] text-faint space-y-1"><div>'+p.year+'</div><div class="text-bone2/70">'+p.type+'</div></div>'
+    + '<div class="mt-4 md:mt-0 md:col-span-2 flex items-center gap-5">'
+    +   '<canvas class="proj-thumb w-20 h-20 md:w-24 md:h-24 border border-line shrink-0" data-i="'+i+'"></canvas>'
+    +   '<div><div class="font-mono text-[8px] tracking-[0.2em] text-faint mb-1.5">COMPLEXITY</div><div class="flex gap-1">'+blocks(p.complexity)+'</div></div>'
+    + '</div>'
+    + '<div class="hidden md:flex md:col-span-1 justify-end"><span class="w-11 h-11 border border-line flex items-center justify-center text-bone2 transition-colors group-hover:bg-ember group-hover:text-ink group-hover:border-ember"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></span></div>';
+  row.addEventListener('click', ()=> openModal(i));
+  row.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(i); } });
+  row.addEventListener('pointerenter', ()=> scrambleThumb(row));
+  projList.appendChild(row);
+});
+
+const strataList = $('#strataList');
+STRATA.forEach((st,i)=>{
+  const left = i%2===0;
+  const el = document.createElement('div');
+  el.className = 'strata relative py-9 md:py-11 md:grid md:grid-cols-2 md:gap-20';
+  el.innerHTML =
+    '<div class="marker absolute left-[5px] md:left-1/2 top-10 md:top-12 -translate-x-1/2 flex flex-col items-center">'
+    +   '<span class="block w-2.5 h-2.5 bg-ember"></span>'
+    +   '<span class="mt-2 font-mono text-[9px] tracking-[0.14em] text-faint hidden md:block">'+st.y+'</span>'
+    + '</div>'
+    + '<div class="strata-body pl-8 md:pl-0 '+(left?'md:col-start-1':'md:col-start-2')+'">'
+    +   '<div class="font-mono text-[10px] tracking-[0.18em] text-faint">'+st.date+' · '+st.tag+'<span class="md:hidden text-ember"> · '+st.y+'</span></div>'
+    +   '<h3 class="mt-2.5 text-2xl md:text-[1.8rem] leading-snug">'+st.role+'</h3>'
+    +   '<p class="mt-3 text-bone2 leading-relaxed max-w-xl">'+st.desc+'</p>'
+    +   '<ul class="mt-4 space-y-2.5 font-mono text-[11px] leading-relaxed text-bone2/90 max-w-xl">'
+    +     st.bullets.map(b=>'<li class="flex gap-3"><span class="mt-[7px] w-1 h-1 bg-ember shrink-0"></span><span>'+b+'</span></li>').join('')
+    +   '</ul>'
+    + '</div>';
+  strataList.appendChild(el);
+});
+
+const invBody = $('#invBody'), invTotal = INV_CATS.reduce((a,c)=>a+c[1].length,0);
+INV_CATS.forEach(cat=>{
+  const col = document.createElement('div'); col.className = 'inv-cat';
+  col.innerHTML = '<h4 class="font-mono text-[9px] tracking-[0.24em] text-ember mb-2.5">'+cat[0]+'</h4>'
+    + cat[1].map(it=>{
+      const dots = Array.from({length:5},(_,k)=>'<span class="w-[5px] h-[5px] '+(k<it[1]?'bg-ember':'bg-white/10')+'"></span>').join('');
+      return '<div class="inv-row flex items-center justify-between border-b border-line border-l-2 pl-3 pr-1 py-2" style="border-left-color:'+RAR[it[2]][1]+'">'
+        + '<span class="font-mono text-[11px] text-bone2 tracking-[0.04em]">'+it[0]+'</span>'
+        + '<span class="flex gap-1">'+dots+'</span></div>';
+    }).join('');
+  invBody.appendChild(col);
+});
+ $('#invCount').textContent = invTotal+' ITEMS — '+SKILLS.length+' EQUIPPED';
+ $('#invCountShort').textContent = '('+invTotal+')';
+
+/* ticker */
+const TICKS = ['REACT','NEXT.JS','TYPESCRIPT','NODE.JS','POSTGRES','PYTHON','PYTORCH','RUST','GO','ZOHO / DELUGE','DOCKER','RAG PIPELINES','COMPILERS','Y 64 → Y -64'];
+const tickHTML = TICKS.map(t=>'<span class="mx-7">'+t+'</span><span class="text-ember/60">///</span>').join('');
+ $$('.ticker-track').forEach(t=> t.innerHTML = tickHTML);
+
+safeIcons();
+
+/* ---------- pixel avatar (blinks) ---------- */
+const FACE_ROWS = ['HHHHHHHH','HHHHHHHH','HSSSSSSH','HSSSSSSH','HEESSEEH','HSSMMSSH','OOOSSOOO','ORRRRRRO'];
+const FACE_COLS = { H:'#211C15', S:'#C99F72', D:'#A87F5A', E:'#12100D', M:'#8A6A4A', O:'#E8A33D', R:'#B57C2A' };
+const faceCv = $('#face');
+function drawFace(blink){
+  const ctx = faceCv.getContext('2d'), cs = 12;
+  ctx.clearRect(0,0,96,96);
+  FACE_ROWS.forEach((row,j)=>{
+    if(blink && j===4) row = row.replace(/E/g,'D');
+    row.split('').forEach((ch,i)=>{ ctx.fillStyle = FACE_COLS[ch]; ctx.fillRect(i*cs, j*cs, cs, cs); });
+  });
+}
+if(faceCv){
+  drawFace(false);
+  (function blinkLoop(){
+    setTimeout(()=>{ drawFace(true); setTimeout(()=>{ drawFace(false); blinkLoop(); }, 160); }, 2200 + Math.random()*3200);
+  })();
+  faceCv.addEventListener('pointerenter', ()=> drawFace(true));
+  faceCv.addEventListener('pointerleave', ()=> drawFace(false));
+}
+
+/* ---------- gracefully degrade if GSAP failed to load ---------- */
+if(!window.gsap){
+  const l = $('#loader'); if(l) l.remove();
+  document.documentElement.style.overflow = '';
+  return;
+}
+gsap.registerPlugin(ScrollTrigger);
+
+/* ---------- Lenis smooth scroll ---------- */
+let lenis = null;
+if(window.Lenis && !REDUCED){
+  lenis = new Lenis({ duration:1.15, easing: t => Math.min(1, 1.001 - Math.pow(2,-10*t)) });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(t => lenis.raf(t*1000));
+  gsap.ticker.lagSmoothing(0);
+  lenis.stop();
+}
+function scrollToEl(sel){
+  const el = typeof sel==='string' ? $(sel) : sel;
+  if(!el) return;
+  if(lenis) lenis.scrollTo(el, { offset:-64, duration:1.2 });
+  else el.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth' });
+}
+function lockScroll(on){
+  if(lenis){ on ? lenis.stop() : lenis.start(); }
+  document.documentElement.style.overflow = on ? 'hidden' : '';
+}
+document.documentElement.style.overflow = 'hidden'; // preloader phase
+
+/* ---------- Three.js voxel terrain ---------- */
+let threeCtl = null;
+(function initThree(){
+  const canvas = $('#three');
+  if(!window.THREE || !canvas) return;
+  let renderer;
+  try{ renderer = new THREE.WebGLRenderer({ canvas, antialias:true }); }
+  catch(e){ canvas.style.display='none'; return; }
+  renderer.setClearColor(0x0D0C0A, 1);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 1.75));
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x0D0C0A, .024);
+  const camera = new THREE.PerspectiveCamera(48, 1, .1, 240);
+  camera.position.set(0, 15, 41);
+  const group = new THREE.Group(); scene.add(group);
+
+  const state = { scroll:0, mx:0, my:0 };
+  const drag = { down:false, lastX:0, target:0, cur:0 };
+
+  // deterministic value noise
+  const NSEED = 1729;
+  const hash = (x,z) => { const n = Math.sin(x*127.1 + z*311.7 + NSEED*13.7)*43758.5453; return n - Math.floor(n); };
+  const vnoise = (x,z)=>{
+    const xi=Math.floor(x), zi=Math.floor(z), xf=x-xi, zf=z-zi;
+    const u=xf*xf*(3-2*xf), v=zf*zf*(3-2*zf);
+    const a=hash(xi,zi), b=hash(xi+1,zi), c=hash(xi,zi+1), d=hash(xi+1,zi+1);
+    return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v;
+  };
+  const fbm = (x,z)=>{ let f=0, amp=.5, fr=1; for(let i=0;i<4;i++){ f+=amp*vnoise(x*fr,z*fr); fr*=2.03; amp*=.5; } return f; };
+
+  const N = 56, geo = new THREE.BoxGeometry(1,1,1), q = new THREE.Quaternion(), m4 = new THREE.Matrix4();
+  const terrain = new THREE.InstancedMesh(geo, new THREE.MeshLambertMaterial({ color:0xffffff }), N*N);
+  const col = new THREE.Color(), low = new THREE.Color(0x1A1815), mid = new THREE.Color(0x2B2721), hi = new THREE.Color(0x3E382E);
+  const oreList = []; let idx = 0;
+  for(let i=0;i<N;i++) for(let j=0;j<N;j++){
+    const x = i - N/2, z = j - N/2;
+    let h = Math.pow(Math.max(fbm(i*.09, j*.09), 0), 1.3);
+    const step = Math.max(1, Math.floor(h*9));
+    m4.compose(new THREE.Vector3(x, step/2, z), q, new THREE.Vector3(.96, step, .96));
+    terrain.setMatrixAt(idx, m4);
+    const t = step/8;
+    col.copy(low).lerp(mid, Math.min(t*1.8,1));
+    if(t>.55) col.lerp(hi, (t-.55)/.45);
+    col.offsetHSL(0, 0, (hash(i*3.7, j*7.3)-.5)*.02);
+    if(step>=8 && hash(i+99, j+7)>.7) col.setHex(0x8E8672); // dusted peaks
+    terrain.setColorAt(idx, col);
+    if(step>=4 && step<=7 && hash(i*5.1, j*9.7)>.94) oreList.push([x, step+.28, z]);
+    idx++;
+  }
+  terrain.instanceMatrix.needsUpdate = true;
+  if(terrain.instanceColor) terrain.instanceColor.needsUpdate = true;
+  group.add(terrain);
+  if(oreList.length){
+    const ore = new THREE.InstancedMesh(geo, new THREE.MeshBasicMaterial({ color:0xE8A33D }), oreList.length);
+    oreList.forEach((p,i)=>{ m4.compose(new THREE.Vector3(p[0],p[1],p[2]), q, new THREE.Vector3(.55,.55,.55)); ore.setMatrixAt(i,m4); });
+    group.add(ore);
+  }
+
+  // lights: faint moonlight + one warm torch
+  scene.add(new THREE.AmbientLight(0xffffff, .16));
+  const moon = new THREE.DirectionalLight(0x9AA5AD, .55); moon.position.set(-30, 40, -20); scene.add(moon);
+  const torch = new THREE.PointLight(0xFFB85C, 2.0, 90, 1.8); torch.position.set(8, 15, 7); scene.add(torch);
+
+  // drifting embers (soft circular sprites)
+  let points = null, pPos = null, pVel = null;
+  if(!REDUCED){
+    const COUNT = 130;
+    pPos = new Float32Array(COUNT*3); pVel = new Float32Array(COUNT);
+    for(let i=0;i<COUNT;i++){
+      pPos[i*3]   = (Math.random()-.5)*52;
+      pPos[i*3+1] = Math.random()*26;
+      pPos[i*3+2] = (Math.random()-.5)*52;
+      pVel[i] = .012 + Math.random()*.03;
+    }
+    const pGeo = new THREE.BufferGeometry();
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+    const sc = document.createElement('canvas'); sc.width = sc.height = 64;
+    const g2 = sc.getContext('2d'), rg = g2.createRadialGradient(32,32,0,32,32,30);
+    rg.addColorStop(0,'rgba(255,220,160,1)'); rg.addColorStop(.4,'rgba(240,180,90,.55)'); rg.addColorStop(1,'rgba(240,180,90,0)');
+    g2.fillStyle = rg; g2.fillRect(0,0,64,64);
+    points = new THREE.Points(pGeo, new THREE.PointsMaterial({
+      size:.55, map:new THREE.CanvasTexture(sc), transparent:true, opacity:.85,
+      depthWrite:false, blending:THREE.AdditiveBlending, color:0xF0B45A, sizeAttenuation:true
+    }));
+    group.add(points);
+  }
+
+  function resize(){
+    const w = canvas.clientWidth || innerWidth, h = canvas.clientHeight || innerHeight;
+    camera.aspect = w/h; camera.updateProjectionMatrix();
+    renderer.setSize(w, h, false);
+  }
+  resize();
+  addEventListener('resize', resize);
+
+  // drag-to-rotate (mouse)
+  const hero = $('#hero');
+  hero.addEventListener('pointerdown', e=>{
+    if(e.pointerType!=='mouse' || e.button!==0) return;
+    if(e.target.closest('a,button,input,textarea')) return;
+    drag.down = true; drag.lastX = e.clientX;
+  });
+  addEventListener('pointermove', e=>{
+    state.mx = (e.clientX/innerWidth - .5)*2;
+    state.my = (e.clientY/innerHeight - .5)*2;
+    if(drag.down){ drag.target += (e.clientX - drag.lastX)*.005; drag.lastX = e.clientX; }
+  });
+  addEventListener('pointerup', ()=> drag.down = false);
+
+  let heroVis = true, rafId = null;
+  const sm = { x:0, y:0 };
+  function loop(now){
+    rafId = null;
+    if(!heroVis || document.hidden) return;
+    const t = now*.001;
+    drag.cur += (drag.target - drag.cur)*.06;
+    sm.x += (state.mx - sm.x)*.05; sm.y += (state.my - sm.y)*.05;
+    group.rotation.y = t*.022 + drag.cur;
+    camera.position.x = sm.x*2.2 + Math.sin(t*.12)*1.2;
+    camera.position.y = 15 + Math.sin(t*.2)*.7 + state.scroll*9;
+    camera.position.z = 41 - state.scroll*5;
+    camera.lookAt(0, 2 - state.scroll*5, 0);
+    scene.fog.density = .024 + state.scroll*.02;
+    torch.intensity = 2 + Math.sin(t*7.3)*.25 + Math.sin(t*13.7)*.15;
+    if(points){
+      for(let i=0;i<pVel.length;i++){
+        pPos[i*3+1] += pVel[i];
+        pPos[i*3]   += Math.sin(t*.6 + i)*.004;
+        if(pPos[i*3+1] > 27){ pPos[i*3+1] = 0; pPos[i*3] = (Math.random()-.5)*52; }
+      }
+      points.geometry.attributes.position.needsUpdate = true;
+    }
+    renderer.render(scene, camera);
+    rafId = requestAnimationFrame(loop);
+  }
+  rafId = requestAnimationFrame(loop);
+  new IntersectionObserver(en=>{
+    heroVis = en[0].isIntersecting;
+    if(heroVis && !rafId) rafId = requestAnimationFrame(loop);
+  }).observe(hero);
+  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && heroVis && !rafId) rafId = requestAnimationFrame(loop); });
+
+  threeCtl = { state, canvas };
+})();
+
+/* ---------- toasts ---------- */
+const toastsBox = $('#toasts');
+function toast(msg, icon){
+  icon = icon || 'check';
+  const el = document.createElement('div');
+  el.className = 'toast flex items-center gap-3 bg-ink2 border border-line border-l-2 border-l-ember px-4 py-3 font-mono text-[11px] tracking-[0.08em] text-bone shadow-2xl shadow-black/50 max-w-[78vw]';
+  el.innerHTML = '<i data-lucide="'+icon+'" class="w-4 h-4 text-ember shrink-0"></i><span>'+msg+'</span>';
+  toastsBox.appendChild(el);
+  safeIcons();
+  mo(el, { opacity:[0,1], x:[24,0] }, { duration:.45 });
+  const kill = ()=> mo(el, { opacity:[1,0], x:[0,24] }, { duration:.3 }) && setTimeout(()=>el.remove(), 320);
+  setTimeout(kill, 3600);
+  el.addEventListener('click', ()=> el.remove());
+}
+
+/* ---------- skills: hotbar select / tooltip ---------- */
+const slots = $$('.slot'), ld = {
+  name:$('#ldName'), rar:$('#ldRar'), cat:$('#ldCat'), lore:$('#ldLore'),
+  ench:$('#ldEnch'), xp:$('#ldXp'), xpTxt:$('#ldXpTxt'), yrs:$('#ldYrs'), dep:$('#ldDep'), last:$('#ldLast'), slot:$('#ldSlot')
+};
+function selectSlot(i){
+  const s = SKILLS[i];
+  slots.forEach((el,k)=> el.classList.toggle('sel', k===i));
+  ld.name.textContent = s.name;
+  ld.rar.textContent = RAR[s.rar][0];
+  ld.rar.style.color = RAR[s.rar][1];
+  ld.rar.style.borderColor = RAR[s.rar][1]+'59';
+  ld.cat.textContent = s.cat;
+  ld.lore.textContent = s.lore;
+  ld.yrs.textContent = pad2(s.yrs);
+  ld.dep.textContent = s.dep;
+  ld.last.textContent = s.last;
+  ld.xpTxt.textContent = s.xp+'%';
+  ld.slot.textContent = pad2(i+1);
+  ld.ench.innerHTML = s.ench.map(e=>'<li class="flex justify-between gap-4 border-b border-line/60 pb-1"><span class="text-bone2 tracking-[0.06em]">'+e[0]+'</span><span class="text-ember">'+e[1]+'</span></li>').join('');
+  if(!REDUCED){
+    gsap.fromTo('#loadDetail', { y:10, opacity:.35 }, { y:0, opacity:1, duration:.45, ease:'power2.out', overwrite:true });
+    gsap.fromTo('#ldXp', { width:0 }, { width:s.xp+'%', duration:.9, ease:'expo.out', overwrite:true });
+  } else { ld.xp.style.width = s.xp+'%'; }
+  mo(slots[i], { scale:[.82,1] }, { duration:.35 });
+}
+selectSlot(0);
+
+const tt = $('#tt');
+function showTT(s, e){
+  if(!FINE) return;
+  $('#ttName').textContent = s.name;
+  $('#ttRar').textContent = RAR[s.rar][0];
+  $('#ttRar').style.color = RAR[s.rar][1];
+  tt.style.display = 'block';
+  mo(tt, { opacity:[0,1], scale:[.92,1] }, { duration:.22 });
+  moveTT(e);
+}
+function moveTT(e){
+  const w = 210, x = Math.min(e.clientX+16, innerWidth - w - 12), y = e.clientY+18;
+  tt.style.left = x+'px'; tt.style.top = y+'px';
+}
+function hideTT(){ tt.style.display = 'none'; }
+
+/* ---------- inventory overlay ---------- */
+const inv = $('#inventory'), invPanel = $('#invPanel'), invBack = $('#invBack');
+let invOpen = false;
+function openInventory(){
+  invOpen = true; inv.classList.remove('hidden'); lockScroll(true);
+  gsap.to(invBack, { opacity:1, duration:.35 });
+  gsap.fromTo(invPanel, { opacity:0, y:26, scale:.985 }, { opacity:1, y:0, scale:1, duration:.55, ease:'expo.out' });
+  if(!REDUCED) gsap.fromTo('.inv-row', { opacity:0, y:8 }, { opacity:1, y:0, duration:.3, stagger:.012, delay:.15 });
+}
+function closeInventory(){
+  invOpen = false;
+  gsap.to(invBack, { opacity:0, duration:.25 });
+  gsap.to(invPanel, { opacity:0, y:16, duration:.3, ease:'power2.in', onComplete(){ inv.classList.add('hidden'); lockScroll(false); } });
+}
+ $('#invOpen').addEventListener('click', openInventory);
+ $('#invClose').addEventListener('click', closeInventory);
+invBack.addEventListener('click', closeInventory);
+ $('#invFilter').addEventListener('input', e=>{
+  const q = e.target.value.trim().toLowerCase(); let visible = 0;
+  $$('.inv-row').forEach(r=>{
+    const hit = !q || r.textContent.toLowerCase().includes(q);
+    r.classList.toggle('hidden', !hit); if(hit) visible++;
+  });
+  $$('.inv-cat').forEach(c=>{ c.style.display = c.querySelector('.inv-row:not(.hidden)') ? '' : 'none'; });
+  $('#invCount').textContent = (q ? visible + ' MATCHES' : invTotal+' ITEMS — '+SKILLS.length+' EQUIPPED');
+});
+
+/* ---------- project modal ---------- */
+const modal = $('#modal'), modalBack = $('#modalBack'), modalPanel = $('#modalPanel');
+let modalOpen = false;
+function openModal(i){
+  const p = PROJECTS[i];
+  modalOpen = true;
+  $('#mIndex').textContent = p.index;
+  $('#mTitle').textContent = p.title;
+  $('#mLede').textContent = p.lede;
+  $('#mMeta').innerHTML = [['YEAR',p.year],['ROLE',p.role],['TYPE',p.type],['STATUS',p.status]]
+    .map(r=>'<div class="flex justify-between border-b border-line py-2"><span class="text-faint tracking-[0.16em] text-[10px]">'+r[0]+'</span><span class="text-bone2 text-[11px]">'+r[1]+'</span></div>').join('');
+  $('#mBody').textContent = p.body;
+  $('#mHighlights').innerHTML = p.highlights.map(h=>'<li class="flex gap-3 items-start"><i data-lucide="check" class="w-4 h-4 text-ember mt-[3px] shrink-0"></i><span class="text-bone2 leading-relaxed text-[15px]">'+h+'</span></li>').join('');
+  $('#mStack').innerHTML = p.stack.map(s=>'<span class="font-mono text-[9px] tracking-[0.14em] border border-line px-2.5 py-1.5 text-bone2">'+s+'</span>').join('');
+  $('#mComplexity').innerHTML = blocks(p.complexity);
+  $('#mSeed').textContent = 'SEED — '+p.seedHex;
+  $('#mLink').href = p.link;
+  modal.classList.remove('hidden'); lockScroll(true); safeIcons();
+  gsap.to(modalBack, { opacity:1, duration:.35 });
+  gsap.fromTo(modalPanel, { opacity:0, y:36, scale:.965 }, { opacity:1, y:0, scale:1, duration:.6, ease:'expo.out' });
+  requestAnimationFrame(()=> drawMap($('#mCanvas'), p.seed, 26, 16));
+  $('#modalClose').focus();
+}
+function closeModal(){
+  if(!modalOpen) return;
+  modalOpen = false;
+  gsap.to(modalBack, { opacity:0, duration:.25, delay:.1 });
+  gsap.to(modalPanel, { opacity:0, y:24, duration:.3, ease:'power2.in', onComplete(){ modal.classList.add('hidden'); lockScroll(false); } });
+}
+ $('#modalClose').addEventListener('click', closeModal);
+modalBack.addEventListener('click', closeModal);
+
+/* thumbnails: draw when visible, scramble on hover */
+const thumbIO = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(!en.isIntersecting) return;
+    const cv = en.target, p = PROJECTS[+cv.dataset.i];
+    drawMap(cv, p.seed, 13, 13);
+    thumbIO.unobserve(cv);
+  });
+}, { rootMargin:'80px' });
+ $$('.proj-thumb').forEach(cv=> thumbIO.observe(cv));
+
+function scrambleThumb(row){
+  if(REDUCED || !FINE) return;
+  const cv = row.querySelector('.proj-thumb');
+  if(!cv || cv._busy || !cv.width) return;
+  cv._busy = true; let f = 0;
+  const p = PROJECTS[+cv.dataset.i];
+  const iv = setInterval(()=>{
+    f++;
+    if(f>7){ clearInterval(iv); drawMap(cv, p.seed, 13, 13); cv._busy = false; }
+    else drawMap(cv, p.seed + f*131, 13, 13);
+  }, 55);
+}
+
+/* ---------- mobile menu ---------- */
+const menu = $('#menu');
+let menuOpen = false;
+function openMenu(){
+  menuOpen = true; menu.classList.remove('hidden'); lockScroll(true);
+  gsap.fromTo('.menu-row', { opacity:0, x:-18 }, { opacity:1, x:0, duration:.5, stagger:.06, ease:'power3.out', delay:.05 });
+}
+function closeMenu(){
+  if(!menuOpen) return;
+  menuOpen = false;
+  gsap.to('.menu-row', { opacity:0, x:-12, duration:.25, stagger:.03, onComplete(){ menu.classList.add('hidden'); lockScroll(false); } });
+}
+ $('#menuBtn').addEventListener('click', openMenu);
+ $('#menuClose').addEventListener('click', closeMenu);
+
+/* ---------- keyboard ---------- */
+addEventListener('keydown', e=>{
+  const typing = document.activeElement && /INPUT|TEXTAREA/.test(document.activeElement.tagName);
+  if(e.key==='Escape'){
+    if(menuOpen) closeMenu();
+    else if(modalOpen) closeModal();
+    else if(invOpen) closeInventory();
+  }
+  if((e.key==='e'||e.key==='E') && !typing && !e.metaKey && !e.ctrlKey && !e.altKey && !modalOpen){
+    invOpen ? closeInventory() : openInventory();
+  }
+});
+
+/* ---------- anchors via Lenis ---------- */
+document.addEventListener('click', e=>{
+  const a = e.target.closest('a[href^="#"]');
+  if(!a) return;
+  const id = a.getAttribute('href');
+  if(id.length < 2) return;
+  e.preventDefault(); closeMenu(); scrollToEl(id);
+});
+ $('#toTop').addEventListener('click', ()=> scrollToEl('#hero'));
+
+/* ---------- copy email ---------- */
+ $('#copyEmail').addEventListener('click', async ()=>{
+  const email = 'hi@aasimahmed.dev';
+  try{ await navigator.clipboard.writeText(email); }
+  catch(e){
+    const ta = document.createElement('textarea'); ta.value = email;
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+  }
+  toast('EMAIL COPIED — HI@AASIMAHMED.DEV', 'copy');
+});
+
+/* ---------- contact form ---------- */
+ $('#contactForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const name = $('#fName'), email = $('#fEmail'), msg = $('#fMsg');
+  let ok = true;
+  [name,email,msg].forEach(f=> f.classList.remove('field-err'));
+  if(!name.value.trim()){ name.classList.add('field-err'); ok = false; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){ email.classList.add('field-err'); ok = false; }
+  if(msg.value.trim().length < 5){ msg.classList.add('field-err'); ok = false; }
+  if(!ok){
+    mo(e.currentTarget, { x:[-8,8,-5,5,-2,0] }, { duration:.45 });
+    toast('TRANSMISSION INCOMPLETE — CHECK THE FORM', 'x');
+    return;
+  }
+  const body = 'Hi Aasim,\n\n'+msg.value.trim()+'\n\n— '+name.value.trim()+'\n'+email.value.trim();
+  toast('MESSAGE PREPARED — OPENING YOUR MAIL APP', 'send');
+  setTimeout(()=>{
+    location.href = 'mailto:hi@aasimahmed.dev?subject='+encodeURIComponent('Portfolio contact — '+name.value.trim())+'&body='+encodeURIComponent(body);
+  }, 600);
+  e.currentTarget.reset();
+});
+['fName','fEmail','fMsg'].forEach(id=> $('#'+id).addEventListener('input', e=> e.target.classList.remove('field-err')));
+
+/* ---------- HUD: depth + biome + active nav ---------- */
+const hudY = $('#hudY'), hudBiome = $('#hudBiome'), hudGaugeFill = $('#hudGaugeFill'), nav = $('#nav');
+let curBiome = 'PLAINS', hudTick = false;
+function scramble(el, text){
+  if(REDUCED){ el.textContent = text; return; }
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ·—/';
+  let f = 0; const total = 12;
+  clearInterval(el._si);
+  el._si = setInterval(()=>{
+    f++;
+    el.textContent = text.split('').map((c,i)=> i < (f/total)*text.length ? c : chars[(Math.random()*chars.length)|0]).join('');
+    if(f>=total){ clearInterval(el._si); el.textContent = text; }
+  }, 28);
+}
+function onScroll(){
+  if(hudTick) return; hudTick = true;
+  requestAnimationFrame(()=>{
+    hudTick = false;
+    const yv = window.scrollY;
+    const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+    const p = Math.min(1, Math.max(0, yv/max));
+    hudY.textContent = (64 - 128*p).toFixed(2);
+    hudGaugeFill.style.height = (p*100)+'%';
+    nav.classList.toggle('nav-scrolled', yv > 40);
+    let sel = null, biome = BIOME_MAP[0][1];
+    BIOME_MAP.forEach(m=>{
+      const el = $(m[0]);
+      if(el && el.offsetTop <= yv + innerHeight*.45){ biome = m[1]; sel = m[0]; }
+    });
+    if(biome !== curBiome){ curBiome = biome; scramble(hudBiome, biome); }
+    $$('.nav-link').forEach(a=> a.classList.toggle('active', a.getAttribute('href') === sel));
+  });
+}
+addEventListener('scroll', onScroll, { passive:true });
+
+/* ---------- scroll animations ---------- */
+function wrapWords(root){
+  const targets = [];
+  (function walk(node){
+    Array.from(node.childNodes).forEach(ch=>{
+      if(ch.nodeType===3){
+        const frag = document.createDocumentFragment();
+        ch.textContent.split(/(\s+)/).forEach(part=>{
+          if(!part) return;
+          if(/^\s+$/.test(part)){ frag.appendChild(document.createTextNode(' ')); }
+          else{
+            const w = document.createElement('span'); w.className = 'w';
+            const wi = document.createElement('span'); wi.className = 'wi';
+            wi.textContent = part; w.appendChild(wi); frag.appendChild(w); targets.push(wi);
+          }
+        });
+        node.replaceChild(frag, ch);
+      } else if(ch.nodeType===1){ walk(ch); }
+    });
+  })(root);
+  return targets;
+}
+if(!REDUCED){
+  $$('[data-split]').forEach(el=>{
+    const words = wrapWords(el);
+    gsap.set(words, { yPercent:118 });
+    ScrollTrigger.create({ trigger:el, start:'top 86%', once:true,
+      onEnter:()=> gsap.to(words, { yPercent:0, duration:1.05, stagger:.05, ease:'expo.out' }) });
+  });
+  $$('[data-rule]').forEach(el=>{
+    gsap.set(el, { scaleX:0 });
+    ScrollTrigger.create({ trigger:el, start:'top 88%', once:true,
+      onEnter:()=> gsap.to(el, { scaleX:1, duration:1, ease:'expo.out' }) });
+  });
+  $$('[data-reveal]').forEach(el=>{
+    gsap.set(el, { y:26, opacity:0 });
+    ScrollTrigger.create({ trigger:el, start:'top 88%', once:true,
+      onEnter:()=> gsap.to(el, { y:0, opacity:1, duration:.85, ease:'power3.out' }) });
+  });
+  gsap.set('.proj', { y:34, opacity:0 });
+  ScrollTrigger.batch('.proj', { start:'top 90%', once:true,
+    onEnter: b => gsap.to(b, { y:0, opacity:1, stagger:.09, duration:.8, ease:'power3.out' }) });
+  gsap.set('.strata-body', { y:30, opacity:0 });
+  ScrollTrigger.batch('.strata-body', { start:'top 88%', once:true,
+    onEnter: b => gsap.to(b, { y:0, opacity:1, stagger:.12, duration:.8, ease:'power3.out' }) });
+  gsap.set('.marker', { scale:0 });
+  ScrollTrigger.batch('.marker', { start:'top 90%', once:true,
+    onEnter: b => gsap.to(b, { scale:1, stagger:.1, duration:.5, ease:'back.out(2.5)' }) });
+  gsap.fromTo('#shaftFill', { scaleY:0 }, { scaleY:1, ease:'none',
+    scrollTrigger:{ trigger:'#strataWrap', start:'top 65%', end:'bottom 70%', scrub:.6 } });
+}
+ $$('[data-count]').forEach(el=>{
+  const target = +el.dataset.count, suffix = el.dataset.suffix || '';
+  const render = v => el.textContent = pad2(Math.round(v)) + suffix;
+  if(REDUCED){ render(target); return; }
+  const o = { v:0 };
+  ScrollTrigger.create({ trigger:el, start:'top 88%', once:true,
+    onEnter:()=> gsap.to(o, { v:target, duration:1.6, ease:'power2.out', onUpdate:()=> render(o.v) }) });
+});
+
+/* ---------- magnetic elements ---------- */
+if(FINE && !REDUCED){
+  $$('[data-magnet]').forEach(el=>{
+    const xTo = gsap.quickTo(el,'x',{ duration:.4, ease:'power3' });
+    const yTo = gsap.quickTo(el,'y',{ duration:.4, ease:'power3' });
+    el.addEventListener('mousemove', e=>{
+      const r = el.getBoundingClientRect();
+      xTo((e.clientX-(r.left+r.width/2))*.22);
+      yTo((e.clientY-(r.top+r.height/2))*.3);
+    });
+    el.addEventListener('mouseleave', ()=>{ xTo(0); yTo(0); });
+  });
+}
+
+/* ---------- custom cursor ---------- */
+if(FINE && !REDUCED){
+  const dot = document.createElement('div'); dot.id = 'cursorDot';
+  const ring = document.createElement('div'); ring.id = 'cursorRing';
+  ring.innerHTML = '<div id="cursorRingIn"><span id="cursorLabel">DRAG</span></div>';
+  document.body.append(dot, ring);
+  document.body.classList.add('cursor-fine');
+  const ringIn = $('#cursorRingIn'), label = $('#cursorLabel');
+  gsap.set([dot,ring], { xPercent:0, yPercent:0 });
+  const dx = gsap.quickTo(dot,'x',{ duration:.06 }), dy = gsap.quickTo(dot,'y',{ duration:.06 });
+  const rx = gsap.quickTo(ring,'x',{ duration:.35, ease:'power3' }), ry = gsap.quickTo(ring,'y',{ duration:.35, ease:'power3' });
+  addEventListener('mousemove', e=>{ dx(e.clientX); dy(e.clientY); rx(e.clientX); ry(e.clientY); });
+  document.addEventListener('mouseover', e=>{
+    const t = e.target;
+    document.body.classList.toggle('cursor-hide', !!t.closest('input,textarea'));
+    if(t.closest('input,textarea')) return;
+    if(t.closest('a,button,[data-hover],label')){
+      mo(ringIn, { scale:[null,1.6] }, { duration:.3 }); ringIn.style.borderColor = 'rgba(232,163,61,.7)'; label.style.opacity = 0;
+    } else if(t.closest('#hero')){
+      mo(ringIn, { scale:[null,2.1] }, { duration:.35 }); ringIn.style.borderColor = 'rgba(232,163,61,.55)'; label.style.opacity = 1;
+    } else {
+      mo(ringIn, { scale:[null,1] }, { duration:.3 }); ringIn.style.borderColor = 'rgba(234,227,214,.35)'; label.style.opacity = 0;
+    }
+  });
+  document.addEventListener('mouseleave', ()=> document.body.classList.add('cursor-hide'));
+  document.addEventListener('mouseenter', ()=> document.body.classList.remove('cursor-hide'));
+  addEventListener('mousedown', ()=> mo(ringIn, { scale:[null,.75] }, { duration:.15 }));
+  addEventListener('mouseup', ()=> mo(ringIn, { scale:[null,1] }, { duration:.25 }));
+}
+
+/* ---------- preloader → hero intro ---------- */
+if(!REDUCED){
+  gsap.set('#nav', { y:-16, opacity:0 });
+  gsap.set('.hero-h1 .wi', { yPercent:118 });
+  gsap.set('#heroSub', { opacity:0, y:26 });
+  gsap.set('#heroCtas a', { opacity:0, y:18 });
+  gsap.set('#heroFoot', { opacity:0 });
+}
+const loadObj = { v:0 }, loadBar = $('#loadBar'), loadPct = $('#loadPct'), loadMsg = $('#loadMsg'), loaderEl = $('#loader');
+let mi = 0, finished = false;
+const msgCycle = setInterval(()=>{ loadMsg.textContent = LOADER_MSGS[(mi++) % LOADER_MSGS.length]; }, 340);
+function renderLoad(){
+  const v = Math.round(loadObj.v);
+  loadBar.style.width = v+'%';
+  loadPct.textContent = String(v).padStart(3,'0');
+}
+if(!REDUCED) gsap.to(loadObj, { v:86, duration:1.25, ease:'power1.out', onUpdate:renderLoad });
+else loadObj.v = 86;
+
+function startTW(instant){
+  const el = $('#twText');
+  const txt = "AASIM'AHMED — FULL-STACK & AI/ML ENGINEER — 12.97\u00B0N, 77.59\u00B0E";
+  if(instant || REDUCED){ el.textContent = txt; return; }
+  let i = 0;
+  (function step(){
+    i++; el.textContent = txt.slice(0, i);
+    if(i < txt.length) setTimeout(step, 14 + Math.random()*26);
+  })();
+}
+function heroIntro(){
+  threeCtl && threeCtl.canvas.classList.add('on');
+  if(REDUCED){
+    gsap.set(['#nav','.hero-h1 .wi','#heroSub','#heroCtas a','#heroFoot'], { clearProps:'all' });
+    startTW(true);
+    return;
+  }
+  gsap.timeline({ defaults:{ ease:'expo.out' } })
+    .to('#nav', { y:0, opacity:1, duration:.9 }, 0)
+    .add(()=> startTW(false), .05)
+    .to('.hero-h1 .wi', { yPercent:0, duration:1.2, stagger:.05 }, .1)
+    .to('#heroSub', { opacity:1, y:0, duration:.9 }, .5)
+    .to('#heroCtas a', { opacity:1, y:0, duration:.7, stagger:.09 }, .65)
+    .to('#heroFoot', { opacity:1, duration:.9 }, 1)
+    .add(()=>{
+      gsap.to('.hero-inner', { y:-90, opacity:.12, ease:'none',
+        scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:true } });
+      gsap.to('#heroFoot', { opacity:0, ease:'none',
+        scrollTrigger:{ trigger:'#hero', start:'top top', end:'40% top', scrub:true } });
+      if(threeCtl){
+        ScrollTrigger.create({ trigger:'#hero', start:'top top', end:'bottom top', scrub:true,
+          onUpdate:s=> threeCtl.state.scroll = s.progress });
+      }
+      ScrollTrigger.refresh();
+    });
+}
+function finishLoad(){
+  if(finished) return; finished = true;
+  clearInterval(msgCycle);
+  gsap.killTweensOf(loadObj);
+  gsap.to(loadObj, { v:100, duration:REDUCED?.15:.3, ease:'power2.out',
+    onUpdate:renderLoad,
+    onComplete(){
+      gsap.timeline()
+        .to('#loaderInner', { opacity:0, y:-14, duration:.35, ease:'power2.in' })
+        .to('#loader', { yPercent:-100, duration:.8, ease:'expo.inOut' }, '-=.05')
+        .add(()=>{
+          loaderEl.remove();
+          document.documentElement.style.overflow = '';
+          if(lenis) lenis.start();
+          heroIntro();
+        });
+    }
+  });
+}
+Promise.all([
+  new Promise(r=>{ if(document.fonts && document.fonts.ready){ document.fonts.ready.then(r); setTimeout(r, 1600); } else r(); }),
+  new Promise(r=>{ if(document.readyState==='complete') r(); else addEventListener('load', r, { once:true }); }),
+  new Promise(r=> setTimeout(r, REDUCED ? 150 : 1250))
+]).then(finishLoad);
+setTimeout(finishLoad, 5500);
+
+onScroll();
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(()=> ScrollTrigger.refresh());
+})();
+</script>
+<!-- sflws:source-button:start -->
+<style>
+#sflws-source-btn{position:fixed;right:18px;bottom:18px;z-index:2147483000;display:none;
+padding:2px;border-radius:999px;text-decoration:none;line-height:0;
+background:linear-gradient(90deg,#ff4d4d,#ffb347,#ffe66d,#7bed9f,#48dbfb,#a29bfe,#ff4d4d);
+background-size:300% 100%;animation:sflws-rainbow 6s linear infinite;
+box-shadow:0 4px 20px rgba(0,0,0,.32);transition:transform .2s ease}
+#sflws-source-btn:hover{transform:translateY(-2px)}
+#sflws-source-btn>span{display:flex;align-items:center;gap:7px;padding:9px 15px;
+border-radius:999px;background:#0d0d0f;color:#f4f4f5;
+font:600 12px/1 ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+letter-spacing:.02em;white-space:nowrap}
+#sflws-source-btn>span>b{font:inherit;color:#9aa0a6;letter-spacing:0}
+@keyframes sflws-rainbow{to{background-position:300% 0}}
+@media(prefers-reduced-motion:reduce){#sflws-source-btn{animation:none}
+#sflws-source-btn:hover{transform:none}}
+@media(max-width:600px){#sflws-source-btn{right:12px;bottom:12px}
+#sflws-source-btn>span{padding:8px 13px;font-size:11px}}
+</style>
+<a id="sflws-source-btn" href="https://github.com/saawflws/SFLWS___TEMPLATE_WEBSITEs/tree/main/websites/static/developers_portfolio/aasimloadout" target="_blank" rel="noopener noreferrer"
+ aria-label="View this template&#39;s source code on GitHub">
+<span><b aria-hidden="true">&lt;/&gt;</b>view source</span></a>
+<script>
+(function(){
+var h=location.hostname;
+var ok=h==='sflwsts.aasimahmed.com'||h==='localhost'||h==='127.0.0.1'||h==='[::1]'
+||/\.github\.io$/.test(h);
+var b=document.getElementById('sflws-source-btn');
+if(b&&ok)b.style.display='block';
+})();
+</script>
+<!-- sflws:source-button:end -->
+</body>
+</html>

@@ -10,8 +10,8 @@
  * what the showcase shows, edit the source INDEX.md / META.md files
  * and run:  node scripts/build-data.js
  *
- * Generated: 2026-09-04
- * Templates: 18 across 9 categories
+ * Generated: 2026-09-10
+ * Templates: 23 across 10 categories
  * ============================================================ */
 
 const FRAMEWORKS = ["static","react"];
@@ -369,6 +369,105 @@ const TEMPLATES = [
     "origin": "AI-generated from p.md (prompt reconstructed)",
     "fullTitle": "PRETTY DISTORTION — Event Poster",
     "thumb": "/websites/static/event_poster/prettydistortion/thumb.webp"
+  },
+  {
+    "title": "Aasim Depth Chart — Banded Descent Portfolio",
+    "slug": "aasimdepthchart",
+    "path": "/websites/static/developers_portfolio/aasimdepthchart",
+    "framework": "static",
+    "category": "developers_portfolio",
+    "desc": "A conventional-chrome developer portfolio rendering the same descent concept as stepped depth bands and alternating project cards.",
+    "tags": [
+      "depth-band-skills",
+      "alternating-project-cards",
+      "dot-timeline-progress",
+      "hamburger-overlay-nav",
+      "pill-cta-hero",
+      "particle-depth-field"
+    ],
+    "meta": "/websites/static/developers_portfolio/aasimdepthchart/META.md",
+    "origin": "AI-generated from p.md (prompt reconstructed)",
+    "thumb": "/websites/static/developers_portfolio/aasimdepthchart/thumb.webp"
+  },
+  {
+    "title": "Aasim Depth HUD — Instrument Descent Portfolio",
+    "slug": "aasimdepthhud",
+    "path": "/websites/static/developers_portfolio/aasimdepthhud",
+    "framework": "static",
+    "category": "developers_portfolio",
+    "desc": "A HUD-instrument developer portfolio with a live depth readout, rail nav, core-sample skills, and an expandable work manifest.",
+    "tags": [
+      "hud-depth-readout",
+      "scrollspy-rail-nav",
+      "core-sample-skills",
+      "manifest-details-worklog",
+      "self-drawing-dive-chart",
+      "bracket-mono-links"
+    ],
+    "meta": "/websites/static/developers_portfolio/aasimdepthhud/META.md",
+    "origin": "AI-generated from p.md (prompt reconstructed)",
+    "thumb": "/websites/static/developers_portfolio/aasimdepthhud/thumb.webp"
+  },
+  {
+    "title": "Aasim Expedition — Cartographic Developer Portfolio",
+    "slug": "aasimexpedition",
+    "path": "/websites/static/developers_portfolio/aasimexpedition",
+    "framework": "static",
+    "category": "developers_portfolio",
+    "desc": "An expedition-dossier developer portfolio with contour-map project art, modal case files, and a live depth rail.",
+    "tags": [
+      "expedition-dossier",
+      "topographic-contour-projects",
+      "case-file-modal",
+      "ember-particle-field",
+      "depth-rail-meter",
+      "letter-split-hero",
+      "cdn-failure-banner"
+    ],
+    "meta": "/websites/static/developers_portfolio/aasimexpedition/META.md",
+    "origin": "AI-generated from p.md (prompt reconstructed)",
+    "thumb": "/websites/static/developers_portfolio/aasimexpedition/thumb.webp"
+  },
+  {
+    "title": "Aasim Loadout — Terrain-and-Inventory Developer Portfolio",
+    "slug": "aasimloadout",
+    "path": "/websites/static/developers_portfolio/aasimloadout",
+    "framework": "static",
+    "category": "developers_portfolio",
+    "desc": "A warm-dark developer portfolio pairing a draggable voxel-terrain hero with a hotbar loadout, searchable inventory, and mineshaft career descent.",
+    "tags": [
+      "loadout-detail-panel",
+      "searchable-inventory-overlay",
+      "mineshaft-strata-timeline",
+      "validated-contact-form",
+      "voxel-terrain-hero",
+      "pixel-topography-modals",
+      "blinking-pixel-avatar"
+    ],
+    "meta": "/websites/static/developers_portfolio/aasimloadout/META.md",
+    "origin": "AI-generated from p.md (prompt reconstructed)",
+    "thumb": "/websites/static/developers_portfolio/aasimloadout/thumb.webp"
+  },
+  {
+    "title": "Aasim Voxel — Survival-World Developer Portfolio",
+    "slug": "aasimvoxel",
+    "path": "/websites/static/developers_portfolio/aasimvoxel",
+    "framework": "static",
+    "category": "developers_portfolio",
+    "desc": "A Minecraft-voiced dark developer portfolio with a minable 3D voxel island, inventory-grid skills, and a quest-log career timeline.",
+    "tags": [
+      "minecraft-voxel-hero",
+      "hotbar-inventory-skills",
+      "quest-xp-timeline",
+      "block-mining-interaction",
+      "end-portal-contact",
+      "debug-hud-chrome",
+      "crosshair-cursor",
+      "typewriter-roles"
+    ],
+    "meta": "/websites/static/developers_portfolio/aasimvoxel/META.md",
+    "origin": "AI-generated from p.md (prompt reconstructed)",
+    "thumb": "/websites/static/developers_portfolio/aasimvoxel/thumb.webp"
   },
   {
     "title": "CINEMATIC",
