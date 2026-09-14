@@ -54,8 +54,9 @@ External agents consume the shelf through a separate, deliberately minimal entry
 │   └── add-source-button.js ← injects the "view source" pill into each template.
 │
 ├── skills/                ← the ONLY place skill logic lives (Rule 7)
-│   ├── orchestrator/      ← routes an incoming task to one of the three below
-│   ├── ingest-template/   ← one p.md + index.html pair → cataloged template
+│   ├── orchestrator/      ← routes a task to the skill that owns it
+│   ├── add-template/      ← detects a drop's shape, delegates to ingest or import
+│   ├── ingest-template/   ← a static site → cataloged template
 │   ├── import-project/    ← a full React/Next/Astro folder → cataloged template
 │   └── generate-site/     ← a user request → a new website built from a template
 │
@@ -66,8 +67,7 @@ External agents consume the shelf through a separate, deliberately minimal entry
 │   ├── RULES.md
 │   └── INDEX.md           ← frameworks → categories. Tiny. Never lists templates.
 │
-├── incoming/              ← drop zone for single static templates (p.md + index.html)
-├── raw_make_websites/     ← drop zone for full framework project folders
+├── incoming/              ← the single drop zone: any template or project folder
 │
 ├── websites/
 │   ├── static/            ← single-file HTML templates
@@ -120,9 +120,10 @@ folder rather than copying it (Rule 7).
 
 | Skill | Input | Use when |
 | --- | --- | --- |
-| `orchestrator` | any task | You're not sure which of the three below applies. It routes. |
-| `ingest-template` | a `p.md` + `index.html` pair | A single static template needs cataloging. |
-| `import-project` | a folder in `raw_make_websites/` | A full React/Next/Astro project needs importing. |
+| `orchestrator` | any task | You're not sure which skill applies. It routes. |
+| `add-template` | any folder in `incoming/` | Anything needs adding — it detects the shape and delegates. |
+| `ingest-template` | a static site, no `package.json` | A static template needs cataloging. |
+| `import-project` | a project folder with a `package.json` | A full React/Next/Astro project needs importing. |
 | `generate-site` | a user request | Someone wants a new site built from the shelf. |
 
 Every skill that changes the shelf ends by running `node scripts/build-data.js`. No exceptions.
@@ -154,7 +155,7 @@ root `AGENTS.md` is picked up with no shim. It also supports `@path` imports ins
 files. (Its help text mentions a `COMMANDCODE.md`; no filesystem code ever opens one. Do not
 create it.)
 
-Its skills scan includes `.agents/skills/`, which this repo already provides, so all four
+Its skills scan includes `.agents/skills/`, which this repo already provides, so all five
 skills reach it with no extra file — but note it **rejects a skill whose directory name does
 not equal its frontmatter `name`**. Ours match; keep it that way.
 
@@ -189,7 +190,8 @@ agent what to do with it. Neither restates the other.
 
 1. Drop the template into `incoming/<name>/` — a `p.md` + `index.html` pair, bare HTML with
    no prompt, or a multi-file folder. All three are handled.
-2. Run `ingest-template`.
+2. Run `add-template`. It detects a static drop (no top-level `package.json`) and
+   delegates to `ingest-template`.
 3. It reads both files, decides the category **itself** (Rule 4 — `p.md` is a claim, not a
    fact), files the template, writes `META.md`, updates the category `INDEX.md`, and
    regenerates `data.js`.
@@ -198,10 +200,10 @@ agent what to do with it. Neither restates the other.
 
 ### Add a new framework project
 
-1. Drop the whole project folder into `raw_make_websites/`. (Single static template pairs
-   go to `incoming/` instead — the split is by shape: anything with a `package.json` is a
-   project.)
-2. Run `import-project`. It detects the framework, copies to
+1. Drop the whole project folder into `incoming/<name>/` — the same single drop zone as
+   static templates. A top-level `package.json` is what marks it as a project.
+2. Run `add-template`. It detects the `package.json` and delegates to `import-project`,
+   which detects the framework, copies to
    `websites/<framework>/<category>/<project>/` excluding `node_modules`, verifies the copy,
    writes `META.md`, updates `INDEX.md`, regenerates `data.js`.
 3. The source folder is renamed `_DELETE_ME_<project>/` — never deleted. You confirm.

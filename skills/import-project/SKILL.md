@@ -1,6 +1,6 @@
 ---
 name: import-project
-description: Import a full React, Next.js or Astro project from raw_make_websites/ into the websites/ shelf — detect the framework, copy without node_modules, verify, write META.md, update INDEX.md, and regenerate data.js.
+description: Import a full React, Next.js or Astro project from incoming/ into the websites/ shelf — detect the framework, copy without node_modules, verify, write META.md, update INDEX.md, and regenerate data.js.
 ---
 
 # import-project
@@ -12,9 +12,11 @@ source folder is **never** deleted, only flagged.
 
 ## Input
 
-A project folder inside `raw_make_websites/`.
+A project folder inside `incoming/`.
 
-- If `raw_make_websites/` holds several projects and the user did not say which, list them
+- Usually reached via `add-template`, which detects the drop shape and routes here.
+  Direct invocation on an `incoming/<project>/` folder works the same.
+- If `incoming/` holds several projects and the user did not say which, list them
   and ask.
 - If the folder is a single static `p.md` + `index.html` pair with no `package.json`, this
   is the wrong skill — route to `ingest-template` instead.
@@ -63,7 +65,7 @@ Keep everything else, including lockfiles and dotfiles like `.gitignore` and `.n
 
 ```bash
 # from the repo root
-SRC="raw_make_websites/<project>"
+SRC="incoming/<project>"
 DST="websites/<framework>/<category>/<project>"
 mkdir -p "$DST"
 tar --exclude=node_modules --exclude=.next --exclude=dist --exclude=build \
@@ -97,11 +99,11 @@ deletion — the source is the only surviving copy.
 ### 5. Flag the source (only after verified success)
 
 ```bash
-mv "raw_make_websites/<project>" "raw_make_websites/_DELETE_ME_<project>"
+mv "incoming/<project>" "incoming/_DELETE_ME_<project>"
 ```
 
 Then tell the user, explicitly: *"Copy verified. I've renamed the source to
-`raw_make_websites/_DELETE_ME_<project>/`. Confirm and I'll delete it."*
+`incoming/_DELETE_ME_<project>/`. Confirm and I'll delete it."*
 
 **Never delete it yourself** (Rule 1), and never do this step before step 4 passes.
 

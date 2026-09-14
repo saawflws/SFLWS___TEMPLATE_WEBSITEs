@@ -57,11 +57,10 @@ AGENTS.md            local-dev source of truth   ·  RULES.md   hard rules
 public-agents/       the contract for outside agents consuming the shelf
 docs/                human guides: how to hand a project to the agents
 kb/                  knowledge base — concepts, schemas, decisions, history
-skills/              the four skills, and the only place their logic lives
+skills/              the five skills, and the only place their logic lives
 scripts/             build-data.js · shoot-thumbs.js · build-kb.js
 websites/            static/ · astro/ · react/ · nextjs/     ← the shelf
-incoming/            drop zone: single static templates
-raw_make_websites/   drop zone: full framework projects
+incoming/            the single drop zone: any template or project folder
 index.html           the showcase        ·  data.js   GENERATED — never hand-edit
 ```
 
@@ -91,12 +90,12 @@ If you find yourself opening HTML to *compare* templates, you skipped a layer.
 
 ## Adding templates
 
-Two drop zones, split by shape — not by intent:
+One drop zone — the skill detects the shape:
 
 | You have | Drop it in | Skill |
 | --- | --- | --- |
-| A static template (`index.html`, optionally with `p.md` and assets) | `incoming/` | [`ingest-template`](skills/ingest-template/SKILL.md) |
-| A full React / Next.js / Astro project (has a `package.json`) | `raw_make_websites/` | [`import-project`](skills/import-project/SKILL.md) |
+| A static template (`index.html`, optionally with `p.md` and assets) | `incoming/<name>/` | [`add-template`](skills/add-template/SKILL.md) → `ingest-template` |
+| A full React / Next.js / Astro project (has a `package.json`) | `incoming/<name>/` | [`add-template`](skills/add-template/SKILL.md) → `import-project` |
 
 The skill reads the markup, decides the category **itself** rather than trusting any stated
 one, writes `META.md`, updates the category index, shoots a thumbnail, and regenerates
@@ -139,7 +138,7 @@ three.js, Tailwind), each under its own licence. Nothing is vendored into this r
 
 [`kb/`](kb/INDEX.md) is the knowledge base: concepts, field-by-field schemas, the reasoning
 behind each workflow, and dated decision records — why cards are screenshots rather than live
-iframes, why there are two drop zones, why a category must appear in two places to exist.
+iframes, why a single drop zone detects by shape, why a category must appear in two places to exist.
 
 It links back to the operational files rather than restating them, and every entry carries an
 `updated` timestamp so you can judge how much to trust it.

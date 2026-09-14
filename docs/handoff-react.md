@@ -1,14 +1,14 @@
 # Handing over a React project
 
-A **React project** has a `package.json` and a build step. It goes to
-`raw_make_websites/`, not `incoming/`.
+A **React project** has a `package.json` and a build step. Like everything else, it goes
+to `incoming/`.
 
 ## What to hand over
 
 Drop the **whole project folder** in:
 
 ```
-raw_make_websites/my-project/
+incoming/my-project/
 ├── package.json        required — this is what identifies the framework
 ├── vite.config.js
 ├── src/main.jsx
@@ -21,10 +21,12 @@ with build output and `.env*` files.
 ## Then run
 
 ```
-/import-project
+/add-template
 ```
 
-If `raw_make_websites/` holds several projects, say which one.
+The skill detects the `package.json` and delegates to `import-project`.
+
+If `incoming/` holds several projects, say which one.
 
 ## What the agent does
 

@@ -2,19 +2,21 @@
 id: add-static-template
 title: Adding a static template
 area: workflows
-updated: 2026-08-29T17:00:00Z
+updated: 2026-09-14T00:00:00Z
 summary: End-to-end path for a static template, and the reasoning behind the order of steps.
 related: [meta-md, category-index-md, data-pipeline, thumbnails]
 ---
 # Adding a static template
 
-The executable flow lives in `skills/ingest-template/SKILL.md`. This entry records **why** it
+The executable flow lives in `skills/add-template/SKILL.md` (which detects a static drop
+and delegates to `skills/ingest-template/SKILL.md`). This entry records **why** it
 is shaped that way — the reasoning that would otherwise be lost the moment someone
 "simplifies" a step.
 
 ## The path
 
-1. Drop the template into `incoming/<name>/` — a pair, bare HTML, or multi-file.
+1. Drop the template into `incoming/<name>/` — a pair, bare HTML, or multi-file — and run
+   `add-template`, which detects the static shape and routes here.
 2. Read everything in full: the HTML, any `p.md`, any separate CSS and JS.
 3. Decide the category from the markup.
 4. Write `p.md` if there is none, marked reconstructed.

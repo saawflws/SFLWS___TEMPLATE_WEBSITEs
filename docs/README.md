@@ -11,8 +11,8 @@ That is the only question these guides answer. Pick the one matching what you ha
 | A Next.js project | [Next.js](handoff-nextjs.md) |
 | An Astro project | [Astro](handoff-astro.md) |
 
-Not sure? Go by **shape, not intent**: anything with a `package.json` is a project and goes
-to `raw_make_websites/`. Anything else is static and goes to `incoming/`.
+Not sure? Go by **shape, not intent**: anything with a `package.json` is a project,
+anything else is static. Both go to `incoming/` — the skill detects which is which.
 
 ---
 
@@ -33,7 +33,7 @@ flows — those live in `skills/<name>/SKILL.md` and would rot the moment they w
 
 Whichever guide you follow, the shape is the same:
 
-1. You drop a folder into a drop zone.
+1. You drop a folder into `incoming/`.
 2. You run a skill.
 3. The agent reads the **markup**, not your description of it, and decides the category
    itself. A stated category is treated as a claim, not a fact.

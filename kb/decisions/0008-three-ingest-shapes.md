@@ -2,7 +2,7 @@
 id: 0008-three-ingest-shapes
 title: 0008 — Three ingest shapes, one flow
 area: decisions
-updated: 2026-08-29T18:30:00Z
+updated: 2026-09-14T00:00:00Z
 summary: Accepting pairs, bare HTML and multi-file folders without branching the ingest flow.
 related: [add-static-template, template, meta-md]
 ---
@@ -45,8 +45,9 @@ before it starts copying.
 
 ## Consequences
 
-- `incoming/` accepts anything static; the split from `raw_make_websites/` is still
-  `package.json` or not.
+- `incoming/` accepts anything static; the split from framework projects is still
+  `package.json` or not — detected by `add-template` (decision
+  [0011](../decisions/0011-single-drop-zone.md)).
 - Multi-file templates must keep every path relative and internal, or they stop being
   copyable — which is the property the shelf depends on.
 - `META.md` gains a shape statement and an origin note for reconstructed prompts.

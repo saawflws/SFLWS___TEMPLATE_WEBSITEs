@@ -32,12 +32,13 @@ referenced.
 
 ## Adding a template
 
-Pick your drop zone by **shape**, not intent — anything with a `package.json` is a project:
+Drop everything in `incoming/` — the skill detects the **shape**: anything with a
+top-level `package.json` is a project, anything else is static:
 
 | You have | Drop in | Handled by |
 | --- | --- | --- |
-| Static template: `index.html`, optionally `p.md`, optionally `styles/` `scripts/` assets | `incoming/<name>/` | `ingest-template` |
-| Full React / Next.js / Astro project | `raw_make_websites/<name>/` | `import-project` |
+| Static template: `index.html`, optionally `p.md`, optionally `styles/` `scripts/` assets | `incoming/<name>/` | `add-template` → `ingest-template` |
+| Full React / Next.js / Astro project | `incoming/<name>/` | `add-template` → `import-project` |
 
 Then run the matching skill in your agent of choice. It will:
 

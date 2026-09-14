@@ -2,14 +2,15 @@
 id: skills-layer
 title: The skills layer
 area: architecture
-updated: 2026-08-29T15:00:00Z
+updated: 2026-09-14T00:00:00Z
 summary: Why skill logic lives in exactly one place and every tool path holds a pointer.
 related: [tool-support, entry-chains]
 ---
 
 # The skills layer
 
-Four skills — `orchestrator`, `ingest-template`, `import-project`, `generate-site` — with
+Five skills — `orchestrator`, `add-template`, `ingest-template`, `import-project`,
+`generate-site` — with
 their logic in `skills/<name>/SKILL.md` and **nowhere else**.
 
 ## The problem it solves

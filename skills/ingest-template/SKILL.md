@@ -21,8 +21,11 @@ A folder in `incoming/<name>/` holding a static site. It arrives in one of three
 
 Bare and multi-file combine freely — a folder of HTML, CSS and JS with no prompt is both.
 
-- Full framework projects (anything with a `package.json`) go to `raw_make_websites/` and
-  belong to `import-project` instead.
+- Usually reached via `add-template`, which detects the drop shape and routes here.
+  Direct invocation on an `incoming/<name>/` folder works the same.
+- Full framework projects (anything with a top-level `package.json`) belong to
+  `import-project` instead — `add-template` routes them there automatically. If you opened
+  this skill directly on such a folder, switch to `import-project`.
 - If the user points at a folder somewhere else, use that path.
 - If `incoming/` holds several folders and the user did not say which, list them and ask.
 

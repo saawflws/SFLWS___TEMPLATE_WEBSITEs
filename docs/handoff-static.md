@@ -29,10 +29,11 @@ a unit with its structure intact — nothing is flattened, nothing is split.
 
 ## Then run
 
-The `ingest-template` skill, in whichever agent you use:
+The `add-template` skill, in whichever agent you use (it detects a static drop and
+delegates to `ingest-template`):
 
 ```
-/ingest-template
+/add-template
 ```
 
 If `incoming/` holds several folders, say which one.

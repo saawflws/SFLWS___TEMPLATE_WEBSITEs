@@ -2,18 +2,20 @@
 id: import-framework-project
 title: Importing a framework project
 area: workflows
-updated: 2026-08-29T18:00:00Z
+updated: 2026-09-14T00:00:00Z
 summary: End-to-end path for a React, Next.js or Astro project, and why verification precedes flagging.
 related: [frameworks, meta-md, data-pipeline, thumbnails]
 ---
 # Importing a framework project
 
-The executable flow lives in `skills/import-project/SKILL.md`. This entry records the
+The executable flow lives in `skills/add-template/SKILL.md` (which detects the
+`package.json` and delegates to `skills/import-project/SKILL.md`). This entry records the
 reasoning.
 
 ## The path
 
-1. Drop the project into `raw_make_websites/<name>/`.
+1. Drop the project into `incoming/<name>/` and run `add-template`, which detects the
+   `package.json` and routes here.
 2. Detect the framework from `package.json`, confirmed against config files on disk.
 3. Decide the category from what the project actually builds.
 4. Copy to `websites/<framework>/<category>/<project>/`, excluding `node_modules`, build

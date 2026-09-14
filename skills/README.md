@@ -6,9 +6,10 @@ Each skill is a folder containing a `SKILL.md` with the actual instructions:
 
 ```
 skills/
-├── orchestrator/      routes an incoming task to one of the three below
-├── ingest-template/   a p.md + index.html pair  → a cataloged static template
-├── import-project/    a folder in raw_make_websites/ → a cataloged framework template
+├── orchestrator/      routes a task to the skill that owns it
+├── add-template/      any folder in incoming/ → detects the shape, delegates below
+├── ingest-template/   a static site (index.html, no package.json) → a cataloged template
+├── import-project/    a framework project (package.json) → a cataloged template
 └── generate-site/     a user request → a new website built from the shelf
 ```
 

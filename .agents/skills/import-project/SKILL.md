@@ -1,6 +1,6 @@
 ---
 name: import-project
-description: Import a full React, Next.js or Astro project from raw_make_websites/ into the websites/ shelf, excluding node_modules, with copy verification and a never-auto-delete source flag.
+description: Import a full React, Next.js or Astro project from incoming/ into the websites/ shelf, excluding node_modules, with copy verification and a never-auto-delete source flag.
 ---
 
 # import-project — pointer

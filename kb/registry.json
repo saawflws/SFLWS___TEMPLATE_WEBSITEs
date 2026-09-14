@@ -1,6 +1,6 @@
 {
-  "generated": "2026-09-04T07:33:55.157Z",
-  "count": 32,
+  "generated": "2026-09-14T04:39:41.487Z",
+  "count": 33,
   "areas": [
     "concepts",
     "architecture",
@@ -26,7 +26,7 @@
       "id": "frameworks",
       "title": "Frameworks on the shelf",
       "area": "concepts",
-      "updated": "2026-09-04T07:00:00Z",
+      "updated": "2026-09-14T00:00:00Z",
       "summary": "static, astro, react and nextjs — what each means here, and why detection order matters.",
       "related": [
         "the-shelf",
@@ -104,7 +104,7 @@
       "id": "skills-layer",
       "title": "The skills layer",
       "area": "architecture",
-      "updated": "2026-08-29T15:00:00Z",
+      "updated": "2026-09-14T00:00:00Z",
       "summary": "Why skill logic lives in exactly one place and every tool path holds a pointer.",
       "related": [
         "tool-support",
@@ -217,7 +217,7 @@
       "id": "add-static-template",
       "title": "Adding a static template",
       "area": "workflows",
-      "updated": "2026-08-29T17:00:00Z",
+      "updated": "2026-09-14T00:00:00Z",
       "summary": "End-to-end path for a static template, and the reasoning behind the order of steps.",
       "related": [
         "meta-md",
@@ -244,7 +244,7 @@
       "id": "import-framework-project",
       "title": "Importing a framework project",
       "area": "workflows",
-      "updated": "2026-08-29T18:00:00Z",
+      "updated": "2026-09-14T00:00:00Z",
       "summary": "End-to-end path for a React, Next.js or Astro project, and why verification precedes flagging.",
       "related": [
         "frameworks",
@@ -382,7 +382,7 @@
       "id": "0008-three-ingest-shapes",
       "title": "0008 — Three ingest shapes, one flow",
       "area": "decisions",
-      "updated": "2026-08-29T18:30:00Z",
+      "updated": "2026-09-14T00:00:00Z",
       "summary": "Accepting pairs, bare HTML and multi-file folders without branching the ingest flow.",
       "related": [
         "add-static-template",
@@ -417,6 +417,20 @@
         "frameworks"
       ],
       "path": "kb/decisions/0010-host-framework-builds-on-pages.md"
+    },
+    {
+      "id": "0011-single-drop-zone",
+      "title": "0011 — Single drop zone with detection",
+      "area": "decisions",
+      "updated": "2026-09-14T00:00:00Z",
+      "summary": "One incoming/ folder for every drop; add-template detects static vs framework and delegates.",
+      "related": [
+        "0004-two-drop-zones",
+        "add-static-template",
+        "import-framework-project",
+        "frameworks"
+      ],
+      "path": "kb/decisions/0011-single-drop-zone.md"
     }
   ]
 }
