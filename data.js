@@ -10,8 +10,8 @@
  * what the showcase shows, edit the source INDEX.md / META.md files
  * and run:  node scripts/build-data.js
  *
- * Generated: 2026-09-10
- * Templates: 23 across 10 categories
+ * Generated: 2026-09-14
+ * Templates: 26 across 11 categories
  * ============================================================ */
 
 const FRAMEWORKS = ["static","react"];
@@ -449,6 +449,26 @@ const TEMPLATES = [
     "thumb": "/websites/static/developers_portfolio/aasimloadout/thumb.webp"
   },
   {
+    "title": "Aasim Night Surveyor — Field-Log Developer Portfolio",
+    "slug": "aasimnightsurveyor",
+    "path": "/websites/static/developers_portfolio/aasimnightsurveyor",
+    "framework": "static",
+    "category": "developers_portfolio",
+    "desc": "A night-survey field-log developer portfolio with a Three.js terrain horizon, compass hero, and stacked expedition cards.",
+    "tags": [
+      "threejs-terrain-horizon",
+      "compass-instrument-hero",
+      "sticky-stacked-projects",
+      "scramble-decode-labels",
+      "field-log-surveyor",
+      "dust-mote-canvas",
+      "ist-clock-chrome"
+    ],
+    "meta": "/websites/static/developers_portfolio/aasimnightsurveyor/META.md",
+    "origin": "AI-generated from p.md (prompt reconstructed)",
+    "thumb": "/websites/static/developers_portfolio/aasimnightsurveyor/thumb.webp"
+  },
+  {
     "title": "Aasim Voxel — Survival-World Developer Portfolio",
     "slug": "aasimvoxel",
     "path": "/websites/static/developers_portfolio/aasimvoxel",
@@ -468,6 +488,45 @@ const TEMPLATES = [
     "meta": "/websites/static/developers_portfolio/aasimvoxel/META.md",
     "origin": "AI-generated from p.md (prompt reconstructed)",
     "thumb": "/websites/static/developers_portfolio/aasimvoxel/thumb.webp"
+  },
+  {
+    "title": "Shree Sai Clinic — Clean Booking Clinic",
+    "slug": "shreesaiclinic",
+    "path": "/websites/static/clinic/shreesaiclinic",
+    "framework": "static",
+    "category": "clinic",
+    "desc": "A clean light clinic booking site with filterable doctor cards, a validated appointment form, and localStorage confirmations.",
+    "tags": [
+      "clean-clinical-booking",
+      "specialty-filter-grid",
+      "validated-booking-form",
+      "localstorage-appointments",
+      "hash-slot-availability",
+      "emoji-tile-icons"
+    ],
+    "meta": "/websites/static/clinic/shreesaiclinic/META.md",
+    "origin": "AI-generated from p.md (prompt reconstructed)",
+    "thumb": "/websites/static/clinic/shreesaiclinic/thumb.webp"
+  },
+  {
+    "title": "Shree Sai Clinic — Ledger-and-Slip Clinic",
+    "slug": "shreesaiclinicledger",
+    "path": "/websites/static/clinic/shreesaiclinicledger",
+    "framework": "static",
+    "category": "clinic",
+    "desc": "A paper-editorial clinic booking site with a services ledger, live open status, doctor carousel, and slip-modal confirmations.",
+    "tags": [
+      "editorial-paper-clinic",
+      "services-ledger",
+      "appointment-slip-modal",
+      "live-open-status",
+      "draggable-doctor-carousel",
+      "ecg-heartbeat-motif",
+      "quote-carousel"
+    ],
+    "meta": "/websites/static/clinic/shreesaiclinicledger/META.md",
+    "origin": "AI-generated from p.md (prompt reconstructed)",
+    "thumb": "/websites/static/clinic/shreesaiclinicledger/thumb.webp"
   },
   {
     "title": "CINEMATIC",

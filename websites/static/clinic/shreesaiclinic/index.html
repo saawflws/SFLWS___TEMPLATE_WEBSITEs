@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shree Sai Clinic | Doctor Appointment Booking in Pune</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0e7c66;
+      --primary-dark: #095c4c;
+      --dark: #0c3f37;
+      --muted: #5d7570;
+      --bg: #f7fbf9;
+      --card: #ffffff;
+      --line: #dbe9e5;
+      --shadow: 0 18px 45px rgba(12, 63, 55, .12);
+      --radius: 24px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: #17312c;
+      background: #fff;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1160px, 92%);
+      margin-inline: auto;
+    }
+
+    .section {
+      padding: 82px 0;
+    }
+
+    .section-alt {
+      background: var(--bg);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #e5f6f1;
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: .02em;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.15;
+      color: var(--dark);
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 5vw, 4.2rem);
+      letter-spacing: -.04em;
+      max-width: 680px;
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 3vw, 2.6rem);
+      letter-spacing: -.03em;
+      margin-bottom: 12px;
+    }
+
+    .section-head {
+      margin-bottom: 28px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 12px 18px;
+      border-radius: 16px;
+      border: 1px solid var(--primary);
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--dark);
+      border: 1px solid #bcd6cf;
+    }
+
+    .btn-outline:hover {
+      background: #eef7f4;
+      border-color: #9cc6bc;
+      transform: translateY(-1px);
+    }
+
+    .btn-small {
+      min-height: 42px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 14px;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, .9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--dark);
+    }
+
+    .brand-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), #37b58f);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .nav a:not(.btn) {
+      color: #33504a;
+      font-weight: 600;
+    }
+
+    .nav a:not(.btn):hover {
+      color: var(--primary-dark);
+    }
+
+    .menu-btn {
+      display: none;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--dark);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .hero {
+      padding: 76px 0;
+      background:
+        radial-gradient(circle at top right, rgba(14, 124, 102, .16), transparent 32%),
+        linear-gradient(180deg, #f8fffd 0%, #eef8f4 100%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .hero-copy p {
+      margin: 20px 0 26px;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 640px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .stat-chip {
+      background: rgba(255, 255, 255, .82);
+      border: 1px solid #d8ebe5;
+      border-radius: 16px;
+      padding: 12px 14px;
+      box-shadow: 0 10px 22px rgba(12, 63, 55, .05);
+    }
+
+    .stat-chip strong {
+      display: block;
+      color: var(--dark);
+      font-size: 18px;
+    }
+
+    .stat-chip span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, .9);
+      border: 1px solid #d8ebe5;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 26px;
+    }
+
+    .hero-card h3 {
+      margin-bottom: 16px;
+    }
+
+    .info-list {
+      display: grid;
+      gap: 13px;
+    }
+
+    .info-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      border-radius: 18px;
+      background: #f8fffd;
+      border: 1px solid #e2f0ec;
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      background: #e3f5ef;
+    }
+
+    .info-item strong {
+      color: var(--dark);
+      display: block;
+    }
+
+    .info-item span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .toolbar select {
+      min-width: 220px;
+      padding: 12px 14px;
+      border: 1px solid #c9ded8;
+      border-radius: 14px;
+      background: #fff;
+      color: var(--dark);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .grid-four {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 14px 34px rgba(12, 63, 55, .06);
+    }
+
+    .service-card .icon {
+      width: 54px;
+      height: 54px;
+      flex: 0 0 54px;
+      font-size: 26px;
+      margin-bottom: 16px;
+      border-radius: 18px;
+    }
+
+    .service-card p {
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .doctor-card .avatar {
+      width: 74px;
+      height: 74px;
+      border-radius: 26px;
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      box-shadow: 0 10px 24px rgba(12, 63, 55, .16);
+    }
+
+    .doctor-card h3 {
+      font-size: 21px;
+    }
+
+    .doctor-card .specialty {
+      color: var(--primary-dark);
+      font-weight: 700;
+      margin: 4px 0 12px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .chip {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #eef7f4;
+      color: #284b43;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .fee {
+      color: var(--dark);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .form-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      display: block;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #cfe2dd;
+      border-radius: 14px;
+      background: #fbfffe;
+      color: var(--dark);
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: 2px solid rgba(14, 124, 102, .22);
+      border-color: var(--primary);
+    }
+
+    .field textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .success {
+      display: none;
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      background: #e9fbf1;
+      border: 1px solid #b9ecd2;
+      color: #14532d;
+    }
+
+    .success.show {
+      display: block;
+    }
+
+    .side-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    .side-card .info-list {
+      margin-top: 16px;
+    }
+
+    .map-box {
+      margin-top: 18px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      min-height: 220px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #eef8f4, #e3f2ec);
+      color: var(--muted);
+      text-align: center;
+      padding: 20px;
+    }
+
+    .testimonial-card p {
+      color: #33504a;
+      margin: 14px 0 18px;
+    }
+
+    .testimonial-footer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar-small {
+      width: 44px;
+      height: 44px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 800;
+      background: linear-gradient(135deg, #108a71, #4ec1a3);
+    }
+
+    .stars {
+      color: #f59e0b;
+      letter-spacing: 2px;
+      font-size: 14px;
+    }
+
+    .footer {
+      background: var(--dark);
+      color: #d9e9e6;
+      padding: 54px 0 22px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 24px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    .footer h3 {
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .footer a {
+      color: #d9e9e6;
+    }
+
+    .footer a:hover {
+      color: #fff;
+    }
+
+    .footer .muted {
+      color: #9fc0ba;
+    }
+
+    .copyright {
+      padding-top: 20px;
+      font-size: 14px;
+      color: #9fc0ba;
+    }
+
+    @media (max-width: 1020px) {
+      .grid,
+      .grid-four {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero-grid,
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .menu-btn {
+        display: block;
+      }
+
+      .nav {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 4%;
+        left: 4%;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 18px;
+        box-shadow: var(--shadow);
+      }
+
+      .nav.open {
+        display: flex;
+      }
+
+      .nav a:not(.btn) {
+        padding: 10px 8px;
+        border-bottom: 1px solid #edf4f2;
+      }
+
+      .nav .btn {
+        margin-top: 12px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid,
+      .grid-four {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 64px 0;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 44px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home">
+        <span class="brand-badge">S</span>
+        Shree Sai Clinic
+      </a>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">Menu</button>
+
+      <nav class="nav" id="nav">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#doctors">Doctors</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn-small" href="#appointment">Book Appointment</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Trusted local clinic in Pune</span>
+          <h1>Book doctor appointments near FC Road, Pune</h1>
+          <p>
+            Shree Sai Clinic provides general physician, orthopedic, pediatric, dermatology,
+            gynecology, and dental consultations with simple online booking and local support.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#appointment" class="btn">Book Appointment</a>
+            <a href="#doctors" class="btn btn-outline">View Doctors</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-chip">
+              <strong>6+</strong>
+              <span>Specialist doctors</span>
+            </div>
+            <div class="stat-chip">
+              <strong>12,000+</strong>
+              <span>Patients treated</span>
+            </div>
+            <div class="stat-chip">
+              <strong>4.8/5</strong>
+              <span>Local patient rating</span>
+            </div>
+            <div class="stat-chip">
+              <strong>7 days</strong>
+              <span>Weekly availability</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <h3>Clinic quick info</h3>
+
+          <div class="info-list">
+            <div class="info-item">
+              <div class="icon">📍</div>
+              <div>
+                <strong>Address</strong>
+                <span>Shop 12, Ganesh Complex, FC Road, Pune, Maharashtra 411004</span>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="icon">📞</div>
+              <div>
+                <strong>Phone</strong>
+                <span>+91 98220 12345</span>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="icon">⏰</div>
+              <div>
+                <strong>Timings</strong>
+                <span>Mon to Sat: 9:00 AM to 8:00 PM<br>Sunday: 10:00 AM to 1:00 PM</span>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="icon">💬</div>
+              <div>
+                <strong>WhatsApp</strong>
+                <span>+91 98220 12345</span>
+              </div>
+            </div>
+          </div>
+
+          <a class="btn" href="tel:+919822012345" style="width:100%; margin-top:18px;">
+            Call Now
+          </a>
+        </aside>
+      </div>
+    </section>
+
+    <section id="services" class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Services</span>
+          <h2>Care for common local health needs</h2>
+          <p>
+            Practical consultations for families, students, working professionals, and senior citizens around FC Road, Shivajinagar, and Deccan.
+          </p>
+        </div>
+
+        <div class="grid grid-four" id="servicesGrid"></div>
+      </div>
+    </section>
+
+    <section id="doctors" class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Doctors</span>
+          <h2>Available specialists</h2>
+          <p>Filter by specialty and book directly. Consultation fees are shown before booking.</p>
+        </div>
+
+        <div class="toolbar">
+          <select id="specialtyFilter" aria-label="Filter by specialty"></select>
+        </div>
+
+        <div class="grid" id="doctorGrid"></div>
+      </div>
+    </section>
+
+    <section id="appointment" class="section section-alt">
+      <div class="container split">
+        <div class="form-card">
+          <span class="eyebrow">Online booking</span>
+          <h2>Book an appointment</h2>
+          <p class="muted" style="margin-bottom:18px;">
+            Select doctor, date, and available time. The clinic will confirm by phone if needed.
+          </p>
+
+          <form id="appointmentForm">
+            <div class="field">
+              <label for="name">Patient name</label>
+              <input id="name" required placeholder="Rahul Kulkarni" autocomplete="name">
+            </div>
+
+            <div class="field">
+              <label for="phone">Mobile number</label>
+              <input
+                id="phone"
+                type="tel"
+                required
+                pattern="[6-9][0-9]{9}"
+                title="Enter a 10-digit Indian mobile number"
+                placeholder="9822012345"
+                inputmode="numeric"
+                autocomplete="tel"
+              >
+            </div>
+
+            <div class="field">
+              <label for="doctorSelect">Doctor</label>
+              <select id="doctorSelect" required></select>
+            </div>
+
+            <div class="field">
+              <label for="appointmentDate">Date</label>
+              <input id="appointmentDate" type="date" required>
+            </div>
+
+            <div class="field">
+              <label for="slot">Time slot</label>
+              <select id="slot" required disabled></select>
+            </div>
+
+            <div class="field">
+              <label for="notes">Problem or note, optional</label>
+              <textarea id="notes" placeholder="Fever, cough, follow-up visit, skin issue, etc."></textarea>
+            </div>
+
+            <button class="btn" type="submit">Confirm appointment</button>
+          </form>
+
+          <div id="success" class="success"></div>
+        </div>
+
+        <aside class="side-card">
+          <span class="eyebrow">Visit us</span>
+          <h2>Shree Sai Clinic</h2>
+          <p class="muted">
+            A local multi-specialty clinic near FC Road, Pune. Easy to reach from Deccan, Shivajinagar, JM Road, and Model Colony.
+          </p>
+
+          <div class="info-list">
+            <div class="info-item">
+              <div class="icon">📍</div>
+              <div>
+                <strong>Address</strong>
+                <span>Shop 12, Ganesh Complex, FC Road, Pune, Maharashtra 411004</span>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="icon">📞</div>
+              <div>
+                <strong>Phone</strong>
+                <span>+91 98220 12345</span>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="icon">✉️</div>
+              <div>
+                <strong>Email</strong>
+                <span>care@shreesaiclinic.in</span>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="icon">⏰</div>
+              <div>
+                <strong>Timings</strong>
+                <span>Mon to Sat: 9:00 AM to 8:00 PM<br>Sunday: 10:00 AM to 1:00 PM</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="map-box">
+            <div>
+              <strong>Map</strong><br>
+              Shree Sai Clinic, FC Road, Pune<br>
+              <a href="https://maps.google.com/?q=FC+Road,+Pune,+Maharashtra" target="_blank" rel="noopener">
+                Open in Google Maps
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="testimonials" class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Patient reviews</span>
+          <h2>What local patients say</h2>
+          <p>Dummy sample reviews for layout and content testing.</p>
+        </div>
+
+        <div class="grid" id="testimonialGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>Shree Sai Clinic</h3>
+          <p class="muted">
+            Local doctor appointment booking for families in Pune. General medicine, orthopedics, pediatrics, dermatology, gynecology, and dentistry.
+          </p>
+        </div>
+
+        <div>
+          <h3>Quick links</h3>
+          <p><a href="#services">Services</a></p>
+          <p><a href="#doctors">Doctors</a></p>
+          <p><a href="#appointment">Book Appointment</a></p>
+          <p><a href="#testimonials">Reviews</a></p>
+        </div>
+
+        <div>
+          <h3>Contact</h3>
+          <p>Shop 12, Ganesh Complex, FC Road, Pune 411004</p>
+          <p><a href="tel:+919822012345">+91 98220 12345</a></p>
+          <p><a href="mailto:care@shreesaiclinic.in">care@shreesaiclinic.in</a></p>
+          <p><a href="https://wa.me/919822012345" target="_blank" rel="noopener">WhatsApp</a></p>
+        </div>
+      </div>
+
+      <div class="copyright">
+        © 2026 Shree Sai Clinic. Dummy website for demo purposes.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const services = [
+      {
+        icon: "🩺",
+        title: "General Physician",
+        text: "Fever, cold, BP, diabetes, infections, and routine health checks."
+      },
+      {
+        icon: "🦴",
+        title: "Orthopedics",
+        text: "Joint pain, back pain, sports injury, and fracture consultation."
+      },
+      {
+        icon: "👶",
+        title: "Pediatrics",
+        text: "Child growth, vaccination, seasonal illness, and newborn care."
+      },
+      {
+        icon: "🤰",
+        title: "Gynecology",
+        text: "Women's health, pregnancy care, PCOD, and routine checkups."
+      },
+      {
+        icon: "🧴",
+        title: "Dermatology",
+        text: "Acne, hair fall, skin allergy, pigmentation, and skin care."
+      },
+      {
+        icon: "🦷",
+        title: "Dentistry",
+        text: "Tooth pain, cleaning, root canal, braces, and dental checkups."
+      }
+    ];
+
+    const doctors = [
+      {
+        id: 1,
+        name: "Dr. Ananya Kulkarni",
+        specialty: "General Physician",
+        experience: 12,
+        rating: 4.9,
+        fee: 400,
+        timing: "Mon to Sat, 9 AM to 1 PM",
+        gradient: "linear-gradient(135deg, #0e7c66, #54b9a4)"
+      },
+      {
+        id: 2,
+        name: "Dr. Rohan Deshmukh",
+        specialty: "Orthopedic Surgeon",
+        experience: 14,
+        rating: 4.8,
+        fee: 600,
+        timing: "Tue to Sat, 5 PM to 8 PM",
+        gradient: "linear-gradient(135deg, #115e59, #0ea5e9)"
+      },
+      {
+        id: 3,
+        name: "Dr. Priya Nair",
+        specialty: "Pediatrician",
+        experience: 9,
+        rating: 4.9,
+        fee: 500,
+        timing: "Mon to Sat, 10 AM to 2 PM",
+        gradient: "linear-gradient(135deg, #7c3aed, #c084fc)"
+      },
+      {
+        id: 4,
+        name: "Dr. Kavita Joshi",
+        specialty: "Gynecologist",
+        experience: 16,
+        rating: 4.8,
+        fee: 700,
+        timing: "Mon, Wed, Fri, 4 PM to 7 PM",
+        gradient: "linear-gradient(135deg, #be185d, #fb7185)"
+      },
+      {
+        id: 5,
+        name: "Dr. Arjun Mehta",
+        specialty: "Dermatologist",
+        experience: 8,
+        rating: 4.7,
+        fee: 550,
+        timing: "Mon to Sat, 6 PM to 8 PM",
+        gradient: "linear-gradient(135deg, #b45309, #f59e0b)"
+      },
+      {
+        id: 6,
+        name: "Dr. Sneha Patil",
+        specialty: "Dentist",
+        experience: 7,
+        rating: 4.8,
+        fee: 350,
+        timing: "Mon to Sat, 11 AM to 7 PM",
+        gradient: "linear-gradient(135deg, #0f766e, #22c55e)"
+      }
+    ];
+
+    const testimonials = [
+      {
+        name: "Sunita Kulkarni",
+        area: "Shivajinagar",
+        rating: 5,
+        text: "Booked an appointment for my mother with Dr. Ananya. Very polite doctor and the clinic is easy to find on FC Road."
+      },
+      {
+        name: "Prasad Deshpande",
+        area: "Deccan",
+        rating: 5,
+        text: "Good experience with orthopedic consultation. Wait time was short because I booked online."
+      },
+      {
+        name: "Neha Gupta",
+        area: "JM Road",
+        rating: 4,
+        text: "Took my son to Dr. Priya Nair. She explained everything clearly and gave practical advice."
+      }
+    ];
+
+    const servicesGrid = document.getElementById("servicesGrid");
+    const doctorGrid = document.getElementById("doctorGrid");
+    const specialtyFilter = document.getElementById("specialtyFilter");
+    const doctorSelect = document.getElementById("doctorSelect");
+    const appointmentDate = document.getElementById("appointmentDate");
+    const slot = document.getElementById("slot");
+    const appointmentForm = document.getElementById("appointmentForm");
+    const nameField = document.getElementById("name");
+    const phoneField = document.getElementById("phone");
+    const notesField = document.getElementById("notes");
+    const successBox = document.getElementById("success");
+    const nav = document.getElementById("nav");
+    const menuBtn = document.getElementById("menuBtn");
+
+    function initials(name) {
+      return name
+        .replace("Dr. ", "")
+        .split(" ")
+        .map(part => part[0])
+        .join("")
+        .slice(0, 2);
+    }
+
+    function formatDate(date) {
+      return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+    }
+
+    function displayDate(dateStr) {
+      const date = new Date(`${dateStr}T00:00:00`);
+      return date.toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      });
+    }
+
+    function renderServices() {
+      servicesGrid.innerHTML = services.map(service => `
+        <article class="card service-card">
+          <div class="icon">${service.icon}</div>
+          <h3>${service.title}</h3>
+          <p>${service.text}</p>
+        </article>
+      `).join("");
+    }
+
+    function renderDoctors(filter = "all") {
+      const list = filter === "all"
+        ? doctors
+        : doctors.filter(doctor => doctor.specialty === filter);
+
+      doctorGrid.innerHTML = list.map(doctor => `
+        <article class="card doctor-card">
+          <div class="avatar" style="background:${doctor.gradient}">
+            ${initials(doctor.name)}
+          </div>
+          <h3>${doctor.name}</h3>
+          <div class="specialty">${doctor.specialty}</div>
+
+          <div class="meta">
+            <span class="chip">${doctor.experience} years</span>
+            <span class="chip">${doctor.rating} rating</span>
+            <span class="chip">${doctor.timing}</span>
+          </div>
+
+          <div class="fee">₹${doctor.fee} consultation</div>
+
+          <button type="button" class="btn btn-small" onclick="selectDoctor(${doctor.id})">
+            Book appointment
+          </button>
+        </article>
+      `).join("");
+    }
+
+    function renderTestimonials() {
+      const testimonialGrid = document.getElementById("testimonialGrid");
+
+      testimonialGrid.innerHTML = testimonials.map(item => `
+        <article class="card testimonial-card">
+          <div class="stars">${"★".repeat(item.rating)}${"☆".repeat(5 - item.rating)}</div>
+          <p>"${item.text}"</p>
+          <div class="testimonial-footer">
+            <div class="avatar-small">${item.name[0]}</div>
+            <div>
+              <strong>${item.name}</strong>
+              <div class="muted" style="font-size:14px;">${item.area}, Pune</div>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function populateSpecialtyFilter() {
+      const specialties = [...new Set(doctors.map(doctor => doctor.specialty))];
+
+      specialtyFilter.innerHTML = `
+        <option value="all">All specialties</option>
+        ${specialties.map(item => `<option value="${item}">${item}</option>`).join("")}
+      `;
+    }
+
+    function populateDoctorSelect() {
+      doctorSelect.innerHTML = doctors.map(doctor => `
+        <option value="${doctor.id}">
+          ${doctor.name} (${doctor.specialty})
+        </option>
+      `).join("");
+    }
+
+    function getSlots(doctorId, dateStr) {
+      const date = new Date(`${dateStr}T00:00:00`);
+      if (Number.isNaN(date.getTime())) return [];
+
+      const sunday = date.getDay() === 0;
+
+      const baseSlots = sunday
+        ? ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"]
+        : [
+          "09:00 AM",
+          "09:30 AM",
+          "10:00 AM",
+          "10:30 AM",
+          "11:00 AM",
+          "11:30 AM",
+          "12:00 PM",
+          "05:00 PM",
+          "05:30 PM",
+          "06:00 PM",
+          "06:30 PM",
+          "07:00 PM",
+          "07:30 PM",
+          "08:00 PM"
+        ];
+
+      const key = `${doctorId}-${dateStr}`;
+      let hash = 0;
+
+      for (let i = 0; i < key.length; i++) {
+        hash = (hash * 31 + key.charCodeAt(i)) >>> 0;
+      }
+
+      return baseSlots.filter((slotName, index) => (hash + index * 7) % 4 !== 0);
+    }
+
+    function updateSlots() {
+      const doctorId = Number(doctorSelect.value);
+      const dateStr = appointmentDate.value;
+
+      slot.innerHTML = `<option value="">Select time</option>`;
+
+      if (!doctorId || !dateStr) {
+        slot.disabled = true;
+        return;
+      }
+
+      const slots = getSlots(doctorId, dateStr);
+
+      if (!slots.length) {
+        slot.innerHTML += `<option value="">No slots available</option>`;
+        slot.disabled = true;
+        return;
+      }
+
+      slot.disabled = false;
+      slot.innerHTML += slots.map(time => `<option value="${time}">${time}</option>`).join("");
+    }
+
+    window.selectDoctor = function(id) {
+      doctorSelect.value = String(id);
+      updateSlots();
+      document.getElementById("appointment").scrollIntoView({ behavior: "smooth" });
+    };
+
+    appointmentForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      if (!appointmentForm.checkValidity()) {
+        appointmentForm.reportValidity();
+        return;
+      }
+
+      const doctor = doctors.find(item => item.id === Number(doctorSelect.value));
+
+      const appointment = {
+        name: nameField.value.trim(),
+        phone: phoneField.value.trim(),
+        doctor: doctor.name,
+        specialty: doctor.specialty,
+        date: appointmentDate.value,
+        time: slot.value,
+        notes: notesField.value.trim(),
+        createdAt: new Date().toISOString()
+      };
+
+      const saved = JSON.parse(localStorage.getItem("clinicAppointments") || "[]");
+      saved.push(appointment);
+      localStorage.setItem("clinicAppointments", JSON.stringify(saved));
+
+      successBox.innerHTML = `
+        <strong>Appointment booked.</strong><br>
+        ${appointment.name}, your appointment with ${appointment.doctor} is on
+        ${displayDate(appointment.date)} at ${appointment.time}.
+        We will contact you on ${appointment.phone} if confirmation is needed.
+      `;
+      successBox.classList.add("show");
+
+      appointmentForm.reset();
+      appointmentDate.value = today;
+      doctorSelect.value = String(doctors[0].id);
+      updateSlots();
+
+      setTimeout(() => {
+        successBox.classList.remove("show");
+      }, 9000);
+    });
+
+    specialtyFilter.addEventListener("change", event => {
+      renderDoctors(event.target.value);
+    });
+
+    doctorSelect.addEventListener("change", updateSlots);
+    appointmentDate.addEventListener("change", updateSlots);
+
+    menuBtn.addEventListener("click", () => {
+      nav.classList.toggle("open");
+    });
+
+    nav.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("open");
+      });
+    });
+
+    const today = formatDate(new Date());
+    const maxDate = new Date();
+    maxDate.setDate(maxDate.getDate() + 60);
+
+    appointmentDate.min = today;
+    appointmentDate.max = formatDate(maxDate);
+    appointmentDate.value = today;
+
+    renderServices();
+    renderDoctors();
+    renderTestimonials();
+    populateSpecialtyFilter();
+    populateDoctorSelect();
+    doctorSelect.value = String(doctors[0].id);
+    updateSlots();
+  </script>
+<!-- sflws:source-button:start -->
+<style>
+#sflws-source-btn{position:fixed;right:18px;bottom:18px;z-index:2147483000;display:none;
+padding:2px;border-radius:999px;text-decoration:none;line-height:0;
+background:linear-gradient(90deg,#ff4d4d,#ffb347,#ffe66d,#7bed9f,#48dbfb,#a29bfe,#ff4d4d);
+background-size:300% 100%;animation:sflws-rainbow 6s linear infinite;
+box-shadow:0 4px 20px rgba(0,0,0,.32);transition:transform .2s ease}
+#sflws-source-btn:hover{transform:translateY(-2px)}
+#sflws-source-btn>span{display:flex;align-items:center;gap:7px;padding:9px 15px;
+border-radius:999px;background:#0d0d0f;color:#f4f4f5;
+font:600 12px/1 ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+letter-spacing:.02em;white-space:nowrap}
+#sflws-source-btn>span>b{font:inherit;color:#9aa0a6;letter-spacing:0}
+@keyframes sflws-rainbow{to{background-position:300% 0}}
+@media(prefers-reduced-motion:reduce){#sflws-source-btn{animation:none}
+#sflws-source-btn:hover{transform:none}}
+@media(max-width:600px){#sflws-source-btn{right:12px;bottom:12px}
+#sflws-source-btn>span{padding:8px 13px;font-size:11px}}
+</style>
+<a id="sflws-source-btn" href="https://github.com/saawflws/SFLWS___TEMPLATE_WEBSITEs/tree/main/websites/static/clinic/shreesaiclinic" target="_blank" rel="noopener noreferrer"
+ aria-label="View this template&#39;s source code on GitHub">
+<span><b aria-hidden="true">&lt;/&gt;</b>view source</span></a>
+<script>
+(function(){
+var h=location.hostname;
+var ok=h==='sflwsts.aasimahmed.com'||h==='localhost'||h==='127.0.0.1'||h==='[::1]'
+||/\.github\.io$/.test(h);
+var b=document.getElementById('sflws-source-btn');
+if(b&&ok)b.style.display='block';
+})();
+</script>
+<!-- sflws:source-button:end -->
+</body>
+</html>

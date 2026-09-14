@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shree Sai Clinic — Doctor Appointments on FC Road, Pune</title>
+<meta name="description" content="Six-specialty family clinic on FC Road, Pune. General medicine, orthopedics, pediatrics, gynecology, dermatology and dentistry — book online in under a minute.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1d2a25;
+    --body:#43524b;
+    --pine:#1f5d49;
+    --clay:#bf5b38;
+    --ochre:#9a7b2e;
+    --paper:#f5f0e3;
+    --paper-2:#ece4d0;
+    --card:#fdfaf1;
+    --sage:#e4e6d0;
+    --line:rgba(29,42,37,.18);
+    --hard:8px 8px 0 rgba(31,93,73,.14);
+    --hard-sm:5px 5px 0 rgba(31,93,73,.14);
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+    --sans:"Instrument Sans","Segoe UI",Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);
+    background:var(--paper);
+    color:var(--body);
+    line-height:1.65;
+    font-size:16.5px;
+    overflow-x:hidden;
+  }
+  /* paper grain over everything */
+  body::after{
+    content:"";position:fixed;inset:0;z-index:2000;pointer-events:none;opacity:.055;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  ::selection{background:var(--clay);color:var(--paper)}
+  a{color:inherit;text-decoration:none}
+  ul{list-style:none}
+  button{font:inherit;cursor:pointer;color:inherit}
+  img,svg{display:block}
+  :focus-visible{outline:2px solid var(--clay);outline-offset:2px;border-radius:4px}
+
+  .wrap{width:min(1180px,92%);margin-inline:auto}
+  .section{padding:96px 0;scroll-margin-top:86px}
+  .alt{background:var(--paper-2)}
+  h1,h2,h3{font-family:var(--serif);color:var(--ink);line-height:1.08;font-weight:500;letter-spacing:-.01em}
+  h2{font-size:clamp(2rem,3.4vw,2.85rem)}
+
+  .ic{width:1.1em;height:1.1em;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .ic-fill{fill:currentColor;stroke:none}
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:.6rem;
+    font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--pine);
+  }
+  .eyebrow::before{content:"";width:26px;height:1.5px;background:var(--clay)}
+  .sec-head{margin-bottom:2.6rem;max-width:640px}
+  .sec-head h2{margin-top:.9rem}
+  .sec-head .lede{margin-top:.8rem;font-size:1.05rem}
+  .sec-head.center{margin-inline:auto;text-align:center}
+  .sec-head.center .eyebrow::before{display:none}
+  .sec-head.center .eyebrow{gap:0}
+
+  /* ---------- buttons & links ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
+    min-height:50px;padding:.85rem 1.5rem;border-radius:999px;
+    border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);
+    font-weight:600;font-size:.95rem;transition:transform .18s,box-shadow .18s,background .18s,border-color .18s;
+  }
+  .btn:hover{background:var(--pine);border-color:var(--pine);transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--clay)}
+  .btn:active{transform:none;box-shadow:none}
+  .btn .ic{transition:transform .18s}
+  .btn:hover .ic{transform:translateX(3px)}
+  .btn-outline{background:transparent;color:var(--ink)}
+  .btn-outline:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);box-shadow:4px 4px 0 rgba(31,93,73,.3)}
+  .btn-sm{min-height:42px;padding:.55rem 1.1rem;font-size:.88rem}
+  .btn-full{width:100%}
+  .linka{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;color:var(--ink);border-bottom:1.5px solid var(--ink);padding-bottom:2px;transition:color .2s,border-color .2s}
+  .linka:hover{color:var(--pine);border-color:var(--pine)}
+  .cbtn{
+    width:44px;height:44px;border-radius:50%;border:1.5px solid var(--ink);background:var(--card);
+    display:grid;place-items:center;transition:background .2s,color .2s,opacity .2s;
+  }
+  .cbtn:hover{background:var(--ink);color:var(--paper)}
+  .cbtn:disabled{opacity:.3;pointer-events:none}
+  .linkbtn{background:none;border:none;font:inherit;font-weight:700;color:var(--clay);text-decoration:underline;padding:0;cursor:pointer}
+  .linkbtn:hover{color:var(--ink)}
+
+  /* ---------- topbar & header ---------- */
+  .topbar{background:var(--ink);color:rgba(245,240,227,.85);font-size:.8rem;font-weight:500}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-block:.45rem}
+  .topbar .dot{margin-right:.5rem}
+  .topbar-right{display:flex;gap:1.6rem;align-items:center}
+  .topbar-right a:hover{color:var(--paper)}
+  .topbar-right .ic{width:.95em;height:.95em;color:var(--clay);display:inline-block;vertical-align:-.12em;margin-right:.35rem}
+
+  .hdr{position:sticky;top:0;z-index:70;background:rgba(245,240,227,.93);backdrop-filter:blur(8px);border-bottom:1.5px solid var(--ink)}
+  .hdr .wrap{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding-block:.85rem}
+  .brand{display:flex;align-items:center;gap:.7rem}
+  .mark{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;color:var(--clay)}
+  .mark .ic{width:20px;height:20px;stroke-width:2}
+  .brand-t{font-family:var(--serif);font-size:1.25rem;font-weight:600;color:var(--ink);line-height:1.05}
+  .brand-t small{display:block;font-family:var(--sans);font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--pine);margin-top:.15rem}
+  .hdr nav{display:flex;align-items:center;gap:1.7rem}
+  .hdr nav a{font-weight:600;font-size:.94rem;color:var(--ink);position:relative}
+  .hdr nav a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--clay);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+  .hdr nav a:not(.btn):hover::after{transform:scaleX(1)}
+  .nav-toggle{display:none;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--ink);background:transparent;place-items:center}
+  .nav-toggle .x{display:none}
+  .nav-toggle.open .burger{display:none}
+  .nav-toggle.open .x{display:block}
+
+  .mnav{
+    position:fixed;top:0;left:0;right:0;z-index:60;background:var(--paper);
+    padding:86px 6% 26px;border-bottom:1.5px solid var(--ink);
+    transform:translateY(-105%);transition:transform .35s cubic-bezier(.2,.8,.25,1);
+    display:flex;flex-direction:column;gap:.4rem;
+  }
+  .mnav.open{transform:none}
+  .mnav a{font-family:var(--serif);font-size:1.35rem;color:var(--ink);padding:.55rem 0;border-bottom:1px solid var(--line)}
+  .mnav .btn{margin-top:1rem}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:78px 0 140px;scroll-margin-top:86px}
+  .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:3rem;align-items:center}
+  .hero h1{font-size:clamp(2.7rem,5.4vw,4.5rem);margin:.9rem 0 1.1rem;max-width:640px}
+  .hero h1 em{font-style:italic;color:var(--clay);font-weight:480}
+  .hero .lede{font-size:1.13rem;max-width:560px}
+  .hero-actions{display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap;margin-top:1.9rem}
+  .facts{display:flex;flex-wrap:wrap;gap:1.4rem 2.4rem;margin-top:2.4rem;padding-top:1.7rem;border-top:1.5px solid var(--line)}
+  .facts li{display:flex;flex-direction:column;gap:.1rem}
+  .facts strong{font-family:var(--serif);font-size:1.55rem;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:.3rem}
+  .facts strong .ic{width:.72em;height:.72em;color:var(--ochre)}
+  .facts span{font-size:.78rem}
+
+  .today{background:var(--card);border:1.5px solid var(--ink);border-radius:20px;box-shadow:var(--hard);padding:1.4rem}
+  .today-top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .today-label{font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ink)}
+  .today-clock{font-size:.85rem;font-weight:700;color:var(--pine);font-variant-numeric:tabular-nums}
+  .today-status{display:flex;align-items:center;gap:.55rem;margin:.9rem 0 1.1rem;font-size:.92rem;font-weight:600;color:var(--ink)}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .dot.open{background:#2f8a5f;animation:pulse 2s infinite}
+  .dot.soon{background:var(--ochre)}
+  .dot.shut{background:var(--clay)}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,138,95,.4)}70%{box-shadow:0 0 0 8px rgba(47,138,95,0)}100%{box-shadow:0 0 0 0 rgba(47,138,95,0)}}
+  .qs-l{display:block;font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--clay);margin-bottom:.5rem}
+  .qs-list{display:flex;flex-wrap:wrap;gap:.55rem}
+  .qs{border:1.5px solid var(--ink);border-radius:10px;background:transparent;padding:.5rem .85rem;font-family:var(--serif);font-weight:600;font-size:1rem;color:var(--ink);transition:background .18s,color .18s,transform .18s}
+  .qs:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
+  .qs-none{font-size:.88rem}
+  .today-week{margin-top:1.2rem;border-top:1.5px dashed var(--line);padding-top:1rem;display:grid;gap:.4rem}
+  .wk{display:flex;justify-content:space-between;font-size:.82rem;color:var(--body)}
+  .wk.on{color:var(--ink);font-weight:700}
+  .wk.on span:first-child::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--clay);margin-right:.5rem;vertical-align:1px}
+  .today-actions{display:flex;gap:.6rem;margin-top:1.15rem;flex-wrap:wrap}
+
+  .ecg{position:absolute;left:0;right:0;bottom:0;height:84px;pointer-events:none}
+  .ecg svg{width:100%;height:100%}
+  .ecg path{vector-effect:non-scaling-stroke;fill:none;stroke-width:1.8}
+  .ecg-base{stroke:var(--ink);opacity:.2}
+  .ecg-live{stroke:var(--clay);stroke-width:2.2;stroke-dasharray:170 1630;animation:ecgmove 7s linear infinite}
+  @keyframes ecgmove{from{stroke-dashoffset:1800}to{stroke-dashoffset:0}}
+
+  /* ---------- marquee ---------- */
+  .marquee{background:var(--ink);overflow:hidden;padding:1rem 0}
+  .m-track{display:flex;width:max-content;animation:mscroll 30s linear infinite}
+  .marquee:hover .m-track{animation-play-state:paused}
+  .m-set{display:flex;align-items:center;gap:2.6rem;padding-right:2.6rem}
+  .m-set span{font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--paper);white-space:nowrap}
+  .m-set .ic{width:.85em;height:.85em;color:var(--clay);stroke-width:2.4}
+  @keyframes mscroll{to{transform:translateX(-50%)}}
+
+  /* ---------- services ledger ---------- */
+  .ledger{border-top:1.5px solid var(--ink)}
+  .svc{
+    display:grid;grid-template-columns:3.1rem 3.5rem 1.05fr 1.5fr minmax(160px,auto) 3.4rem;
+    align-items:center;gap:1.2rem;padding:1.35rem .4rem;
+    border-bottom:1px solid var(--line);cursor:pointer;transition:background .2s;
+  }
+  .svc:hover,.svc:focus-visible{background:var(--sage)}
+  .svc-num{font-family:var(--serif);font-size:1.15rem;color:rgba(29,42,37,.35);font-weight:500}
+  .svc:hover .svc-num{color:var(--clay)}
+  .svc-ic{width:48px;height:48px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;color:var(--pine)}
+  .svc-ic .ic{width:22px;height:22px}
+  .svc h3{font-size:1.3rem}
+  .svc-desc{font-size:.95rem}
+  .svc-side{display:flex;flex-direction:column;align-items:flex-end;gap:.15rem;text-align:right}
+  .svc-doc{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pine)}
+  .svc-fee{font-family:var(--serif);font-size:1.15rem;font-weight:600;color:var(--ink)}
+  .svc-go{width:42px;height:42px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;transition:background .2s,color .2s,transform .2s}
+  .svc-go .ic{width:17px;height:17px}
+  .svc:hover .svc-go{background:var(--ink);color:var(--paper);transform:translateX(4px)}
+
+  /* ---------- doctors carousel ---------- */
+  .chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.9rem}
+  .chipf{border:1.5px solid var(--ink);border-radius:999px;background:transparent;padding:.5rem 1.05rem;font-weight:600;font-size:.88rem;transition:background .18s,color .18s}
+  .chipf:hover{background:var(--sage)}
+  .chipf.on{background:var(--ink);color:var(--paper)}
+  .track{
+    display:flex;gap:1.1rem;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:12px 10px 18px;margin-inline:-10px;cursor:grab;
+    scrollbar-width:none;
+  }
+  .track::-webkit-scrollbar{display:none}
+  .track.grabbing{cursor:grabbing;scroll-snap-type:none}
+  .doc-card{
+    flex:none;width:330px;scroll-snap-align:start;
+    background:var(--card);border:1.5px solid var(--ink);border-radius:18px;box-shadow:var(--hard-sm);
+    display:flex;flex-direction:column;
+    transition:transform .22s,box-shadow .22s;
+  }
+  .doc-card:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 rgba(31,93,73,.22)}
+  .doc-mono{
+    height:92px;border-radius:16px 16px 0 0;background:var(--dc,var(--pine));
+    display:flex;align-items:center;justify-content:space-between;padding-inline:1.2rem;color:var(--paper);
+  }
+  .doc-mono b{font-family:var(--serif);font-size:2.1rem;font-weight:550;letter-spacing:.02em}
+  .doc-mono .ic{width:30px;height:30px;stroke-width:1.6;opacity:.9}
+  .doc-body{padding:1.15rem 1.2rem 1.25rem;display:flex;flex-direction:column;gap:.55rem;flex:1}
+  .doc-body h3{font-size:1.28rem}
+  .doc-spec{font-size:.7rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--pine)}
+  .doc-bio{font-size:.9rem}
+  .doc-meta{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.2rem}
+  .doc-meta li{border:1px solid var(--line);border-radius:999px;padding:.3rem .75rem;font-size:.78rem;font-weight:600;display:flex;align-items:center;gap:.4rem;color:var(--ink)}
+  .doc-meta .ic{width:.9em;height:.9em;color:var(--ochre)}
+  .doc-time{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--ink);font-weight:600}
+  .doc-time .ic{color:var(--pine)}
+  .doc-free{font-size:.8rem;font-weight:700;color:var(--clay)}
+  .doc-foot{margin-top:auto;padding-top:.95rem;border-top:1.5px dashed var(--line);display:flex;justify-content:space-between;align-items:center}
+  .doc-fee{font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--ink)}
+  .doc-fee span{display:block;font-family:var(--sans);font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--body)}
+  .car-ui{display:flex;align-items:center;gap:1rem;margin-top:1.5rem}
+  .prog{flex:1;height:4px;background:rgba(29,42,37,.14);border-radius:99px;overflow:hidden}
+  .prog i{display:block;height:100%;width:0;background:var(--pine);transition:width .2s}
+  .doc-count{font-size:.72rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--pine);white-space:nowrap}
+
+  /* ---------- booking ---------- */
+  .booking-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:2.2rem;align-items:start}
+  .visit{background:var(--card);border:1.5px solid var(--ink);border-radius:20px;box-shadow:var(--hard);padding:1.7rem}
+  .visit h3{font-size:1.6rem;margin-bottom:1.1rem}
+  .vrow{display:flex;gap:.9rem;align-items:flex-start;padding:.75rem 0;border-top:1px solid var(--line)}
+  .vrow:first-of-type{border-top:none}
+  .vrow .ic{width:19px;height:19px;color:var(--pine);margin-top:.2rem}
+  .vrow small{display:block;font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--body)}
+  .vrow p{font-size:.95rem;color:var(--ink);font-weight:600}
+  .visit-actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.2rem}
+  .visit-dir{margin-top:1rem;font-size:.9rem}
+  .emg{margin-top:1.3rem;border:1.5px dashed rgba(29,42,37,.3);border-radius:12px;padding:.85rem 1rem;font-size:.82rem;color:var(--body)}
+  .emg strong{color:var(--clay)}
+
+  .formcard{background:var(--card);border:1.5px solid var(--ink);border-radius:20px;box-shadow:var(--hard);overflow:hidden}
+  .formcard.flash{animation:flashRing 1.3s ease}
+  @keyframes flashRing{0%{box-shadow:0 0 0 0 rgba(31,93,73,.35),var(--hard)}70%{box-shadow:0 0 0 16px rgba(31,93,73,0),var(--hard)}100%{box-shadow:var(--hard)}}
+  .slip-head{background:var(--pine);color:var(--paper);display:flex;justify-content:space-between;align-items:center;padding:.85rem 1.3rem;gap:1rem}
+  .slip-head .brandline{display:flex;align-items:center;gap:.55rem;font-family:var(--serif);font-weight:600;font-size:1.05rem}
+  .slip-head .brandline .ic{width:18px;height:18px;color:var(--paper);stroke-width:2}
+  .slip-head .tag{font-size:.66rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;border:1px solid rgba(245,240,227,.5);border-radius:99px;padding:.3rem .7rem;white-space:nowrap}
+  .slip-sub{display:flex;justify-content:space-between;align-items:center;padding:.7rem 1.3rem;border-bottom:1.5px dashed var(--line);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--body)}
+  .slip-sub b{color:var(--clay)}
+  .forminner{padding:1.5rem 1.3rem 1.6rem}
+  .frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .field{margin-bottom:1.05rem;position:relative}
+  .flabel{display:block;font-size:.7rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);margin-bottom:.45rem}
+  .field input,.field select,.field textarea{
+    width:100%;padding:.8rem .95rem;font:inherit;color:var(--ink);
+    background:var(--paper);border:1.5px solid rgba(29,42,37,.4);border-radius:12px;transition:border-color .18s,box-shadow .18s;
+  }
+  .field textarea{min-height:88px;resize:vertical}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--pine);box-shadow:0 0 0 3px rgba(31,93,73,.16)}
+  .field select{
+    appearance:none;-webkit-appearance:none;padding-right:2.6rem;cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231d2a25' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right .9rem center;
+  }
+  .pwrap{display:flex}
+  .ppfx{border:1.5px solid rgba(29,42,37,.4);border-right:none;border-radius:12px 0 0 12px;background:var(--sage);padding:.8rem .8rem;font-weight:600;color:var(--ink);font-size:.92rem}
+  .pwrap input{border-radius:0 12px 12px 0}
+  .fmsg{display:none;margin-top:.4rem;font-size:.8rem;font-weight:600;color:var(--clay)}
+  .field.err .fmsg{display:block}
+  .field.err input,.field.err select{border-color:var(--clay)}
+  .slot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:.5rem}
+  .slot{border:1.5px solid rgba(29,42,37,.4);border-radius:10px;background:var(--paper);padding:.55rem .3rem;font-size:.86rem;font-weight:600;color:var(--ink);transition:background .15s,color .15s,border-color .15s,transform .15s}
+  .slot:hover{border-color:var(--ink);transform:translateY(-2px)}
+  .slot.sel{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .slot.booked{border-style:dashed;color:rgba(29,42,37,.35);text-decoration:line-through;background:transparent;cursor:not-allowed;transform:none}
+  .slot-msg{margin-top:.55rem;font-size:.85rem;font-weight:600;color:var(--pine)}
+  .field.err .slot-grid .slot:not(.booked){border-color:var(--clay)}
+  .form-foot{margin-top:1rem;font-size:.82rem;color:var(--body);text-align:center}
+
+  /* ---------- testimonials ---------- */
+  .quote-card{max-width:800px;margin:0 auto;background:var(--card);border:1.5px solid var(--ink);border-radius:20px;box-shadow:var(--hard);padding:2.6rem 2.4rem 2.2rem;text-align:center;transition:opacity .26s,transform .26s}
+  .quote-card.out{opacity:0;transform:translateX(14px)}
+  .quote-card::before{content:"\201C";font-family:var(--serif);font-size:5.2rem;line-height:.4;color:var(--clay);display:block;margin-bottom:1.4rem}
+  .quote-card blockquote{font-family:var(--serif);font-size:clamp(1.25rem,2.3vw,1.7rem);font-weight:480;color:var(--ink);line-height:1.45;min-height:120px}
+  .quote-who{display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:1.6rem;text-align:left}
+  .q-mono{width:46px;height:46px;border-radius:50%;color:var(--paper);display:grid;place-items:center;font-family:var(--serif);font-size:1.2rem;font-weight:600;flex:none}
+  .quote-who strong{display:block;color:var(--ink);font-size:.98rem}
+  .q-area{display:block;font-size:.8rem}
+  .q-stars{display:flex;gap:2px;margin-top:2px}
+  .q-stars .ic{width:14px;height:14px;color:var(--ochre)}
+  .q-stars .off{color:rgba(29,42,37,.2)}
+  .q-nav{display:flex;align-items:center;justify-content:center;gap:1.1rem;margin-top:1.8rem}
+  .q-dots{display:flex;gap:.55rem}
+  .q-dot{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink);background:transparent;padding:0;transition:background .2s}
+  .q-dot.on{background:var(--clay);border-color:var(--clay)}
+
+  /* ---------- footer ---------- */
+  .footer{background:#16241e;color:rgba(245,240,227,.78);padding:72px 0 26px;scroll-margin-top:86px}
+  .f-word{font-family:var(--serif);font-size:clamp(2rem,4vw,2.9rem);color:var(--paper);font-weight:550}
+  .f-word em{font-style:italic;color:var(--clay)}
+  .f-ecg{height:54px;margin:1rem 0 2.4rem}
+  .f-ecg svg{width:100%;height:100%}
+  .f-ecg .ecg-base{stroke:var(--paper);opacity:.18}
+  .f-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:2.5rem;padding-bottom:2.4rem;border-bottom:1px solid rgba(245,240,227,.14)}
+  .f-col h3{font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--paper);margin-bottom:1.1rem}
+  .f-col p{font-size:.92rem;margin-bottom:.6rem}
+  .f-col a:hover{color:var(--paper);text-decoration:underline}
+  .f-contact .ic{width:15px;height:15px;color:var(--clay);display:inline-block;vertical-align:-.15em;margin-right:.5rem}
+  .f-wk{display:flex;justify-content:space-between;font-size:.9rem;padding:.35rem 0;border-bottom:1px dashed rgba(245,240,227,.12)}
+  .f-wk.on{color:var(--paper);font-weight:700}
+  .f-emg{margin-top:1.4rem;border:1px dashed rgba(245,240,227,.3);border-radius:12px;padding:.85rem 1rem;font-size:.82rem}
+  .f-emg strong{color:var(--clay)}
+  .f-bottom{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-top:1.4rem;font-size:.78rem;color:rgba(245,240,227,.55);flex-wrap:wrap}
+  .cbtn-cream{border-color:rgba(245,240,227,.35);background:transparent;color:var(--paper)}
+  .cbtn-cream:hover{background:var(--paper);color:var(--ink)}
+
+  /* ---------- slip modal ---------- */
+  .overlay{position:fixed;inset:0;z-index:1100;background:rgba(18,26,22,.55);display:grid;place-items:center;padding:1.2rem;opacity:0;pointer-events:none;transition:opacity .25s}
+  .overlay.open{opacity:1;pointer-events:auto}
+  .slip{width:min(480px,100%);background:var(--card);border:1.5px solid var(--ink);border-radius:18px;box-shadow:12px 12px 0 rgba(0,0,0,.28);position:relative;transform:translateY(16px) scale(.97);transition:transform .3s cubic-bezier(.2,.9,.3,1.1);max-height:92vh;overflow:auto}
+  .overlay.open .slip{transform:none}
+  .slip-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--ink);background:var(--card);display:grid;place-items:center;z-index:2}
+  .slip-close:hover{background:var(--ink);color:var(--paper)}
+  .slip-band{background:var(--pine);color:var(--paper);padding:1rem 1.4rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;border-radius:16px 16px 0 0}
+  .slip-band .t1{font-family:var(--serif);font-weight:600;font-size:1.15rem}
+  .slip-band .t2{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;opacity:.85}
+  .slip-no{display:flex;justify-content:space-between;padding:.75rem 1.4rem;border-bottom:1.5px dashed var(--line);font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--body)}
+  .slip-no b{color:var(--clay)}
+  .slip-rows{padding:1.2rem 1.4rem .4rem}
+  .srow{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.5rem 0;border-bottom:1px dotted var(--line)}
+  .srow span{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--body)}
+  .srow strong{font-family:var(--serif);font-size:1.05rem;font-weight:600;color:var(--ink);text-align:right}
+  .slip-bar{padding:.9rem 1.4rem .2rem;display:flex;flex-direction:column;align-items:center;gap:.4rem}
+  .slip-bar svg{width:196px;height:34px}
+  .slip-bar rect{fill:var(--ink)}
+  .slip-bar small{font-size:.66rem;font-weight:700;letter-spacing:.35em;color:var(--body)}
+  .slip-note{padding:.7rem 1.4rem 0;font-size:.8rem;color:var(--body)}
+  .slip-act{padding:1.1rem 1.4rem 1.4rem}
+  .stamp{
+    position:absolute;right:1.4rem;top:42%;width:112px;height:112px;border-radius:50%;
+    border:2.5px solid var(--clay);color:var(--clay);display:grid;place-content:center;text-align:center;
+    transform:rotate(-12deg);pointer-events:none;opacity:0;background:rgba(253,250,241,.6);
+  }
+  .stamp::before{content:"";position:absolute;inset:6px;border:1px solid var(--clay);border-radius:50%}
+  .stamp b{font-size:14px;letter-spacing:.14em;font-weight:700}
+  .stamp small{font-size:8px;letter-spacing:.22em;text-transform:uppercase;opacity:.85;margin-top:2px}
+  .stamp.in{animation:stampIn .55s cubic-bezier(.2,1.4,.35,1) .35s both}
+  @keyframes stampIn{0%{transform:scale(2.3) rotate(-48deg);opacity:0}62%{transform:scale(.93) rotate(-9deg);opacity:1}100%{transform:scale(1) rotate(-12deg);opacity:1}}
+
+  /* ---------- toasts ---------- */
+  #toasts{position:fixed;left:50%;transform:translateX(-50%);bottom:22px;z-index:1300;display:flex;flex-direction:column;gap:.5rem;align-items:center;width:max-content;max-width:92vw}
+  .toast{
+    display:flex;align-items:center;gap:.6rem;background:var(--ink);color:var(--paper);
+    border:1px solid rgba(245,240,227,.18);border-radius:12px;padding:.75rem 1.15rem;font-size:.9rem;font-weight:600;
+    opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s;box-shadow:0 8px 24px rgba(0,0,0,.25);
+  }
+  .toast.in{opacity:1;transform:none}
+  .toast .ic{width:16px;height:16px;flex:none}
+  .toast.ok .ic{color:#7fc9a4}
+  .toast.err .ic{color:var(--clay)}
+
+  /* ---------- reveal ---------- */
+  [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.25,1)}
+  [data-reveal].revealed{opacity:1;transform:none}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1020px){
+    .hero-grid,.booking-grid{grid-template-columns:1fr}
+    .today{max-width:540px}
+    .f-grid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:880px){
+    .hdr nav{display:none}
+    .nav-toggle{display:grid}
+    .topbar-right .hide-m{display:none}
+    .svc{grid-template-columns:2.6rem 1fr 2.8rem;grid-template-areas:"num main go" "desc desc desc" "side side side";row-gap:.5rem}
+    .svc-ic{display:none}
+    .svc-main{grid-area:main}.svc-desc{grid-area:desc}.svc-side{grid-area:side;align-items:flex-start;text-align:left}
+    .svc-go{grid-area:go}.svc-num{grid-area:num}
+    .section{padding:76px 0}
+  }
+  @media (max-width:620px){
+    .doc-card{width:296px}
+    .frow{grid-template-columns:1fr}
+    .f-grid{grid-template-columns:1fr}
+    .facts{gap:1rem 1.6rem}
+    .hero{padding:56px 0 120px}
+    .quote-card{padding:1.9rem 1.4rem 1.7rem}
+    .quote-card blockquote{min-height:170px}
+    .car-ui{flex-wrap:wrap}
+    .stamp{right:.9rem;width:96px;height:96px;top:46%}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .m-track,.ecg-live{animation:none}
+    [data-reveal]{opacity:1;transform:none;transition:none}
+    .dot.open{animation:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- icon sprite -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M2 12h4l2.5-6 4 12 2.5-6H22"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.9 2.2z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></symbol>
+  <symbol id="i-stetho" viewBox="0 0 24 24"><path d="M4 3v5a5 5 0 0 0 10 0V3"/><path d="M9 13v1a6 6 0 0 0 12 0v-2"/><circle cx="21" cy="8" r="2.5"/></symbol>
+  <symbol id="i-bone" viewBox="0 0 24 24"><circle cx="5.5" cy="18.5" r="2.6"/><circle cx="8.7" cy="15.3" r="2.6"/><circle cx="15.3" cy="8.7" r="2.6"/><circle cx="18.5" cy="5.5" r="2.6"/><path d="M7 17 17 7"/></symbol>
+  <symbol id="i-baby" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 5c0-1.7 1.3-3 3-3M9.5 12h.01M14.5 12h.01M9.5 15.3c.7.6 1.6.9 2.5.9s1.8-.3 2.5-.9"/></symbol>
+  <symbol id="i-venus" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="5"/><path d="M12 13.5V21M8.5 17.5h7"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 2.5l2.3 7.2 7.2 2.3-7.2 2.3L12 21.5l-2.3-7.2-7.2-2.3 7.2-2.3z"/><path d="M19 3v3M17.5 4.5h3"/></symbol>
+  <symbol id="i-tooth" viewBox="0 0 24 24"><path d="M7 3C4.2 3 2.5 5.4 2.5 8c0 3 1.5 4.7 2.3 7.7.5 1.9.8 5 2.7 5 1.6 0 1.7-2.2 2.2-4.3.4-1.8 1-3.2 2.3-3.2s1.9 1.4 2.3 3.2c.5 2.1.6 4.3 2.2 4.3 1.9 0 2.2-3.1 2.7-5 .8-3 2.3-4.7 2.3-7.7 0-2.6-1.7-5-4.5-5-2.2 0-3 1.4-5 1.4C10.5 4.4 8.8 3 7 3z"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M8 2.5v4M16 2.5v4M3 9.5h18"/></symbol>
+  <symbol id="i-arrow-r" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.3l-5.8 3.1 1.1-6.4L2.6 9.4l6.5-.9z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.5l4.5 4.5L19.5 7"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M14.5 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></symbol>
+  <symbol id="i-chev-u" viewBox="0 0 24 24"><path d="M6 14.5l6-6 6 6"/></symbol>
+  <symbol id="i-nav" viewBox="0 0 24 24"><path d="M21.5 2.5 3 11l8 2 2 8z"/></symbol>
+</svg>
+
+<div class="topbar">
+  <div class="wrap">
+    <span><span class="dot" id="dotTop"></span><span id="statusTop">Checking hours…</span></span>
+    <span class="topbar-right">
+      <span class="hide-m"><svg class="ic"><use href="#i-pin"/></svg>FC Road, Pune 411004</span>
+      <a href="tel:+919822012345"><svg class="ic"><use href="#i-phone"/></svg>+91 98220 12345</a>
+    </span>
+  </div>
+</div>
+
+<header class="hdr">
+  <div class="wrap">
+    <a class="brand" href="#home">
+      <span class="mark"><svg class="ic"><use href="#i-pulse"/></svg></span>
+      <span class="brand-t">Shree Sai Clinic<small>FC Road · Pune</small></span>
+    </a>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#services">Departments</a>
+      <a href="#doctors">Doctors</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#contact">Contact</a>
+      <a class="btn btn-sm" href="#booking">Book appointment</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <svg class="ic burger"><use href="#i-menu"/></svg>
+      <svg class="ic x"><use href="#i-x"/></svg>
+    </button>
+  </div>
+</header>
+
+<nav class="mnav" id="mnav">
+  <a href="#home">Home</a>
+  <a href="#services">Departments</a>
+  <a href="#doctors">Doctors</a>
+  <a href="#testimonials">Reviews</a>
+  <a href="#contact">Contact</a>
+  <a class="btn" href="#booking">Book appointment</a>
+</nav>
+
+<main>
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="home">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow"><svg class="ic"><use href="#i-pulse"/></svg>Trusted on FC Road since 2009</span>
+        <h1>Good medicine, <em>around the corner.</em></h1>
+        <p class="lede">
+          Shree Sai Clinic is a six-specialty family practice above FC Road — general medicine,
+          orthopedics, pediatrics, gynecology, dermatology and dentistry, bookable online in under a minute.
+        </p>
+        <div class="hero-actions">
+          <a href="#booking" class="btn">Book an appointment<svg class="ic"><use href="#i-arrow-r"/></svg></a>
+          <a href="#doctors" class="linka">Meet the doctors</a>
+        </div>
+        <ul class="facts">
+          <li><strong>12,000+</strong><span>patients since 2009</span></li>
+          <li><strong>4.8 <svg class="ic ic-fill"><use href="#i-star"/></svg></strong><span>from 620+ local reviews</span></li>
+          <li><strong>7 days</strong><span>open every week</span></li>
+        </ul>
+      </div>
+
+      <aside class="today" data-reveal>
+        <div class="today-top">
+          <span class="today-label">Today at the clinic</span>
+          <span class="today-clock" id="clock">—</span>
+        </div>
+        <div class="today-status"><span class="dot" id="statusDot"></span><span id="statusText">Checking hours…</span></div>
+        <div id="quickBox"></div>
+        <div class="today-week" id="weekHero"></div>
+        <div class="today-actions">
+          <a class="btn btn-sm" href="tel:+919822012345"><svg class="ic"><use href="#i-phone"/></svg>Call</a>
+          <a class="btn btn-sm btn-outline" href="https://wa.me/919822012345" target="_blank" rel="noopener"><svg class="ic"><use href="#i-chat"/></svg>WhatsApp</a>
+        </div>
+      </aside>
+    </div>
+    <div class="ecg" aria-hidden="true">
+      <svg viewBox="0 0 1800 90" preserveAspectRatio="none">
+        <path class="ecg-base ecg-path"></path>
+        <path class="ecg-live ecg-path"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="m-track" id="mTrack"></div>
+  </div>
+
+  <!-- ============ SERVICES ============ -->
+  <section class="section" id="services">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">Departments</span>
+        <h2>Everything a family needs, under one roof.</h2>
+        <p class="lede">From Monday-morning fevers to Saturday football injuries — the everyday care
+        Pune households actually need, without the hospital queue.</p>
+      </div>
+      <div class="ledger" id="svcGrid" data-reveal></div>
+    </div>
+  </section>
+
+  <!-- ============ DOCTORS ============ -->
+  <section class="section alt" id="doctors">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">Our physicians</span>
+        <h2>Six doctors. Zero surprises.</h2>
+        <p class="lede">Every consultant's hours and fees are shown upfront — pick a day, pick a time, walk in.</p>
+      </div>
+      <div class="chips" id="specChips" data-reveal></div>
+      <div class="track" id="track" role="region" aria-label="Doctor cards" data-reveal></div>
+      <div class="car-ui" data-reveal>
+        <button class="cbtn" id="prevBtn" aria-label="Scroll doctors left"><svg class="ic"><use href="#i-chev-l"/></svg></button>
+        <button class="cbtn" id="nextBtn" aria-label="Scroll doctors right"><svg class="ic"><use href="#i-chev-r"/></svg></button>
+        <div class="prog"><i id="progFill"></i></div>
+        <span class="doc-count" id="docCount"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BOOKING ============ -->
+  <section class="section" id="booking">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">Appointments</span>
+        <h2>Book yourself in.</h2>
+        <p class="lede">Choose a doctor, a date and a free slot — the clinic calls to confirm. No payment needed online.</p>
+      </div>
+      <div class="booking-grid">
+
+        <aside class="visit" data-reveal>
+          <h3>Visit the clinic</h3>
+          <div class="vrow"><svg class="ic"><use href="#i-pin"/></svg><div><small>Address</small><p>Shop 12, Ganesh Complex, 1st floor, FC Road, Pune 411004</p></div></div>
+          <div class="vrow"><svg class="ic"><use href="#i-phone"/></svg><div><small>Phone</small><p><a href="tel:+919822012345">+91 98220 12345</a></p></div></div>
+          <div class="vrow"><svg class="ic"><use href="#i-mail"/></svg><div><small>Email</small><p><a href="mailto:care@shreesaiclinic.in">care@shreesaiclinic.in</a></p></div></div>
+          <div class="vrow"><svg class="ic"><use href="#i-clock"/></svg><div><small>Timings</small><p>Mon – Sat · 9:00 am – 8:00 pm<br>Sunday · 10:00 am – 1:00 pm</p></div></div>
+          <div class="visit-actions">
+            <a class="btn btn-sm" href="tel:+919822012345"><svg class="ic"><use href="#i-phone"/></svg>Call now</a>
+            <a class="btn btn-sm btn-outline" href="https://wa.me/919822012345" target="_blank" rel="noopener"><svg class="ic"><use href="#i-chat"/></svg>WhatsApp</a>
+          </div>
+          <p class="visit-dir"><a class="linka" href="https://maps.google.com/?q=FC+Road,+Pune,+Maharashtra" target="_blank" rel="noopener">Get directions<svg class="ic"><use href="#i-nav"/></svg></a></p>
+          <div class="emg"><strong>Emergencies:</strong> for chest pain, accidents or heavy bleeding, call 108 or go to the nearest hospital. We handle everyday care.</div>
+        </aside>
+
+        <div class="formcard" id="formCard" data-reveal>
+          <div class="slip-head">
+            <span class="brandline"><svg class="ic"><use href="#i-pulse"/></svg>Shree Sai Clinic</span>
+            <span class="tag">Appointment slip</span>
+          </div>
+          <div class="slip-sub"><span>Slip preview</span><b id="slipPreviewNo">№ —</b></div>
+          <form class="forminner" id="apptForm" novalidate>
+            <div class="frow">
+              <div class="field">
+                <label class="flabel" for="fName">Patient name</label>
+                <input id="fName" autocomplete="name" placeholder="Rahul Kulkarni">
+                <p class="fmsg"></p>
+              </div>
+              <div class="field">
+                <label class="flabel" for="fPhone">Mobile</label>
+                <div class="pwrap">
+                  <span class="ppfx">+91</span>
+                  <input id="fPhone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="98220 12345" style="border-radius:0 12px 12px 0">
+                </div>
+                <p class="fmsg"></p>
+              </div>
+            </div>
+            <div class="frow">
+              <div class="field">
+                <label class="flabel" for="fDoctor">Doctor</label>
+                <select id="fDoctor"></select>
+                <p class="fmsg"></p>
+              </div>
+              <div class="field">
+                <label class="flabel" for="fDate">Date</label>
+                <input id="fDate" type="date">
+                <p class="fmsg"></p>
+              </div>
+            </div>
+            <div class="field" id="fldSlot">
+              <span class="flabel">Time slot</span>
+              <div class="slot-grid" id="slotGrid" role="group" aria-label="Available time slots"></div>
+              <p class="slot-msg" id="slotMsg"></p>
+              <p class="fmsg"></p>
+            </div>
+            <div class="field">
+              <label class="flabel" for="fNotes">Problem or note · optional</label>
+              <textarea id="fNotes" placeholder="Fever, cough, follow-up visit, skin issue…"></textarea>
+            </div>
+            <button class="btn btn-full" type="submit">Confirm appointment<svg class="ic"><use href="#i-arrow-r"/></svg></button>
+            <p class="form-foot">No advance payment — pay at the desk. Bring old prescriptions if any.</p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section class="section alt" id="testimonials">
+    <div class="wrap">
+      <div class="sec-head center" data-reveal>
+        <span class="eyebrow">Word of mouth</span>
+        <h2>What the neighbourhood says.</h2>
+      </div>
+      <div class="quote-card" id="quoteCard" data-reveal>
+        <blockquote id="quoteText"></blockquote>
+        <div class="quote-who">
+          <span class="q-mono" id="qMono"></span>
+          <div>
+            <strong id="quoteName"></strong>
+            <span class="q-area" id="quoteArea"></span>
+            <div class="q-stars" id="quoteStars"></div>
+          </div>
+        </div>
+      </div>
+      <div class="q-nav" data-reveal>
+        <button class="cbtn" id="qPrev" aria-label="Previous review"><svg class="ic"><use href="#i-chev-l"/></svg></button>
+        <div class="q-dots" id="quoteDots"></div>
+        <button class="cbtn" id="qNext" aria-label="Next review"><svg class="ic"><use href="#i-chev-r"/></svg></button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <p class="f-word">Shree <em>Sai</em> Clinic</p>
+    <div class="f-ecg" aria-hidden="true">
+      <svg viewBox="0 0 1800 90" preserveAspectRatio="none">
+        <path class="ecg-base ecg-path"></path>
+        <path class="ecg-live ecg-path"></path>
+      </svg>
+    </div>
+    <div class="f-grid">
+      <div class="f-col">
+        <h3>The clinic</h3>
+        <p>Six specialties, one quiet floor above FC Road. Local doctor appointments for families
+        in Deccan, Shivajinagar, JM Road and Model Colony.</p>
+        <div class="f-emg"><strong>Emergencies:</strong> call 108 or head to the nearest hospital. For everyday care, we're here seven days a week.</div>
+      </div>
+      <div class="f-col">
+        <h3>Hours</h3>
+        <div id="weekFoot"></div>
+      </div>
+      <div class="f-col f-contact">
+        <h3>Contact</h3>
+        <p><svg class="ic"><use href="#i-pin"/></svg>Shop 12, Ganesh Complex, FC Road, Pune 411004</p>
+        <p><svg class="ic"><use href="#i-phone"/></svg><a href="tel:+919822012345">+91 98220 12345</a></p>
+        <p><svg class="ic"><use href="#i-mail"/></svg><a href="mailto:care@shreesaiclinic.in">care@shreesaiclinic.in</a></p>
+        <p><svg class="ic"><use href="#i-chat"/></svg><a href="https://wa.me/919822012345" target="_blank" rel="noopener">WhatsApp us</a></p>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 Shree Sai Clinic · Demo site — no real appointments are made.</span>
+      <button class="cbtn cbtn-cream" id="toTop" aria-label="Back to top"><svg class="ic"><use href="#i-chev-u"/></svg></button>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ CONFIRMATION SLIP MODAL ============ -->
+<div class="overlay" id="overlay">
+  <div class="slip" role="dialog" aria-modal="true" aria-label="Appointment confirmation slip">
+    <button class="slip-close" id="slipClose" aria-label="Close slip"><svg class="ic"><use href="#i-x"/></svg></button>
+    <div class="slip-band"><span class="t1">Shree Sai Clinic</span><span class="t2">Appointment slip</span></div>
+    <div class="slip-no"><span>Issued · Pune</span><b id="slipNo">№ —</b></div>
+    <div class="slip-rows" id="slipRows"></div>
+    <div class="slip-bar"><svg id="barCode" viewBox="0 0 196 34" preserveAspectRatio="none"></svg><small>SSC · PUNE · FCRD</small></div>
+    <p class="slip-note" id="slipNote"></p>
+    <div class="slip-act"><button class="btn btn-full" id="slipDone">Done — see you there<svg class="ic"><use href="#i-check"/></svg></button></div>
+    <div class="stamp" id="stamp"><b>CONFIRMED</b><small>Shree Sai Clinic</small></div>
+  </div>
+</div>
+
+<div id="toasts" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- data ---------------- */
+  const services = [
+    { icon:"i-stetho", title:"General Medicine", spec:"General Physician", doc:"Dr. Ananya Kulkarni", fee:400,
+      text:"Fever, infections, blood pressure, diabetes, thyroid and annual health checks." },
+    { icon:"i-bone", title:"Orthopedics", spec:"Orthopedic Surgeon", doc:"Dr. Rohan Deshmukh", fee:600,
+      text:"Joint and back pain, sports injuries, fractures and physiotherapy referrals." },
+    { icon:"i-baby", title:"Pediatrics", spec:"Pediatrician", doc:"Dr. Priya Nair", fee:500,
+      text:"Child growth, vaccinations, seasonal illness and newborn care." },
+    { icon:"i-venus", title:"Gynecology", spec:"Gynecologist", doc:"Dr. Kavita Joshi", fee:700,
+      text:"Pregnancy care, PCOD, period concerns and routine women's health checkups." },
+    { icon:"i-sparkle", title:"Dermatology", spec:"Dermatologist", doc:"Dr. Arjun Mehta", fee:550,
+      text:"Acne, hair fall, allergies, pigmentation and everyday skin care." },
+    { icon:"i-tooth", title:"Dentistry", spec:"Dentist", doc:"Dr. Sneha Patil", fee:350,
+      text:"Tooth pain, cleaning, root canals, braces and routine dental checkups." }
+  ];
+
+  const doctors = [
+    { id:1, name:"Dr. Ananya Kulkarni", specialty:"General Physician", exp:12, rating:4.9, fee:400,
+      icon:"i-stetho", color:"#1f5d49", hours:{days:[1,2,3,4,5,6],start:540,end:780}, timing:"Mon–Sat · 9 am – 1 pm",
+      bio:"Known for patient, unhurried consultations — especially with senior citizens." },
+    { id:2, name:"Dr. Rohan Deshmukh", specialty:"Orthopedic Surgeon", exp:14, rating:4.8, fee:600,
+      icon:"i-bone", color:"#4a5d66", hours:{days:[2,3,4,5,6],start:1020,end:1200}, timing:"Tue–Sat · 5 pm – 8 pm",
+      bio:"Ex-team physician for a Pune football club; strong on sports injuries." },
+    { id:3, name:"Dr. Priya Nair", specialty:"Pediatrician", exp:9, rating:4.9, fee:500,
+      icon:"i-baby", color:"#9a7b2e", hours:{days:[1,2,3,4,5,6],start:600,end:840}, timing:"Mon–Sat · 10 am – 2 pm",
+      bio:"Runs the clinic's Saturday vaccination clinic for children." },
+    { id:4, name:"Dr. Kavita Joshi", specialty:"Gynecologist", exp:16, rating:4.8, fee:700,
+      icon:"i-venus", color:"#7c4a58", hours:{days:[1,3,5],start:960,end:1140}, timing:"Mon, Wed, Fri · 4 pm – 7 pm",
+      bio:"A favourite among expectant mothers from Deccan and Model Colony." },
+    { id:5, name:"Dr. Arjun Mehta", specialty:"Dermatologist", exp:8, rating:4.7, fee:550,
+      icon:"i-sparkle", color:"#bf5b38", hours:{days:[1,2,3,4,5,6],start:1080,end:1200}, timing:"Mon–Sat · 6 pm – 8 pm",
+      bio:"Treats acne and hair fall with realistic, budget-friendly plans." },
+    { id:6, name:"Dr. Sneha Patil", specialty:"Dentist", exp:7, rating:4.8, fee:350,
+      icon:"i-tooth", color:"#5f6b33", hours:{days:[1,2,3,4,5,6],start:660,end:1140}, timing:"Mon–Sat · 11 am – 7 pm",
+      bio:"Gentle with anxious kids — first-ever check-ups are her thing." }
+  ];
+
+  const quotes = [
+    { name:"Sunita Kulkarni", area:"Shivajinagar", rating:5, color:"#1f5d49",
+      text:"I booked for my mother at 10 and we saw Dr. Kulkarni by 10:25. No waiting-room drama — that alone is worth five stars." },
+    { name:"Prasad Deshpande", area:"Deccan", rating:5, color:"#9a7b2e",
+      text:"Dr. Deshmukh explained my knee options with an actual hand-drawn diagram. I walked out knowing exactly what to do next." },
+    { name:"Neha Gupta", area:"JM Road", rating:4, color:"#7c4a58",
+      text:"Dr. Nair is wonderful with my son — he used to cry at every clinic, now he waves goodbye to her on the way out." },
+    { name:"Anwar Shaikh", area:"Model Colony", rating:5, color:"#bf5b38",
+      text:"Called at 7 pm with a bad tooth and got a 7:30 slot the same evening. Pune needs more clinics that work like this." }
+  ];
+
+  const DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+  /* ---------------- helpers ---------------- */
+  const $ = id => document.getElementById(id);
+  const fmtDate = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  const todayStr = () => fmtDate(new Date());
+  const minToLabel = m => {
+    const h24=Math.floor(m/60), mm=m%60, am=h24>=12?"pm":"am";
+    let h=h24%12; if(h===0)h=12;
+    return `${h}:${String(mm).padStart(2,"0")} ${am}`;
+  };
+  const prettyDate = s => new Date(s+"T00:00:00").toLocaleDateString("en-IN",{weekday:"short",day:"numeric",month:"short"});
+  const prettyLong = s => new Date(s+"T00:00:00").toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long"});
+  const initials = n => n.replace("Dr. ","").split(" ").map(p=>p[0]).join("").slice(0,2);
+  const surname = n => n.split(" ").slice(-1)[0];
+
+  function toast(msg, type="ok"){
+    const box = $("toasts");
+    const t = document.createElement("div");
+    t.className = "toast "+type;
+    t.innerHTML = `<svg class="ic"><use href="#i-${type==="ok"?"check":"x"}"/></svg><span>${msg}</span>`;
+    box.append(t);
+    requestAnimationFrame(()=>t.classList.add("in"));
+    setTimeout(()=>{ t.classList.remove("in"); setTimeout(()=>t.remove(),320); },3800);
+  }
+
+  /* ---------------- ECG paths ---------------- */
+  const cycle = "h62 l10 -6 l10 6 h12 l4 5 l7 -37 l6 44 l5 -12 h14 l12 -8 l12 8 h146";
+  document.querySelectorAll(".ecg-path").forEach(p=>{
+    p.setAttribute("d", "M0 45 " + cycle.repeat(6));
+    p.setAttribute("pathLength","1800");
+  });
+
+  /* ---------------- marquee ---------------- */
+  const mItems = ["General Medicine","Orthopedics","Pediatrics","Gynecology","Dermatology","Dentistry","Walk-ins welcome","Open Sundays"];
+  const set = `<div class="m-set">${mItems.map(i=>`<span>${i}</span><svg class="ic"><use href="#i-plus"/></svg>`).join("")}</div>`;
+  $("mTrack").innerHTML = set + set;
+
+  /* ---------------- services ledger ---------------- */
+  $("svcGrid").innerHTML = services.map((s,i)=>`
+    <article class="svc" tabindex="0" role="button" data-spec="${s.spec}" aria-label="Show doctors for ${s.title}">
+      <span class="svc-num">${String(i+1).padStart(2,"0")}</span>
+      <span class="svc-ic"><svg class="ic"><use href="#${s.icon}"/></svg></span>
+      <div class="svc-main"><h3>${s.title}</h3></div>
+      <p class="svc-desc">${s.text}</p>
+      <div class="svc-side"><span class="svc-doc">${s.doc}</span><span class="svc-fee">from ₹${s.fee}</span></div>
+      <span class="svc-go"><svg class="ic"><use href="#i-arrow-r"/></svg></span>
+    </article>`).join("");
+
+  $("svcGrid").addEventListener("click", e=>{
+    const r = e.target.closest(".svc"); if(!r) return;
+    setFilter(r.dataset.spec);
+    $("doctors").scrollIntoView({behavior:"smooth"});
+  });
+  $("svcGrid").addEventListener("keydown", e=>{
+    if((e.key==="Enter"||e.key===" ") && e.target.classList.contains("svc")){
+      e.preventDefault(); setFilter(e.target.dataset.spec);
+      $("doctors").scrollIntoView({behavior:"smooth"});
+    }
+  });
+
+  /* ---------------- doctors carousel ---------------- */
+  const track = $("track");
+
+  function slotHint(doc){
+    const res = slotsFor(doc, todayStr());
+    if(res){
+      const free = res.filter(s=>!s.booked).length;
+      return free ? `${free} slots free today` : "Fully booked today";
+    }
+    const next = nextOpenDate(doc, todayStr());
+    return next ? `Next: ${prettyDate(next)}` : "";
+  }
+
+  function docCard(d){
+    return `
+    <article class="doc-card" style="--dc:${d.color}">
+      <div class="doc-mono"><b>${initials(d.name)}</b><svg class="ic"><use href="#${d.icon}"/></svg></div>
+      <div class="doc-body">
+        <h3>${d.name}</h3>
+        <p class="doc-spec">${d.specialty}</p>
+        <p class="doc-bio">${d.bio}</p>
+        <ul class="doc-meta">
+          <li><svg class="ic ic-fill"><use href="#i-star"/></svg>${d.rating} rating</li>
+          <li>${d.exp} yrs practice</li>
+        </ul>
+        <p class="doc-time"><svg class="ic"><use href="#i-clock"/></svg>${d.timing}</p>
+        <p class="doc-free">${slotHint(d)}</p>
+        <div class="doc-foot">
+          <p class="doc-fee">₹${d.fee}<span>consultation</span></p>
+          <button type="button" class="btn btn-sm" data-book="${d.id}">Book<svg class="ic"><use href="#i-arrow-r"/></svg></button>
+        </div>
+      </div>
+    </article>`;
+  }
+
+  function renderDoctors(spec="all"){
+    const list = spec==="all" ? doctors : doctors.filter(d=>d.specialty===spec);
+    track.innerHTML = list.map(docCard).join("");
+    track.scrollLeft = 0;
+    $("docCount").textContent = spec==="all" ? "All 6 physicians" : `${list.length} · ${spec}`;
+    updateBar();
+  }
+
+  function setFilter(spec){
+    document.querySelectorAll("#specChips .chipf").forEach(b=>b.classList.toggle("on", b.dataset.spec===spec));
+    renderDoctors(spec);
+  }
+
+  $("specChips").innerHTML = [`<button class="chipf on" data-spec="all" type="button">All physicians</button>`]
+    .concat([...new Set(doctors.map(d=>d.specialty))].map(s=>`<button class="chipf" data-spec="${s}" type="button">${s}</button>`))
+    .join("");
+  $("specChips").addEventListener("click", e=>{
+    const b = e.target.closest(".chipf"); if(b) setFilter(b.dataset.spec);
+  });
+
+  function updateBar(){
+    const max = track.scrollWidth - track.clientWidth;
+    const p = max>0 ? track.scrollLeft/max : 0;
+    $("progFill").style.width = (p*100)+"%";
+    $("prevBtn").disabled = track.scrollLeft < 8;
+    $("nextBtn").disabled = track.scrollLeft > max-8;
+  }
+  track.addEventListener("scroll", updateBar, {passive:true});
+  window.addEventListener("resize", updateBar);
+  $("prevBtn").addEventListener("click", ()=>track.scrollBy({left:-362, behavior:"smooth"}));
+  $("nextBtn").addEventListener("click", ()=>track.scrollBy({left:362, behavior:"smooth"}));
+
+  /* drag to scroll (mouse) */
+  let down=false, sx=0, sl=0, moved=0;
+  track.addEventListener("pointerdown", e=>{
+    if(e.pointerType!=="mouse") return;
+    down=true; moved=0; sx=e.clientX; sl=track.scrollLeft;
+    track.classList.add("grabbing");
+  });
+  window.addEventListener("pointermove", e=>{
+    if(!down) return;
+    const dx = e.clientX - sx; moved = Math.max(moved, Math.abs(dx));
+    track.scrollLeft = sl - dx;
+  });
+  window.addEventListener("pointerup", ()=>{ down=false; track.classList.remove("grabbing"); });
+  track.addEventListener("click", e=>{ if(moved>8){ e.stopPropagation(); e.preventDefault(); } }, true);
+
+  track.addEventListener("click", e=>{
+    const b = e.target.closest("[data-book]");
+    if(b) selectDoctor(+b.dataset.book);
+  });
+
+  /* ---------------- slots engine ---------------- */
+  function slotsFor(doc, dateStr){
+    const d = new Date(dateStr+"T00:00:00");
+    if(!doc.hours.days.includes(d.getDay())) return null;   // doctor's day off
+    const all = [];
+    for(let m=doc.hours.start; m<doc.hours.end; m+=30) all.push(m);
+    let h=0; const key = doc.id+"|"+dateStr;
+    for(const c of key) h = (h*31 + c.charCodeAt(0)) >>> 0;
+    const list = all.map((m,i)=>({ m, booked: (h + i*13) % 5 === 0 }));
+    if(dateStr === todayStr()){
+      const now = new Date(), cut = now.getHours()*60 + now.getMinutes() + 29;
+      return list.filter(s=>s.m > cut);
+    }
+    return list;
+  }
+
+  function nextOpenDate(doc, fromStr){
+    for(let i=1;i<=14;i++){
+      const d = new Date(fromStr+"T00:00:00"); d.setDate(d.getDate()+i);
+      if(doc.hours.days.includes(d.getDay())) return fmtDate(d);
+    }
+    return null;
+  }
+
+  /* ---------------- booking form ---------------- */
+  const fDoctor=$("fDoctor"), fDate=$("fDate"), slotGrid=$("slotGrid"), slotMsg=$("slotMsg");
+  let selectedSlot=null, pendingMin=null;
+
+  fDoctor.innerHTML = doctors.map(d=>`<option value="${d.id}">${d.name} — ${d.specialty}</option>`).join("");
+
+  const t = new Date(), mx = new Date(); mx.setDate(mx.getDate()+60);
+  fDate.min = todayStr(); fDate.max = fmtDate(mx); fDate.value = todayStr();
+
+  function renderSlots(){
+    const doc = doctors.find(d=>+d.id === +fDoctor.value);
+    const dateStr = fDate.value;
+    slotGrid.innerHTML=""; slotMsg.textContent=""; selectedSlot=null;
+    setErr($("fldSlot"),"");
+
+    if(!doc || !dateStr){ slotMsg.textContent="Choose a doctor and date to see available times."; return; }
+
+    const res = slotsFor(doc, dateStr);
+    if(res === null){
+      const dow = new Date(dateStr+"T00:00:00").getDay();
+      const next = nextOpenDate(doc, dateStr);
+      slotMsg.innerHTML = `<strong>Day off.</strong> Dr. ${surname(doc.name)} consults ${doc.timing}`
+        + (next ? ` · <button type="button" class="linkbtn" data-next="${next}">next: ${prettyDate(next)} →</button>` : "");
+      return;
+    }
+    if(!res.length){
+      const next = nextOpenDate(doc, dateStr);
+      slotMsg.innerHTML = `No slots left that day` + (next ? ` — <button type="button" class="linkbtn" data-next="${next}">try ${prettyDate(next)} →</button>` : "");
+      return;
+    }
+
+    res.forEach(s=>{
+      const b = document.createElement("button");
+      b.type="button"; b.className="slot"+(s.booked?" booked":""); b.dataset.m=s.m;
+      b.textContent = minToLabel(s.m);
+      if(s.booked){ b.disabled=true; b.title="Already booked"; }
+      else b.addEventListener("click", ()=>{
+        slotGrid.querySelectorAll(".slot").forEach(x=>x.classList.remove("sel"));
+        b.classList.add("sel"); selectedSlot=s.m; setErr($("fldSlot"),"");
+      });
+      slotGrid.append(b);
+    });
+
+    if(pendingMin != null){
+      const el = [...slotGrid.querySelectorAll(".slot")].find(b=>+b.dataset.m===pendingMin && !b.classList.contains("booked"));
+      if(el){ el.click(); }
+      else if(res.length){
+        slotMsg.textContent = `${minToLabel(pendingMin)} isn't free with Dr. ${surname(doc.name)} — pick another slot.`;
+      }
+      pendingMin = null;
+    }
+  }
+
+  slotMsg.addEventListener("click", e=>{
+    const b = e.target.closest("[data-next]");
+    if(b){ fDate.value = b.dataset.next; renderSlots(); }
+  });
+
+  fDoctor.addEventListener("change", renderSlots);
+  fDate.addEventListener("change", renderSlots);
+
+  function selectDoctor(id){
+    fDoctor.value = String(id);
+    renderSlots();
+    $("booking").scrollIntoView({behavior:"smooth"});
+    const card = $("formCard");
+    card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash");
+    setTimeout(()=>$("fName").focus({preventScroll:true}), 700);
+    const d = doctors.find(x=>x.id===id);
+    toast(`${d.name} selected — now pick a date & time.`);
+  }
+  window.selectDoctor = selectDoctor;
+
+  /* inline validation */
+  function setErr(el, msg){
+    const f = el.closest(".field"); if(!f) return;
+    f.classList.toggle("err", !!msg);
+    const m = f.querySelector(".fmsg"); if(m) m.textContent = msg;
+  }
+  ["fName","fPhone","fDate"].forEach(id=>{
+    $(id).addEventListener("input", e=>setErr(e.target,""));
+  });
+
+  $("apptForm").addEventListener("submit", e=>{
+    e.preventDefault();
+    let ok = true;
+    const name = $("fName").value.trim();
+    const phone = $("fPhone").value.replace(/\D/g,"");
+
+    if(!name){ setErr($("fName"),"Please enter the patient's name."); ok=false; }
+    if(!/^[6-9]\d{9}$/.test(phone)){ setErr($("fPhone"),"Enter a 10-digit Indian mobile number."); ok=false; }
+    if(!fDate.value || fDate.value < todayStr()){ setErr(fDate,"Pick a valid date."); ok=false; }
+    if(!selectedSlot){ setErr($("fldSlot"),"Pick a time slot."); ok=false; }
+
+    if(!ok){ toast("Please check the highlighted fields.","err"); return; }
+
+    const doc = doctors.find(d=>+d.id === +fDoctor.value);
+    const now = new Date();
+    const appt = {
+      no: `SSC-${String(now.getFullYear()).slice(2)}${String(now.getMonth()+1).padStart(2,"0")}${String(now.getDate()).padStart(2,"0")}-${1000+Math.floor(Math.random()*9000)}`,
+      name, phone, doctor:doc.name, specialty:doc.specialty,
+      date:fDate.value, time:minToLabel(selectedSlot), fee:doc.fee,
+      notes:$("fNotes").value.trim(), createdAt:now.toISOString()
+    };
+
+    try{
+      const saved = JSON.parse(localStorage.getItem("ssc_appointments")||"[]");
+      saved.push(appt);
+      localStorage.setItem("ssc_appointments", JSON.stringify(saved));
+    }catch(_){ /* storage unavailable — booking still confirmed on screen */ }
+
+    showSlip(appt);
+    toast("Appointment confirmed — your slip is ready.");
+
+    e.target.reset();
+    fDate.value = todayStr();
+    fDoctor.value = String(doctors[0].id);
+    renderSlots();
+    renderQuick(); updateStatus();
+  });
+
+  /* ---------------- confirmation slip ---------------- */
+  function showSlip(a){
+    $("slipNo").textContent = "№ " + a.no;
+    $("slipPreviewNo").textContent = "№ " + a.no;
+    $("slipRows").innerHTML = [
+      ["Patient", a.name],
+      ["Mobile", "+91 "+a.phone],
+      ["Doctor", a.doctor],
+      ["Department", a.specialty],
+      ["Date", prettyLong(a.date)],
+      ["Time", a.time],
+      ["Fee", "₹"+a.fee+" · pay at desk"]
+    ].map(([k,v])=>`<div class="srow"><span>${k}</span><strong>${v}</strong></div>`).join("");
+
+    let x=4, rects="";
+    while(x<192){
+      const w = Math.random()*3.5+1.5;
+      rects += `<rect x="${x.toFixed(1)}" y="0" width="${w.toFixed(1)}" height="34"/>`;
+      x += w + Math.random()*3.5+1.5;
+    }
+    $("barCode").innerHTML = rects;
+    $("slipNote").textContent = `Please arrive 10 minutes early with any previous prescriptions. We'll call on +91 ${a.phone} if the slot moves.`;
+
+    $("overlay").classList.add("open");
+    document.body.style.overflow = "hidden";
+    const st = $("stamp");
+    st.classList.remove("in"); void st.offsetWidth; st.classList.add("in");
+  }
+  function closeModal(){
+    $("overlay").classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  $("slipClose").addEventListener("click", closeModal);
+  $("slipDone").addEventListener("click", closeModal);
+  $("overlay").addEventListener("click", e=>{ if(e.target===$("overlay")) closeModal(); });
+  document.addEventListener("keydown", e=>{
+    if(e.key==="Escape"){ closeModal(); $("mnav").classList.remove("open"); }
+  });
+
+  /* ---------------- live status, clock, quick slots ---------------- */
+  function scheduleOf(d){ return d.getDay()===0 ? {open:600, close:780} : {open:540, close:1200}; }
+
+  function updateStatus(){
+    const now = new Date(), m = now.getHours()*60+now.getMinutes();
+    const s = scheduleOf(now);
+    let cls, text;
+    if(m < s.open){ cls="soon"; text = "Opens today at "+minToLabel(s.open); }
+    else if(m < s.close){ cls="open"; text = "Open now · till "+minToLabel(s.close); }
+    else{
+      const tmr = new Date(now); tmr.setDate(tmr.getDate()+1);
+      cls="shut"; text = "Closed · opens tomorrow at "+minToLabel(scheduleOf(tmr).open);
+    }
+    $("statusDot").className = "dot "+cls;
+    $("dotTop").className = "dot "+cls;
+    $("statusText").textContent = text;
+    $("statusTop").textContent = text;
+  }
+
+  function tick(){
+    $("clock").textContent = new Date()
+      .toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true}).toUpperCase();
+  }
+  setInterval(tick,1000); tick();
+  setInterval(updateStatus, 30000); updateStatus();
+
+  function renderQuick(){
+    const box = $("quickBox");
+    const now = new Date(), s = scheduleOf(now);
+    let m = now.getHours()*60+now.getMinutes();
+    m = Math.ceil((m+20)/30)*30; if(m < s.open) m = s.open;
+    const list=[]; while(m < s.close && list.length<3){ list.push(m); m+=30; }
+
+    if(list.length){
+      box.innerHTML = `<span class="qs-l">Next free today</span>
+        <div class="qs-list">${list.map(mm=>`<button type="button" class="qs" data-m="${mm}">${minToLabel(mm)}</button>`).join("")}</div>`;
+    }else{
+      const tmr = new Date(now); tmr.setDate(tmr.getDate()+1);
+      box.innerHTML = `<span class="qs-l">Today is full</span>
+        <div class="qs-none">Booking resumes tomorrow at ${minToLabel(scheduleOf(tmr).open)}.</div>`;
+    }
+  }
+  $("quickBox").addEventListener("click", e=>{
+    const b = e.target.closest(".qs"); if(!b) return;
+    pendingMin = +b.dataset.m;
+    fDate.value = todayStr();
+    renderSlots();
+    $("booking").scrollIntoView({behavior:"smooth"});
+    toast(`Holding ${minToLabel(pendingMin)} today — pick your doctor.`);
+  });
+  renderQuick();
+
+  /* week tables (hero + footer) */
+  function weekHTML(){
+    const sun = new Date().getDay()===0;
+    return `
+      <div class="wk${sun?"":" on"}"><span>Mon – Sat</span><span>9:00 am – 8:00 pm</span></div>
+      <div class="wk${sun?" on":""}"><span>Sunday</span><span>10:00 am – 1:00 pm</span></div>`;
+  }
+  $("weekHero").innerHTML = weekHTML();
+  $("weekFoot").innerHTML = weekHTML();
+
+  /* ---------------- testimonials carousel ---------------- */
+  let qi = 0, quoteTimer = null;
+  const starSVG = on => `<svg class="ic ic-fill${on?"":" off"}"><use href="#i-star"/></svg>`;
+
+  function renderDots(){
+    $("quoteDots").innerHTML = quotes.map((_,i)=>
+      `<button class="q-dot${i===qi?" on":""}" aria-label="Go to review ${i+1}" data-i="${i}"></button>`).join("");
+  }
+  function showQuote(i){
+    const card = $("quoteCard");
+    card.classList.add("out");
+    setTimeout(()=>{
+      qi = (i + quotes.length) % quotes.length;
+      const q = quotes[qi];
+      $("quoteText").textContent = "“" + q.text + "”";
+      $("quoteName").textContent = q.name;
+      $("quoteArea").textContent = q.area + ", Pune";
+      $("qMono").textContent = q.name[0];
+      $("qMono").style.background = q.color;
+      $("quoteStars").innerHTML = [1,2,3,4,5].map(n=>starSVG(n<=q.rating)).join("");
+      renderDots();
+      card.classList.remove("out");
+    }, 260);
+  }
+  function restartTimer(){
+    clearInterval(quoteTimer);
+    quoteTimer = setInterval(()=>showQuote(qi+1), 7000);
+  }
+  $("qPrev").addEventListener("click", ()=>{ showQuote(qi-1); restartTimer(); });
+  $("qNext").addEventListener("click", ()=>{ showQuote(qi+1); restartTimer(); });
+  $("quoteDots").addEventListener("click", e=>{
+    const d = e.target.closest(".q-dot"); if(!d) return;
+    showQuote(+d.dataset.i); restartTimer();
+  });
+  // initial quote without fade
+  (function(){
+    const q = quotes[0];
+    $("quoteText").textContent = "“" + q.text + "”";
+    $("quoteName").textContent = q.name;
+    $("quoteArea").textContent = q.area + ", Pune";
+    $("qMono").textContent = q.name[0];
+    $("qMono").style.background = q.color;
+    $("quoteStars").innerHTML = [1,2,3,4,5].map(n=>starSVG(n<=q.rating)).join("");
+    renderDots();
+  })();
+  restartTimer();
+
+  /* ---------------- nav & misc ---------------- */
+  const navToggle = $("navToggle"), mnav = $("mnav");
+  navToggle.addEventListener("click", ()=>{
+    const open = mnav.classList.toggle("open");
+    navToggle.classList.toggle("open", open);
+    navToggle.setAttribute("aria-expanded", open);
+    navToggle.setAttribute("aria-label", open?"Close menu":"Open menu");
+  });
+  mnav.querySelectorAll("a").forEach(a=>a.addEventListener("click", ()=>{
+    mnav.classList.remove("open"); navToggle.classList.remove("open");
+  }));
+
+  $("toTop").addEventListener("click", ()=>window.scrollTo({top:0, behavior:"smooth"}));
+
+  /* scroll reveals */
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){ en.target.classList.add("revealed"); io.unobserve(en.target); }
+    });
+  },{threshold:.12});
+  document.querySelectorAll("[data-reveal]").forEach(el=>io.observe(el));
+
+  /* ---------------- init ---------------- */
+  renderDoctors("all");
+  fDoctor.value = String(doctors[0].id);
+  renderSlots();
+  $("slipPreviewNo").textContent = "№ SSC-" + todayStr().replace(/-/g,"").slice(2) + "-____";
+})();
+</script>
+<!-- sflws:source-button:start -->
+<style>
+#sflws-source-btn{position:fixed;right:18px;bottom:18px;z-index:2147483000;display:none;
+padding:2px;border-radius:999px;text-decoration:none;line-height:0;
+background:linear-gradient(90deg,#ff4d4d,#ffb347,#ffe66d,#7bed9f,#48dbfb,#a29bfe,#ff4d4d);
+background-size:300% 100%;animation:sflws-rainbow 6s linear infinite;
+box-shadow:0 4px 20px rgba(0,0,0,.32);transition:transform .2s ease}
+#sflws-source-btn:hover{transform:translateY(-2px)}
+#sflws-source-btn>span{display:flex;align-items:center;gap:7px;padding:9px 15px;
+border-radius:999px;background:#0d0d0f;color:#f4f4f5;
+font:600 12px/1 ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+letter-spacing:.02em;white-space:nowrap}
+#sflws-source-btn>span>b{font:inherit;color:#9aa0a6;letter-spacing:0}
+@keyframes sflws-rainbow{to{background-position:300% 0}}
+@media(prefers-reduced-motion:reduce){#sflws-source-btn{animation:none}
+#sflws-source-btn:hover{transform:none}}
+@media(max-width:600px){#sflws-source-btn{right:12px;bottom:12px}
+#sflws-source-btn>span{padding:8px 13px;font-size:11px}}
+</style>
+<a id="sflws-source-btn" href="https://github.com/saawflws/SFLWS___TEMPLATE_WEBSITEs/tree/main/websites/static/clinic/shreesaiclinicledger" target="_blank" rel="noopener noreferrer"
+ aria-label="View this template&#39;s source code on GitHub">
+<span><b aria-hidden="true">&lt;/&gt;</b>view source</span></a>
+<script>
+(function(){
+var h=location.hostname;
+var ok=h==='sflwsts.aasimahmed.com'||h==='localhost'||h==='127.0.0.1'||h==='[::1]'
+||/\.github\.io$/.test(h);
+var b=document.getElementById('sflws-source-btn');
+if(b&&ok)b.style.display='block';
+})();
+</script>
+<!-- sflws:source-button:end -->
+</body>
+</html>
