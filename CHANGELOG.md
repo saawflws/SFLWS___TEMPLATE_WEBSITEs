@@ -40,6 +40,8 @@ Open-sourcing the repo and closing the gaps that showed up once it was in use.
   or preview server, which is the only way to screenshot a project that needs a build.
 - **Commandcode support** — `.commandcode/commands/`, frontmatter-free as its loader
   requires.
+- **OpenCode slash commands** — `.opencode/commands/`, one pointer per skill, so
+  `/add-template` and the rest show up in the TUI.
 
 ### Changed
 

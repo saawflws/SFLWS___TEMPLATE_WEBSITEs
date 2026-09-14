@@ -39,6 +39,7 @@ External agents consume the shelf through a separate, deliberately minimal entry
 ├── .agents/skills/        ← pointers into skills/ (Codex, OpenCode, Antigravity)
 ├── .gemini/commands/      ← pointers into skills/ (Gemini CLI, TOML)
 ├── .commandcode/commands/ ← pointers into skills/ (Commandcode, no frontmatter)
+├── .opencode/commands/    ← slash commands into skills/ (OpenCode TUI)
 ├── CNAME                  ← sflwsts.aasimahmed.com
 ├── index.html             ← GitHub Pages showcase. Minimal markup only.
 ├── data.js                ← GENERATED. Never hand-edit. See Rule 3.

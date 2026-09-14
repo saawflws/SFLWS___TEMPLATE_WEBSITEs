@@ -28,9 +28,10 @@ every flow, drifting apart from the first edit onward.
 ```
 skills/<name>/SKILL.md          the actual logic, 60–160 lines
 .claude/skills/<name>/SKILL.md  ┐
-.agents/skills/<name>/SKILL.md  ├ ~14-line pointers: name it, then say
-.gemini/commands/<name>.toml    │ "open skills/<name>/SKILL.md and follow it"
-.commandcode/commands/<name>.md ┘
+.agents/skills/<name>/SKILL.md  │
+.gemini/commands/<name>.toml    ├ pointers: name it, then say
+.commandcode/commands/<name>.md │ "open skills/<name>/SKILL.md and follow it"
+.opencode/commands/<name>.md    ┘ (`description` frontmatter + template body)
 ```
 
 Changing a skill is a one-file edit. The pointers never need touching.

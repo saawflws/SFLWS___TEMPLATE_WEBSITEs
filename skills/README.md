@@ -33,6 +33,7 @@ Each tool discovers skills at its own path. Those paths hold **pointers**, not c
 | `.agents/skills/<name>/SKILL.md` | Codex, OpenCode, Antigravity, Commandcode (fallback) | YAML frontmatter |
 | `.gemini/commands/<name>.toml` | Gemini CLI | TOML (`description`, `prompt`) |
 | `.commandcode/commands/<name>.md` | Commandcode | **No frontmatter** — body is the prompt, `$ARGUMENTS` |
+| `.opencode/commands/<name>.md` | OpenCode | Frontmatter (`description`) + template body, `$ARGUMENTS` |
 
 Every one of those files does exactly one thing: name the skill, describe when it fires,
 and tell the agent to open `skills/<name>/SKILL.md` and follow it. If you ever find real
@@ -45,7 +46,7 @@ Two constraints worth knowing, both enforced by the tools themselves:
 - Commandcode command files must carry **no frontmatter at all** — a `---` block is sent to
   the model as literal text rather than parsed.
 
-Adding a skill means: write `skills/<name>/SKILL.md`, then add the four pointers.
+Adding a skill means: write `skills/<name>/SKILL.md`, then add the five pointers.
 Changing a skill means editing exactly one file — the pointers never need touching.
 
 ## Writing a skill
