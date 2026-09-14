@@ -47,7 +47,7 @@ Open-sourcing the repo and closing the gaps that showed up once it was in use.
   projects alike. The new `add-template` skill detects the shape (a top-level
   `package.json` means a project) and delegates to `ingest-template` /
   `import-project`, so there is nothing to choose at drop time. `raw_make_websites/`
-  is flagged `_DELETE_ME_raw_make_websites/` for removal.
+  removed.
 - **Commit messages carry no generated trailers.** All 11 existing commits were rewritten to
   strip `Co-Authored-By` and `Claude-Session`; the rewrite touched messages only and left
   every tree byte-identical.
