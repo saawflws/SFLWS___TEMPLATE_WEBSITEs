@@ -43,6 +43,10 @@
 
   var state = { q: '', cat: 'All', page: 1 };
   var cards = [];
+  /* Set inside buildChips once the buttons and the mobile select exist;
+     keeps both controls in step with state.cat no matter which way the
+     viewport was resized. Called by resetAll. */
+  var syncChips = function () {};
 
   /* Turn a category folder name into something readable:
      boutique_yoga_studio → Boutique Yoga Studio
@@ -74,29 +78,62 @@
   $('#footRight').textContent =
     pad(SITES.length) + ' SITES · ' + pad(catList.length) + ' CATEGORIES · GENERATED FROM META.MD';
 
-  /* ── chips ────────────────────────────────────────────────── */
+  /* ── chips ──────────────────────────────────────────────────
+     ≥720px: pill buttons in one row that scrolls (see .chips in main.css).
+     <720px: the pills yield to a native <select> menu — one control that
+     holds every category as the shelf grows. Both stay in sync via
+     syncChips(), because the viewport can be resized either way. */
   (function buildChips() {
-    var box = $('#chips');
+    var row = $('#chipsRow');
+    var buttons = [];
+
+    function setActive(v) {
+      buttons.forEach(function (c) {
+        c.classList.toggle('active', c.dataset.cat === v);
+      });
+      sel.value = v;
+    }
+
+    function setCat(v) {
+      state.cat = v;
+      setActive(v);
+      refilter();
+    }
 
     function mk(value, text, count) {
       var b = document.createElement('button');
       b.className = 'chip' + (value === 'All' ? ' active' : '');
       b.dataset.cat = value;
       b.innerHTML = text + ' <span class="n">' + pad(count) + '</span>';
-      b.addEventListener('click', function () {
-        state.cat = value;
-        box.querySelectorAll('.chip').forEach(function (c) {
-          c.classList.toggle('active', c === b);
-        });
-        refilter();
-      });
-      box.appendChild(b);
+      b.addEventListener('click', function () { setCat(value); });
+      row.appendChild(b);
+      buttons.push(b);
+    }
+
+    var sel = document.createElement('select');
+    sel.className = 'chips-select';
+    sel.setAttribute('aria-label', 'Filter the shelf by category');
+
+    function mkOpt(value, text, count) {
+      var o = document.createElement('option');
+      o.value = value;
+      o.textContent = text + ' (' + count + ')';
+      sel.appendChild(o);
     }
 
     mk('All', 'All', SITES.length);
+    mkOpt('All', 'All categories', SITES.length);
     catList.forEach(function (c) {
-      mk(c, label(c), SITES.filter(function (s) { return catOf(s) === c; }).length);
+      var n = SITES.filter(function (s) { return catOf(s) === c; }).length;
+      mk(c, label(c), n);
+      mkOpt(c, label(c), n);
     });
+
+    sel.value = 'All';
+    sel.addEventListener('change', function () { setCat(sel.value); });
+
+    syncChips = function () { setActive(state.cat); };
+    $('#chips').appendChild(sel);
   })();
 
   /* ── cards ────────────────────────────────────────────────── */
@@ -281,9 +318,7 @@
     state.cat = 'All';
     state.page = 1;
     qInput.value = '';
-    document.querySelectorAll('.chip').forEach(function (c) {
-      c.classList.toggle('active', c.dataset.cat === 'All');
-    });
+    syncChips();
     apply();
   }
 

@@ -16,6 +16,7 @@ Single-file, self-contained `index.html`. No build step, no local assets.
 - `event_poster` → [`websites/static/event_poster/INDEX.md`](../websites/static/event_poster/INDEX.md)
 - `developers_portfolio` → [`websites/static/developers_portfolio/INDEX.md`](../websites/static/developers_portfolio/INDEX.md)
 - `clinic` → [`websites/static/clinic/INDEX.md`](../websites/static/clinic/INDEX.md)
+- `building_products` → [`websites/static/building_products/INDEX.md`](../websites/static/building_products/INDEX.md)
 
 ## astro/
 

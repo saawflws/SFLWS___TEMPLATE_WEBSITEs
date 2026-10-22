@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Morden Doors — Custom Cabinet Doors & Surfaces | Surrey, BC</title>
+  <meta name="description" content="Custom cabinet doors manufactured in Surrey, BC since 2000. Thermofoil PVC, TFL 5-Piece Shaker, Slab, Acrylic, and PET surfaces for millworkers and contractors." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+            serif: ['"DM Serif Display"', 'Georgia', 'serif'],
+          },
+          colors: {
+            warm: {
+              50: '#FDFAF6',
+              100: '#F8F2E8',
+              200: '#EFE2CC',
+              300: '#E0CAA6',
+              400: '#C8A66E',
+              500: '#A3864A',
+              600: '#7D6636',
+              700: '#564725',
+              800: '#372D17',
+              900: '#1C170C',
+            },
+            ink: {
+              50: '#F6F6F4',
+              100: '#EDEDEA',
+              200: '#D5D4CF',
+              300: '#B3B1AA',
+              400: '#8A877E',
+              500: '#6B685F',
+              600: '#504E47',
+              700: '#383631',
+              800: '#242320',
+              900: '#131210',
+              950: '#0A0A09',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Motion (motion.dev) -->
+  <script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js"></script>
+
+  <style>
+    * { -webkit-font-smoothing: antialiased; }
+
+    /* Grain overlay for editorial texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.018;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* Smooth reveal for elements animated by Motion */
+    [data-motion] { opacity: 0; }
+
+    /* Horizontal scroll hide */
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Custom cursor for interactive areas */
+    .cursor-view { cursor: pointer; }
+
+    /* Door configurator visual */
+    .door-preview {
+      transition: background-color 0.5s ease, width 0.4s ease, height 0.4s ease;
+    }
+    .door-preview .inner-panel {
+      transition: all 0.4s ease;
+    }
+
+    /* Subtle image zoom on hover */
+    .img-zoom img {
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .img-zoom:hover img {
+      transform: scale(1.04);
+    }
+
+    /* FAQ accordion */
+    .faq-answer { 
+      max-height: 0; 
+      overflow: hidden; 
+      transition: max-height 0.35s ease, padding 0.35s ease; 
+    }
+    .faq-answer.open { 
+      max-height: 300px;
+      padding-bottom: 1.25rem;
+    }
+
+    /* Modal transitions */
+    .modal-backdrop {
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .modal-backdrop.active { opacity: 1; }
+    .modal-panel {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-panel.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Quote drawer */
+    .drawer-panel {
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .drawer-panel.open { transform: translateX(0); }
+  </style>
+</head>
+
+<body class="bg-warm-50 text-ink-800 font-sans antialiased selection:bg-warm-400/30">
+
+  <!-- ====== TOPBAR ====== -->
+  <div class="bg-ink-900 text-ink-300 text-[13px] py-2.5 px-5">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <span class="hidden sm:inline text-ink-400">Manufacturing in Surrey, BC since 2000</span>
+      <div class="flex items-center gap-5 text-[13px]">
+        <a href="tel:6045920472" class="hover:text-white transition-colors">(604) 592-0472</a>
+        <span class="text-ink-600">·</span>
+        <a href="mailto:info@mordendoors.ca" class="hover:text-white transition-colors hidden sm:inline">info@mordendoors.ca</a>
+        <span class="text-ink-600 hidden sm:inline">·</span>
+        <span class="text-warm-400 hidden md:inline">7–10 day lead times</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== HEADER ====== -->
+  <header id="siteHeader" class="sticky top-0 z-40 bg-warm-50/90 backdrop-blur-xl border-b border-ink-100/60 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+      <div class="flex items-center justify-between h-[72px]">
+
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2.5 group">
+          <span class="text-[28px] font-serif text-ink-900 leading-none tracking-tight">Morden</span>
+          <span class="text-[13px] font-medium text-ink-400 tracking-wide uppercase hidden sm:block mt-0.5">Doors Ltd.</span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden lg:flex items-center gap-8 text-[14px] font-medium text-ink-500">
+          <a href="#products" class="hover:text-ink-900 transition-colors">Products</a>
+          <a href="#configurator" class="hover:text-ink-900 transition-colors">Configurator</a>
+          <a href="#finishes" class="hover:text-ink-900 transition-colors">Finishes</a>
+          <a href="#services" class="hover:text-ink-900 transition-colors">Services</a>
+          <a href="#why-us" class="hover:text-ink-900 transition-colors">Why Morden</a>
+          <a href="#contact" class="hover:text-ink-900 transition-colors">Contact</a>
+        </nav>
+
+        <!-- Header Actions -->
+        <div class="flex items-center gap-3">
+          <button onclick="openDrawer()" class="relative p-2 hover:bg-ink-100 rounded-lg transition-colors" title="Quote list">
+            <i data-lucide="file-text" class="w-5 h-5 text-ink-600"></i>
+            <span id="headerBadge" class="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 text-[10px] font-bold bg-warm-500 text-white rounded-full flex items-center justify-center leading-none" style="display:none">0</span>
+          </button>
+          <a href="#configurator" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-[13px] font-semibold bg-ink-900 text-warm-50 rounded-lg hover:bg-ink-800 transition-colors">
+            Request Quote
+          </a>
+          <button onclick="toggleMobileNav()" class="lg:hidden p-2 hover:bg-ink-100 rounded-lg transition-colors">
+            <i data-lucide="menu" class="w-5 h-5 text-ink-700"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div id="mobileMenu" class="hidden lg:hidden border-t border-ink-100 bg-warm-50 px-5 pb-5 pt-3 space-y-1">
+      <a href="#products" onclick="toggleMobileNav()" class="block py-2.5 text-[15px] font-medium text-ink-700 hover:text-ink-900">Products</a>
+      <a href="#configurator" onclick="toggleMobileNav()" class="block py-2.5 text-[15px] font-medium text-ink-700 hover:text-ink-900">Configurator</a>
+      <a href="#finishes" onclick="toggleMobileNav()" class="block py-2.5 text-[15px] font-medium text-ink-700 hover:text-ink-900">Finishes</a>
+      <a href="#services" onclick="toggleMobileNav()" class="block py-2.5 text-[15px] font-medium text-ink-700 hover:text-ink-900">Services</a>
+      <a href="#why-us" onclick="toggleMobileNav()" class="block py-2.5 text-[15px] font-medium text-ink-700 hover:text-ink-900">Why Morden</a>
+      <a href="#contact" onclick="toggleMobileNav()" class="block py-2.5 text-[15px] font-medium text-ink-700 hover:text-ink-900">Contact</a>
+      <div class="pt-3">
+        <a href="#configurator" onclick="toggleMobileNav()" class="block text-center py-3 bg-ink-900 text-warm-50 rounded-lg font-semibold text-[14px]">Request Quote</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== HERO ====== -->
+  <section class="relative overflow-hidden bg-ink-950 text-white">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 py-20 lg:py-28">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+        <!-- Copy -->
+        <div data-motion="hero-copy">
+          <p class="text-warm-400 text-[13px] font-semibold tracking-wider uppercase mb-5">For millworkers, contractors & designers</p>
+          <h1 class="font-serif text-[clamp(2.5rem,5vw,4rem)] leading-[1.1] text-white mb-6">
+            Precision-crafted cabinet doors & surfaces
+          </h1>
+          <p class="text-ink-300 text-[16px] leading-relaxed max-w-lg mb-8">
+            From seamless Thermofoil to five-piece architectural shakers. CNC accuracy, premium 3D laminate, and 150+ finish matches — manufactured in Surrey and delivered across BC.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a href="#configurator" class="inline-flex items-center gap-2 px-5 py-3 bg-warm-500 hover:bg-warm-600 text-white font-semibold text-[14px] rounded-lg transition-colors">
+              <span>Build your spec</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a href="#products" class="inline-flex items-center gap-2 px-5 py-3 bg-ink-800 hover:bg-ink-700 text-ink-200 font-medium text-[14px] rounded-lg border border-ink-700 transition-colors">
+              Browse catalog
+            </a>
+          </div>
+
+          <!-- Stats row -->
+          <div class="flex flex-wrap gap-x-10 gap-y-4 mt-12 pt-8 border-t border-ink-800">
+            <div>
+              <div class="text-[28px] font-serif text-white">25+</div>
+              <div class="text-[12px] text-ink-400 mt-0.5">Years manufacturing</div>
+            </div>
+            <div>
+              <div class="text-[28px] font-serif text-white">150+</div>
+              <div class="text-[12px] text-ink-400 mt-0.5">Color & finish matches</div>
+            </div>
+            <div>
+              <div class="text-[28px] font-serif text-white">7–10</div>
+              <div class="text-[12px] text-ink-400 mt-0.5">Day production turn</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero image card -->
+        <div data-motion="hero-image" class="relative">
+          <div class="relative rounded-2xl overflow-hidden bg-ink-900 border border-ink-800">
+            <div class="aspect-[4/5] bg-ink-900 flex items-center justify-center p-8">
+              <img src="https://www.mordendoors.ca/wp-content/uploads/2025/05/2000-768x1070.png" 
+                alt="Morden Doors Shaker Model 2000-D" 
+                class="h-full object-contain drop-shadow-2xl" />
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-ink-950/90 via-ink-950/60 to-transparent">
+              <div class="text-[12px] text-ink-400">Featured</div>
+              <div class="text-[15px] font-semibold text-white">Model 2000-D · Classic Shaker</div>
+              <div class="text-[12px] text-warm-400 mt-0.5">Thermofoil 3D · 2.25" Stile · 3/4" MDF</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PRODUCT CATALOG ====== -->
+  <section id="products" class="py-20 lg:py-28 bg-warm-50 scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+      <div data-motion="section-header" class="max-w-2xl mb-14">
+        <p class="text-warm-500 text-[13px] font-semibold tracking-wider uppercase mb-3">Product lines</p>
+        <h2 class="font-serif text-[clamp(1.75rem,3.5vw,2.75rem)] text-ink-900 leading-[1.15]">
+          Complete manufacturing catalog
+        </h2>
+        <p class="text-ink-400 text-[15px] mt-3 leading-relaxed">
+          Every door engineered in our Surrey facility with CNC routers and membrane pressing technology.
+        </p>
+      </div>
+
+      <!-- Filter Pills -->
+      <div class="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-6 -mb-2" id="catalogFilters">
+        <button onclick="filterCatalog('all')" data-filter="all" class="catalog-filter px-4 py-2 rounded-full text-[13px] font-medium bg-ink-900 text-white whitespace-nowrap transition-all">All</button>
+        <button onclick="filterCatalog('thermofoil')" data-filter="thermofoil" class="catalog-filter px-4 py-2 rounded-full text-[13px] font-medium bg-ink-100 text-ink-600 hover:bg-ink-200 whitespace-nowrap transition-all">Thermofoil-PVC</button>
+        <button onclick="filterCatalog('tfl5pc')" data-filter="tfl5pc" class="catalog-filter px-4 py-2 rounded-full text-[13px] font-medium bg-ink-100 text-ink-600 hover:bg-ink-200 whitespace-nowrap transition-all">TFL 5-Piece</button>
+        <button onclick="filterCatalog('slab')" data-filter="slab" class="catalog-filter px-4 py-2 rounded-full text-[13px] font-medium bg-ink-100 text-ink-600 hover:bg-ink-200 whitespace-nowrap transition-all">TFL Slab</button>
+        <button onclick="filterCatalog('acrylic')" data-filter="acrylic" class="catalog-filter px-4 py-2 rounded-full text-[13px] font-medium bg-ink-100 text-ink-600 hover:bg-ink-200 whitespace-nowrap transition-all">Acrylic / PET</button>
+        <button onclick="filterCatalog('raw')" data-filter="raw" class="catalog-filter px-4 py-2 rounded-full text-[13px] font-medium bg-ink-100 text-ink-600 hover:bg-ink-200 whitespace-nowrap transition-all">Raw MDF</button>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="catalogGrid">
+
+        <!-- Card 1 -->
+        <div data-motion="card" class="catalog-card group rounded-xl border border-ink-100 bg-white overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-view" data-cat="thermofoil" onclick="openModal('Thermofoil-PVC Doors','Seamless 3D Membrane Press','70+ door models in Shaker, Round Corner, Square Corner, Slab, and Classic profiles. Impact-resistant with zero edge lines.','Carb-2 compliant 3/4\" MDF','Seamless wrap, front and all 4 edges')">
+          <div class="relative aspect-[4/3] bg-ink-50 overflow-hidden img-zoom">
+            <img src="https://www.mordendoors.ca/wp-content/uploads/2025/05/3-e1747865489112-600x525.jpg" alt="Thermofoil PVC Doors" class="w-full h-full object-cover" />
+            <span class="absolute top-3 left-3 px-2.5 py-1 bg-white/90 backdrop-blur-sm text-ink-700 text-[11px] font-semibold rounded-md">70+ models</span>
+          </div>
+          <div class="p-5">
+            <p class="text-warm-500 text-[11px] font-semibold tracking-wider uppercase">Seamless 3D Press</p>
+            <h3 class="font-serif text-[20px] text-ink-900 mt-1 group-hover:text-warm-600 transition-colors">Thermofoil-PVC Doors</h3>
+            <p class="text-ink-400 text-[13px] mt-2 line-clamp-2">Shaker, Round Corner, Square Corner, Slab, and Classic profiles. Impact-resistant with zero edge lines.</p>
+            <div class="mt-4 pt-3 border-t border-ink-100 flex items-center justify-between">
+              <span class="text-[12px] text-ink-400">Core: Carb 2 MDF</span>
+              <span class="text-[12px] font-semibold text-ink-600 group-hover:text-warm-600 flex items-center gap-1 transition-colors">
+                View specs <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div data-motion="card" class="catalog-card group rounded-xl border border-ink-100 bg-white overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-view" data-cat="tfl5pc" onclick="openModal('TFL 5-Piece Shaker Doors','True 5-Piece Construction','Looks and feels like solid wood with enhanced dimensional stability. Matched woodgrain stiles and rails with inset center panel.','TFL wrapped miter & mortise/tenon stiles','True 5-piece solid feel')">
+          <div class="relative aspect-[4/3] bg-ink-50 overflow-hidden img-zoom">
+            <img src="https://www.mordendoors.ca/wp-content/uploads/2025/05/IMG11_1809-600x525.png" alt="TFL 5-PC Shaker Door" class="w-full h-full object-cover" />
+            <span class="absolute top-3 left-3 px-2.5 py-1 bg-white/90 backdrop-blur-sm text-ink-700 text-[11px] font-semibold rounded-md">34+ finishes</span>
+          </div>
+          <div class="p-5">
+            <p class="text-warm-500 text-[11px] font-semibold tracking-wider uppercase">True 5-Piece Joinery</p>
+            <h3 class="font-serif text-[20px] text-ink-900 mt-1 group-hover:text-warm-600 transition-colors">TFL 5-Piece Shaker</h3>
+            <p class="text-ink-400 text-[13px] mt-2 line-clamp-2">Looks and feels like solid wood cabinetry. Matched woodgrain stiles and rails with inset center panel.</p>
+            <div class="mt-4 pt-3 border-t border-ink-100 flex items-center justify-between">
+              <span class="text-[12px] text-ink-400">34+ TFL finishes</span>
+              <span class="text-[12px] font-semibold text-ink-600 group-hover:text-warm-600 flex items-center gap-1 transition-colors">
+                View specs <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div data-motion="card" class="catalog-card group rounded-xl border border-ink-100 bg-white overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-view" data-cat="slab" onclick="openModal('TFL Slab Doors & Cut/Tape','Thermally Fused Laminate','High-volume modern slab doors with seamless 1mm PUR edgebanding. Supporting Tafisa Karisma, Uniboard, and Olon sheet matches.','3/4\" particleboard or MDF core','1mm or 2mm matching edgebanding')">
+          <div class="relative aspect-[4/3] bg-ink-50 overflow-hidden img-zoom">
+            <img src="https://www.mordendoors.ca/wp-content/uploads/2025/07/IMG_2324-600x525.png" alt="TFL Slab Doors" class="w-full h-full object-cover" />
+            <span class="absolute top-3 left-3 px-2.5 py-1 bg-white/90 backdrop-blur-sm text-ink-700 text-[11px] font-semibold rounded-md">61+ colors</span>
+          </div>
+          <div class="p-5">
+            <p class="text-warm-500 text-[11px] font-semibold tracking-wider uppercase">Modern Euro</p>
+            <h3 class="font-serif text-[20px] text-ink-900 mt-1 group-hover:text-warm-600 transition-colors">TFL Slab & Cut/Tape</h3>
+            <p class="text-ink-400 text-[13px] mt-2 line-clamp-2">Seamless 1mm PUR edgebanding. Supports Tafisa Karisma, Uniboard, and Olon sheet matches.</p>
+            <div class="mt-4 pt-3 border-t border-ink-100 flex items-center justify-between">
+              <span class="text-[12px] text-ink-400">PUR waterproof bond</span>
+              <span class="text-[12px] font-semibold text-ink-600 group-hover:text-warm-600 flex items-center gap-1 transition-colors">
+                View specs <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div data-motion="card" class="catalog-card group rounded-xl border border-ink-100 bg-white overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-view" data-cat="acrylic" onclick="openModal('Acrylic & PET Doors','Co-extruded Polymer / PET','Glass-like mirror depth or soft-touch anti-fingerprint matte. Highly durable recycled PET formulations.','High-density moisture resistant MDF','Laser / PUR zero-joint edgeband')">
+          <div class="relative aspect-[4/3] bg-ink-50 overflow-hidden img-zoom">
+            <img src="https://www.mordendoors.ca/wp-content/uploads/2025/05/2-e1748121725602-600x525.png" alt="Acrylic PET Doors" class="w-full h-full object-cover" />
+            <span class="absolute top-3 left-3 px-2.5 py-1 bg-white/90 backdrop-blur-sm text-ink-700 text-[11px] font-semibold rounded-md">Mirror & Velvet</span>
+          </div>
+          <div class="p-5">
+            <p class="text-warm-500 text-[11px] font-semibold tracking-wider uppercase">Ultra-Luxury Surfaces</p>
+            <h3 class="font-serif text-[20px] text-ink-900 mt-1 group-hover:text-warm-600 transition-colors">Acrylic / PET</h3>
+            <p class="text-ink-400 text-[13px] mt-2 line-clamp-2">Glass-like mirror depth or soft-touch anti-fingerprint matte. Sustainable recycled PET formulations.</p>
+            <div class="mt-4 pt-3 border-t border-ink-100 flex items-center justify-between">
+              <span class="text-[12px] text-ink-400">Scratch-resistant</span>
+              <span class="text-[12px] font-semibold text-ink-600 group-hover:text-warm-600 flex items-center gap-1 transition-colors">
+                View specs <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div data-motion="card" class="catalog-card group rounded-xl border border-ink-100 bg-white overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-view" data-cat="thermofoil" onclick="openModal('Reeded & Fluted Doors','CNC Routed Thermofoil','Intricate geometric fluting for islands, vanity focal points, and statement millwork. Pressed in our full color palette.','3/4\" routed Carb-2 MDF','Continuous seamless fluted wrap')">
+          <div class="relative aspect-[4/3] bg-ink-50 overflow-hidden img-zoom">
+            <img src="https://www.mordendoors.ca/wp-content/uploads/2025/05/4-3-e1748394079611-600x525.png" alt="Reeded & Fluted Doors" class="w-full h-full object-cover" />
+            <span class="absolute top-3 left-3 px-2.5 py-1 bg-white/90 backdrop-blur-sm text-ink-700 text-[11px] font-semibold rounded-md">11+ patterns</span>
+          </div>
+          <div class="p-5">
+            <p class="text-warm-500 text-[11px] font-semibold tracking-wider uppercase">CNC Grooved</p>
+            <h3 class="font-serif text-[20px] text-ink-900 mt-1 group-hover:text-warm-600 transition-colors">Reeded & Fluted</h3>
+            <p class="text-ink-400 text-[13px] mt-2 line-clamp-2">Geometric fluting for islands and statement millwork. Seamlessly pressed in our full color palette.</p>
+            <div class="mt-4 pt-3 border-t border-ink-100 flex items-center justify-between">
+              <span class="text-[12px] text-ink-400">11+ groove spacings</span>
+              <span class="text-[12px] font-semibold text-ink-600 group-hover:text-warm-600 flex items-center gap-1 transition-colors">
+                View specs <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div data-motion="card" class="catalog-card group rounded-xl border border-ink-100 bg-white overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-view" data-cat="raw" onclick="openModal('Raw MDF Cabinet Doors','Precision Routed Raw MDF','CNC-routed 1-piece MDF doors sanded and prepped for commercial paint booths, lacquer, and urethane finishes.','Premium double-refined MDF','Sanded 180-grit paint ready')">
+          <div class="relative aspect-[4/3] bg-ink-50 overflow-hidden img-zoom">
+            <img src="https://www.mordendoors.ca/wp-content/uploads/2025/05/2-4-e1748217604542-600x525.png" alt="Raw MDF Doors" class="w-full h-full object-cover" />
+            <span class="absolute top-3 left-3 px-2.5 py-1 bg-white/90 backdrop-blur-sm text-ink-700 text-[11px] font-semibold rounded-md">Paint-ready</span>
+          </div>
+          <div class="p-5">
+            <p class="text-warm-500 text-[11px] font-semibold tracking-wider uppercase">Spray Shop Prep</p>
+            <h3 class="font-serif text-[20px] text-ink-900 mt-1 group-hover:text-warm-600 transition-colors">Raw MDF Doors</h3>
+            <p class="text-ink-400 text-[13px] mt-2 line-clamp-2">Precision CNC-routed, sanded and prepped for commercial paint booths, lacquer, and urethane finishes.</p>
+            <div class="mt-4 pt-3 border-t border-ink-100 flex items-center justify-between">
+              <span class="text-[12px] text-ink-400">36+ router profiles</span>
+              <span class="text-[12px] font-semibold text-ink-600 group-hover:text-warm-600 flex items-center gap-1 transition-colors">
+                View specs <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CONFIGURATOR ====== -->
+  <section id="configurator" class="py-20 lg:py-28 bg-white border-y border-ink-100 scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+      <div data-motion="section-header" class="max-w-2xl mb-14">
+        <p class="text-warm-500 text-[13px] font-semibold tracking-wider uppercase mb-3">Spec builder</p>
+        <h2 class="font-serif text-[clamp(1.75rem,3.5vw,2.75rem)] text-ink-900 leading-[1.15]">
+          Door configurator
+        </h2>
+        <p class="text-ink-400 text-[15px] mt-3 leading-relaxed">
+          Select your door category, style, finish, and dimensions. Generate a spec sheet and submit it directly to our estimating team.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+        <!-- Controls -->
+        <div data-motion="config-left" class="lg:col-span-7 bg-warm-50 p-6 sm:p-8 rounded-xl border border-ink-100 space-y-7">
+
+          <!-- Step 1: Category -->
+          <div>
+            <label class="block text-[12px] font-semibold text-ink-400 uppercase tracking-wider mb-3">1 — Door category</label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="catPicker">
+              <button onclick="pickCategory('thermofoil')" data-cat="thermofoil" class="cat-pick active-cat text-left p-3 rounded-lg border-2 border-warm-500 bg-warm-50 text-ink-900 text-[13px] font-medium transition-all">
+                <span class="block font-semibold">Thermofoil-PVC</span>
+                <span class="block text-[11px] text-ink-400 mt-0.5">Seamless 3D press</span>
+              </button>
+              <button onclick="pickCategory('tfl5pc')" data-cat="tfl5pc" class="cat-pick text-left p-3 rounded-lg border border-ink-200 bg-white text-ink-700 text-[13px] font-medium hover:border-ink-300 transition-all">
+                <span class="block font-semibold">TFL 5-Piece</span>
+                <span class="block text-[11px] text-ink-400 mt-0.5">Shaker construction</span>
+              </button>
+              <button onclick="pickCategory('slab')" data-cat="slab" class="cat-pick text-left p-3 rounded-lg border border-ink-200 bg-white text-ink-700 text-[13px] font-medium hover:border-ink-300 transition-all">
+                <span class="block font-semibold">TFL Slab</span>
+                <span class="block text-[11px] text-ink-400 mt-0.5">1mm PUR edgeband</span>
+              </button>
+              <button onclick="pickCategory('acrylic')" data-cat="acrylic" class="cat-pick text-left p-3 rounded-lg border border-ink-200 bg-white text-ink-700 text-[13px] font-medium hover:border-ink-300 transition-all">
+                <span class="block font-semibold">Acrylic / PET</span>
+                <span class="block text-[11px] text-ink-400 mt-0.5">High-gloss & matte</span>
+              </button>
+              <button onclick="pickCategory('raw')" data-cat="raw" class="cat-pick text-left p-3 rounded-lg border border-ink-200 bg-white text-ink-700 text-[13px] font-medium hover:border-ink-300 transition-all">
+                <span class="block font-semibold">Raw MDF</span>
+                <span class="block text-[11px] text-ink-400 mt-0.5">Paint-ready routed</span>
+              </button>
+              <button onclick="pickCategory('reeded')" data-cat="reeded" class="cat-pick text-left p-3 rounded-lg border border-ink-200 bg-white text-ink-700 text-[13px] font-medium hover:border-ink-300 transition-all">
+                <span class="block font-semibold">Reeded & Fluted</span>
+                <span class="block text-[11px] text-ink-400 mt-0.5">Architectural grooved</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Style -->
+          <div>
+            <label class="block text-[12px] font-semibold text-ink-400 uppercase tracking-wider mb-3">2 — Door style / profile</label>
+            <select id="styleSelect" onchange="refreshConfig()" class="w-full px-4 py-3 rounded-lg border border-ink-200 bg-white text-ink-800 text-[14px] font-medium focus:outline-none focus:border-warm-500 transition-colors">
+              <option value="Model 2000-D (Classic Shaker)">Model 2000-D — Classic 2.25" Shaker</option>
+              <option value="Model 2062-D (Beveled Shaker)">Model 2062-D — Beveled 22° Shaker</option>
+              <option value="Model 2006-D (Slim Stile)">Model 2006-D — Slim Stile Micro Shaker</option>
+              <option value="Round Corner Shaker">Round Corner Shaker</option>
+              <option value="Square Corner Shaker">Square Corner Traditional</option>
+              <option value="Modern Euro Slab">Modern Flat Euro Slab</option>
+              <option value="Finger Pull J-Groove">Integrated Finger Pull (J-Groove)</option>
+            </select>
+          </div>
+
+          <!-- Step 3: Finish -->
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <label class="text-[12px] font-semibold text-ink-400 uppercase tracking-wider">3 — Finish & texture</label>
+              <span id="finishLabel" class="text-[12px] font-medium text-warm-600">Super Matte White</span>
+            </div>
+            <div class="grid grid-cols-6 sm:grid-cols-8 gap-2" id="finishSwatches">
+              <button onclick="pickFinish('#F4F4F2','Super Matte White','Matte',this)" class="swatch-pick active-swatch flex flex-col items-center gap-1 p-1 rounded-lg">
+                <span class="w-9 h-9 rounded-full border-2 border-ink-200 shadow-sm" style="background:#F4F4F2"></span>
+                <span class="text-[10px] text-ink-500 truncate max-w-full">White</span>
+              </button>
+              <button onclick="pickFinish('#E2DCD5','Cashmere','Matte',this)" class="swatch-pick flex flex-col items-center gap-1 p-1 rounded-lg">
+                <span class="w-9 h-9 rounded-full border border-ink-200 shadow-sm" style="background:#E2DCD5"></span>
+                <span class="text-[10px] text-ink-500 truncate max-w-full">Cashmere</span>
+              </button>
+              <button onclick="pickFinish('#33383B','Charcoal Slate','Soft Touch',this)" class="swatch-pick flex flex-col items-center gap-1 p-1 rounded-lg">
+                <span class="w-9 h-9 rounded-full border border-ink-200 shadow-sm" style="background:#33383B"></span>
+                <span class="text-[10px] text-ink-500 truncate max-w-full">Charcoal</span>
+              </button>
+              <button onclick="pickFinish('#222B2F','Obsidian Navy','Velour',this)" class="swatch-pick flex flex-col items-center gap-1 p-1 rounded-lg">
+                <span class="w-9 h-9 rounded-full border border-ink-200 shadow-sm" style="background:#222B2F"></span>
+                <span class="text-[10px] text-ink-500 truncate max-w-full">Navy</span>
+              </button>
+              <button onclick="pickFinish('#9A8573','Karisma Walnut','Woodgrain',this)" class="swatch-pick flex flex-col items-center gap-1 p-1 rounded-lg">
+                <span class="w-9 h-9 rounded-full border border-ink-200 shadow-sm" style="background:linear-gradient(135deg,#A48D7A,#836E5C)"></span>
+                <span class="text-[10px] text-ink-500 truncate max-w-full">Walnut</span>
+              </button>
+              <button onclick="pickFinish('#C7B299','Rift Oak','Woodgrain',this)" class="swatch-pick flex flex-col items-center gap-1 p-1 rounded-lg">
+                <span class="w-9 h-9 rounded-full border border-ink-200 shadow-sm" style="background:linear-gradient(135deg,#D4BF9C,#B8A17E)"></span>
+                <span class="text-[10px] text-ink-500 truncate max-w-full">Rift Oak</span>
+              </button>
+              <button onclick="pickFinish('#24352D','Forest Sage','Matte',this)" class="swatch-pick flex flex-col items-center gap-1 p-1 rounded-lg">
+                <span class="w-9 h-9 rounded-full border border-ink-200 shadow-sm" style="background:#24352D"></span>
+                <span class="text-[10px] text-ink-500 truncate max-w-full">Sage</span>
+              </button>
+              <button onclick="pickFinish('#121315','Mirror Black','High Gloss',this)" class="swatch-pick flex flex-col items-center gap-1 p-1 rounded-lg">
+                <span class="w-9 h-9 rounded-full border border-ink-200 shadow-sm" style="background:#121315"></span>
+                <span class="text-[10px] text-ink-500 truncate max-w-full">Black</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 4: Dimensions -->
+          <div>
+            <label class="block text-[12px] font-semibold text-ink-400 uppercase tracking-wider mb-3">4 — Dimensions & quantity (inches)</label>
+            <div class="grid grid-cols-3 gap-3">
+              <div>
+                <label class="text-[11px] text-ink-400 font-medium mb-1 block">Width</label>
+                <input type="number" id="cfgW" value="18" min="6" max="48" step="0.125" oninput="refreshConfig()" class="w-full px-3 py-2.5 rounded-lg border border-ink-200 bg-white text-ink-800 text-[14px] font-semibold focus:outline-none focus:border-warm-500" />
+              </div>
+              <div>
+                <label class="text-[11px] text-ink-400 font-medium mb-1 block">Height</label>
+                <input type="number" id="cfgH" value="30" min="6" max="96" step="0.125" oninput="refreshConfig()" class="w-full px-3 py-2.5 rounded-lg border border-ink-200 bg-white text-ink-800 text-[14px] font-semibold focus:outline-none focus:border-warm-500" />
+              </div>
+              <div>
+                <label class="text-[11px] text-ink-400 font-medium mb-1 block">Qty</label>
+                <input type="number" id="cfgQ" value="10" min="1" max="500" oninput="refreshConfig()" class="w-full px-3 py-2.5 rounded-lg border border-ink-200 bg-white text-ink-800 text-[14px] font-semibold focus:outline-none focus:border-warm-500" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 5: Options -->
+          <div>
+            <label class="block text-[12px] font-semibold text-ink-400 uppercase tracking-wider mb-3">5 — Machining options</label>
+            <div class="flex flex-wrap gap-3">
+              <label class="flex items-center gap-2 p-2.5 rounded-lg border border-ink-200 bg-white cursor-pointer hover:border-ink-300 transition-colors">
+                <input type="checkbox" id="optHinge" checked onchange="refreshConfig()" class="w-4 h-4 accent-warm-500 rounded" />
+                <span class="text-[13px] text-ink-700 font-medium">35mm hinge boring</span>
+              </label>
+              <label class="flex items-center gap-2 p-2.5 rounded-lg border border-ink-200 bg-white cursor-pointer hover:border-ink-300 transition-colors">
+                <input type="checkbox" id="optBack" checked onchange="refreshConfig()" class="w-4 h-4 accent-warm-500 rounded" />
+                <span class="text-[13px] text-ink-700 font-medium">Matching back</span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Preview & Summary -->
+        <div data-motion="config-right" class="lg:col-span-5 space-y-5">
+
+          <!-- Door Preview -->
+          <div class="bg-warm-50 p-6 rounded-xl border border-ink-100">
+            <div class="flex items-center justify-between text-[12px] text-ink-400 mb-4 pb-3 border-b border-ink-100">
+              <span class="font-semibold text-ink-700">Preview</span>
+              <span id="dimLabel" class="font-mono text-ink-500">18" × 30"</span>
+            </div>
+            <div class="w-full h-72 bg-ink-50 rounded-lg flex items-center justify-center p-6 relative overflow-hidden border border-ink-100">
+              <!-- Grid bg -->
+              <div class="absolute inset-0 opacity-[0.07]" style="background-image: linear-gradient(#94a3b8 1px, transparent 1px), linear-gradient(90deg, #94a3b8 1px, transparent 1px); background-size: 20px 20px;"></div>
+              <div id="doorPreview" class="door-preview relative rounded shadow-lg flex items-center justify-center border-[3px] border-black/10" style="width:160px; height:240px; background-color:#F4F4F2;">
+                <div id="doorPanel" class="inner-panel w-3/4 h-4/5 rounded-[2px] border-2 border-black/15 shadow-inner flex items-center justify-center">
+                  <span id="doorLabel" class="text-[9px] font-bold text-black/30 uppercase tracking-widest text-center px-2">2000-D</span>
+                </div>
+                <div id="hingeTop" class="absolute top-7 left-1.5 w-2 h-2 rounded-full bg-black/25"></div>
+                <div id="hingeBot" class="absolute bottom-7 left-1.5 w-2 h-2 rounded-full bg-black/25"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Spec Summary -->
+          <div class="bg-warm-50 p-6 rounded-xl border border-ink-100 space-y-3 text-[13px]">
+            <div class="flex justify-between text-ink-500 pb-2 border-b border-ink-100">
+              <span>Area per door</span>
+              <span class="font-semibold text-ink-800" id="specArea">3.75 sq ft</span>
+            </div>
+            <div class="flex justify-between text-ink-500 pb-2 border-b border-ink-100">
+              <span>Total area (<span id="specQty">10</span> doors)</span>
+              <span class="font-semibold text-ink-800" id="specTotal">37.50 sq ft</span>
+            </div>
+            <div class="flex justify-between text-ink-500 pb-2 border-b border-ink-100">
+              <span>Finish</span>
+              <span class="font-semibold text-warm-600" id="specFinish">Super Matte White</span>
+            </div>
+            <div class="flex justify-between text-ink-500">
+              <span>Edge treatment</span>
+              <span class="font-semibold text-ink-800" id="specEdge">Seamless 3D Thermofoil</span>
+            </div>
+          </div>
+
+          <!-- Add to Quote -->
+          <button onclick="addToQuote()" class="w-full py-3.5 bg-ink-900 hover:bg-ink-800 text-warm-50 rounded-lg font-semibold text-[14px] flex items-center justify-center gap-2 transition-colors">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            Add to quote request
+          </button>
+
+          <p class="text-center text-[12px] text-ink-400">
+            No prices shown — our team will provide an itemized quote based on your spec sheet.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FINISHES ====== -->
+  <section id="finishes" class="py-20 lg:py-28 bg-warm-50 scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+      <div data-motion="section-header" class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div class="max-w-xl">
+          <p class="text-warm-500 text-[13px] font-semibold tracking-wider uppercase mb-3">150+ matches</p>
+          <h2 class="font-serif text-[clamp(1.75rem,3.5vw,2.75rem)] text-ink-900 leading-[1.15]">
+            Color & finish library
+          </h2>
+          <p class="text-ink-400 text-[15px] mt-3 leading-relaxed">
+            Exact matches for Tafisa Karisma, Olon Velour Touch, and Uniboard architectural laminates.
+          </p>
+        </div>
+        <div class="relative w-full md:w-64">
+          <i data-lucide="search" class="w-4 h-4 text-ink-300 absolute left-3 top-3"></i>
+          <input type="text" id="swatchSearch" oninput="searchSwatches()" placeholder="Search color or brand…" class="w-full pl-9 pr-4 py-2.5 rounded-lg border border-ink-200 bg-white text-[13px] text-ink-700 focus:outline-none focus:border-warm-500" />
+        </div>
+      </div>
+
+      <!-- Swatch Tabs -->
+      <div class="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-5 text-[13px]">
+        <button onclick="filterSwatchTab('all',this)" class="sw-tab px-3.5 py-1.5 rounded-full bg-ink-900 text-white font-medium whitespace-nowrap">All</button>
+        <button onclick="filterSwatchTab('matte',this)" class="sw-tab px-3.5 py-1.5 rounded-full bg-ink-100 text-ink-600 font-medium whitespace-nowrap hover:bg-ink-200">Matte & Velour</button>
+        <button onclick="filterSwatchTab('woodgrain',this)" class="sw-tab px-3.5 py-1.5 rounded-full bg-ink-100 text-ink-600 font-medium whitespace-nowrap hover:bg-ink-200">Woodgrains</button>
+        <button onclick="filterSwatchTab('gloss',this)" class="sw-tab px-3.5 py-1.5 rounded-full bg-ink-100 text-ink-600 font-medium whitespace-nowrap hover:bg-ink-200">High Gloss</button>
+        <button onclick="filterSwatchTab('olon',this)" class="sw-tab px-3.5 py-1.5 rounded-full bg-ink-100 text-ink-600 font-medium whitespace-nowrap hover:bg-ink-200">Olon</button>
+        <button onclick="filterSwatchTab('tafisa',this)" class="sw-tab px-3.5 py-1.5 rounded-full bg-ink-100 text-ink-600 font-medium whitespace-nowrap hover:bg-ink-200">Tafisa</button>
+      </div>
+
+      <!-- Swatch Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3" id="swatchGrid">
+
+        <div class="swatch-card bg-white p-3 rounded-lg border border-ink-100 hover:shadow-md transition-shadow" data-type="matte tafisa" data-name="pure matte white">
+          <div class="w-full aspect-[4/3] rounded-md mb-2 border border-ink-100" style="background:#F8F9FA"></div>
+          <div class="font-semibold text-[12px] text-ink-800">Pure White</div>
+          <div class="text-[11px] text-ink-400">Super Matte</div>
+          <div class="text-[10px] text-warm-600 font-medium mt-0.5">Tafisa L538</div>
+        </div>
+
+        <div class="swatch-card bg-white p-3 rounded-lg border border-ink-100 hover:shadow-md transition-shadow" data-type="matte olon" data-name="cashmere fog">
+          <div class="w-full aspect-[4/3] rounded-md mb-2 border border-ink-100" style="background:#E5E0D8"></div>
+          <div class="font-semibold text-[12px] text-ink-800">Cashmere Fog</div>
+          <div class="text-[11px] text-ink-400">Velour Touch</div>
+          <div class="text-[10px] text-warm-600 font-medium mt-0.5">Olon 8412</div>
+        </div>
+
+        <div class="swatch-card bg-white p-3 rounded-lg border border-ink-100 hover:shadow-md transition-shadow" data-type="woodgrain tafisa" data-name="karisma walnut">
+          <div class="w-full aspect-[4/3] rounded-md mb-2 border border-ink-100" style="background:linear-gradient(135deg,#7A6652,#574637)"></div>
+          <div class="font-semibold text-[12px] text-ink-800">Karisma Walnut</div>
+          <div class="text-[11px] text-ink-400">Synchronized Grain</div>
+          <div class="text-[10px] text-warm-600 font-medium mt-0.5">Tafisa M2005</div>
+        </div>
+
+        <div class="swatch-card bg-white p-3 rounded-lg border border-ink-100 hover:shadow-md transition-shadow" data-type="woodgrain" data-name="smoked european oak">
+          <div class="w-full aspect-[4/3] rounded-md mb-2 border border-ink-100" style="background:linear-gradient(135deg,#9C8673,#6E5C4E)"></div>
+          <div class="font-semibold text-[12px] text-ink-800">Smoked Euro Oak</div>
+          <div class="text-[11px] text-ink-400">Deep Wirebrushed</div>
+          <div class="text-[10px] text-warm-600 font-medium mt-0.5">Uniboard H72</div>
+        </div>
+
+        <div class="swatch-card bg-white p-3 rounded-lg border border-ink-100 hover:shadow-md transition-shadow" data-type="gloss" data-name="obsidian mirror black">
+          <div class="w-full aspect-[4/3] rounded-md mb-2 border border-ink-100" style="background:#121315"></div>
+          <div class="font-semibold text-[12px] text-ink-800">Obsidian Mirror</div>
+          <div class="text-[11px] text-ink-400">Acrylic High Gloss</div>
+          <div class="text-[10px] text-warm-600 font-medium mt-0.5">Double-sided</div>
+        </div>
+
+        <div class="swatch-card bg-white p-3 rounded-lg border border-ink-100 hover:shadow-md transition-shadow" data-type="matte olon" data-name="forest sage green">
+          <div class="w-full aspect-[4/3] rounded-md mb-2 border border-ink-100" style="background:#24352D"></div>
+          <div class="font-semibold text-[12px] text-ink-800">Forest Sage</div>
+          <div class="text-[11px] text-ink-400">Super Matte PET</div>
+          <div class="text-[10px] text-warm-600 font-medium mt-0.5">Olon 9904</div>
+        </div>
+
+      </div>
+
+      <!-- Swatch kit banner -->
+      <div data-motion="card" class="mt-12 bg-ink-900 text-white rounded-xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-5">
+        <div>
+          <h3 class="font-serif text-[20px] text-white">Request a physical swatch binder</h3>
+          <p class="text-[13px] text-ink-400 mt-1 max-w-lg">Real Thermofoil, PET, and TFL chips with manufacturer cross-references for your showroom or design desk.</p>
+        </div>
+        <a href="#contact" class="px-5 py-3 bg-warm-500 hover:bg-warm-600 text-white font-semibold text-[13px] rounded-lg whitespace-nowrap transition-colors">
+          Request swatch kit
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ====== SERVICES ====== -->
+  <section id="services" class="py-20 lg:py-28 bg-white scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+      <div data-motion="section-header" class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-warm-500 text-[13px] font-semibold tracking-wider uppercase mb-3">Shop capabilities</p>
+        <h2 class="font-serif text-[clamp(1.75rem,3.5vw,2.75rem)] text-ink-900 leading-[1.15]">
+          Manufacturing services
+        </h2>
+        <p class="text-ink-400 text-[15px] mt-3 leading-relaxed">
+          Outsource precision cutting, edgebanding, custom panel layup, and specialized gables to free up your shop floor.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+        <div data-motion="card" class="p-7 rounded-xl bg-warm-50 border border-ink-100 hover:border-warm-400/40 transition-all">
+          <div class="w-10 h-10 rounded-lg bg-warm-100 text-warm-600 flex items-center justify-center mb-5">
+            <i data-lucide="scissors" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-serif text-[20px] text-ink-900 mb-2">Cut & Tape Program</h3>
+          <p class="text-ink-400 text-[13px] leading-relaxed mb-4">
+            Send your cut-list. We optimize yields with beam saws and apply 1mm or 2mm edgebanding using PUR adhesive.
+          </p>
+          <ul class="space-y-2 text-[13px] text-ink-500">
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-warm-500"></i>Zero-gap moisture-proof glue line</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-warm-500"></i>Precise corner rounding & beveling</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-warm-500"></i>Bulk discounts for cabinet runs</li>
+          </ul>
+        </div>
+
+        <div data-motion="card" class="p-7 rounded-xl bg-warm-50 border border-ink-100 hover:border-warm-400/40 transition-all">
+          <div class="w-10 h-10 rounded-lg bg-warm-100 text-warm-600 flex items-center justify-center mb-5">
+            <i data-lucide="layers" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-serif text-[20px] text-ink-900 mb-2">Lamination & Layup</h3>
+          <p class="text-ink-400 text-[13px] leading-relaxed mb-4">
+            Hydraulic press layup of HPL, wood veneers, PET films, and 3D foils onto plywood, fire-rated substrates, MDF, and particleboard.
+          </p>
+          <ul class="space-y-2 text-[13px] text-ink-500">
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-warm-500"></i>Thermofoil onto HPL backing</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-warm-500"></i>Sheets up to 5' × 10' capacity</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-warm-500"></i>Industrial cold & hot press</li>
+          </ul>
+        </div>
+
+        <div data-motion="card" class="p-7 rounded-xl bg-warm-50 border border-ink-100 hover:border-warm-400/40 transition-all">
+          <div class="w-10 h-10 rounded-lg bg-warm-100 text-warm-600 flex items-center justify-center mb-5">
+            <i data-lucide="box" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-serif text-[20px] text-ink-900 mb-2">Folding Shelves & Gables</h3>
+          <p class="text-ink-400 text-[13px] leading-relaxed mb-4">
+            Miter-folded hollow-core floating shelves, waterfall island end gables, and heavy structural panels with continuous grain wrapping.
+          </p>
+          <ul class="space-y-2 text-[13px] text-ink-500">
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-warm-500"></i>45° seamless waterfall folds</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-warm-500"></i>1.5" up to 4" thicknesses</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-warm-500"></i>Internal mounting support</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== WHY US ====== -->
+  <section id="why-us" class="py-20 lg:py-28 bg-ink-950 text-white scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+      <div data-motion="section-header" class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+
+        <div>
+          <p class="text-warm-400 text-[13px] font-semibold tracking-wider uppercase mb-3">Why trade with us</p>
+          <h2 class="font-serif text-[clamp(1.75rem,3.5vw,2.75rem)] text-white leading-[1.15]">
+            How Morden Doors compares
+          </h2>
+          <p class="text-ink-400 text-[15px] mt-4 leading-relaxed">
+            We built this business by solving the problems other suppliers ignore — fast turns, exact brand matching, and a shop that picks up the phone.
+          </p>
+
+          <div class="space-y-5 mt-10">
+            <div data-motion="card" class="flex items-start gap-4">
+              <div class="w-9 h-9 rounded-lg bg-warm-500/15 text-warm-400 flex items-center justify-center shrink-0 mt-0.5">
+                <i data-lucide="clock" class="w-4.5 h-4.5"></i>
+              </div>
+              <div>
+                <h4 class="text-[15px] font-semibold text-white">7–10 day production</h4>
+                <p class="text-[13px] text-ink-400 mt-0.5">Most competitors quote 3–5 weeks. We deliver in days, not months.</p>
+              </div>
+            </div>
+            <div data-motion="card" class="flex items-start gap-4">
+              <div class="w-9 h-9 rounded-lg bg-warm-500/15 text-warm-400 flex items-center justify-center shrink-0 mt-0.5">
+                <i data-lucide="palette" class="w-4.5 h-4.5"></i>
+              </div>
+              <div>
+                <h4 class="text-[15px] font-semibold text-white">150+ verified color matches</h4>
+                <p class="text-[13px] text-ink-400 mt-0.5">Direct cross-reference to Tafisa, Olon, and Uniboard so doors match your box interiors.</p>
+              </div>
+            </div>
+            <div data-motion="card" class="flex items-start gap-4">
+              <div class="w-9 h-9 rounded-lg bg-warm-500/15 text-warm-400 flex items-center justify-center shrink-0 mt-0.5">
+                <i data-lucide="zap" class="w-4.5 h-4.5"></i>
+              </div>
+              <div>
+                <h4 class="text-[15px] font-semibold text-white">48-hour rush remakes</h4>
+                <p class="text-[13px] text-ink-400 mt-0.5">Missing or damaged doors during an install? Our expedited queue gets replacements to your job site fast.</p>
+              </div>
+            </div>
+            <div data-motion="card" class="flex items-start gap-4">
+              <div class="w-9 h-9 rounded-lg bg-warm-500/15 text-warm-400 flex items-center justify-center shrink-0 mt-0.5">
+                <i data-lucide="truck" class="w-4.5 h-4.5"></i>
+              </div>
+              <div>
+                <h4 class="text-[15px] font-semibold text-white">Local delivery across Metro Van</h4>
+                <p class="text-[13px] text-ink-400 mt-0.5">Shrink-wrapped and padded, direct from our Surrey warehouse to your shop or job site.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Downloads -->
+        <div data-motion="config-right" id="downloads" class="bg-ink-900 p-6 sm:p-8 rounded-xl border border-ink-800 space-y-4 scroll-mt-24">
+          <h3 class="font-serif text-[20px] text-white pb-4 border-b border-ink-800">Trade downloads</h3>
+          <p class="text-[13px] text-ink-400">Standard spec sheets, order forms, and commercial credit applications.</p>
+
+          <a href="https://www.mordendoors.ca/wp-content/uploads/2025/04/Order-Form-PVC.pdf" target="_blank" class="p-3.5 rounded-lg bg-ink-800 hover:bg-ink-700 border border-ink-700 flex items-center justify-between group transition-colors">
+            <div class="flex items-center gap-3">
+              <i data-lucide="file-text" class="w-5 h-5 text-warm-400"></i>
+              <div>
+                <span class="text-[13px] font-semibold text-white block">PVC & Thermofoil Order Form</span>
+                <span class="text-[11px] text-ink-400">PDF · Dimension grid & specs</span>
+              </div>
+            </div>
+            <i data-lucide="download" class="w-4 h-4 text-ink-500 group-hover:text-white transition-colors"></i>
+          </a>
+
+          <a href="https://www.mordendoors.ca/wp-content/uploads/2025/04/Credit-Application.pdf" target="_blank" class="p-3.5 rounded-lg bg-ink-800 hover:bg-ink-700 border border-ink-700 flex items-center justify-between group transition-colors">
+            <div class="flex items-center gap-3">
+              <i data-lucide="file-check" class="w-5 h-5 text-warm-400"></i>
+              <div>
+                <span class="text-[13px] font-semibold text-white block">Credit Application</span>
+                <span class="text-[11px] text-ink-400">PDF · 30-day net trade account</span>
+              </div>
+            </div>
+            <i data-lucide="download" class="w-4 h-4 text-ink-500 group-hover:text-white transition-colors"></i>
+          </a>
+
+          <a href="https://www.mordendoors.ca/wp-content/uploads/2025/04/Credit-Card-Authorization-Form.pdf" target="_blank" class="p-3.5 rounded-lg bg-ink-800 hover:bg-ink-700 border border-ink-700 flex items-center justify-between group transition-colors">
+            <div class="flex items-center gap-3">
+              <i data-lucide="credit-card" class="w-5 h-5 text-warm-400"></i>
+              <div>
+                <span class="text-[13px] font-semibold text-white block">Credit Card Authorization</span>
+                <span class="text-[11px] text-ink-400">PDF · Pre-authorized billing</span>
+              </div>
+            </div>
+            <i data-lucide="download" class="w-4 h-4 text-ink-500 group-hover:text-white transition-colors"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CONTACT ====== -->
+  <section id="contact" class="py-20 lg:py-28 bg-warm-50 scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+
+        <!-- Info -->
+        <div data-motion="config-left" class="lg:col-span-5 space-y-6">
+          <div>
+            <p class="text-warm-500 text-[13px] font-semibold tracking-wider uppercase mb-3">Get in touch</p>
+            <h2 class="font-serif text-[clamp(1.75rem,3.5vw,2.75rem)] text-ink-900 leading-[1.15]">
+              Visit our Surrey facility
+            </h2>
+            <p class="text-ink-400 text-[15px] mt-3 leading-relaxed">
+              Inspect door samples, review swatch boards, or drop off your shop drawings with an estimator.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-ink-100">
+              <i data-lucide="map-pin" class="w-5 h-5 text-warm-500 shrink-0 mt-0.5"></i>
+              <div>
+                <div class="text-[13px] font-semibold text-ink-800">#109, 12889 84 Ave, Surrey, BC V3W 0K5</div>
+                <a href="https://maps.google.com/?q=12889+84+Ave+Surrey+BC+V3W+0K5" target="_blank" class="text-[12px] text-warm-600 font-medium hover:underline mt-0.5 inline-block">Get directions →</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-ink-100">
+              <i data-lucide="phone" class="w-5 h-5 text-warm-500 shrink-0 mt-0.5"></i>
+              <div>
+                <a href="tel:6045920472" class="text-[13px] font-semibold text-ink-800 hover:text-warm-600">(604) 592-0472</a>
+                <div class="text-[11px] text-ink-400 mt-0.5">Direct line to Surrey shop floor</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-ink-100">
+              <i data-lucide="mail" class="w-5 h-5 text-warm-500 shrink-0 mt-0.5"></i>
+              <div>
+                <a href="mailto:info@mordendoors.ca" class="text-[13px] font-semibold text-ink-800 hover:text-warm-600">info@mordendoors.ca</a>
+                <div class="text-[11px] text-ink-400 mt-0.5">Quote response within 4 business hours</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-ink-100">
+              <i data-lucide="clock" class="w-5 h-5 text-warm-500 shrink-0 mt-0.5"></i>
+              <div>
+                <div class="text-[13px] font-semibold text-ink-800">Mon–Fri: 7:30 AM – 5:00 PM</div>
+                <div class="text-[11px] text-ink-400 mt-0.5">Saturday by appointment · Sunday closed</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form + Map -->
+        <div data-motion="config-right" class="lg:col-span-7 space-y-5">
+          <div class="bg-white p-6 sm:p-8 rounded-xl border border-ink-100">
+            <h3 class="font-serif text-[20px] text-ink-900 mb-1">Send an inquiry</h3>
+            <p class="text-[13px] text-ink-400 mb-6">Our estimator will review your specs and get back to you.</p>
+            <form onsubmit="handleSubmit(event)" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-[12px] font-semibold text-ink-600 mb-1 block">Name *</label>
+                  <input type="text" required placeholder="John Miller" class="w-full px-3.5 py-2.5 rounded-lg border border-ink-200 text-[13px] focus:outline-none focus:border-warm-500" />
+                </div>
+                <div>
+                  <label class="text-[12px] font-semibold text-ink-600 mb-1 block">Company</label>
+                  <input type="text" placeholder="Apex Millwork Ltd." class="w-full px-3.5 py-2.5 rounded-lg border border-ink-200 text-[13px] focus:outline-none focus:border-warm-500" />
+                </div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-[12px] font-semibold text-ink-600 mb-1 block">Email *</label>
+                  <input type="email" required placeholder="john@example.ca" class="w-full px-3.5 py-2.5 rounded-lg border border-ink-200 text-[13px] focus:outline-none focus:border-warm-500" />
+                </div>
+                <div>
+                  <label class="text-[12px] font-semibold text-ink-600 mb-1 block">Phone *</label>
+                  <input type="tel" required placeholder="(604) 555-0192" class="w-full px-3.5 py-2.5 rounded-lg border border-ink-200 text-[13px] focus:outline-none focus:border-warm-500" />
+                </div>
+              </div>
+              <div>
+                <label class="text-[12px] font-semibold text-ink-600 mb-1 block">Product interest</label>
+                <select class="w-full px-3.5 py-2.5 rounded-lg border border-ink-200 text-[13px] focus:outline-none focus:border-warm-500">
+                  <option>Thermofoil-PVC Shaker Doors</option>
+                  <option>TFL 5-Piece Shaker</option>
+                  <option>TFL Slab & Cut/Tape</option>
+                  <option>Acrylic / PET</option>
+                  <option>Raw MDF Doors</option>
+                  <option>Custom Layup & Lamination</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-[12px] font-semibold text-ink-600 mb-1 block">Project details</label>
+                <textarea rows="3" placeholder="Approximate quantities, dimensions, brand color matches…" class="w-full px-3.5 py-2.5 rounded-lg border border-ink-200 text-[13px] focus:outline-none focus:border-warm-500 resize-none"></textarea>
+              </div>
+              <button type="submit" class="w-full py-3 bg-ink-900 hover:bg-ink-800 text-warm-50 rounded-lg font-semibold text-[14px] transition-colors">
+                Submit inquiry
+              </button>
+            </form>
+          </div>
+
+          <!-- Map -->
+          <div class="rounded-xl overflow-hidden border border-ink-100 bg-ink-50">
+            <iframe 
+              src="https://maps.google.com/maps?q=12889%2084%20Ave,%20Surrey,%20BC%20V3W%200K5&t=m&z=14&output=embed&iwloc=near" 
+              width="100%" height="240" style="border:0;" allowfullscreen="" loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade" 
+              title="Morden Doors Surrey BC">
+            </iframe>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FAQ ====== -->
+  <section class="py-16 lg:py-20 bg-white border-t border-ink-100">
+    <div class="max-w-3xl mx-auto px-5 lg:px-8">
+      <div data-motion="section-header" class="text-center mb-10">
+        <h2 class="font-serif text-[28px] text-ink-900">Frequently asked questions</h2>
+      </div>
+
+      <div class="space-y-2" id="faqList">
+        <div class="faq-item border border-ink-100 rounded-lg overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full p-4 text-left text-[14px] font-semibold text-ink-800 flex items-center justify-between hover:bg-warm-50/50 transition-colors">
+            What are your typical production lead times?
+            <i data-lucide="chevron-down" class="w-4 h-4 text-ink-400 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-answer px-4 text-[13px] text-ink-500 leading-relaxed">
+            Standard production is 7–10 business days for Thermofoil, TFL 5-Piece, and TFL Slab. For urgent site replacements, ask about our 48-hour expedited rush queue.
+          </div>
+        </div>
+        <div class="faq-item border border-ink-100 rounded-lg overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full p-4 text-left text-[14px] font-semibold text-ink-800 flex items-center justify-between hover:bg-warm-50/50 transition-colors">
+            Do your colors match Tafisa and Olon laminates?
+            <i data-lucide="chevron-down" class="w-4 h-4 text-ink-400 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-answer px-4 text-[13px] text-ink-500 leading-relaxed">
+            Yes. We maintain direct color and texture formulations paired with Tafisa Karisma, Olon Velour Touch, and Uniboard — so your door faces match box interiors and gables seamlessly.
+          </div>
+        </div>
+        <div class="faq-item border border-ink-100 rounded-lg overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full p-4 text-left text-[14px] font-semibold text-ink-800 flex items-center justify-between hover:bg-warm-50/50 transition-colors">
+            Do you offer hinge boring for concealed hinges?
+            <i data-lucide="chevron-down" class="w-4 h-4 text-ink-400 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-answer px-4 text-[13px] text-ink-500 leading-relaxed">
+            Yes, our CNC routers pre-bore 35mm hinge cups (Blum, Salice, Grass) with custom setback distances. Specify hole patterns on the order form or configurator.
+          </div>
+        </div>
+        <div class="faq-item border border-ink-100 rounded-lg overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full p-4 text-left text-[14px] font-semibold text-ink-800 flex items-center justify-between hover:bg-warm-50/50 transition-colors">
+            Do you deliver across Metro Vancouver?
+            <i data-lucide="chevron-down" class="w-4 h-4 text-ink-400 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-answer px-4 text-[13px] text-ink-500 leading-relaxed">
+            Direct delivery across Surrey, Langley, Abbotsford, Vancouver, Burnaby, Richmond, Coquitlam, and Delta. For Vancouver Island and Interior BC, we crate and palletize for freight.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="bg-ink-950 text-ink-400 text-[13px] pt-14 pb-10 border-t border-ink-800">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+
+        <div class="lg:col-span-1">
+          <span class="font-serif text-[22px] text-white">Morden</span>
+          <span class="text-[13px] text-ink-500 ml-1">Doors Ltd.</span>
+          <p class="text-[12px] text-ink-500 mt-3 leading-relaxed max-w-xs">
+            Serving Canadian millworkers, cabinet shops, and builders with custom doors and surfaces since 2000.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-[12px] font-semibold text-ink-300 uppercase tracking-wider mb-3">Products</h4>
+          <ul class="space-y-2 text-[13px]">
+            <li><a href="#products" class="hover:text-warm-400 transition-colors">Thermofoil-PVC</a></li>
+            <li><a href="#products" class="hover:text-warm-400 transition-colors">TFL 5-Piece Shaker</a></li>
+            <li><a href="#products" class="hover:text-warm-400 transition-colors">TFL Slab</a></li>
+            <li><a href="#products" class="hover:text-warm-400 transition-colors">Acrylic & PET</a></li>
+            <li><a href="#products" class="hover:text-warm-400 transition-colors">Raw MDF</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-[12px] font-semibold text-ink-300 uppercase tracking-wider mb-3">Services</h4>
+          <ul class="space-y-2 text-[13px]">
+            <li><a href="#services" class="hover:text-warm-400 transition-colors">Cut & Tape</a></li>
+            <li><a href="#services" class="hover:text-warm-400 transition-colors">Lamination & Layup</a></li>
+            <li><a href="#services" class="hover:text-warm-400 transition-colors">Folding Gables</a></li>
+            <li><a href="#configurator" class="hover:text-warm-400 transition-colors">Door Configurator</a></li>
+            <li><a href="#downloads" class="hover:text-warm-400 transition-colors">Trade Downloads</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-[12px] font-semibold text-ink-300 uppercase tracking-wider mb-3">Surrey facility</h4>
+          <p class="text-[13px] text-ink-400 leading-relaxed">
+            #109, 12889 84 Ave<br />Surrey, BC V3W 0K5
+          </p>
+          <a href="tel:6045920472" class="text-[13px] text-warm-400 font-semibold block mt-2">(604) 592-0472</a>
+          <a href="mailto:info@mordendoors.ca" class="text-[13px] text-ink-400 hover:text-white block mt-1">info@mordendoors.ca</a>
+        </div>
+
+      </div>
+
+      <div class="pt-6 border-t border-ink-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-ink-500">
+        <span>© 2026 Morden Doors Ltd. Proudly Canadian owned & operated.</span>
+        <div class="flex items-center gap-5">
+          <a href="#" class="hover:text-ink-300 transition-colors">Privacy</a>
+          <a href="#" class="hover:text-ink-300 transition-colors">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ====== FLOATING ACTIONS ====== -->
+  <div class="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2">
+    <div id="toastEl" class="hidden bg-ink-900 text-white px-4 py-2.5 rounded-lg shadow-xl text-[13px] font-medium flex items-center gap-2 transition-all duration-300 translate-y-2 opacity-0">
+      <i data-lucide="check-circle-2" class="w-4 h-4 text-warm-400"></i>
+      <span id="toastMsg">Done</span>
+    </div>
+    <div class="flex items-center gap-1.5 bg-ink-900/90 backdrop-blur-md p-1 rounded-full border border-ink-700/60 shadow-xl">
+      <button onclick="openDrawer()" class="px-3.5 py-2 rounded-full bg-warm-500 hover:bg-warm-600 text-white text-[12px] font-semibold flex items-center gap-1.5 transition-colors">
+        <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+        <span>Quote (<span id="dockCount">0</span>)</span>
+      </button>
+      <a href="tel:6045920472" class="w-8 h-8 rounded-full bg-ink-800 hover:bg-ink-700 text-ink-300 flex items-center justify-center transition-colors">
+        <i data-lucide="phone" class="w-3.5 h-3.5"></i>
+      </a>
+      <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="w-8 h-8 rounded-full bg-ink-800 hover:bg-ink-700 text-ink-300 flex items-center justify-center transition-colors">
+        <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ====== QUOTE DRAWER ====== -->
+  <div id="drawerBg" onclick="closeDrawer()" class="fixed inset-0 bg-ink-950/50 backdrop-blur-sm z-50 hidden modal-backdrop"></div>
+  <div id="drawerPanel" class="fixed top-0 right-0 bottom-0 w-full max-w-md bg-white z-50 shadow-2xl flex flex-col drawer-panel">
+    <div class="p-5 border-b border-ink-100 flex items-center justify-between bg-warm-50">
+      <div>
+        <h3 class="font-serif text-[18px] text-ink-900">Quote request</h3>
+        <p class="text-[12px] text-ink-400">Items to submit to our estimating team</p>
+      </div>
+      <button onclick="closeDrawer()" class="p-2 hover:bg-ink-100 rounded-lg transition-colors">
+        <i data-lucide="x" class="w-5 h-5 text-ink-500"></i>
+      </button>
+    </div>
+    <div class="flex-1 overflow-y-auto p-5 space-y-3" id="drawerItems">
+      <div class="text-center py-10 text-ink-300">
+        <i data-lucide="clipboard" class="w-10 h-10 mx-auto stroke-1 text-ink-200 mb-3"></i>
+        <p class="text-[13px]">No items yet. Use the configurator to add doors.</p>
+      </div>
+    </div>
+    <div class="p-5 border-t border-ink-100 bg-warm-50 space-y-3">
+      <div class="flex justify-between text-[13px] text-ink-500">
+        <span>Total doors</span>
+        <span class="font-semibold text-ink-800" id="drawerQty">0</span>
+      </div>
+      <div class="flex justify-between text-[13px] text-ink-500">
+        <span>Total area</span>
+        <span class="font-semibold text-ink-800" id="drawerArea">0 sq ft</span>
+      </div>
+      <button onclick="submitDrawer()" class="w-full py-3 bg-ink-900 hover:bg-ink-800 text-warm-50 rounded-lg font-semibold text-[13px] transition-colors">
+        Submit for trade quote
+      </button>
+      <button onclick="clearItems()" class="w-full py-1.5 text-center text-[12px] text-ink-400 hover:text-red-600 transition-colors">
+        Clear all
+      </button>
+    </div>
+  </div>
+
+  <!-- ====== PRODUCT MODAL ====== -->
+  <div id="modalBg" onclick="closeModal()" class="fixed inset-0 bg-ink-950/60 backdrop-blur-sm z-50 hidden modal-backdrop"></div>
+  <div id="modalPanel" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-2rem)] max-w-lg bg-white rounded-xl z-50 p-6 sm:p-8 shadow-2xl hidden modal-panel">
+    <div class="flex items-center justify-between pb-4 border-b border-ink-100">
+      <div>
+        <p class="text-[11px] font-semibold text-warm-600 uppercase tracking-wider" id="mCat">Category</p>
+        <h3 class="font-serif text-[22px] text-ink-900" id="mTitle">Title</h3>
+      </div>
+      <button onclick="closeModal()" class="p-2 hover:bg-ink-100 rounded-lg text-ink-400 transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <div class="py-5 space-y-4 text-[13px]">
+      <p class="text-ink-500 leading-relaxed" id="mDesc">Description</p>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="p-3 rounded-lg bg-warm-50 border border-ink-100">
+          <span class="text-[10px] text-ink-400 block">Core</span>
+          <span class="font-semibold text-ink-800 text-[12px]" id="mCore">—</span>
+        </div>
+        <div class="p-3 rounded-lg bg-warm-50 border border-ink-100">
+          <span class="text-[10px] text-ink-400 block">Edge treatment</span>
+          <span class="font-semibold text-ink-800 text-[12px]" id="mEdge">—</span>
+        </div>
+      </div>
+    </div>
+    <div class="pt-4 border-t border-ink-100 flex gap-3">
+      <button onclick="closeModal();location.href='#configurator'" class="flex-1 py-2.5 bg-warm-500 hover:bg-warm-600 text-white rounded-lg font-semibold text-[13px] transition-colors">
+        Configure this door
+      </button>
+      <button onclick="closeModal()" class="px-4 py-2.5 bg-ink-100 hover:bg-ink-200 text-ink-700 rounded-lg font-medium text-[13px] transition-colors">
+        Close
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ====== SCRIPTS ====== -->
+  <script>
+    // Init icons
+    lucide.createIcons();
+
+    // ---- Config State ----
+    const cfg = {
+      cat: 'thermofoil', style: 'Model 2000-D (Classic Shaker)',
+      hex: '#F4F4F2', color: 'Super Matte White', finish: 'Matte',
+      w: 18, h: 30, qty: 10, hinge: true, back: true
+    };
+    let items = [];
+
+    // ---- Motion Animations ----
+    function initMotion() {
+      const { animate, scroll, stagger } = Motion;
+
+      // Hero
+      const heroCopy = document.querySelector('[data-motion="hero-copy"]');
+      const heroImg = document.querySelector('[data-motion="hero-image"]');
+      if (heroCopy) {
+        animate(heroCopy, { opacity: [0, 1], y: [30, 0] }, { duration: 0.8, easing: [0.16, 1, 0.3, 1] });
+      }
+      if (heroImg) {
+        animate(heroImg, { opacity: [0, 1], y: [40, 0] }, { duration: 0.9, delay: 0.15, easing: [0.16, 1, 0.3, 1] });
+      }
+
+      // Scroll-triggered sections
+      document.querySelectorAll('[data-motion="section-header"]').forEach(el => {
+        scroll(animate(el, { opacity: [0, 1], y: [25, 0] }, { duration: 0.6, easing: [0.16, 1, 0.3, 1] }), {
+          target: el, offset: ["start 90%", "start 65%"]
+        });
+      });
+
+      document.querySelectorAll('[data-motion="card"]').forEach((el, i) => {
+        scroll(animate(el, { opacity: [0, 1], y: [20, 0] }, { duration: 0.5, delay: (i % 3) * 0.08, easing: [0.16, 1, 0.3, 1] }), {
+          target: el, offset: ["start 92%", "start 70%"]
+        });
+      });
+
+      document.querySelectorAll('[data-motion="config-left"]').forEach(el => {
+        scroll(animate(el, { opacity: [0, 1], x: [-20, 0] }, { duration: 0.6, easing: [0.16, 1, 0.3, 1] }), {
+          target: el, offset: ["start 85%", "start 60%"]
+        });
+      });
+
+      document.querySelectorAll('[data-motion="config-right"]').forEach(el => {
+        scroll(animate(el, { opacity: [0, 1], x: [20, 0] }, { duration: 0.6, easing: [0.16, 1, 0.3, 1] }), {
+          target: el, offset: ["start 85%", "start 60%"]
+        });
+      });
+    }
+
+    // Run after DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMotion);
+    } else {
+      initMotion();
+    }
+
+    // ---- Category Picker ----
+    function pickCategory(cat) {
+      cfg.cat = cat;
+      document.querySelectorAll('.cat-pick').forEach(b => {
+        const active = b.dataset.cat === cat;
+        b.classList.toggle('border-warm-500', active);
+        b.classList.toggle('border-2', active);
+        b.classList.toggle('bg-warm-50', active);
+        b.classList.toggle('text-ink-900', active);
+        b.classList.toggle('border-ink-200', !active);
+        b.classList.toggle('bg-white', !active);
+        b.classList.toggle('text-ink-700', !active);
+        if (!active) b.classList.remove('border-2');
+      });
+      updateStyles();
+      refreshConfig();
+    }
+
+    function updateStyles() {
+      const sel = document.getElementById('styleSelect');
+      const opts = {
+        thermofoil: [
+          ['Model 2000-D (Classic Shaker)', 'Model 2000-D — Classic 2.25" Shaker'],
+          ['Model 2062-D (Beveled Shaker)', 'Model 2062-D — Beveled 22° Shaker'],
+          ['Model 2006-D (Slim Stile)', 'Model 2006-D — Slim Stile Micro Shaker'],
+          ['Round Corner Shaker', 'Round Corner Shaker'],
+          ['Square Corner Shaker', 'Square Corner Traditional'],
+          ['Modern Euro Slab', 'Modern Flat Euro Slab'],
+          ['Finger Pull J-Groove', 'Integrated Finger Pull (J-Groove)'],
+        ],
+        tfl5pc: [
+          ['TFL 5-Piece Classic', 'TFL 5-Piece Classic Shaker'],
+          ['TFL 5-Piece Slim', 'TFL 5-Piece Slim Shaker'],
+          ['TFL 5-Piece Mitered', 'TFL 5-Piece 45° Mitered Joint'],
+        ],
+        slab: [
+          ['TFL Slab 1mm', 'TFL Slab — 1mm PUR Edgeband'],
+          ['TFL Slab 2mm', 'TFL Slab — 2mm Impact Edgeband'],
+          ['Cut & Tape', 'Pre-Cut & Edgebanded Component'],
+        ],
+        acrylic: [
+          ['Ultra-Gloss Mirror', 'Ultra-Gloss Mirror Acrylic Slab'],
+          ['Velvet PET Matte', 'Velvet Soft-Touch PET Super Matte'],
+          ['Dual-Sided Gloss', 'Dual-Sided High Gloss Matching'],
+        ],
+        raw: [
+          ['Raw MDF Shaker', 'Raw MDF Shaker 2000 (Pre-sanded)'],
+          ['Raw MDF Round Corner', 'Raw MDF Round Corner Profile'],
+          ['Raw MDF Slab', 'Raw MDF Euro Clean Cut Slab'],
+        ],
+        reeded: [
+          ['Reeded 0.5"', 'Reeded 0.5" Architectural Spacing'],
+          ['Fluted 1.0"', 'Fluted 1.0" Wide Statement Grooves'],
+          ['Scalloped Wave', 'Scalloped Soft Wave Surface'],
+        ]
+      };
+      sel.innerHTML = (opts[cfg.cat] || opts.thermofoil).map(([v, t]) => `<option value="${v}">${t}</option>`).join('');
+      cfg.style = sel.value;
+    }
+
+    // ---- Finish Picker ----
+    function pickFinish(hex, name, finish, btn) {
+      cfg.hex = hex; cfg.color = name; cfg.finish = finish;
+      document.querySelectorAll('.swatch-pick').forEach(b => {
+        b.classList.remove('active-swatch');
+        b.querySelector('span:first-child').classList.remove('border-2', 'border-warm-500');
+        b.querySelector('span:first-child').classList.add('border', 'border-ink-200');
+      });
+      btn.classList.add('active-swatch');
+      btn.querySelector('span:first-child').classList.add('border-2', 'border-warm-500');
+      btn.querySelector('span:first-child').classList.remove('border', 'border-ink-200');
+      document.getElementById('finishLabel').textContent = name;
+      refreshConfig();
+    }
+
+    // ---- Config Refresh ----
+    function refreshConfig() {
+      const w = parseFloat(document.getElementById('cfgW').value) || 18;
+      const h = parseFloat(document.getElementById('cfgH').value) || 30;
+      const q = parseInt(document.getElementById('cfgQ').value) || 1;
+      cfg.w = w; cfg.h = h; cfg.qty = q;
+      cfg.style = document.getElementById('styleSelect').value;
+      cfg.hinge = document.getElementById('optHinge').checked;
+      cfg.back = document.getElementById('optBack').checked;
+
+      const singleSqFt = (w * h) / 144;
+      const totalSqFt = singleSqFt * q;
+
+      document.getElementById('specArea').textContent = singleSqFt.toFixed(2) + ' sq ft';
+      document.getElementById('specTotal').textContent = totalSqFt.toFixed(2) + ' sq ft';
+      document.getElementById('specQty').textContent = q;
+      document.getElementById('specFinish').textContent = cfg.color;
+      document.getElementById('dimLabel').textContent = w + '" × ' + h + '"';
+
+      // Update door preview
+      const door = document.getElementById('doorPreview');
+      const panel = document.getElementById('doorPanel');
+      const label = document.getElementById('doorLabel');
+      const hingeTop = document.getElementById('hingeTop');
+      const hingeBot = document.getElementById('hingeBot');
+
+      door.style.backgroundColor = cfg.hex;
+
+      const aspect = h / w;
+      let rH = 240, rW = Math.max(100, Math.min(200, rH / aspect));
+      door.style.width = rW + 'px';
+      door.style.height = rH + 'px';
+
+      const isSlab = cfg.style.includes('Slab') || cfg.style.includes('Euro') || cfg.style.includes('Cut');
+      const isReeded = cfg.style.includes('Reeded') || cfg.style.includes('Fluted') || cfg.style.includes('Scalloped');
+
+      if (isSlab) {
+        panel.style.display = 'none';
+      } else if (isReeded) {
+        panel.style.display = 'flex';
+        panel.style.backgroundImage = 'repeating-linear-gradient(90deg, rgba(0,0,0,0.08), rgba(0,0,0,0.08) 3px, transparent 3px, transparent 7px)';
+      } else {
+        panel.style.display = 'flex';
+        panel.style.backgroundImage = 'none';
+      }
+
+      label.textContent = cfg.style.split('(')[0].split('—')[0].trim();
+
+      // Edge type display
+      const edgeMap = {
+        thermofoil: 'Seamless 3D Thermofoil',
+        tfl5pc: 'TFL 5-Piece Joinery',
+        slab: '1mm PUR Edgeband',
+        acrylic: 'Laser / PUR Zero-Joint',
+        raw: 'Sanded Raw MDF Edge',
+        reeded: 'Seamless Fluted Wrap'
+      };
+      document.getElementById('specEdge').textContent = edgeMap[cfg.cat] || 'Standard';
+
+      // Hinge visibility
+      const showHinges = cfg.hinge;
+      hingeTop.style.display = showHinges ? 'block' : 'none';
+      hingeBot.style.display = showHinges ? 'block' : 'none';
+    }
+
+    // ---- Quote System ----
+    function addToQuote() {
+      items.push({
+        id: Date.now(), style: cfg.style, cat: cfg.cat, color: cfg.color,
+        w: cfg.w, h: cfg.h, qty: cfg.qty,
+        sqFt: ((cfg.w * cfg.h) / 144) * cfg.qty,
+        hinge: cfg.hinge ? 'Yes' : 'No'
+      });
+      refreshDrawer();
+      toast(cfg.qty + '× ' + cfg.style.split('(')[0].trim() + ' added');
+    }
+
+    function refreshDrawer() {
+      const c = items.length;
+      const badge = document.getElementById('headerBadge');
+      badge.style.display = c > 0 ? 'flex' : 'none';
+      badge.textContent = c;
+      document.getElementById('dockCount').textContent = c;
+
+      const el = document.getElementById('drawerItems');
+      let totalQ = 0, totalA = 0;
+
+      if (!c) {
+        el.innerHTML = '<div class="text-center py-10 text-ink-300"><p class="text-[13px]">No items yet.</p></div>';
+      } else {
+        el.innerHTML = '';
+        items.forEach((it, i) => {
+          totalQ += it.qty;
+          totalA += it.sqFt;
+          const d = document.createElement('div');
+          d.className = 'p-3 rounded-lg border border-ink-100 bg-warm-50 space-y-2';
+          d.innerHTML = `
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-semibold text-[13px] text-ink-800 block">${it.style}</span>
+                <span class="text-[11px] text-warm-600">${it.color}</span>
+              </div>
+              <button onclick="removeItem(${i})" class="text-ink-300 hover:text-red-500 transition-colors">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+              </button>
+            </div>
+            <div class="grid grid-cols-2 text-[11px] text-ink-400 border-t border-ink-100 pt-1.5">
+              <span>${it.w}" × ${it.h}"</span>
+              <span class="text-right">Qty: <strong class="text-ink-700">${it.qty}</strong></span>
+              <span>${it.sqFt.toFixed(1)} sq ft</span>
+              <span class="text-right">Hinges: ${it.hinge}</span>
+            </div>`;
+          el.appendChild(d);
+        });
+      }
+      document.getElementById('drawerQty').textContent = totalQ;
+      document.getElementById('drawerArea').textContent = totalA.toFixed(1) + ' sq ft';
+      lucide.createIcons();
+    }
+
+    function removeItem(i) { items.splice(i, 1); refreshDrawer(); }
+    function clearItems() { items = []; refreshDrawer(); toast('Cleared.'); }
+    function submitDrawer() {
+      if (!items.length) return toast('Add at least one item first.');
+      closeDrawer();
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+      toast('Review ' + items.length + ' items — fill in contact details below.');
+    }
+
+    // ---- Drawer ----
+    function openDrawer() {
+      const bg = document.getElementById('drawerBg');
+      const p = document.getElementById('drawerPanel');
+      bg.classList.remove('hidden');
+      requestAnimationFrame(() => { bg.classList.add('active'); p.classList.add('open'); });
+    }
+    function closeDrawer() {
+      const bg = document.getElementById('drawerBg');
+      const p = document.getElementById('drawerPanel');
+      bg.classList.remove('active'); p.classList.remove('open');
+      setTimeout(() => bg.classList.add('hidden'), 350);
+    }
+
+    // ---- Modal ----
+    function openModal(title, cat, desc, core, edge) {
+      document.getElementById('mTitle').textContent = title;
+      document.getElementById('mCat').textContent = cat;
+      document.getElementById('mDesc').textContent = desc;
+      document.getElementById('mCore').textContent = core;
+      document.getElementById('mEdge').textContent = edge;
+      const bg = document.getElementById('modalBg');
+      const p = document.getElementById('modalPanel');
+      bg.classList.remove('hidden'); p.classList.remove('hidden');
+      requestAnimationFrame(() => { bg.classList.add('active'); p.classList.add('active'); });
+    }
+    function closeModal() {
+      const bg = document.getElementById('modalBg');
+      const p = document.getElementById('modalPanel');
+      bg.classList.remove('active'); p.classList.remove('active');
+      setTimeout(() => { bg.classList.add('hidden'); p.classList.add('hidden'); }, 250);
+    }
+
+    // ---- Catalog filter ----
+    function filterCatalog(cat) {
+      document.querySelectorAll('.catalog-filter').forEach(b => {
+        const on = b.dataset.filter === cat;
+        b.classList.toggle('bg-ink-900', on); b.classList.toggle('text-white', on);
+        b.classList.toggle('bg-ink-100', !on); b.classList.toggle('text-ink-600', !on);
+      });
+      document.querySelectorAll('.catalog-card').forEach(c => {
+        c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+      });
+    }
+
+    // ---- Swatch filter ----
+    function filterSwatchTab(type, btn) {
+      document.querySelectorAll('.sw-tab').forEach(b => {
+        b.classList.remove('bg-ink-900', 'text-white');
+        b.classList.add('bg-ink-100', 'text-ink-600');
+      });
+      btn.classList.add('bg-ink-900', 'text-white');
+      btn.classList.remove('bg-ink-100', 'text-ink-600');
+      document.querySelectorAll('.swatch-card').forEach(c => {
+        c.style.display = (type === 'all' || c.dataset.type.includes(type)) ? '' : 'none';
+      });
+    }
+    function searchSwatches() {
+      const q = document.getElementById('swatchSearch').value.toLowerCase();
+      document.querySelectorAll('.swatch-card').forEach(c => {
+        const t = (c.dataset.name + ' ' + c.dataset.type).toLowerCase();
+        c.style.display = t.includes(q) ? '' : 'none';
+      });
+    }
+
+    // ---- FAQ ----
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      const icon = btn.querySelector('svg');
+      const isOpen = answer.classList.contains('open');
+      answer.classList.toggle('open');
+      if (icon) icon.style.transform = isOpen ? 'rotate(0)' : 'rotate(180deg)';
+    }
+
+    // ---- Mobile Nav ----
+    function toggleMobileNav() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+
+    // ---- Contact Form ----
+    function handleSubmit(e) {
+      e.preventDefault();
+      toast('Thank you — your inquiry has been sent to our Surrey team.');
+      e.target.reset();
+    }
+
+    // ---- Toast ----
+    function toast(msg) {
+      const el = document.getElementById('toastEl');
+      document.getElementById('toastMsg').textContent = msg;
+      el.classList.remove('hidden');
+      requestAnimationFrame(() => { el.classList.remove('translate-y-2', 'opacity-0'); });
+      setTimeout(() => {
+        el.classList.add('translate-y-2', 'opacity-0');
+        setTimeout(() => el.classList.add('hidden'), 300);
+      }, 3000);
+    }
+
+    // Init
+    refreshConfig();
+
+    // Set initial active swatch styling
+    const firstSwatch = document.querySelector('.swatch-pick');
+    if (firstSwatch) {
+      firstSwatch.querySelector('span:first-child').classList.add('border-2', 'border-warm-500');
+      firstSwatch.querySelector('span:first-child').classList.remove('border', 'border-ink-200');
+    }
+  </script>
+
+</body>
+</html>

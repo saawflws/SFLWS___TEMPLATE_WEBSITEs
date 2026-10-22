@@ -56,9 +56,35 @@ nav a:hover{color:var(--text)}
 .search input::placeholder{color:#6d6f73}
 .kbd{font:500 12px 'JetBrains Mono',monospace;color:var(--muted);border:1px solid var(--border);border-radius:6px;padding:3px 8px}
 
-/* ── chips ──────────────────────────── */
-.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:24px}
-.chip{padding:9px 16px;border-radius:999px;border:1px solid var(--border);font:500 13.5px 'Archivo',sans-serif;transition:background .2s,border-color .2s,color .2s}
+/* ── chips ───────────────────────────────────────────────
+   Tablet/laptop: the pills stay on ONE line inside a scrollable strip,
+   centered when they fit, with fading edges once the shelf outgrows it.
+   Mobile: the strip yields to a native <select> menu (.chips-select). */
+.chips{position:relative;margin-top:24px}
+
+@media(min-width:721px){
+  .chips{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+  .chips::-webkit-scrollbar{display:none}
+  .chips-row{display:flex;gap:8px;width:max-content;min-width:100%;margin-inline:auto}
+  .chips-select{display:none}
+}
+@media(max-width:720px){
+  .chips-row{display:none}
+}
+
+.chips-select{display:none;margin:0 auto;width:100%;max-width:340px;appearance:none;-webkit-appearance:none;
+  background-color:var(--surface);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238f9094' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center;
+  border:1px solid var(--border);border-radius:999px;padding:12px 40px 12px 18px;
+  font:500 14px 'Archivo',sans-serif;color:var(--text)}
+.chips-select:hover{border-color:rgba(255,255,255,.2)}
+.chips-select option{background:var(--surface);color:var(--text)}
+
+.chip{padding:9px 16px;border-radius:999px;border:1px solid var(--border);font:500 13.5px 'Archivo',sans-serif;
+  transition:background .2s,border-color .2s,color .2s;white-space:nowrap}
 .chip:hover{background:rgba(255,255,255,.06)}
 .chip .n{font:500 10.5px 'JetBrains Mono',monospace;color:var(--muted);margin-left:7px}
 .chip.active{background:#f2f2f0;border-color:#f2f2f0;color:#111}

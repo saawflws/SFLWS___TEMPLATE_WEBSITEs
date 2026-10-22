@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Morden Doors Ltd. — Cabinet doors &amp; components · Surrey, BC</title>
+<meta name="description" content="B2B manufacturer of thermofoil-PVC, TFL, acrylic/PET, paint and raw MDF cabinet doors and components. Cut-to-size, boring and lamination. Surrey, BC — trade pricing on request.">
+<meta name="theme-color" content="#F3F2EE">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 24"><rect x="1" y="1" width="18" height="22" fill="%23F2C230" stroke="%23212723" stroke-width="2"/><rect x="5" y="5" width="10" height="14" fill="none" stroke="%23212723" stroke-width="2"/></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          sheet:  '#F3F2EE',
+          ink:    '#212723',
+          tape:   '#F2C230',
+          steel:  '#565D57',
+          hair:    '#DAD8CF',
+          lacq:   '#FFFFFF'
+        },
+        fontFamily: {
+          disp: ['"Barlow Condensed"', 'sans-serif'],
+          body: ['Barlow', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'monospace']
+        }
+      }
+    }
+  }
+</script>
+<style>
+  :root{ --sheet:#F3F2EE; --ink:#212723; --tape:#F2C230; --steel:#565D57; --hair:#DAD8CF; }
+
+  html{ scroll-behavior:smooth; }
+  body{ overflow-x:hidden; }
+  ::selection{ background:var(--tape); color:var(--ink); }
+
+  /* one visible focus system everywhere: graphite ring + tape halo */
+  :focus-visible{ outline:2px solid var(--ink); outline-offset:2px; box-shadow:0 0 0 4px var(--tape); }
+  .band-ink :focus-visible{ outline-color:var(--sheet); }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{ animation-duration:.01ms !important; animation-iteration-count:1 !important;
+                          transition-duration:.01ms !important; transition-delay:0ms !important; }
+  }
+
+  /* ————— finish samples, rendered in CSS only (no images) ————— */
+  .fin-superwhite{ background-color:#FCFCFA;
+    background-image: radial-gradient(140% 90% at 18% 0%, rgba(255,255,255,.95), rgba(255,255,255,0) 55%),
+                      linear-gradient(168deg,#FFFFFF 0%,#FBFBF9 55%,#F1F1ED 100%); }
+  .fin-linen{ background-color:#E8E0D3;
+    background-image: repeating-linear-gradient(0deg, rgba(94,80,58,.075) 0 1px, transparent 1px 4px),
+                      repeating-linear-gradient(90deg, rgba(94,80,58,.075) 0 1px, transparent 1px 4px),
+                      linear-gradient(160deg,#EFE8DC 0%,#E1D8C8 100%); }
+  .fin-walnut{ background-color:#6E4028;
+    background-image: repeating-linear-gradient(178deg, rgba(38,19,8,.32) 0 1px, transparent 1px 7px,
+                        rgba(255,205,160,.07) 7px 8px, transparent 8px 13px, rgba(52,26,11,.18) 13px 14px, transparent 14px 22px),
+                      linear-gradient(184deg,#7E4E31 0%,#6A3D23 24%,#7C4B2D 38%,#5E3520 52%,#754829 68%,#683E24 84%,#7B4B2E 100%); }
+  .fin-oak{ background-color:#C7A87E;
+    background-image: repeating-linear-gradient(91deg, rgba(110,78,44,.16) 0 1px, transparent 1px 4px,
+                        rgba(255,238,214,.16) 4px 5px, transparent 5px 9px, rgba(110,78,44,.10) 9px 10px, transparent 10px 14px),
+                      linear-gradient(90deg,#CBA980 0%,#C2A074 45%,#CDAD82 100%); }
+  .fin-slate{ background-image: linear-gradient(175deg,#4B5054 0%,#44494D 55%,#40454A 100%); }
+  .fin-gloss{ background-image: linear-gradient(115deg,#FFFFFF 0%,#FFFFFF 34%,#DCE6EB 41%,#FFFFFF 49%,#F5F8F9 62%,#FFFFFF 78%),
+                                       linear-gradient(#FFFFFF,#FFFFFF); }
+  .fin-sage{ background-image: linear-gradient(172deg,#9FAE8F 0%,#97A687 60%,#8FA07E 100%); }
+  .fin-raw{ background-color:#D3B489;
+    background-image: radial-gradient(rgba(107,76,38,.16) .8px, transparent 1px),
+                      repeating-linear-gradient(90deg, rgba(120,88,46,.05) 0 2px, transparent 2px 6px),
+                      linear-gradient(178deg,#D9BB92 0%,#CDB083 100%);
+    background-size: 5px 5px, auto, auto; }
+
+  /* ————— hero drawing ————— */
+  .hero-fig{ position:relative; aspect-ratio:690/790; }
+  .hero-fig > svg{ position:absolute; inset:0; width:100%; height:100%; }
+  .door-face{ position:absolute; left:15.94%; top:8.86%; width:63.77%; height:81.01%; }
+  .door-panel{ position:absolute; inset:8.75% 12.73%;
+    box-shadow: inset 0 5px 9px rgba(24,18,10,.22), inset 0 -4px 7px rgba(255,255,255,.13), inset 0 0 22px rgba(24,18,10,.10); }
+  .draft-door{ stroke:var(--ink); stroke-width:2; fill:none; }
+  .draft-dim{ stroke:var(--tape); stroke-width:2; fill:none; }
+  .draft-ext{ stroke:var(--steel); stroke-width:1; fill:none; opacity:.85; }
+  .draft-leader{ stroke:var(--steel); stroke-width:1; fill:none; }
+  .draft-label{ font-family:'IBM Plex Mono',monospace; fill:var(--ink); }
+  .draft-note{ font-family:'IBM Plex Mono',monospace; fill:var(--steel); }
+
+  /* finish chips under the drawing */
+  .chip{ display:inline-flex; align-items:center; gap:.5rem; height:2.5rem; padding:0 .6rem;
+         background:var(--lacq); border:1px solid var(--hair); }
+  .chip[aria-pressed="true"]{ border-color:var(--ink); box-shadow:inset 0 -3px 0 var(--tape); }
+  .chip-sw{ display:inline-block; width:22px; height:22px; border:1px solid var(--hair); }
+
+  /* ————— product line index rows ————— */
+  .idx-row{ display:grid; grid-template-columns:48px minmax(0,1fr); gap:.55rem 1rem; padding:1.35rem 0; align-items:center; }
+  .idx-row > .mini-face{ grid-column:1; grid-row:1; }
+  .idx-row > :not(.mini-face){ grid-column:2; }
+  @media (min-width:768px){
+    .idx-row{ grid-template-columns:3fr 5fr 2.5fr 64px; gap:1.5rem; }
+    .idx-row > .mini-face{ grid-column:auto; grid-row:auto; }
+    .idx-row > :not(.mini-face){ grid-column:auto; }
+  }
+  .idx-row:hover{ background:rgba(255,255,255,.65); }
+  .idx-row:hover .idx-name{ text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:4px; }
+  .mini-face{ position:relative; width:40px; height:48px; border:1px solid var(--hair); justify-self:start; }
+  .mini-panel{ position:absolute; inset:16% 18%; border:1px solid rgba(33,39,35,.30); }
+
+  /* ————— finish catalog ————— */
+  .tile:hover .chip-face{ box-shadow:inset 0 0 0 2px var(--ink); }
+  .chip-face{ position:relative; aspect-ratio:4/5; border:1px solid var(--hair); }
+  .chip-panel{ position:absolute; inset:9% 11%; border:1px solid rgba(33,39,35,.30);
+    box-shadow: inset 0 2px 5px rgba(24,18,10,.20), inset 0 -2px 3px rgba(255,255,255,.12); }
+  .fbtn{ border:1px solid var(--hair); background:var(--lacq); height:2.25rem; padding:0 .8rem; }
+  .fbtn[aria-pressed="true"]{ background:var(--ink); color:#F3F2EE; border-color:var(--ink); }
+
+  .spec-key{ width:3.5rem; flex-shrink:0; color:var(--steel); }
+
+  /* ————— footer title block ————— */
+  .tb{ display:grid; grid-template-columns:1fr; }
+  .tb-cell{ padding:1.25rem; border-top:1px solid var(--hair); }
+  .tb-cell:first-child{ border-top:none; }
+  @media (min-width:640px){
+    .tb{ grid-template-columns:1fr 1fr; }
+    .tb-cell:nth-child(2){ border-top:none; border-left:1px solid var(--hair); }
+    .tb-cell:nth-child(4){ border-left:1px solid var(--hair); }
+  }
+  @media (min-width:1024px){
+    .tb{ grid-template-columns:repeat(4,1fr); }
+    .tb-cell{ border-top:none; }
+    .tb-cell + .tb-cell{ border-left:1px solid var(--hair); }
+  }
+</style>
+</head>
+<body class="bg-sheet text-ink font-body antialiased">
+
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-ink focus:text-sheet focus:px-4 focus:py-2 focus:font-mono focus:text-xs">skip to content</a>
+
+<!-- drafting-sheet frame (decorative, desktop only) -->
+<div aria-hidden="true" class="hidden md:block fixed inset-3 border border-hair pointer-events-none z-50"></div>
+
+<header class="relative border-b-2 border-ink">
+  <div class="max-w-6xl mx-auto px-5 md:px-8 flex items-center justify-between h-16">
+
+    <a href="#" class="flex items-center gap-2.5" aria-label="Morden Doors Ltd. — back to top">
+      <svg width="20" height="24" viewBox="0 0 20 24" aria-hidden="true" class="shrink-0">
+        <rect x="1.25" y="1.25" width="17.5" height="21.5" fill="#F2C230" stroke="#212723" stroke-width="1.5"/>
+        <rect x="5.5" y="5.5" width="9" height="13" fill="none" stroke="#212723" stroke-width="1.5"/>
+      </svg>
+      <span class="font-disp font-semibold text-2xl leading-none tracking-tight">Morden Doors</span>
+      <span class="font-mono text-[11px] text-steel leading-tight hidden sm:block">Ltd. —<br>Surrey, BC</span>
+    </a>
+
+    <nav aria-label="Site" class="hidden md:flex items-center gap-7 text-sm font-medium">
+      <a href="#products" class="hover:underline underline-offset-4 decoration-2">Product lines</a>
+      <a href="#finishes" class="hover:underline underline-offset-4 decoration-2">Finishes</a>
+      <a href="#process" class="hover:underline underline-offset-4 decoration-2">How to order</a>
+      <a href="#contact" class="hover:underline underline-offset-4 decoration-2">Contact</a>
+    </nav>
+
+    <a href="#contact" class="hidden md:inline-flex items-center h-10 px-5 bg-ink text-sheet text-sm font-medium hover:bg-tape hover:text-ink transition-colors">Request pricing</a>
+
+    <button id="navToggle" class="md:hidden inline-flex flex-col justify-center items-center w-11 h-11 gap-1.5 border border-hair bg-lacq" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
+      <span class="block w-5 h-0.5 bg-ink"></span>
+      <span class="block w-5 h-0.5 bg-ink"></span>
+      <span class="block w-5 h-0.5 bg-ink"></span>
+    </button>
+  </div>
+
+  <div id="mobileNav" hidden class="md:hidden border-t border-hair bg-lacq">
+    <nav aria-label="Site — mobile" class="px-5 py-2 flex flex-col text-sm font-medium">
+      <a href="#products" class="py-3 border-b border-hair">Product lines</a>
+      <a href="#finishes" class="py-3 border-b border-hair">Finishes</a>
+      <a href="#process" class="py-3 border-b border-hair">How to order</a>
+      <a href="#contact" class="py-3 border-b border-hair">Contact</a>
+      <a href="#contact" class="my-3 inline-flex items-center justify-center h-11 bg-ink text-sheet">Request pricing</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ————— HERO ————— -->
+  <section aria-labelledby="hero-h">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 pt-12 md:pt-20 pb-14 md:pb-20 grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+
+      <div class="lg:col-span-7">
+        <h1 id="hero-h" class="font-disp font-semibold tracking-tight leading-[0.95] text-[clamp(2.75rem,6.5vw,4.6rem)]">Cabinet doors, built to your cut list.</h1>
+
+        <p class="mt-6 max-w-xl text-lg text-steel leading-relaxed">Morden Doors manufactures doors, drawer fronts and panels for cabinet shops, contractors and kitchen renovators. Thermofoil-PVC, TFL, acrylic and PET, sprayed paint, or raw MDF ready for your own spray line — all machined in Surrey, BC. Send the cut list; we quote, cut, press and deliver.</p>
+
+        <dl class="mt-10 grid grid-cols-2 sm:grid-cols-4 border-t-2 border-ink">
+          <div class="pt-3 pr-4 pb-4 border-r border-hair">
+            <dt class="font-mono text-[11px] text-steel">core</dt>
+            <dd class="mt-1 text-sm font-medium leading-snug">5/8 in. MDF<span class="text-steel font-normal">, 3/4 on request</span></dd>
+          </div>
+          <div class="pt-3 px-4 pb-4 sm:border-r border-hair">
+            <dt class="font-mono text-[11px] text-steel">hinge prep</dt>
+            <dd class="mt-1 text-sm font-medium leading-snug">35 mm bores, pattern to spec</dd>
+          </div>
+          <div class="pt-3 px-4 pb-4 border-r border-hair">
+            <dt class="font-mono text-[11px] text-steel">tolerance</dt>
+            <dd class="mt-1 text-sm font-medium leading-snug">±0.3 mm on every cut</dd>
+          </div>
+          <div class="pt-3 pl-4 pb-4">
+            <dt class="font-mono text-[11px] text-steel">standard lead</dt>
+            <dd class="mt-1 text-sm font-medium leading-snug">10–15 working days</dd>
+          </div>
+        </dl>
+
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="#contact" class="inline-flex items-center h-12 px-6 bg-ink text-sheet font-medium hover:bg-tape hover:text-ink transition-colors">Request pricing</a>
+          <a href="#finishes" class="inline-flex items-center h-12 px-6 border-2 border-ink font-medium hover:bg-ink hover:text-sheet transition-colors">Browse sample finishes</a>
+        </div>
+
+        <p class="mt-6 font-mono text-xs text-steel">trade accounts — credit application &amp; card authorization forms available</p>
+      </div>
+
+      <div class="lg:col-span-5">
+        <p class="font-mono text-[11px] text-steel mb-2">shaker door elevation — not to scale</p>
+
+        <div class="hero-fig" id="heroFig">
+          <!-- finish faces (HTML layer, crossfaded by JS) -->
+          <div class="door-face fin-walnut" id="faceA" aria-hidden="true"><div class="door-panel"></div></div>
+          <div class="door-face opacity-0" id="faceB" aria-hidden="true"><div class="door-panel"></div></div>
+
+          <svg viewBox="0 0 690 790" role="img" aria-label="Shop drawing of a shaker cabinet door, 17 and 13/16 inches by 23 and 11/16 inches, with two 35 millimetre hinge bores and a square edge profile.">
+            <!-- door outline -->
+            <path id="traceOuter" class="draft-door" d="M110 70 H550 V710 H110 Z"/>
+            <!-- shaker reveal -->
+            <path id="tracePanel" class="draft-door" d="M166 126 H494 V654 H166 Z"/>
+            <!-- hinge bores -->
+            <circle class="draft-door" cx="138" cy="166" r="19"/>
+            <circle class="draft-door" cx="138" cy="614" r="19"/>
+
+            <!-- width dimension -->
+            <g id="dimW">
+              <path class="draft-ext" d="M110 64 V26"/>
+              <path class="draft-ext" d="M550 64 V26"/>
+              <path id="dimWline" class="draft-dim" d="M110 42 H550"/>
+              <path class="draft-dim" d="M106 46 L114 38"/>
+              <path class="draft-dim" d="M546 46 L554 38"/>
+              <text class="draft-label" font-size="17" text-anchor="middle" x="330" y="37">17-13/16 in.</text>
+            </g>
+
+            <!-- height dimension -->
+            <g id="dimH">
+              <path class="draft-ext" d="M556 70 H608"/>
+              <path class="draft-ext" d="M556 710 H608"/>
+              <path id="dimHline" class="draft-dim" d="M600 70 V710"/>
+              <path class="draft-dim" d="M596 74 L604 66"/>
+              <path class="draft-dim" d="M596 714 L604 706"/>
+              <text class="draft-label" font-size="17" text-anchor="middle" x="630" y="390" transform="rotate(-90 630 390)">23-11/16 in.</text>
+            </g>
+
+            <!-- edge profile callout -->
+            <g id="callEdge">
+              <path class="draft-leader" d="M110 320 L58 296"/>
+              <text class="draft-label" font-size="16" x="8" y="288">square edge</text>
+              <text class="draft-label" font-size="16" x="8" y="306">5/8 in.</text>
+            </g>
+
+            <!-- hinge callout -->
+            <g id="callBore">
+              <path class="draft-leader" d="M138 633 V748 H154"/>
+              <text class="draft-label" font-size="16" x="162" y="752">35 mm hinge bores — pattern to your spec</text>
+            </g>
+
+            <text class="draft-note" font-size="12.5" text-anchor="end" x="682" y="780">n.t.s.</text>
+          </svg>
+        </div>
+
+        <div class="mt-5 flex flex-wrap gap-2" id="chipsRow" role="group" aria-label="View the door in a different finish">
+          <button class="chip" data-fin="tfsw"  aria-pressed="false"><span class="chip-sw fin-superwhite" aria-hidden="true"></span><span class="font-mono text-xs">TF-101-SW</span></button>
+          <button class="chip" data-fin="tfln"  aria-pressed="false"><span class="chip-sw fin-linen" aria-hidden="true"></span><span class="font-mono text-xs">TF-102-LN</span></button>
+          <button class="chip" data-fin="tflwn" aria-pressed="true"><span class="chip-sw fin-walnut" aria-hidden="true"></span><span class="font-mono text-xs">TFL-868-WN</span></button>
+          <button class="chip" data-fin="tfloak" aria-pressed="false"><span class="chip-sw fin-oak" aria-hidden="true"></span><span class="font-mono text-xs">TFL-841-OK</span></button>
+          <button class="chip" data-fin="petsl" aria-pressed="false"><span class="chip-sw fin-slate" aria-hidden="true"></span><span class="font-mono text-xs">PET-210-SL</span></button>
+          <button class="chip" data-fin="acgw"  aria-pressed="false"><span class="chip-sw fin-gloss" aria-hidden="true"></span><span class="font-mono text-xs">AC-100-GW</span></button>
+        </div>
+
+        <p class="mt-4 font-mono text-xs text-steel" id="readout" aria-live="polite">shown — Walnut · TFL-868-WN · TFL woodgrain, matte · edge square · core 5/8 in. MDF</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ————— PRODUCT LINES ————— -->
+  <section id="products" aria-labelledby="products-h" class="border-t border-hair">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 py-16 md:py-24">
+
+      <div class="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3">
+        <h2 id="products-h" class="font-disp font-semibold tracking-tight text-4xl md:text-5xl leading-none">Product lines</h2>
+        <p class="font-mono text-xs text-steel">six systems · one shop · Surrey, BC</p>
+      </div>
+      <p class="mt-4 max-w-2xl text-steel leading-relaxed">Every line runs on the same MDF core and the same CNC paths, so profiles, sizes and boring stay consistent when you mix finishes on one job. Tap a line to see its sample finishes.</p>
+
+      <ul class="mt-10 list-none p-0 m-0 border-y border-hair divide-y divide-hair">
+        <li>
+          <a href="#finishes" class="idx-row" data-filter="tf">
+            <h3 class="idx-name font-disp font-medium text-2xl md:text-3xl leading-tight">Thermofoil-PVC</h3>
+            <p class="text-sm text-steel leading-relaxed">Membrane-pressed PVC over MDF. The skin wraps face and edges in one piece — nothing to chip or delaminate. Matte, woodgrain, solid and high-gloss colors, plus Olon color matches.</p>
+            <p class="font-mono text-xs text-steel leading-relaxed">5/8 in. MDF core<br>seamless press<br>shaker · slab · classic</p>
+            <span class="mini-face fin-superwhite" aria-hidden="true"><span class="mini-panel"></span></span>
+          </a>
+        </li>
+        <li>
+          <a href="#finishes" class="idx-row" data-filter="tfl">
+            <h3 class="idx-name font-disp font-medium text-2xl md:text-3xl leading-tight">TFL shaker &amp; slab</h3>
+            <p class="text-sm text-steel leading-relaxed">Thermally fused laminate faces matched to Tafisa and Uniboard boards, so doors read the same as your box panels. Five-piece shaker or full slab, and a cut &amp; tape program for your own panel work.</p>
+            <p class="font-mono text-xs text-steel leading-relaxed">Tafisa · Uniboard matches<br>cut &amp; tape program<br>5-pc shaker · slab</p>
+            <span class="mini-face fin-walnut" aria-hidden="true"><span class="mini-panel"></span></span>
+          </a>
+        </li>
+        <li>
+          <a href="#finishes" class="idx-row" data-filter="pet">
+            <h3 class="idx-name font-disp font-medium text-2xl md:text-3xl leading-tight">Acrylic &amp; PET</h3>
+            <p class="text-sm text-steel leading-relaxed">High-gloss acrylic with polished edges, or matte, fingerprint-resistant PET. Both bond to MDF and take matching ABS edge for a finished look on all four sides.</p>
+            <p class="font-mono text-xs text-steel leading-relaxed">gloss · matte · woodgrain PET<br>ABS edge matching<br>vertical grain on request</p>
+            <span class="mini-face fin-gloss" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li>
+          <a href="#finishes" class="idx-row" data-filter="paint">
+            <h3 class="idx-name font-disp font-medium text-2xl md:text-3xl leading-tight">Paint doors</h3>
+            <p class="text-sm text-steel leading-relaxed">Paint-grade MDF, sprayed and cured in-house. Bring any manufacturer's color code — we match it and hold the same formula across every batch and reorder.</p>
+            <p class="font-mono text-xs text-steel leading-relaxed">any color code<br>sprayed in-house<br>consistent across batches</p>
+            <span class="mini-face fin-sage" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li>
+          <a href="#finishes" class="idx-row" data-filter="raw">
+            <h3 class="idx-name font-disp font-medium text-2xl md:text-3xl leading-tight">Raw doors &amp; components</h3>
+            <p class="text-sm text-steel leading-relaxed">Machined MDF doors, drawer fronts, gables and valences, unfinished and crated for your own spray line. Same profiles and boring as our finished lines.</p>
+            <p class="font-mono text-xs text-steel leading-relaxed">shaker · slab · classic<br>gables · valences<br>taped &amp; crated</p>
+            <span class="mini-face fin-raw" aria-hidden="true"><span class="mini-panel"></span></span>
+          </a>
+        </li>
+        <li>
+          <a href="#finishes" class="idx-row" data-filter="all">
+            <h3 class="idx-name font-disp font-medium text-2xl md:text-3xl leading-tight">Lamination &amp; layup</h3>
+            <p class="text-sm text-steel leading-relaxed">We press TFL, PET and PVC to your board or ours. Panel sizing, edge banding and boring in the same run — one ticket for the whole box.</p>
+            <p class="font-mono text-xs text-steel leading-relaxed">layup service<br>panel sizing<br>edge banding · boring</p>
+            <span class="mini-face fin-oak" aria-hidden="true"></span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </section>
+
+  <!-- ————— HOW AN ORDER RUNS ————— -->
+  <section id="process" aria-labelledby="process-h" class="border-t border-hair">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 py-16 md:py-24">
+
+      <h2 id="process-h" class="font-disp font-semibold tracking-tight text-4xl md:text-5xl leading-none">How an order runs</h2>
+      <p class="mt-4 max-w-2xl text-steel leading-relaxed">Same three steps whether it's one replacement door or a full kitchen. You approve samples before we cut — no surprises at install.</p>
+
+      <ol class="mt-10 grid md:grid-cols-3 gap-px bg-hair border border-hair list-none p-0 m-0">
+        <li class="bg-sheet p-6 md:p-8">
+          <span class="inline-flex items-center justify-center w-8 h-8 bg-tape text-ink font-mono text-sm font-medium">1</span>
+          <h3 class="font-disp font-medium text-2xl mt-4 leading-tight">Send your cut list</h3>
+          <p class="mt-2 text-sm text-steel leading-relaxed">Email an Excel sheet or our order form. List sizes, quantities, finish codes, edge profiles and hinge boring. Unsure about a code? Send a photo of the board label and we'll match it.</p>
+        </li>
+        <li class="bg-sheet p-6 md:p-8">
+          <span class="inline-flex items-center justify-center w-8 h-8 bg-tape text-ink font-mono text-sm font-medium">2</span>
+          <h3 class="font-disp font-medium text-2xl mt-4 leading-tight">Approve the samples</h3>
+          <p class="mt-2 text-sm text-steel leading-relaxed">We courier physical samples cut from the same batch material as your order. You sign off on color and fit before anything is machined.</p>
+        </li>
+        <li class="bg-sheet p-6 md:p-8">
+          <span class="inline-flex items-center justify-center w-8 h-8 bg-tape text-ink font-mono text-sm font-medium">3</span>
+          <h3 class="font-disp font-medium text-2xl mt-4 leading-tight">We build and deliver</h3>
+          <p class="mt-2 text-sm text-steel leading-relaxed">The full batch ships from Surrey, crated and corner-taped. Will-call at the shop door, or delivery across Metro Vancouver and the Fraser Valley.</p>
+        </li>
+      </ol>
+
+    </div>
+  </section>
+
+  <!-- ————— SAMPLE FINISHES ————— -->
+  <section id="finishes" aria-labelledby="finishes-h" class="border-t border-hair">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 py-16 md:py-24">
+
+      <div class="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3">
+        <h2 id="finishes-h" class="font-disp font-semibold tracking-tight text-4xl md:text-5xl leading-none">Sample finishes</h2>
+        <p class="font-mono text-xs text-steel max-w-xs leading-relaxed">colors on screen are indicative —<br>request physical samples before sign-off</p>
+      </div>
+
+      <!-- edge profile legend -->
+      <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+        <p class="font-mono text-[11px] text-steel">edge profiles</p>
+        <div class="flex items-center gap-2">
+          <svg width="44" height="26" viewBox="0 0 44 26" aria-hidden="true"><path d="M8 4 H36 V22 H8 Z" fill="none" stroke="#212723" stroke-width="1.5"/></svg>
+          <span class="font-mono text-xs">square</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg width="44" height="26" viewBox="0 0 44 26" aria-hidden="true"><path d="M8 22 V7 Q8 4 11 4 H36 V22 Z" fill="none" stroke="#212723" stroke-width="1.5"/></svg>
+          <span class="font-mono text-xs">pencil round</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg width="44" height="26" viewBox="0 0 44 26" aria-hidden="true"><path d="M8 22 V13 Q8 4 17 4 H36 V22 Z" fill="none" stroke="#212723" stroke-width="1.5"/></svg>
+          <span class="font-mono text-xs">bullnose</span>
+        </div>
+        <p class="font-mono text-xs text-steel">polished edge available on acrylic &amp; PET</p>
+      </div>
+
+      <!-- filters -->
+      <div class="mt-8 flex flex-wrap items-center gap-2" role="group" aria-label="Filter finishes by material">
+        <button class="fbtn font-mono text-xs" data-filter="all"   aria-pressed="true">all</button>
+        <button class="fbtn font-mono text-xs" data-filter="tf"    aria-pressed="false">thermofoil-PVC</button>
+        <button class="fbtn font-mono text-xs" data-filter="tfl"   aria-pressed="false">TFL</button>
+        <button class="fbtn font-mono text-xs" data-filter="pet"   aria-pressed="false">acrylic &amp; PET</button>
+        <button class="fbtn font-mono text-xs" data-filter="paint" aria-pressed="false">paint</button>
+        <button class="fbtn font-mono text-xs" data-filter="raw"   aria-pressed="false">raw</button>
+      </div>
+      <p class="mt-3 font-mono text-xs text-steel" id="finCount" aria-live="polite">showing 8 samples</p>
+
+      <!-- finish rack -->
+      <ul id="tileGrid" class="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 list-none p-0 m-0">
+
+        <li class="tile" data-cat="tf">
+          <div class="chip-face fin-superwhite" role="img" aria-label="Super White thermofoil sample, shaker style"><span class="chip-panel"></span></div>
+          <div class="border border-t-0 border-hair px-4 py-4">
+            <h3 class="font-disp font-medium text-xl leading-none">Super White</h3>
+            <p class="font-mono text-[11px] text-steel mt-1.5">thermofoil-PVC · shaker &amp; slab</p>
+            <dl class="mt-3 space-y-1.5 font-mono text-[11px]">
+              <div class="flex gap-2"><dt class="spec-key">code</dt><dd>TF-101-SW</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">face</dt><dd>PVC membrane, matte</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">edge</dt><dd>square · pencil round</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">board</dt><dd>Uniboard · Tafisa whites</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">core</dt><dd>5/8 in. MDF</dd></div>
+            </dl>
+            <a href="#contact" class="mt-4 inline-block font-mono text-xs underline underline-offset-4 decoration-1 hover:decoration-2">request this finish</a>
+          </div>
+        </li>
+
+        <li class="tile" data-cat="tf">
+          <div class="chip-face fin-linen" role="img" aria-label="Linen thermofoil sample, shaker style"><span class="chip-panel"></span></div>
+          <div class="border border-t-0 border-hair px-4 py-4">
+            <h3 class="font-disp font-medium text-xl leading-none">Linen</h3>
+            <p class="font-mono text-[11px] text-steel mt-1.5">thermofoil-PVC · shaker &amp; slab</p>
+            <dl class="mt-3 space-y-1.5 font-mono text-[11px]">
+              <div class="flex gap-2"><dt class="spec-key">code</dt><dd>TF-102-LN</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">face</dt><dd>PVC membrane, matte</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">edge</dt><dd>square · pencil round</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">board</dt><dd>Olon linen match</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">core</dt><dd>5/8 in. MDF</dd></div>
+            </dl>
+            <a href="#contact" class="mt-4 inline-block font-mono text-xs underline underline-offset-4 decoration-1 hover:decoration-2">request this finish</a>
+          </div>
+        </li>
+
+        <li class="tile" data-cat="tfl">
+          <div class="chip-face fin-walnut" role="img" aria-label="Walnut TFL sample, five-piece shaker"><span class="chip-panel"></span></div>
+          <div class="border border-t-0 border-hair px-4 py-4">
+            <h3 class="font-disp font-medium text-xl leading-none">Walnut</h3>
+            <p class="font-mono text-[11px] text-steel mt-1.5">TFL · 5-pc shaker</p>
+            <dl class="mt-3 space-y-1.5 font-mono text-[11px]">
+              <div class="flex gap-2"><dt class="spec-key">code</dt><dd>TFL-868-WN</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">face</dt><dd>TFL woodgrain, matte</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">edge</dt><dd>square</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">board</dt><dd>Tafisa · Uniboard walnut</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">core</dt><dd>5/8 in. MDF</dd></div>
+            </dl>
+            <a href="#contact" class="mt-4 inline-block font-mono text-xs underline underline-offset-4 decoration-1 hover:decoration-2">request this finish</a>
+          </div>
+        </li>
+
+        <li class="tile" data-cat="tfl">
+          <div class="chip-face fin-oak" role="img" aria-label="White oak TFL sample, slab style"></div>
+          <div class="border border-t-0 border-hair px-4 py-4">
+            <h3 class="font-disp font-medium text-xl leading-none">White Oak</h3>
+            <p class="font-mono text-[11px] text-steel mt-1.5">TFL · slab</p>
+            <dl class="mt-3 space-y-1.5 font-mono text-[11px]">
+              <div class="flex gap-2"><dt class="spec-key">code</dt><dd>TFL-841-OK</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">face</dt><dd>TFL woodgrain, matte</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">edge</dt><dd>square · pencil round</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">board</dt><dd>Tafisa · Uniboard oak</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">core</dt><dd>5/8 in. MDF</dd></div>
+            </dl>
+            <a href="#contact" class="mt-4 inline-block font-mono text-xs underline underline-offset-4 decoration-1 hover:decoration-2">request this finish</a>
+          </div>
+        </li>
+
+        <li class="tile" data-cat="pet">
+          <div class="chip-face fin-gloss" role="img" aria-label="Gloss white acrylic sample, slab style"></div>
+          <div class="border border-t-0 border-hair px-4 py-4">
+            <h3 class="font-disp font-medium text-xl leading-none">Gloss White</h3>
+            <p class="font-mono text-[11px] text-steel mt-1.5">acrylic · slab</p>
+            <dl class="mt-3 space-y-1.5 font-mono text-[11px]">
+              <div class="flex gap-2"><dt class="spec-key">code</dt><dd>AC-100-GW</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">face</dt><dd>acrylic, high gloss</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">edge</dt><dd>polished</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">board</dt><dd>ABS edge matched</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">core</dt><dd>5/8 in. MDF</dd></div>
+            </dl>
+            <a href="#contact" class="mt-4 inline-block font-mono text-xs underline underline-offset-4 decoration-1 hover:decoration-2">request this finish</a>
+          </div>
+        </li>
+
+        <li class="tile" data-cat="pet">
+          <div class="chip-face fin-slate" role="img" aria-label="Matte slate PET sample, slab style"></div>
+          <div class="border border-t-0 border-hair px-4 py-4">
+            <h3 class="font-disp font-medium text-xl leading-none">Matte Slate</h3>
+            <p class="font-mono text-[11px] text-steel mt-1.5">PET · slab</p>
+            <dl class="mt-3 space-y-1.5 font-mono text-[11px]">
+              <div class="flex gap-2"><dt class="spec-key">code</dt><dd>PET-210-SL</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">face</dt><dd>PET, matte · anti-fingerprint</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">edge</dt><dd>square</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">board</dt><dd>ABS edge matched</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">core</dt><dd>5/8 in. MDF</dd></div>
+            </dl>
+            <a href="#contact" class="mt-4 inline-block font-mono text-xs underline underline-offset-4 decoration-1 hover:decoration-2">request this finish</a>
+          </div>
+        </li>
+
+        <li class="tile" data-cat="paint">
+          <div class="chip-face fin-sage" role="img" aria-label="Sage paint sample, sprayed to any manufacturer's color code"></div>
+          <div class="border border-t-0 border-hair px-4 py-4">
+            <h3 class="font-disp font-medium text-xl leading-none">Any paint code</h3>
+            <p class="font-mono text-[11px] text-steel mt-1.5">paint · shaker, slab &amp; classic</p>
+            <dl class="mt-3 space-y-1.5 font-mono text-[11px]">
+              <div class="flex gap-2"><dt class="spec-key">code</dt><dd>PT-301-SG shown</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">face</dt><dd>sprayed paint, any code</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">edge</dt><dd>square · pencil · bullnose</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">board</dt><dd>custom color match</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">core</dt><dd>paint-grade MDF</dd></div>
+            </dl>
+            <a href="#contact" class="mt-4 inline-block font-mono text-xs underline underline-offset-4 decoration-1 hover:decoration-2">request this finish</a>
+          </div>
+        </li>
+
+        <li class="tile" data-cat="raw">
+          <div class="chip-face fin-raw" role="img" aria-label="Raw MDF sample, machined and sanded, shaker style"><span class="chip-panel"></span></div>
+          <div class="border border-t-0 border-hair px-4 py-4">
+            <h3 class="font-disp font-medium text-xl leading-none">Raw MDF</h3>
+            <p class="font-mono text-[11px] text-steel mt-1.5">raw · all profiles</p>
+            <dl class="mt-3 space-y-1.5 font-mono text-[11px]">
+              <div class="flex gap-2"><dt class="spec-key">code</dt><dd>RAW-001-MB</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">face</dt><dd>bare MDF, sanded 150 grit</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">edge</dt><dd>square · pencil round</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">board</dt><dd>your finish, your line</dd></div>
+              <div class="flex gap-2"><dt class="spec-key">core</dt><dd>5/8 in. · 3/4 in. MDF</dd></div>
+            </dl>
+            <a href="#contact" class="mt-4 inline-block font-mono text-xs underline underline-offset-4 decoration-1 hover:decoration-2">request this finish</a>
+          </div>
+        </li>
+
+      </ul>
+
+    </div>
+  </section>
+
+  <!-- ————— REQUEST PRICING ————— -->
+  <section id="contact" aria-labelledby="contact-h" class="band-ink bg-ink text-sheet border-t-2 border-ink">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 py-16 md:py-24 grid lg:grid-cols-12 gap-10 lg:gap-16">
+
+      <div class="lg:col-span-7">
+        <h2 id="contact-h" class="font-disp font-semibold tracking-tight leading-none text-4xl md:text-6xl">Request pricing</h2>
+        <p class="mt-5 max-w-xl text-sheet/80 leading-relaxed">Trade only — we sell to cabinet shops, contractors and renovators, not the retail counter. Email your cut list or door schedule and we quote within two business days.</p>
+        <p class="mt-4 max-w-xl text-sheet/80 leading-relaxed">Include sizes and quantities, finish codes, edge profiles and hinge boring. Not sure what you need? Send a sketch or a photo of the board label — we'll spec it with you.</p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="mailto:info@mordendoors.ca?subject=Cut%20list%20for%20quote" class="inline-flex items-center h-12 px-6 bg-tape text-ink font-medium hover:bg-sheet transition-colors">info@mordendoors.ca</a>
+          <a href="tel:+16045920472" class="inline-flex items-center h-12 px-6 border-2 border-sheet/40 font-mono text-sm hover:border-sheet transition-colors">(604) 592-0472</a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 grid gap-6 content-center font-mono text-sm text-sheet/80">
+        <div class="border-t border-sheet/25 pt-4">
+          <p class="text-xs text-sheet/60">shop</p>
+          <p class="mt-1">#109 — 12889 84 Ave<br>Surrey, BC V3W 0K5</p>
+        </div>
+        <div class="border-t border-sheet/25 pt-4">
+          <p class="text-xs text-sheet/60">counter</p>
+          <p class="mt-1">Mon–Fri 8:00–16:30<br>will-call — call ahead</p>
+        </div>
+        <div class="border-t border-sheet/25 pt-4">
+          <p class="text-xs text-sheet/60">delivery</p>
+          <p class="mt-1">Metro Vancouver · Fraser Valley<br>runs scheduled daily</p>
+        </div>
+        <div class="border-t border-sheet/25 pt-4">
+          <p class="text-xs text-sheet/60">samples</p>
+          <p class="mt-1">chip sets &amp; door samples<br>available on request</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+  <!-- ————— FOOTER · TITLE BLOCK ————— -->
+  <footer class="border-t-2 border-ink">
+    <div class="max-w-6xl mx-auto px-5 md:px-8">
+      <div class="tb border-x border-b border-hair">
+        <div class="tb-cell">
+          <p class="font-body font-medium text-sm">Morden Doors Ltd.</p>
+          <p class="mt-2 font-mono text-xs text-steel leading-relaxed">cabinet doors &amp; components<br>Surrey, British Columbia</p>
+        </div>
+        <div class="tb-cell">
+          <p class="font-mono text-xs leading-relaxed">#109 — 12889 84 Ave<br>Surrey, BC V3W 0K5</p>
+        </div>
+        <div class="tb-cell">
+          <p class="font-mono text-xs"><a class="underline underline-offset-4 decoration-1 hover:decoration-2" href="tel:+16045920472">(604) 592-0472</a></p>
+          <p class="mt-2 font-mono text-xs"><a class="underline underline-offset-4 decoration-1 hover:decoration-2" href="mailto:info@mordendoors.ca">info@mordendoors.ca</a></p>
+        </div>
+        <div class="tb-cell">
+          <p class="font-mono text-xs text-steel">drawing no. MD-2026-WEB</p>
+          <p class="mt-2 font-mono text-xs text-steel">rev 01 · not to scale</p>
+        </div>
+      </div>
+      <div class="py-5 flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
+        <nav aria-label="Footer" class="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
+          <a href="#products" class="hover:underline underline-offset-4 decoration-2">Product lines</a>
+          <a href="#finishes" class="hover:underline underline-offset-4 decoration-2">Finishes</a>
+          <a href="#process" class="hover:underline underline-offset-4 decoration-2">How to order</a>
+          <a href="#contact" class="hover:underline underline-offset-4 decoration-2">Request pricing</a>
+        </nav>
+        <p class="font-mono text-xs text-steel">© 2026 Morden Doors Ltd. · Surrey, BC</p>
+      </div>
+    </div>
+  </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ————— mobile nav ————— */
+  var navToggle = document.getElementById('navToggle');
+  var mobileNav = document.getElementById('mobileNav');
+  function closeNav(){ navToggle.setAttribute('aria-expanded','false'); mobileNav.hidden = true; }
+  navToggle.addEventListener('click', function(){
+    var open = navToggle.getAttribute('aria-expanded') === 'true';
+    navToggle.setAttribute('aria-expanded', String(!open));
+    mobileNav.hidden = open;
+  });
+  mobileNav.addEventListener('click', function(e){ if (e.target.closest('a')) closeNav(); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true'){ closeNav(); navToggle.focus(); }
+  });
+
+  /* ————— finish switcher ————— */
+  var FINISHES = {
+    tfsw:   { cls:'fin-superwhite', name:'Super White', code:'TF-101-SW',  face:'PVC membrane, matte',  edge:'square · pencil', core:'5/8 in. MDF' },
+    tfln:   { cls:'fin-linen',      name:'Linen',       code:'TF-102-LN',  face:'PVC membrane, matte',  edge:'square · pencil', core:'5/8 in. MDF' },
+    tflwn:  { cls:'fin-walnut',     name:'Walnut',      code:'TFL-868-WN', face:'TFL woodgrain, matte', edge:'square',          core:'5/8 in. MDF' },
+    tfloak: { cls:'fin-oak',        name:'White Oak',   code:'TFL-841-OK', face:'TFL woodgrain, matte', edge:'square · pencil', core:'5/8 in. MDF' },
+    petsl:  { cls:'fin-slate',      name:'Matte Slate', code:'PET-210-SL', face:'PET, matte',           edge:'square',          core:'5/8 in. MDF' },
+    acgw:   { cls:'fin-gloss',      name:'Gloss White', code:'AC-100-GW',  face:'acrylic, high gloss',  edge:'polished',        core:'5/8 in. MDF' }
+  };
+  var faceA = document.getElementById('faceA');
+  var faceB = document.getElementById('faceB');
+  var readout = document.getElementById('readout');
+  var chipsRow = document.getElementById('chipsRow');
+  var chipEls = Array.prototype.slice.call(chipsRow.querySelectorAll('.chip'));
+
+  faceB.style.transition = 'opacity 160ms ease';
+  var switching = false;
+  function setFinish(key){
+    var d = FINISHES[key];
+    if (!d || switching) return;
+    chipEls.forEach(function(c){ c.setAttribute('aria-pressed', String(c.getAttribute('data-fin') === key)); });
+    readout.textContent = 'shown — ' + d.name + ' · ' + d.code + ' · ' + d.face + ' · edge ' + d.edge + ' · core ' + d.core;
+    if (reduced || !window.Motion){ faceA.className = 'door-face ' + d.cls; return; }
+    switching = true;
+    faceB.className = 'door-face ' + d.cls;
+    faceB.style.opacity = '1';
+    setTimeout(function(){
+      faceA.className = 'door-face ' + d.cls;
+      faceB.style.opacity = '0';
+      switching = false;
+    }, 180);
+  }
+  chipEls.forEach(function(c){
+    c.addEventListener('click', function(){ setFinish(c.getAttribute('data-fin')); });
+  });
+
+  /* ————— catalog filter ————— */
+  var fbtns = Array.prototype.slice.call(document.querySelectorAll('.fbtn'));
+  var tileGrid = document.getElementById('tileGrid');
+  var tiles = Array.prototype.slice.call(tileGrid.querySelectorAll('.tile'));
+  var finCount = document.getElementById('finCount');
+  function applyFilter(cat, withFade){
+    fbtns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-filter') === cat)); });
+    var shown = 0;
+    tiles.forEach(function(t){
+      var show = cat === 'all' || t.getAttribute('data-cat') === cat;
+      t.hidden = !show;
+      if (show) shown++;
+    });
+    finCount.textContent = 'showing ' + shown + (shown === 1 ? ' sample' : ' samples');
+    if (withFade && !reduced && window.Motion){
+      try { window.Motion.animate(tileGrid, { opacity: [0, 1] }, { duration: 0.18 }); } catch (e) {}
+    }
+  }
+  fbtns.forEach(function(b){
+    b.addEventListener('click', function(){ applyFilter(b.getAttribute('data-filter'), true); });
+  });
+  Array.prototype.slice.call(document.querySelectorAll('.idx-row')).forEach(function(row){
+    row.addEventListener('click', function(){ applyFilter(row.getAttribute('data-filter'), false); });
+  });
+
+  /* ————— hero: the one orchestrated moment ————— */
+  var heroFig = document.getElementById('heroFig');
+  var svg = heroFig.querySelector('svg');
+  var traceOuter = document.getElementById('traceOuter');
+  var tracePanel = document.getElementById('tracePanel');
+  var bores = Array.prototype.slice.call(svg.querySelectorAll('circle'));
+  var dimW = document.getElementById('dimW');
+  var dimH = document.getElementById('dimH');
+  var dimWline = dimW.querySelectorAll('.draft-dim')[0];
+  var dimHline = dimH.querySelectorAll('.draft-dim')[0];
+  var callEdge = document.getElementById('callEdge');
+  var callBore = document.getElementById('callBore');
+
+  function clearAnimStyles(){
+    [traceOuter, tracePanel, dimWline, dimHline].forEach(function(el){
+      el.style.strokeDasharray = ''; el.style.strokeDashoffset = '';
+    });
+    [dimW, dimH, callEdge, callBore].forEach(function(el){ el.style.opacity = ''; });
+    bores.forEach(function(el){ el.style.opacity = ''; });
+    faceA.style.opacity = '';
+    chipsRow.style.opacity = ''; chipsRow.style.transform = '';
+    readout.style.opacity = ''; readout.style.transform = '';
+  }
+
+  var M = window.Motion;
+  if (M && !reduced) {
+    try {
+      var animate = M.animate;
+      var trace = function(el, dur, delay){
+        var L = el.getTotalLength();
+        el.style.strokeDasharray = L + ' ' + L;
+        el.style.strokeDashoffset = L;
+        animate(el, { strokeDashoffset: 0 }, { duration: dur, delay: delay, ease: 'circInOut' });
+      };
+      // arm initial states (defaults are the final states — no-js and reduced-motion stay fully rendered)
+      [dimW, dimH, callEdge, callBore].forEach(function(g){ g.style.opacity = '0'; });
+      bores.forEach(function(c){ c.style.opacity = '0'; });
+      faceA.style.opacity = '0';
+      chipsRow.style.opacity = '0'; chipsRow.style.transform = 'translateY(10px)';
+      readout.style.opacity = '0';  readout.style.transform = 'translateY(10px)';
+      // the toolpath: outline traces, bores land, the finish settles, dimensions measure out
+      trace(traceOuter, 0.9, 0.05);
+      trace(tracePanel, 0.7, 0.30);
+      bores.forEach(function(c, i){ animate(c, { opacity: 1 }, { duration: 0.25, delay: 0.8 + i * 0.08 }); });
+      animate(faceA, { opacity: 1 }, { duration: 0.5, delay: 1.0 });
+      animate(dimW, { opacity: 1 }, { duration: 0.2, delay: 1.15 });
+      trace(dimWline, 0.35, 1.15);
+      animate(dimH, { opacity: 1 }, { duration: 0.2, delay: 1.3 });
+      trace(dimHline, 0.4, 1.3);
+      animate(callEdge, { opacity: 1 }, { duration:  0.25, delay: 1.55 });
+      trace(callEdge.querySelector('.draft-leader'), 0.2, 1.55);
+      animate(callBore, { opacity: 1 }, { duration: 0.25, delay: 1.65 });
+      trace(callBore.querySelector('.draft-leader'), 0.3, 1.65);
+      animate(chipsRow, { opacity: 1, y: 0 }, { duration: 0.4, delay: 1.75 });
+      animate(readout,  { opacity: 1, y: 0 }, { duration: 0.4, delay: 1.85 });
+    } catch (err) { clearAnimStyles(); }
+    setTimeout(clearAnimStyles, 2600); // safety net — final state no matter what
+  }
+
+})();
+</script>
+</body>
+</html>

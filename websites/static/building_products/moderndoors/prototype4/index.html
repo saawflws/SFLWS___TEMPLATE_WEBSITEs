@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Haldane Door Co. | Wholesale cabinet doors for the trade</title>
+<meta name="description" content="Wholesale cabinet doors for cabinet shops, builders, and renovators. Thermofoil, TFL, acrylic, paint, and raw doors, made to order.">
+
+<!--
+  Haldane Door Co. | single-file B2B prototype
+  Tailwind via CDN + Motion via CDN + vanilla JS. No build step, no framework.
+  Design system: swatch-book language. Swatches are square (zero radius); only
+  CTAs are pills. Archivo semi-condensed headings, Inter body, IBM Plex Mono is
+  reserved exclusively for product spec codes.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          paper:  '#F2F0EB',
+          ink:    '#211D1A',
+          navy:   '#283447',
+          oak:    '#A9825C',
+          greige: '#D8D3C9',
+          panel:  '#FBFAF7',
+          mute:   '#5C5852'
+        }
+      }
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/motion@11/dist/motion.js"></script>
+
+<style>
+  /* Design tokens */
+  :root{
+    --paper:#F2F0EB;
+    --ink:#211D1A;
+    --navy:#283447;
+    --oak:#A9825C;
+    --greige:#D8D3C9;
+    --panel:#FBFAF7;
+    --mute:#5C5852;
+  }
+
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',ui-sans-serif,system-ui,sans-serif;
+  }
+
+  /* Archivo semi-condensed for headings. IBM Plex Mono is used ONLY for spec codes. */
+  .f-head{ font-family:'Archivo',ui-sans-serif,sans-serif; font-stretch:87.5%; }
+  .f-spec{ font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace; }
+
+  /* Visible keyboard focus everywhere */
+  :focus-visible{ outline:2px solid var(--navy); outline-offset:2px; }
+
+  /* ---------- hero mosaic ---------- */
+  .hero-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-auto-flow:dense;
+    gap:8px;
+  }
+  .tile{ aspect-ratio:1/1; }
+  .tile--2{ grid-column:span 2; grid-row:span 2; }
+  .hero-label{ position:absolute; left:26px; bottom:26px; max-width:520px; }
+  @media (min-width:640px){
+    .hero-grid{ grid-template-columns:repeat(5,1fr); gap:10px; }
+  }
+  @media (min-width:1024px){
+    .hero-grid{ grid-template-columns:repeat(6,1fr); gap:12px; }
+  }
+  @media (max-width:1023px){
+    .hero-label{ position:static; margin:14px 2px 0; max-width:none; }
+  }
+
+  /* ---------- swatch surfaces (square by design, like real finish chips) ---------- */
+  .swatch{ position:relative; }
+
+  /* printed / natural wood grain */
+  .sw-grain{
+    background-color:var(--c1);
+    background-image:
+      radial-gradient(120% 70% at 28% 82%, rgba(46,30,16,.10), transparent 62%),
+      radial-gradient(90% 55% at 78% 22%, rgba(255,253,248,.10), transparent 60%),
+      repeating-linear-gradient(89deg,
+        rgba(46,30,16,.14) 0 1px, transparent 1px 5px,
+        rgba(46,30,16,.07) 5px 6px, transparent 6px 12px,
+        rgba(255,253,248,.05) 12px 14px, transparent 14px 23px),
+      linear-gradient(176deg, var(--c1), var(--c2));
+  }
+
+  /* thermofoil: soft diagonal sheen */
+  .sw-sheen{
+    background-color:var(--c1);
+    background-image:
+      linear-gradient(112deg,
+        rgba(255,255,255,.26) 0%, rgba(255,255,255,.05) 28%,
+        transparent 45%, rgba(255,255,255,.16) 68%, transparent 82%),
+      linear-gradient(180deg, var(--c1), var(--c2));
+  }
+
+  /* high-gloss acrylic: crisp window reflection streak plus softer sheen */
+  .sw-gloss{
+    background-color:var(--c1);
+    background-image:
+      linear-gradient(165deg,
+        transparent 8%, rgba(255,255,255,.55) 15%,
+        rgba(255,255,255,.10) 22%, transparent 30%),
+      linear-gradient(155deg,
+        rgba(255,255,255,.50) 0%, rgba(255,255,255,.10) 16%,
+        rgba(255,255,255,.02) 38%, rgba(255,255,255,.22) 70%,
+        rgba(255,255,255,.38) 100%),
+      linear-gradient(180deg, var(--c1), var(--c2));
+  }
+
+  /* matte paint: flat with the faintest top light */
+  .sw-matte{
+    background-color:var(--c1);
+    background-image:radial-gradient(130% 100% at 32% 0%, rgba(255,255,255,.06), transparent 55%);
+  }
+
+  /* soft-touch PET: matte with a whisper of sheen at mid-height */
+  .sw-pet{
+    background-color:var(--c1);
+    background-image:
+      linear-gradient(180deg, transparent 38%, rgba(255,255,255,.08) 50%, transparent 62%),
+      radial-gradient(130% 100% at 32% 0%, rgba(255,255,255,.05), transparent 55%);
+  }
+
+  /* raw, sanded board */
+  .sw-raw{
+    background-color:var(--c1);
+    background-image:
+      repeating-linear-gradient(91deg,
+        rgba(120,90,60,.06) 0 1px, transparent 1px 4px,
+        rgba(120,90,60,.03) 4px 5px, transparent 5px 9px),
+      linear-gradient(178deg, var(--c1), var(--c2));
+  }
+
+  /* shaker centre-panel reveal, layered on any surface */
+  .sw-shaker::after{
+    content:"";
+    position:absolute;
+    inset:12%;
+    pointer-events:none;
+    background:rgba(0,0,0,.03);
+    box-shadow:inset 0 1px 4px rgba(0,0,0,.22), inset 0 0 0 1px rgba(0,0,0,.14);
+  }
+
+  /* ---------- catalog flip cards ---------- */
+  .flip{ perspective:1100px; }
+  .flip-inner{
+    position:relative;
+    transform-style:preserve-3d;
+    transition:transform .5s cubic-bezier(.22,.61,.36,1);
+  }
+  .flip:hover .flip-inner,
+  .flip:focus-visible .flip-inner,
+  .flip:focus-within .flip-inner,
+  .flip.is-flipped .flip-inner{ transform:rotateY(180deg); }
+  .flip-face{ backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .flip-back{
+    position:absolute;
+    inset:0;
+    transform:rotateY(180deg);
+    overflow:hidden;
+  }
+
+  /* ---------- binder tabs ---------- */
+  .tab{
+    position:relative;
+    flex:none;
+    white-space:nowrap;
+    padding:13px 14px 15px;
+    font-family:'Archivo',ui-sans-serif,sans-serif;
+    font-stretch:87.5%;
+    font-size:16px;
+    font-weight:500;
+    color:var(--mute);
+    border-bottom:2px solid transparent;
+  }
+  .tab:hover{ color:var(--ink); }
+  .tab[aria-selected="true"]{
+    color:var(--navy);
+    font-weight:600;
+    border-bottom-color:var(--navy);
+    box-shadow:inset 0 2px 0 var(--oak);
+  }
+
+  /* ---------- order tracking stepper (plain, no swatch styling) ---------- */
+  .stepper{ display:flex; }
+  .step{ flex:1 1 0%; min-width:0; }
+  .node{ display:flex; align-items:center; }
+  .dot{
+    width:12px; height:12px; flex:none;
+    background:var(--panel);
+    border:2px solid var(--greige);
+  }
+  .line{
+    flex:1 1 auto;
+    height:2px;
+    margin:0 6px;
+    background:var(--greige);
+    transform-origin:left center;
+  }
+  .step:last-child .line{ visibility:hidden; }
+  .step.is-done .dot,
+  .step.is-current .dot{ background:var(--navy); border-color:var(--navy); }
+  .step.is-done .line{ background:var(--navy); }
+  .step.is-current .dot{ box-shadow:0 0 0 4px rgba(40,52,71,.18); }
+  .step .lab{ margin-top:10px; font-size:13px; line-height:1.3; color:var(--mute); }
+  .step.is-current .lab{ color:var(--navy); font-weight:600; }
+
+  /* small opacity settle when switching catalog tabs (interaction feedback) */
+  .grid-fade{ animation:gridfade .18s ease-out; }
+  @keyframes gridfade{ from{ opacity:.35; } }
+
+  /* reduced motion: kill transitions and settle animations */
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .flip-inner{ transition:none; }
+    .grid-fade{ animation:none; }
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<a href="#catalog" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-navy focus:px-5 focus:py-2.5 focus:text-white focus:text-[14px]">Skip to the finish catalog</a>
+
+<header class="border-b border-greige">
+  <div class="max-w-[1200px] mx-auto px-5 md:px-8 h-14 flex items-center justify-between gap-6">
+    <a href="#" class="f-head font-semibold text-[17px] tracking-tight">Haldane Door Co.</a>
+    <p class="text-[13.5px] text-mute text-right leading-snug">Wholesale to the trade.
+      <a href="tel:+15550148890" class="text-ink underline decoration-greige underline-offset-2 hover:decoration-navy">(555) 014-8890</a>
+    </p>
+  </div>
+</header>
+
+<main>
+
+  <!-- Hero: a page of finish chips that assembles once on load -->
+  <section class="max-w-[1200px] mx-auto px-5 md:px-8 pt-8 md:pt-12 pb-10 md:pb-14">
+    <div class="relative">
+      <div class="hero-grid bg-panel border border-greige p-3 md:p-4" role="img" aria-label="Finish swatch mosaic: wood grains, matte paints, gloss laminates, and raw boards.">
+        <div class="tile tile--2 asm swatch sw-grain" style="--c1:#6E5136;--c2:#54402B"></div>
+        <div class="tile tile--2 asm swatch sw-gloss" style="--c1:#F2F2EE;--c2:#D9D9D3"></div>
+        <div class="tile tile--2 asm swatch sw-raw" style="--c1:#E8DCC3;--c2:#DBCBA8"></div>
+        <div class="tile asm swatch sw-matte" style="--c1:#9BA88F;--c2:#8E9B82"></div>
+        <div class="tile asm swatch sw-grain" style="--c1:#C09A6B;--c2:#A9825C"></div>
+        <div class="tile asm swatch sw-sheen" style="--c1:#3A3F46;--c2:#2E3238"></div>
+        <div class="tile asm swatch sw-matte" style="--c1:#2E3A4E;--c2:#273244"></div>
+        <div class="tile asm swatch sw-sheen" style="--c1:#E9E2D4;--c2:#DDD4C2"></div>
+        <div class="tile asm swatch sw-grain" style="--c1:#E6CDA4;--c2:#D4B584"></div>
+        <div class="tile asm swatch sw-matte" style="--c1:#AE7A62;--c2:#9C6A55"></div>
+        <div class="tile asm swatch sw-pet" style="--c1:#8E8A82;--c2:#7E7A73"></div>
+        <div class="tile asm swatch sw-gloss" style="--c1:#26262A;--c2:#1B1B1F"></div>
+        <div class="tile asm swatch sw-matte" style="--c1:#4A5A4C;--c2:#3E4C40"></div>
+        <div class="tile asm swatch sw-grain" style="--c1:#9A6B45;--c2:#7F5738"></div>
+        <div class="tile asm swatch sw-sheen" style="--c1:#DDE3E6;--c2:#CFD7DB"></div>
+      </div>
+      <div class="hero-label asm">
+        <div class="bg-paper border border-greige border-l-[3px] border-l-oak shadow-[0_2px_16px_rgba(33,29,26,0.10)] px-5 py-4 md:px-7 md:py-5">
+          <h1 class="f-head font-semibold text-[24px] sm:text-[30px] lg:text-[34px] leading-[1.12] tracking-tight">Cabinet doors for the trade, made to order.</h1>
+          <p class="mt-2.5 text-[14.5px] text-mute leading-relaxed">Browse the finish library, note your spec codes, then call or email for pricing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category nav: tabs in a swatch binder -->
+  <nav class="border-y border-greige" aria-label="Finish lines">
+    <div class="max-w-[1200px] mx-auto px-5 md:px-8">
+      <div role="tablist" aria-label="Product lines" class="flex gap-1 sm:gap-2 overflow-x-auto">
+        <button role="tab" id="tab-thermofoil" class="tab" data-cat="thermofoil" aria-selected="true" aria-controls="catalog-grid">Thermofoil</button>
+        <button role="tab" id="tab-tfl" class="tab" data-cat="tfl" aria-selected="false" aria-controls="catalog-grid" tabindex="-1">TFL Shaker</button>
+        <button role="tab" id="tab-acrylic" class="tab" data-cat="acrylic" aria-selected="false" aria-controls="catalog-grid" tabindex="-1">Acrylic/PET</button>
+        <button role="tab" id="tab-paint" class="tab" data-cat="paint" aria-selected="false" aria-controls="catalog-grid" tabindex="-1">Paint</button>
+        <button role="tab" id="tab-raw" class="tab" data-cat="raw" aria-selected="false" aria-controls="catalog-grid" tabindex="-1">Raw</button>
+        <button role="tab" id="tab-lam" class="tab" data-cat="lam" aria-selected="false" aria-controls="catalog-grid" tabindex="-1">Lamination</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Catalog -->
+  <section id="catalog" class="max-w-[1200px] mx-auto px-5 md:px-8 pt-10 md:pt-14 pb-12 md:pb-16">
+    <div class="flex flex-wrap items-end justify-between gap-x-8 gap-y-3 pb-6 border-b border-greige">
+      <div class="max-w-2xl border-l-[3px] border-l-oak pl-4">
+        <h2 class="f-head font-semibold text-[26px] md:text-[31px] leading-none tracking-tight">Browse finishes by material</h2>
+        <p id="cat-desc" class="mt-2.5 text-[14.5px] text-mute leading-relaxed"></p>
+      </div>
+      <p class="text-[13.5px] text-mute whitespace-nowrap"><span id="cat-count" class="text-ink font-medium">0</span> finishes in this line</p>
+    </div>
+    <div id="catalog-grid" role="tabpanel" aria-labelledby="tab-thermofoil" class="mt-7 md:mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 md:gap-x-5 gap-y-8"></div>
+    <p class="mt-8 text-[13px] text-mute leading-relaxed max-w-xl">Screen colors are indicative only. Request physical chips from the trade counter before locking in a finish.</p>
+  </section>
+
+  <!-- Order tracking: deliberately plain, no swatch styling -->
+  <section aria-labelledby="track-heading" class="border-t border-greige">
+    <div class="max-w-[1200px] mx-auto px-5 md:px-8 py-10 md:py-14">
+      <div class="bg-panel border border-greige p-6 sm:p-8 md:p-10 max-w-[840px]">
+        <h2 id="track-heading" class="f-head font-semibold text-[26px] md:text-[31px] leading-none tracking-tight">Track an order</h2>
+        <p class="mt-2.5 text-[14.5px] text-mute leading-relaxed">Enter the order number from your confirmation email to see where your doors are today.</p>
+        <form id="track-form" class="mt-6 flex flex-col sm:flex-row gap-3 sm:gap-4" novalidate>
+          <label for="track-input" class="sr-only">Order number</label>
+          <input id="track-input" name="order" type="text" autocomplete="off" spellcheck="false" placeholder="Order number, e.g. HD-4821" class="flex-1 min-w-0 border border-greige bg-paper px-4 py-3 text-[15px] text-ink placeholder:text-mute">
+          <button type="submit" class="rounded-full bg-navy px-7 py-3 text-[14.5px] font-medium text-white hover:bg-[#1D2736]">Track order</button>
+        </form>
+        <p id="track-hint" class="mt-2.5 text-[13px] text-mute hidden">Enter an order number first, then track it.</p>
+        <div id="track-result" class="mt-8 hidden" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="request" class="border-t border-greige">
+  <div class="max-w-[1200px] mx-auto px-5 md:px-8 py-10 md:py-14">
+    <div class="grid gap-10 md:gap-8 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <p class="f-head font-semibold text-[19px] tracking-tight">Haldane Door Co.</p>
+        <p class="mt-3 text-[14px] text-mute leading-relaxed max-w-sm">Wholesale cabinet doors and drawer fronts for cabinet shops, builders, and renovation contractors.</p>
+        <a href="mailto:sales@haldanedoor.com?subject=Pricing%20request" class="mt-5 inline-block rounded-full bg-navy px-6 py-3 text-[14.5px] font-medium text-white hover:bg-[#1D2736]">Request pricing</a>
+        <p class="mt-2.5 text-[13px] text-mute leading-relaxed max-w-sm">Send your door list and finish codes. Quotes return within one business day.</p>
+      </div>
+      <div class="md:col-span-3">
+        <h3 class="f-head font-semibold text-[15px]">Trade counter</h3>
+        <ul class="mt-3 space-y-1.5 text-[14px] leading-relaxed">
+          <li><a class="underline decoration-greige underline-offset-2 hover:decoration-navy" href="tel:+15550148890">(555) 014-8890</a></li>
+          <li><a class="underline decoration-greige underline-offset-2 hover:decoration-navy" href="mailto:sales@haldanedoor.com">sales@haldanedoor.com</a></li>
+          <li class="text-mute">Monday to Friday, 7am to 4pm</li>
+        </ul>
+      </div>
+      <div class="md:col-span-4">
+        <h3 class="f-head font-semibold text-[15px]">Location</h3>
+        <address class="mt-3 not-italic text-[14px] leading-relaxed">412 Kettle Way, Unit 3<br>Grand Forks, BC</address>
+        <p class="mt-1.5 text-[14px] text-mute">Will-call pickup, 7am to 3:30pm</p>
+      </div>
+    </div>
+    <div class="mt-10 pt-6 border-t border-greige flex flex-wrap gap-x-8 gap-y-1.5 text-[12.5px] text-mute">
+      <p>Trade-only pricing. No retail counter.</p>
+      <p>Minimum order: one cabinet run.</p>
+      <p>&copy; 2026 Haldane Door Co.</p>
+    </div>
+  </div>
+</footer>
+<script>
+/* APP-JS-START */
+(function () {
+  'use strict';
+
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var M = window.Motion;
+  var hasMotion = !!M && typeof M.animate === 'function';
+  var staggerFn = (hasMotion && typeof M.stagger === 'function') ? M.stagger : null;
+
+  /* ----------------------------------------------------------
+     Finish library. sw maps to a swatch surface class:
+     grain | sheen | gloss | matte | pet | raw. sh adds the
+     shaker centre-panel reveal. c1/c2 drive the surface tones.
+     ---------------------------------------------------------- */
+  var CATALOG = {
+    thermofoil: {
+      desc: 'PVC film vacuum-pressed onto MDF. Wipe-clean and moisture-resistant, with edges wrapped in matched film. Doors arrive ready to hang.',
+      finishes: [
+        { n: 'Super White',   c: 'TF-101', sw: 'sheen', c1: '#F5F5F2', c2: '#DDDDD7', m: 'PVC film on 5/8 in. MDF',   e: 'Minified' },
+        { n: 'Frost Grey',    c: 'TF-104', sw: 'sheen', c1: '#D9DCDD', c2: '#C9CDCE', m: 'PVC film on 5/8 in. MDF',   e: 'Minified' },
+        { n: 'Linen',         c: 'TF-109', sw: 'sheen', c1: '#E9E2D4', c2: '#DDD4C2', m: 'PVC film on 5/8 in. MDF',   e: 'Minified' },
+        { n: 'Sage',          c: 'TF-118', sw: 'matte', c1: '#9BA88F', c2: '#8E9B82', m: 'PVC film on 5/8 in. MDF',   e: 'Minified' },
+        { n: 'Harbor',        c: 'TF-121', sw: 'sheen', c1: '#41556E', c2: '#34465C', m: 'PVC film on 5/8 in. MDF',   e: 'Minified' },
+        { n: 'Slate',         c: 'TF-126', sw: 'matte', c1: '#6D767C', c2: '#5F6869', m: 'PVC film on 5/8 in. MDF',   e: 'Square' },
+        { n: 'Walnut Grain',  c: 'TF-132', sw: 'grain', c1: '#6E5136', c2: '#54402B', m: 'Printed grain PVC on MDF', e: 'Minified' },
+        { n: 'Oak Grain',     c: 'TF-134', sw: 'grain', c1: '#C09A6B', c2: '#A9825C', m: 'Printed grain PVC on MDF', e: 'Minified' },
+        { n: 'Graphite',      c: 'TF-140', sw: 'sheen', c1: '#3A3F46', c2: '#2E3238', m: 'PVC film on 5/8 in. MDF',   e: 'Square' },
+        { n: 'Ebony',         c: 'TF-142', sw: 'sheen', c1: '#26262A', c2: '#1B1B1F', m: 'PVC film on 5/8 in. MDF',   e: 'Minified' }
+      ]
+    },
+    tfl: {
+      desc: 'Thermally fused laminate on MDF, in shaker and slab profiles. The everyday workhorse line: tough, consistent, and quick to ship.',
+      finishes: [
+        { n: 'Frosted Maple',   c: 'TL-301', sw: 'grain', c1: '#E6CDA4', c2: '#D4B584', m: 'TFL on 5/8 in. MDF', e: 'Matched ABS edge', sh: true },
+        { n: 'Natural Oak',     c: 'TL-302', sw: 'grain', c1: '#C09A6B', c2: '#A9825C', m: 'TFL on 5/8 in. MDF', e: 'Matched ABS edge', sh: true },
+        { n: 'Honey Maple',     c: 'TL-308', sw: 'grain', c1: '#DDB77F', c2: '#CBA267', m: 'TFL on 5/8 in. MDF', e: 'Matched ABS edge' },
+        { n: 'Sable Walnut',    c: 'TL-311', sw: 'grain', c1: '#5E4934', c2: '#4A3826', m: 'TFL on 5/8 in. MDF', e: 'Matched ABS edge', sh: true },
+        { n: 'Greige Linen',    c: 'TL-318', sw: 'matte', c1: '#CFC9BD', c2: '#C2BCAF', m: 'TFL on 5/8 in. MDF', e: 'Matched ABS edge' },
+        { n: 'Concrete',        c: 'TL-322', sw: 'matte', c1: '#A8A6A1', c2: '#9A9893', m: 'TFL on 5/8 in. MDF', e: 'Matched ABS edge', sh: true },
+        { n: 'Matte Black',     c: 'TL-335', sw: 'matte', c1: '#33312E', c2: '#282624', m: 'TFL on 5/8 in. MDF', e: 'Matched ABS edge' },
+        { n: 'Colonial Maple',  c: 'TL-341', sw: 'grain', c1: '#B98A57', c2: '#A17549', m: 'TFL on 5/8 in. MDF', e: 'Matched ABS edge', sh: true },
+        { n: 'Nordic Ash',      c: 'TL-346', sw: 'grain', c1: '#DCCDB2', c2: '#CBB99C', m: 'TFL on 5/8 in. MDF', e: 'Matched ABS edge' },
+        { n: 'Umber',           c: 'TL-349', sw: 'grain', c1: '#8A6A48', c2: '#75593C', m: 'TFL on 5/8 in. MDF', e: 'Matched ABS edge', sh: true }
+      ]
+    },
+    acrylic: {
+      desc: 'High-gloss acrylic and hard-coated PET fronts with sealed edges. Built for frameless kitchens and clean-panel builds.',
+      finishes: [
+        { n: 'High Gloss White',      c: 'AC-501', sw: 'gloss', c1: '#F2F2EE', c2: '#D6D6D0', m: '1.5 mm acrylic on MDF',        e: 'Polished straight edge' },
+        { n: 'High Gloss Cream',      c: 'AC-505', sw: 'gloss', c1: '#F1EADB', c2: '#DBD6C0', m: '1.5 mm acrylic on MDF',        e: 'Polished straight edge' },
+        { n: 'High Gloss Graphite',   c: 'AC-512', sw: 'gloss', c1: '#3A3F46', c2: '#2E3238', m: '1.5 mm acrylic on MDF',        e: 'Polished straight edge' },
+        { n: 'Mirror Black',          c: 'AC-514', sw: 'gloss', c1: '#26262A', c2: '#19191D', m: '1.5 mm acrylic on MDF',        e: 'Polished straight edge' },
+        { n: 'Satin PET White',       c: 'AC-521', sw: 'pet',   c1: '#EDEDE9', c2: '#D9D9D2', m: 'Hard-coated PET film on MDF',  e: 'Laser-sealed edge' },
+        { n: 'PET Slate',             c: 'AC-529', sw: 'pet',   c1: '#6D767C', c2: '#5F6869', m: 'Hard-coated PET film on MDF',  e: 'Laser-sealed edge' },
+        { n: 'PET Fossil Oak',        c: 'AC-536', sw: 'grain', c1: '#948570', c2: '#7F7260', m: 'Hard-coated PET film on MDF',  e: 'Laser-sealed edge' },
+        { n: 'Soft Touch Anthracite', c: 'AC-533', sw: 'pet',   c1: '#363A3E', c2: '#2C3033', m: 'Hard-coated PET film on MDF',  e: 'Laser-sealed edge' }
+      ]
+    },
+    paint: {
+      desc: 'Enamel-sprayed doors, sanded between coats. Bring any color sample and we match it in-house, sheen included.',
+      finishes: [
+        { n: 'Enamel White', c: 'PT-701', sw: 'matte', c1: '#F4F2EC', c2: '#EAE7DF', m: 'Enamel over MDF, two coats', e: 'Minified' },
+        { n: 'Paper White',  c: 'PT-703', sw: 'matte', c1: '#EFEDE5', c2: '#E5E2D8', m: 'Enamel over MDF, two coats', e: 'Minified' },
+        { n: 'Oyster',       c: 'PT-706', sw: 'matte', c1: '#DDD8CC', c2: '#CFC9BB', m: 'Enamel over MDF, two coats', e: 'Minified' },
+        { n: 'Sage Green',   c: 'PT-723', sw: 'matte', c1: '#A3AF97', c2: '#96A38A', m: 'Enamel over MDF, two coats', e: 'Beaded' },
+        { n: 'Slate Blue',   c: 'PT-727', sw: 'matte', c1: '#5C6B80', c2: '#4E5C70', m: 'Enamel over MDF, two coats', e: 'Minified' },
+        { n: 'Forest',       c: 'PT-731', sw: 'matte', c1: '#4A5A4C', c2: '#3E4C40', m: 'Enamel over MDF, two coats', e: 'Minified' },
+        { n: 'Clay',         c: 'PT-742', sw: 'matte', c1: '#AE7A62', c2: '#9C6A55', m: 'Enamel over MDF, two coats', e: 'Beaded' },
+        { n: 'Ink Blue',     c: 'PT-752', sw: 'matte', c1: '#2B313C', c2: '#22272F', m: 'Enamel over MDF, two coats', e: 'Minified' }
+      ]
+    },
+    raw: {
+      desc: 'Unfinished hardwood and MDF doors, sanded and ready. Finish them in your shop, or route them through our paint line.',
+      finishes: [
+        { n: 'Raw Maple',   c: 'RW-901', sw: 'raw', c1: '#E6CDA4', c2: '#D4B584', m: 'Solid maple, sanded 150-grit',    e: 'Square, ready to finish' },
+        { n: 'Raw Birch',   c: 'RW-902', sw: 'raw', c1: '#E8DCC3', c2: '#DBCBA8', m: 'Solid birch, sanded 150-grit',    e: 'Square, ready to finish' },
+        { n: 'Raw Poplar',  c: 'RW-904', sw: 'raw', c1: '#DCCFA9', c2: '#CEC09A', m: 'Solid poplar, paint grade',       e: 'Square, ready to finish' },
+        { n: 'Red Oak',     c: 'RW-907', sw: 'raw', c1: '#C49669', c2: '#AA7F55', m: 'Solid red oak, sanded 150-grit',  e: 'Square, ready to finish' },
+        { n: 'Cherry',      c: 'RW-908', sw: 'raw', c1: '#B4765A', c2: '#9E6549', m: 'Solid cherry, sanded 150-grit',   e: 'Square, ready to finish' },
+        { n: 'Ash',         c: 'RW-911', sw: 'raw', c1: '#D9CBB0', c2: '#C8B896', m: 'Solid ash, sanded 150-grit',      e: 'Square, ready to finish' },
+        { n: 'MDF Slab',    c: 'RW-920', sw: 'raw', c1: '#C4A57B', c2: '#B8996F', m: 'One-piece MDF slab, sanded',      e: 'Square, ready to finish' },
+        { n: 'MDF Shaker',  c: 'RW-921', sw: 'raw', c1: '#C4A57B', c2: '#B8996F', m: 'Five-piece MDF shaker, sanded',   e: 'Square, ready to finish', sh: true }
+      ]
+    },
+    lam: {
+      desc: 'Panel lamination on your substrate or ours. Send a cut list; we press, cut, and edgeband to spec.',
+      finishes: [
+        { n: 'Matte White',      c: 'LM-01', sw: 'matte', c1: '#F1F1EE', c2: '#E7E7E3', m: 'HPL, pressed both sides', e: 'Edge-banded to your spec' },
+        { n: 'Vellum',           c: 'LM-03', sw: 'matte', c1: '#E7E1D3', c2: '#DCD5C5', m: 'HPL, pressed both sides', e: 'Edge-banded to your spec' },
+        { n: 'Oak Laminate',     c: 'LM-05', sw: 'grain', c1: '#C09A6B', c2: '#A9825C', m: 'HPL, pressed both sides', e: 'Edge-banded to your spec' },
+        { n: 'Walnut Laminate',  c: 'LM-07', sw: 'grain', c1: '#6E5136', c2: '#54402B', m: 'HPL, pressed both sides', e: 'Edge-banded to your spec' },
+        { n: 'Brushed Graphite', c: 'LM-09', sw: 'pet',   c1: '#3E4348', c2: '#34383C', m: 'HPL, pressed both sides', e: 'Edge-banded to your spec' },
+        { n: 'Matte Black',      c: 'LM-11', sw: 'matte', c1: '#33312E', c2: '#282624', m: 'HPL, pressed both sides', e: 'Edge-banded to your spec' },
+        { n: 'Fossil Linen',     c: 'LM-14', sw: 'matte', c1: '#B7B2A6', c2: '#A9A499', m: 'HPL, pressed both sides', e: 'Edge-banded to your spec' },
+        { n: 'Honey Laminate',   c: 'LM-16', sw: 'grain', c1: '#DDB77F', c2: '#CBA267', m: 'HPL, pressed both sides', e: 'Edge-banded to your spec' }
+      ]
+    }
+  };
+
+  /* ---------- catalog render ---------- */
+  var grid = document.getElementById('catalog-grid');
+  var catDesc = document.getElementById('cat-desc');
+  var catCount = document.getElementById('cat-count');
+
+  function cardHTML(f) {
+    var surface = 'swatch sw-' + f.sw + (f.sh ? ' sw-shaker' : '');
+    return '' +
+      '<article class="flip" tabindex="0" role="group" aria-label="' + f.n + ', spec ' + f.c + '">' +
+        '<div class="flip-inner">' +
+          '<div class="flip-face">' +
+            '<div class="' + surface + ' aspect-square border border-greige" style="--c1:' + f.c1 + ';--c2:' + f.c2 + '"></div>' +
+            '<h3 class="mt-3 f-head font-medium text-[15.5px] leading-snug">' + f.n + '</h3>' +
+            '<p class="f-spec mt-0.5 text-[12.5px] text-mute">' + f.c + '</p>' +
+          '</div>' +
+          '<div class="flip-face flip-back bg-panel border border-greige p-3.5 flex flex-col overflow-hidden">' +
+            '<p class="f-spec text-[12px] text-mute">' + f.c + '</p>' +
+            '<dl class="mt-2.5 space-y-2">' +
+              '<div><dt class="text-[12px] text-mute">Material</dt><dd class="mt-0.5 text-[13px] leading-snug">' + f.m + '</dd></div>' +
+              '<div><dt class="text-[12px] text-mute">Edge profile</dt><dd class="mt-0.5 text-[13px] leading-snug">' + f.e + '</dd></div>' +
+            '</dl>' +
+            '<div class="mt-auto pt-3"><a href="#request" class="inline-block rounded-full bg-navy px-4 py-2 text-[12.5px] font-medium text-white hover:bg-[#1D2736]">Request pricing</a></div>' +
+          '</div>' +
+        '</div>' +
+      '</article>';
+  }
+
+  function render(key) {
+    var cat = CATALOG[key];
+    var out = '';
+    for (var i = 0; i < cat.finishes.length; i++) out += cardHTML(cat.finishes[i]);
+    grid.innerHTML = out;
+    catDesc.textContent = cat.desc;
+    catCount.textContent = String(cat.finishes.length);
+    grid.setAttribute('aria-labelledby', 'tab-' + key);
+    if (!REDUCED) {
+      grid.classList.remove('grid-fade');
+      void grid.offsetWidth; /* restart the settle animation */
+      grid.classList.add('grid-fade');
+    }
+  }
+
+  /* ---------- binder tabs ---------- */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+
+  function select(tab) {
+    for (var i = 0; i < tabs.length; i++) {
+      var active = tabs[i] === tab;
+      tabs[i].setAttribute('aria-selected', active ? 'true' : 'false');
+      tabs[i].tabIndex = active ? 0 : -1;
+    }
+    render(tab.getAttribute('data-cat'));
+  }
+
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () { select(t); });
+    t.addEventListener('keydown', function (e) {
+      var i = tabs.indexOf(t), n = tabs.length, next = null;
+      if (e.key === 'ArrowRight') next = (i + 1) % n;
+      else if (e.key === 'ArrowLeft') next = (i - 1 + n) % n;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = n - 1;
+      if (next !== null) { e.preventDefault(); tabs[next].focus(); select(tabs[next]); }
+    });
+  });
+
+  render('thermofoil');
+
+  /* ---------- flip on tap (hover covers pointer devices) ---------- */
+  grid.addEventListener('click', function (e) {
+    if (e.target.closest('a')) return;
+    var card = e.target.closest('.flip');
+    if (card) card.classList.toggle('is-flipped');
+  });
+  grid.addEventListener('focusout', function (e) {
+    if (!e.target.closest) return;
+    var card = e.target.closest('.flip');
+    if (card) card.classList.remove('is-flipped');
+  });
+
+  /* ---------- order tracking ---------- */
+  var form = document.getElementById('track-form');
+  var input = document.getElementById('track-input');
+  var hint = document.getElementById('track-hint');
+  var result = document.getElementById('track-result');
+  var STAGES = ['Received', 'In Production', 'Ready', 'Shipped'];
+  var NOTES = [
+    'Order is in the queue and joins the next production run. Estimated completion {ready}.',
+    'Doors are on the line now. Estimated completion {ready}.',
+    'Coated, cured, and inspected. Estimated dispatch {ready}.',
+    'Left the dock {ship}. Carrier tracking went to your email at dispatch.'
+  ];
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (ch) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+    });
+  }
+  function fmtDate(d) {
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var val = input.value.trim();
+    if (!val) {
+      hint.classList.remove('hidden');
+      input.focus();
+      return;
+    }
+    hint.classList.add('hidden');
+
+    /* deterministic demo stage: same number, same result */
+    var h = 0;
+    for (var i = 0; i < val.length; i++) h = (h * 31 + val.charCodeAt(i)) | 0;
+    h = Math.abs(h);
+    var stage = h % 4;
+
+    var ready = new Date();
+    ready.setDate(ready.getDate() + (5 - stage) + (h % 3));
+    var ship = new Date();
+    ship.setDate(ship.getDate() - (1 + (h % 3)));
+    var note = NOTES[stage]
+      .replace('{ready}', fmtDate(ready))
+      .replace('{ship}', fmtDate(ship));
+
+    var steps = '';
+    for (var s = 0; s < 4; s++) {
+      var state = s < stage ? 'is-done' : (s === stage ? 'is-current' : 'is-todo');
+      steps +=
+        '<div class="step track-anim ' + state + '">' +
+          '<div class="node"><span class="dot"></span><span class="line"></span></div>' +
+          '<p class="lab">' + STAGES[s] + '</p>' +
+        '</div>';
+    }
+
+    result.innerHTML =
+      '<p class="text-[15px]">Order <span class="font-semibold">' + esc(val) + '</span></p>' +
+      '<div class="stepper mt-6">' + steps + '</div>' +
+      '<p class="mt-5 text-[13.5px] text-mute leading-relaxed max-w-lg">' + note + '</p>';
+    result.classList.remove('hidden');
+
+    /* stepper reveal: the second and last use of Motion */
+    if (!REDUCED && hasMotion) {
+      try {
+        M.animate('#track-result .track-anim', { opacity: [0, 1], y: [10, 0] },
+          { duration: 0.45, delay: staggerFn ? staggerFn(0.07) : 0 });
+        M.animate('#track-result .line', { scaleX: [0, 1] },
+          { duration: 0.45, delay: staggerFn ? staggerFn(0.07) : 0 });
+      } catch (err) { /* motion is optional polish */ }
+    }
+  });
+
+  /* ---------- hero: one orchestrated assembly, tiles then label card ---------- */
+  if (!REDUCED && hasMotion) {
+    try {
+      M.animate('.asm', { opacity: [0, 1], y: [26, 0], scale: [0.94, 1] },
+        { duration: 0.6, delay: staggerFn ? staggerFn(0.045) : 0 });
+    } catch (err) { /* motion is optional polish */ }
+  }
+})();
+/* APP-JS-END */
+</script>
+</body>
+</html>

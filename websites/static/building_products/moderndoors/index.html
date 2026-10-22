@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Morden Doors — choose a design</title>
+<meta name="description" content="One build brief, five complete Morden Doors designs. Pick a prototype and open it." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23212723'/%3E%3Crect x='24' y='18' width='34' height='64' rx='4' fill='%23F3F2EE'/%3E%3Crect x='62' y='34' width='22' height='48' rx='3' fill='%23A9825C'/%3E%3C/svg%3E" />
+<style>
+  :root{
+    --paper:#F3F2EE;
+    --panel:#FBFAF7;
+    --ink:#212723;
+    --mute:#5C5852;
+    --hair:#DAD8CF;
+    --oak:#A9825C;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+  .mono{font-family:ui-monospace,'SFMono-Regular','Cascadia Mono','JetBrains Mono',Consolas,monospace}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(760px,100% - 44px);margin-inline:auto;padding:64px 0 80px}
+  header{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .mark{display:flex;align-items:center;gap:12px}
+  .mark svg{flex:none}
+  .mark h1{font-size:19px;font-weight:600;letter-spacing:-.01em}
+  .tag{font-size:11.5px;color:var(--mute);letter-spacing:.06em}
+  .intro{margin:26px 0 10px;font-size:15px;color:var(--mute);max-width:52ch}
+  .intro b{color:var(--ink);font-weight:600}
+  .line{height:1px;background:var(--hair);margin:26px 0 0}
+
+  .rows{margin-top:6px}
+  .row{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;
+    padding:18px 14px;border-bottom:1px solid var(--hair);transition:background .2s}
+  .row:hover{background:var(--panel)}
+  .row:first-child{border-top:0}
+  .pnum{font-size:12px;color:var(--oak);letter-spacing:.08em}
+  .name{font-size:16px;font-weight:600;letter-spacing:-.01em}
+  .sub{font-size:12.5px;color:var(--mute);margin-top:3px}
+  .dots{display:flex;gap:5px;margin-top:9px}
+  .dots span{width:13px;height:13px;border-radius:50%;border:1px solid rgba(0,0,0,.14)}
+  .open{font-size:11.5px;letter-spacing:.08em;border:1px solid var(--hair);border-radius:999px;
+    padding:8px 14px;white-space:nowrap;transition:.2s;text-transform:uppercase}
+  .row:hover .open{border-color:var(--oak);color:var(--oak)}
+  .note{margin-top:26px;font-size:12px;color:var(--mute);max-width:60ch}
+  @media(max-width:640px){
+    .row{grid-template-columns:40px 1fr;grid-auto-rows:auto}
+    .open{grid-column:2;justify-self:start;margin-top:6px}
+    .wrap{width:calc(100% - 32px);padding:44px 0 60px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="mark">
+      <svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="18" fill="#212723"/><rect x="24" y="18" width="34" height="64" rx="4" fill="#F3F2EE"/><rect x="62" y="34" width="22" height="48" rx="3" fill="#A9825C"/></svg>
+      <h1>Morden Doors<span style="color:var(--oak)">.</span></h1>
+    </div>
+    <span class="tag mono">5 DESIGNS · 1 BRIEF · SURREY, BC</span>
+  </header>
+
+  <p class="intro mono">
+    The same cabinet-door manufacturer, built <b>five times</b> in five different voices.
+    Every design is a complete, self-contained website. Open a prototype below, or read the
+    <b>META.md</b> beside it for full detail before cloning.
+  </p>
+  <div class="line"></div>
+
+  <section class="rows">
+
+    <a class="row" href="prototype1/">
+      <span class="pnum mono">P1</span>
+      <span>
+        <span class="name">Brass Luxury</span>
+        <span class="sub" style="display:block">Commerce-forward B2B portal — live estimator, quote drawer, competitor cross-reference.</span>
+        <span class="dots">
+          <span style="background:#C2983E"></span><span style="background:#0F172A"></span><span style="background:#FAFAF9"></span><span style="background:#10B981"></span>
+        </span>
+      </span>
+      <span class="open mono">open ↗</span>
+    </a>
+
+    <a class="row" href="prototype2/">
+      <span class="pnum mono">P2</span>
+      <span>
+        <span class="name">Cream Editorial</span>
+        <span class="sub" style="display:block">Quiet quote-first editorial — serif display, film grain, scroll reveals, no pricing.</span>
+        <span class="dots">
+          <span style="background:#FDFAF6"></span><span style="background:#A3864A"></span><span style="background:#0A0A09"></span>
+        </span>
+      </span>
+      <span class="open mono">open ↗</span>
+    </a>
+
+    <a class="row" href="prototype3/">
+      <span class="pnum mono">P3</span>
+      <span>
+        <span class="name">Blueprint Spec</span>
+        <span class="sub" style="display:block">Technical section-drawing — self-drawing SVG cross-section, spec catalog, real dark mode.</span>
+        <span class="dots">
+          <span style="background:#EEF1EE"></span><span style="background:#0B6399"></span><span style="background:#101C26"></span><span style="background:#A27B52"></span>
+        </span>
+      </span>
+      <span class="open mono">open ↗</span>
+    </a>
+
+    <a class="row" href="prototype4/">
+      <span class="pnum mono">P4</span>
+      <span>
+        <span class="name">Swatch Library</span>
+        <span class="sub" style="display:block">Wholesale trade prototype — 52-finish flip-card binder, order tracker. Fictional sample branding.</span>
+        <span class="dots">
+          <span style="background:#F2F0EB"></span><span style="background:#283447"></span><span style="background:#A9825C"></span>
+        </span>
+      </span>
+      <span class="open mono">open ↗</span>
+    </a>
+
+    <a class="row" href="prototype5/">
+      <span class="pnum mono">P5</span>
+      <span>
+        <span class="name">Shop Drawing</span>
+        <span class="sub" style="display:block">Drafting-sheet workshop — tape-yellow accent, traced door elevation, spec-sheet tables.</span>
+        <span class="dots">
+          <span style="background:#F3F2EE"></span><span style="background:#F2C230"></span><span style="background:#212723"></span>
+        </span>
+      </span>
+      <span class="open mono">open ↗</span>
+    </a>
+
+  </section>
+
+  <p class="note mono">
+    Each prototype folder stands alone — copy <span class="mono">prototypeN/</span> on its own
+    and the design keeps working. P1 and P2 hot-link brand imagery from the real manufacturer's
+    site; P3–P5 draw every finish in CSS so they need no photos at all.
+  </p>
+
+</div>
+</body>
+</html>

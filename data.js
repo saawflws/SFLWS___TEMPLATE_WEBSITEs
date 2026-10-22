@@ -10,8 +10,8 @@
  * what the showcase shows, edit the source INDEX.md / META.md files
  * and run:  node scripts/build-data.js
  *
- * Generated: 2026-09-14
- * Templates: 26 across 11 categories
+ * Generated: 2026-10-22
+ * Templates: 27 across 12 categories
  * ============================================================ */
 
 const FRAMEWORKS = ["static","react"];
@@ -527,6 +527,27 @@ const TEMPLATES = [
     "meta": "/websites/static/clinic/shreesaiclinicledger/META.md",
     "origin": "AI-generated from p.md (prompt reconstructed)",
     "thumb": "/websites/static/clinic/shreesaiclinicledger/thumb.webp"
+  },
+  {
+    "title": "Morden Doors",
+    "slug": "moderndoors",
+    "path": "/websites/static/building_products/moderndoors",
+    "framework": "static",
+    "category": "building_products",
+    "desc": "One build brief, five complete designs for the same Surrey cabinet-door manufacturer — brass commerce, warm editorial, blueprint spec-sheet, wholesale swatch library and drafting sheet. The card entry is a design picker; pick a prototype number and clone that file.",
+    "tags": [
+      "doors-manufacturing",
+      "design-family",
+      "five-prototypes",
+      "b2b-trade",
+      "surrey-bc",
+      "cabinet-doors",
+      "one-brief-five-voices"
+    ],
+    "meta": "/websites/static/building_products/moderndoors/META.md",
+    "origin": "AI-generated HTML; prototype1 & prototype2 hot-link brand imagery from Morden Doors Ltd.'s live site (mordendoors.ca) — reusing those two beyond that owner requires their permission; prototype3–5 use no imagery at all",
+    "fullTitle": "MORDEN DOORS — Cabinet Doors & Surfaces (design family)",
+    "thumb": "/websites/static/building_products/moderndoors/thumb.webp"
   },
   {
     "title": "CINEMATIC",
